@@ -1,0 +1,18 @@
+[*]
+indent_size = 4
+indent_style = space
+max_line_length = 120
+tab_width = 4
+insert_final_newline = true
+
+[*.java]
+ij_continuation_indent_size = 4
+
+[{*.gson, *.gradle, *.groovy, *.gdsl, *.gy, *.gant}]
+ij_continuation_indent_size = 4
+
+[{*.kts, *.kt}]
+ij_continuation_indent_size = 4
+ij_kotlin_name_count_to_use_star_import = 20
+ij_kotlin_name_count_to_use_star_import_for_members = 20
+ij_kotlin_align_in_columns_case_branch = false

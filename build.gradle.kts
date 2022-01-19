@@ -3,10 +3,13 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 plugins {
     kotlin("multiplatform") version "1.6.10"
     id("maven-publish")
+    id("pl.allegro.tech.build.axion-release") version "1.13.6"
 }
 
+apply(from = "versionConfig.gradle")
+
 group = "pl.allegro.mobile"
-version = "1.0.0"
+version = scmVersion.version
 
 repositories {
     google()
@@ -16,10 +19,10 @@ repositories {
 kotlin {
     jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "11"
+            kotlinOptions.jvmTarget = JavaVersion.VERSION_11.majorVersion
         }
         testRuns["test"].executionTask.configure {
-            useJUnit()
+            useJUnitPlatform()
         }
     }
     val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =

@@ -1,0 +1,6 @@
+scmVersion {
+    tag {
+        prefix = ''
+    }
+    versionCreator 'versionWithBranch'
+}
