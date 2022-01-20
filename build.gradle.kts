@@ -26,28 +26,21 @@ kotlin {
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
         }
-    }
-    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
-        if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
-            ::iosArm64
-        else
-            ::iosX64
 
-    iosTarget("ios") {
-        binaries {
-            framework {
-                baseName = "JsonLogicKMP"
-                isStatic = true
+        val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
+            if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
+                ::iosArm64
+                else
+                ::iosX64
+
+        iosTarget("ios") {
+            binaries {
+                framework {
+                    baseName = "JsonLogicKMP"
+                    isStatic = true
+                }
             }
         }
-    }
-    sourceSets {
-        val commonMain by getting
-        val commonTest by getting
-        val jvmMain by getting
-        val jvmTest by getting
-        val iosMain by getting
-        val iosTest by getting
     }
 }
 
