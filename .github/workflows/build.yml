@@ -4,7 +4,7 @@ on: [push, workflow_dispatch]
 jobs:
     build:
         name: Build libraries
-        runs-on:  ubuntu-latest
+        runs-on: macos-latest
         steps:
             - name: Checkout repository
               uses: actions/checkout@v2
