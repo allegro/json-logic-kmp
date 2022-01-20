@@ -4,6 +4,8 @@ plugins {
     kotlin("multiplatform") version "1.6.10"
     id("maven-publish")
     id("pl.allegro.tech.build.axion-release") version "1.13.6"
+    id("io.gitlab.arturbosch.detekt") version "1.19.0"
+
 }
 
 apply(from = "versionConfig.gradle")
@@ -47,4 +49,9 @@ kotlin {
         val iosMain by getting
         val iosTest by getting
     }
+}
+
+detekt {
+    autoCorrect = true
+    ignoreFailures = false
 }

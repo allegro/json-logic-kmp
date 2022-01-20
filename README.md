@@ -1,5 +1,5 @@
 JsonLogicKMP
-======
+============
 Kotlin multiplatform [JsonLogic](https://jsonlogic.com/) expressions evaluation engine. Targets iOS and JVM(also Android).
 
 The project is still in early phase of development and not yet ready for production.
