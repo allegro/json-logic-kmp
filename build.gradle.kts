@@ -1,5 +1,5 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import io.gitlab.arturbosch.detekt.Detekt
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     kotlin("multiplatform") version "1.6.10"
@@ -31,7 +31,7 @@ kotlin {
         val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
             if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
                 ::iosArm64
-                else
+            else
                 ::iosX64
 
         iosTarget("ios") {
@@ -43,9 +43,27 @@ kotlin {
             }
         }
     }
+    sourceSets {
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+            }
+        }
+    }
 }
 
 detekt {
+    buildUponDefaultConfig = true
     autoCorrect = true
     ignoreFailures = false
+    config = files("$projectDir/config/detekt.yml") // point to your custom config defining rules to run, overwriting default behavior
+}
+
+tasks.withType<Detekt>().configureEach {
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+        txt.required.set(true)
+        sarif.required.set(true)
+    }
 }
