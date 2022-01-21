@@ -55,8 +55,9 @@ kotlin {
 detekt {
     buildUponDefaultConfig = true
     autoCorrect = true
+    source = files("src/")
     ignoreFailures = false
-    config = files("$projectDir/config/detekt.yml") // point to your custom config defining rules to run, overwriting default behavior
+    config = files("$projectDir/config/detekt/detekt.yml")
 }
 
 tasks.withType<Detekt>().configureEach {
