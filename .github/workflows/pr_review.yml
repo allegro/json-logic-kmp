@@ -1,5 +1,5 @@
 name: Detekt check
-on: [ pull_request, push, workflow_dispatch ]
+on: pull_request
 
 jobs:
     detekt:

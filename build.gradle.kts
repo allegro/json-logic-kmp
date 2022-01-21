@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import io.gitlab.arturbosch.detekt.Detekt
 
 plugins {
     kotlin("multiplatform") version "1.6.10"
@@ -47,4 +48,11 @@ kotlin {
 detekt {
     autoCorrect = true
     ignoreFailures = false
+}
+
+tasks.withType<Detekt>().configureEach {
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
 }
