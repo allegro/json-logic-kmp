@@ -49,10 +49,3 @@ detekt {
     autoCorrect = true
     ignoreFailures = false
 }
-
-tasks.withType<Detekt>().configureEach {
-    reports {
-        xml.required.set(true)
-        html.required.set(true)
-    }
-}
