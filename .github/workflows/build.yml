@@ -1,21 +1,24 @@
 name: Build libraries
-on: [push, workflow_dispatch]
+on: [ push, workflow_dispatch ]
 
 jobs:
     build:
         name: Build libraries
         runs-on: macos-latest
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v2
-              with:
-                  fetch-depth: 0
+            -   name: Checkout repository
+                uses: actions/checkout@v2
+                with:
+                    fetch-depth: 0
 
-            - name: Check
-              run: ./gradlew detekt
+            -   name: Setup Gradle
+                uses: gradle/gradle-build-action@v2
 
-            - name: Build project
-              run: ./gradlew build
+            -   name: Check
+                run: ./gradlew detekt
 
-            - name: Build xcframework
-              run: ./createXCFrameworks.sh
+            -   name: Build project
+                run: ./gradlew build
+
+            -   name: Build xcframework
+                run: ./createXCFrameworks.sh

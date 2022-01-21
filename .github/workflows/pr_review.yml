@@ -1,5 +1,5 @@
 name: Detekt check
-on: [ push, workflow_dispatch ]
+on: [ pull_request, push, workflow_dispatch ]
 
 jobs:
     detekt:
@@ -14,15 +14,22 @@ jobs:
                 with:
                     distribution: 'temurin'
                     java-version: 11
+
+            -   name: Setup Gradle
+                uses: gradle/gradle-build-action@v2
+
             -   name: Set up reviewdog
                 uses: reviewdog/action-setup@v1
+
             -   name: Run check
                 run: ./gradlew detekt -i
+
             -   name: 'Upload report'
                 uses: actions/upload-artifact@v2
                 with:
                     name: DetektHTMLReport
                     path: build/reports/detekt/detekt.html
+
             -   name: Run reviewdog
                 env:
                     REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
