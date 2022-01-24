@@ -2,18 +2,18 @@ import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
-    kotlin("multiplatform") version "1.6.10"
+    kotlin("multiplatform") version Versions.kotlin
     id("maven-publish")
     id("java-library")
     id("signing")
-    id("pl.allegro.tech.build.axion-release") version "1.13.6"
-    id("io.gitlab.arturbosch.detekt") version "1.19.0"
-    id("io.github.gradle-nexus.publish-plugin") version "1.0.0"
+    id("pl.allegro.tech.build.axion-release") version Versions.axion
+    id("io.gitlab.arturbosch.detekt") version Versions.detekt
+    id("io.github.gradle-nexus.publish-plugin") version Versions.nexus
 }
 
 apply(from = "versionConfig.gradle")
 
-group = "pl.allegro.mobile"
+group = LibConfig.group
 version = scmVersion.version
 
 repositories {
@@ -39,7 +39,7 @@ kotlin {
         iosTarget("ios") {
             binaries {
                 framework {
-                    baseName = "JsonLogicKMP"
+                    baseName = LibConfig.name
                     isStatic = true
                 }
             }
@@ -77,9 +77,9 @@ publishing {
             from(components["java"])
 
             pom {
-                name.set("JsonLogicKMP")
+                name.set(LibConfig.name)
                 description.set("Kotlin multiplatform JsonLogic expressions evaluation engine")
-                url.set("https://github.com/allegro/json-logic-kmp")
+                url.set(LibConfig.repositoryUrl)
                 inceptionYear.set("2022")
                 licenses {
                     license {
@@ -90,13 +90,29 @@ publishing {
                 developers {
                     developer {
                         id.set("GypsyBox")
-                        name.set("Rafał Kapela")
+                        name.set("Rafal Kapela")
+                    }
+                    developer {
+                        id.set("PaulinaSadowskaAllegro")
+                        name.set("Paulina Sadowska")
+                    }
+                    developer {
+                        id.set("mkrogulskiallegro2 ")
+                        name.set("Marek Krogulski")
+                    }
+                    developer {
+                        id.set("pavlo-davydiuk")
+                        name.set("Pavlo Davydiuk")
+                    }
+                    developer {
+                        id.set("tgebarowski")
+                        name.set("Tomasz Gebarowski")
                     }
                 }
                 scm {
-                    connection.set("scm:svn:https://github.com/allegro/json-logic-kmp.git")
+                    connection.set("scm:svn:${LibConfig.repositoryUrl}")
                     developerConnection.set("scm:git@github.com:allegro/json-logic-kmp.git")
-                    url.set("https://github.com/allegro/json-logic-kmp")
+                    url.set(LibConfig.repositoryUrl)
                 }
             }
         }
