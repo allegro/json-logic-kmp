@@ -1,5 +1,8 @@
 name: Build libraries
-on: [ pull_request, workflow_dispatch ]
+on:
+    workflow_dispatch:
+    pull_request:
+        types: [opened, synchronize]
 
 jobs:
     build:
