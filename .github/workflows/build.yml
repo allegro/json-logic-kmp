@@ -1,5 +1,5 @@
 name: Build libraries
-on: [ push, workflow_dispatch ]
+on: [ pull_request, workflow_dispatch ]
 
 jobs:
     build:
