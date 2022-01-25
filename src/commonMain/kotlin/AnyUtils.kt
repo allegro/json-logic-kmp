@@ -6,3 +6,13 @@ internal val Any.asString: Any
         this is String -> "\"$this\""
         else -> this
     }
+
+internal val Any?.asList: List<Any?>
+    get() = when (this) {
+        is String ->
+            if (startsWith("["))
+                replace("[", "").replace("]", "").split(",").map { it.trim() }
+            else listOf(this)
+        is List<*> -> this
+        else -> listOf()
+    }

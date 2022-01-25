@@ -9,13 +9,8 @@ internal object Var : LogicExpression {
     override val key: String = "var"
 
     override operator fun invoke(expression: Any?, data: Any?): Any {
-        var value: Any? = expression
-        val varName = if (data is List<*>) {
-            data.firstOrNull()
-        } else {
-            data
-        }.toString()
-
+        var value: Any? = data
+        val varName = if (expression is List<*>) expression.getOrNull(0).toString() else expression.toString()
         when (value) {
             is List<*> -> {
                 val indexParts = varName.unStringify.split(".")
@@ -25,8 +20,8 @@ internal object Var : LogicExpression {
                 value = (value as? Map<*, *>)?.get(it)
             }
         }
-        if ((value == data || value == null) && data is List<*> && data.size > 1) {
-            return data.getOrNull(1)?.asString.toString()
+        if ((value == expression || value == null) && expression is List<*> && expression.size > 1) {
+            return expression.getOrNull(1)?.asString.toString()
         }
         return value?.asString.toString()
     }
