@@ -11,4 +11,11 @@ object Versions {
     const val axion = "1.13.6"
     const val detekt = "1.19.0"
     const val nexus = "1.0.0"
+    const val kotlinxSerialization = "1.3.2"
+}
+
+object Libs {
+    object KotlinX {
+        const val serializationJson = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerialization}"
+    }
 }

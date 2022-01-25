@@ -9,6 +9,7 @@ plugins {
     id("pl.allegro.tech.build.axion-release") version Versions.axion
     id("io.gitlab.arturbosch.detekt") version Versions.detekt
     id("io.github.gradle-nexus.publish-plugin") version Versions.nexus
+    kotlin("plugin.serialization") version Versions.kotlin
 }
 
 apply(from = "versionConfig.gradle")
@@ -46,6 +47,11 @@ kotlin {
         }
     }
     sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(Libs.KotlinX.serializationJson)
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
