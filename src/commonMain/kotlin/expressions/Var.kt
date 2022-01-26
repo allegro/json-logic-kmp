@@ -17,7 +17,7 @@ internal object Var : LogicExpression {
         when (value) {
             is List<*> -> {
                 val indexParts = varName.split(".")
-                value = if (indexParts.size == 1) value[indexParts[0].intValue] else getRecursive(indexParts, value)
+                value = if (indexParts.size == 1) value[indexParts.first().intValue] else getRecursive(indexParts, value)
             }
             is Map<*, *> -> varName.split(".").forEach {
                 value = (value as? Map<*, *>)?.get(it)

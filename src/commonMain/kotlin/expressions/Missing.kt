@@ -12,6 +12,4 @@ internal object Missing : LogicExpression {
             }
         }
     }
-
-//    private fun Any?.isNull() = this == "null" || this == null
 }
