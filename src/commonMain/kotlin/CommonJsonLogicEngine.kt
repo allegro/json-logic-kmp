@@ -10,11 +10,15 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
         Missing.operation
     )
 
-    override fun evaluate(expression: Map<String, Any?>, data: Map<String, Any>): String {
+    override fun evaluate(expression: Map<String, Any?>, data: Any): String {
+        //testing purpose
+//        val rawValue = apply(expression, data)
+//        val stringifiedResult = rawValue.toString()
         return apply(expression, data).toString()
+//        return apply(expression, data).toString()
     }
 
-    private fun apply(logic: Any?, data: Map<String, Any>): Any? {
+    private fun apply(logic: Any?, data: Any): Any? {
         if (logic !is Map<*, *>) return logic
         if (logic.isEmpty()) return data
         val operator = logic.keys.firstOrNull()

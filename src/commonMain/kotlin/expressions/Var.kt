@@ -1,33 +1,37 @@
 package expressions
 
 import LogicExpression
-import asString
 import intValue
-import unStringify
 
 internal object Var : LogicExpression {
     override val key: String = "var"
 
-    override operator fun invoke(expression: Any?, data: Any?): Any {
+    override operator fun invoke(expression: Any?, data: Any?): Any? {
         var value: Any? = data
-        val varName = if (expression is List<*>) expression.getOrNull(0).toString() else expression.toString()
+        val varName = if (expression is List<*>) {
+            expression.firstOrNull()
+        } else {
+            expression
+        }.toString()
+
         when (value) {
             is List<*> -> {
-                val indexParts = varName.unStringify.split(".")
+                val indexParts = varName.split(".")
                 value = if (indexParts.size == 1) value[indexParts[0].intValue] else getRecursive(indexParts, value)
             }
-            is Map<*, *> -> varName.unStringify.split(".").forEach {
+            is Map<*, *> -> varName.split(".").forEach {
                 value = (value as? Map<*, *>)?.get(it)
             }
         }
-        if ((value == expression || value == null) && expression is List<*> && expression.size > 1) {
-            return expression.getOrNull(1)?.asString.toString()
+        return  if ((value == expression || value == null) && expression is List<*> && expression.size > 1) {
+            expression.getOrNull(1)
+        } else {
+            value
         }
-        return value?.asString.toString()
     }
 
     private fun getRecursive(indexes: List<String>, data: List<Any?>): Any? = indexes.firstOrNull()?.apply {
-        val d = data.getOrNull(intValue) as? List<Any?>
-        return if (d is List<*>) getRecursive(indexes.subList(1, indexes.size), d) else data.getOrNull(intValue)
+        val indexedData = data.getOrNull(intValue) as? List<Any?>
+        return if (indexedData is List<*>) getRecursive(indexes.subList(1, indexes.size), indexedData) else data.getOrNull(intValue)
     }
 }
