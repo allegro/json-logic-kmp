@@ -47,13 +47,9 @@ kotlin {
         }
     }
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(Libs.KotlinX.serializationJson)
-            }
-        }
         val commonTest by getting {
             dependencies {
+                implementation(Libs.KotlinX.serializationJson)
                 implementation(kotlin("test"))
             }
         }
