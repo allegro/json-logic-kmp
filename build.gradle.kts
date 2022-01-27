@@ -10,7 +10,7 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version Versions.detekt
     id("io.github.gradle-nexus.publish-plugin") version Versions.nexus
     kotlin("plugin.serialization") version Versions.kotlin
-    id("io.kotest.multiplatform") version "5.0.2"
+    id("io.kotest.multiplatform") version Versions.kotest
 }
 
 apply(from = "versionConfig.gradle")
@@ -52,14 +52,14 @@ kotlin {
             dependencies {
                 implementation(Libs.KotlinX.serializationJson)
                 implementation(kotlin("test"))
-                implementation("io.kotest:kotest-assertions-core:5.0.2")
-                implementation("io.kotest:kotest-framework-engine:5.0.2")
-                implementation("io.kotest:kotest-framework-datatest:5.0.2")
+                implementation(Libs.Kotest.assertionsCore)
+                implementation(Libs.Kotest.frameworkEngine)
+                implementation(Libs.Kotest.frameworkDataset)
             }
         }
         val jvmTest by getting {
             dependencies {
-                implementation("io.kotest:kotest-runner-junit5-jvm:5.0.2")
+                implementation(Libs.Kotest.jvmJunit5Runner)
             }
         }
     }
