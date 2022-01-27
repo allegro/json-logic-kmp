@@ -100,24 +100,8 @@ publishing {
                 }
                 developers {
                     developer {
-                        id.set("GypsyBox")
-                        name.set("Rafal Kapela")
-                    }
-                    developer {
-                        id.set("PaulinaSadowskaAllegro")
-                        name.set("Paulina Sadowska")
-                    }
-                    developer {
-                        id.set("mkrogulskiallegro2 ")
-                        name.set("Marek Krogulski")
-                    }
-                    developer {
-                        id.set("pavlo-davydiuk")
-                        name.set("Pavlo Davydiuk")
-                    }
-                    developer {
-                        id.set("tgebarowski")
-                        name.set("Tomasz Gebarowski")
+                        id.set("allegro")
+                        name.set("opensource@allegro.pl")
                     }
                 }
                 scm {
