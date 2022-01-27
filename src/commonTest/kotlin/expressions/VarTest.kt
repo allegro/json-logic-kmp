@@ -7,7 +7,7 @@ import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 
 class VarTest : FunSpec({
-    context("JsonLogic evaluation with only Var operation") {
+    context("JsonLogic evaluation with Var operation") {
         withData(
             // given
             listOf(
