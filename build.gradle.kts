@@ -10,6 +10,7 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version Versions.detekt
     id("io.github.gradle-nexus.publish-plugin") version Versions.nexus
     kotlin("plugin.serialization") version Versions.kotlin
+    id("io.kotest.multiplatform") version "5.0.2"
 }
 
 apply(from = "versionConfig.gradle")
@@ -22,15 +23,15 @@ repositories {
     mavenCentral()
 }
 
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
 kotlin {
     jvm {
         compilations.all {
             kotlinOptions.jvmTarget = JavaVersion.VERSION_11.majorVersion
         }
-        testRuns["test"].executionTask.configure {
-            useJUnitPlatform()
-        }
-
         val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
             if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
                 ::iosArm64
@@ -51,6 +52,14 @@ kotlin {
             dependencies {
                 implementation(Libs.KotlinX.serializationJson)
                 implementation(kotlin("test"))
+                implementation("io.kotest:kotest-assertions-core:5.0.2")
+                implementation("io.kotest:kotest-framework-engine:5.0.2")
+                implementation("io.kotest:kotest-framework-datatest:5.0.2")
+            }
+        }
+        val jvmTest by getting {
+            dependencies {
+                implementation("io.kotest:kotest-runner-junit5-jvm:5.0.2")
             }
         }
     }
