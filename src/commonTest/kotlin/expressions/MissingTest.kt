@@ -1,48 +1,74 @@
 package expressions
 
-import CommonJsonLogicEngine
+import JsonLogicEngine
 import TestInput
-import jsonToMap
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonElement
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.datatest.withData
+import io.kotest.matchers.shouldBe
 
-class MissingTest {
+class MissingTest : FunSpec({
+    context("JsonLogic evaluation with only Missing operation") {
+        withData(
+            // given
+            listOf(
+                TestInput(expression = mapOf("missing" to emptyList<Any>()), data = null, result = emptyList<Any>()),
+                TestInput(expression = mapOf("missing" to listOf("a")), data = null, result = listOf("a")),
+                TestInput(
+                    expression = mapOf("missing" to "a"),
+                    data = mapOf("a" to "apple"),
+                    result = emptyList<Any>()
+                ),
+                TestInput(
+                    expression = mapOf("missing" to listOf("a")),
+                    data = mapOf("a" to "apple"),
+                    result = emptyList<Any>()
+                ),
+                TestInput(
+                    expression = mapOf("missing" to listOf("a", "b")),
+                    data = mapOf("a" to "apple"),
+                    result = listOf("b")
+                ),
+                TestInput(
+                    expression = mapOf("missing" to listOf("a", "b")),
+                    data = mapOf("a" to "apple", "b" to "banana"),
+                    result = emptyList<Any>()
+                ),
 
-    @Test
-    fun `should evaluate expressions with the provided data`() {
-        // given
-        val decodedInput = Json.decodeFromString<JsonElement>(input)
-        val data = (jsonToMap(decodedInput) as List<List<Any>>).map {
-            TestInput(it.getOrNull(0) as Map<String, Any?>, it.getOrNull(1), it.getOrNull(2))
-        }
+                TestInput(
+                    expression = mapOf("missing" to listOf("a", "b")),
+                    data = emptyMap<String, Any>(),
+                    result = listOf("a", "b")
+                ),
+                TestInput(expression = mapOf("missing" to listOf("a", "b")), data = null, result = listOf("a", "b")),
+                TestInput(expression = mapOf("missing" to listOf("a.b")), data = null, result = listOf("a.b")),
+                TestInput(
+                    expression = mapOf("missing" to listOf("a.b")),
+                    data = mapOf("a" to "apple"),
+                    result = listOf("a.b")
+                ),
+                TestInput(
+                    expression = mapOf("missing" to listOf("a.b")),
+                    data = mapOf("a" to mapOf("c" to "apple cake")),
+                    result = listOf("a.b")
+                ),
 
-        // when'n'then
-        data.forEach {
-            val result = CommonJsonLogicEngine().evaluate(it.expression, it.data)
-            assertEquals(expected = it.result, actual = result)
+                TestInput(
+                    expression = mapOf("missing" to listOf("a.b")),
+                    data = mapOf("a" to mapOf("b" to "apple brownie")),
+                    result = emptyList<Any>()
+                ),
+                TestInput(
+                    expression = mapOf("missing" to listOf("a.b", "a.c")),
+                    data = mapOf("a" to mapOf("b" to "apple brownie")),
+                    result = listOf("a.c")
+                ),
+            )
+        ) { (expression, data, result) ->
+            // when
+            val evaluationResult = JsonLogicEngine.instance.evaluate(expression, data)
+
+            // then
+            evaluationResult shouldBe result
         }
     }
-
-    private val input = """
-    [
-        [{"missing":[]}, null, []],
-        [{"missing":["a"]}, null, ["a"]],
-        [{"missing":"a"}, null, ["a"]],
-        [{"missing":"a"}, {"a":"apple"}, []],
-        [{"missing":["a"]}, {"a":"apple"}, []],
-        [{"missing":["a","b"]}, {"a":"apple"}, ["b"]],
-        [{"missing":["a","b"]}, {"b":"banana"}, ["a"]],
-        [{"missing":["a","b"]}, {"a":"apple", "b":"banana"}, []],
-        [{"missing":["a","b"]}, {}, ["a","b"]],
-        [{"missing":["a","b"]}, null, ["a","b"]],
-        [{"missing":["a.b"]}, null, ["a.b"]],
-        [{"missing":["a.b"]}, {"a":"apple"}, ["a.b"]],
-        [{"missing":["a.b"]}, {"a":{"c":"apple cake"}}, ["a.b"]],
-        [{"missing":["a.b"]}, {"a":{"b":"apple brownie"}}, []],
-        [{"missing":["a.b", "a.c"]}, {"a":{"b":"apple brownie"}}, ["a.c"]]
-    ]
-    """
-}
+})
