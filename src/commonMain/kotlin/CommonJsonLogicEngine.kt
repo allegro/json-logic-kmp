@@ -1,10 +1,10 @@
 import operations.data.Missing
 import operations.data.MissingSome
 import operations.data.Var
-import operations.math.Equals
-import operations.math.NotEquals
-import operations.math.NotStrictEquals
-import operations.math.StrictEquals
+import operations.logic.Equals
+import operations.logic.NotEquals
+import operations.logic.NotStrictEquals
+import operations.logic.StrictEquals
 import utils.asList
 
 internal class CommonJsonLogicEngine : JsonLogicEngine {

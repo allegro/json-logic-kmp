@@ -1,7 +1,6 @@
-package operations.math
+package operations.logic
 
 import operations.LogicExpression
-import operations.data.Var
 import utils.asComparableList
 
 internal object NotEquals : LogicExpression, ComparingExpression {

@@ -1,7 +1,7 @@
-package operations.math
+package operations.logic
 
 import operations.LogicExpression
-import operations.math.Equals.compareStrict
+import operations.logic.Equals.compareStrict
 import utils.asComparableList
 
 internal object StrictEquals : LogicExpression {

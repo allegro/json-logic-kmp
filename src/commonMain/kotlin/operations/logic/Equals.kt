@@ -1,4 +1,4 @@
-package operations.math
+package operations.logic
 
 import operations.LogicExpression
 import utils.asComparableList

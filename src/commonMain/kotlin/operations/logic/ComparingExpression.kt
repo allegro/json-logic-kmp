@@ -1,4 +1,4 @@
-package operations.math
+package operations.logic
 
 import utils.doubleValue
 import utils.truthy

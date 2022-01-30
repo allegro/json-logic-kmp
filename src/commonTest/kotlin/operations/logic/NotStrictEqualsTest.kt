@@ -1,4 +1,4 @@
-package operations.math
+package operations.logic
 
 import TestInput
 import io.kotest.core.spec.style.FunSpec
