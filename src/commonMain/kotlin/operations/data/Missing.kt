@@ -1,6 +1,6 @@
-package expressions
+package operations.data
 
-import LogicExpression
+import operations.LogicExpression
 
 internal object Missing : LogicExpression {
     override val key: String = "missing"

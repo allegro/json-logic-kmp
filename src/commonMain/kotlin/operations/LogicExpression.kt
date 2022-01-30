@@ -1,3 +1,5 @@
+package operations
+
 internal interface LogicExpression : (Any?, Any?) -> Any? {
     val key: String
     val operation

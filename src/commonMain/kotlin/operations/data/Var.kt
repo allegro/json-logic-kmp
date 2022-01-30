@@ -1,7 +1,7 @@
-package expressions
+package operations.data
 
-import LogicExpression
-import intValue
+import operations.LogicExpression
+import utils.intValue
 
 internal object Var : LogicExpression {
     override val key: String = "var"

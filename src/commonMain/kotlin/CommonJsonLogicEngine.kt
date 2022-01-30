@@ -1,13 +1,24 @@
-import expressions.Missing
-import expressions.MissingSome
-import expressions.Var
-import expressions.Var.operation
+import operations.data.Missing
+import operations.data.MissingSome
+import operations.data.Var
+import operations.math.Equals
+import operations.math.NotEquals
+import operations.math.NotStrictEquals
+import operations.math.StrictEquals
+import utils.asList
 
 internal class CommonJsonLogicEngine : JsonLogicEngine {
     private val operations: Map<String, (Any?, Any?) -> Any?> = mapOf(
+        // data access
         Var.operation,
         MissingSome.operation,
-        Missing.operation
+        Missing.operation,
+
+        // logic & boolean
+        Equals.operation,
+        NotEquals.operation,
+        StrictEquals.operation,
+        NotStrictEquals.operation
     )
 
     override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = apply(expression, data)

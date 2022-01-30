@@ -1,3 +1,5 @@
+package utils
+
 internal val String.intValue: Int
     get() = doubleValue.toInt()
 
