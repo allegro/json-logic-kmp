@@ -9,8 +9,9 @@ import io.kotest.matchers.shouldBe
 class MissingSomeTest : FunSpec({
     context("JsonLogic evaluation with only MissingSome operation") {
         withData(
+            nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}"},
             // given
-            listOf(
+            ts = listOf(
                 TestInput(
                     expression = mapOf("missing_some" to listOf(1, listOf("a", "b"))),
                     data = mapOf("a" to "apple"),
