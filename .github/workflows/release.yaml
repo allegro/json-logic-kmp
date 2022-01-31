@@ -47,7 +47,9 @@ jobs:
         run: ./gradlew assembleJsonLogicKMPXCFramework
 
       - name: Zip XCFramework
-        run: zip -r "${{ env.xcframework_zip_name }}" "build/XCFrameworks/release/${{ env.xcframework_name }}"
+        run: |
+          mv "build/XCFrameworks/release/${{ env.xcframework_name }}" .
+          zip -r "${{ env.xcframework_zip_name }}" "${{ env.xcframework_name }}"
 
       - name: Calculate checksum
         id: calculate_checksum
