@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       next_version:
-        description: "Next version (if empty - PATCH version will be incremented automatically). Please use semantic versioning"
+        description: "Next version (if empty - PATCH version will be incremented automatically). Please use semantic versioning, format: 0.0.1"
         required: false
 
 env:
@@ -111,11 +111,11 @@ jobs:
         with:
           source_branch: "release/${{ steps.bump.outputs.next_tag }}"
           destination_branch: "main"
-          pr_title: "Bump version ${{ steps.bump.outputs.next_tag }}"
+          pr_title: "Bump version to ${{ steps.bump.outputs.next_tag }}"
           pr_body: "## Note:\n
             * This pull request is created by workflow 🤖\n
             ## What:\n
-            * version bump\n
+            * bump version to ${{ steps.bump.outputs.next_tag }}\n
             * commit tag\n
             * updated podspec file\n
             ## Why:\n
