@@ -49,7 +49,7 @@ jobs:
       - name: Zip XCFramework
         run: |
           mv "build/XCFrameworks/release/${{ env.xcframework_name }}" .
-          zip -r "${{ env.xcframework_zip_name }}" "${{ env.xcframework_name }}"
+          zip -r "${{ env.xcframework_zip_name }}" "${{ env.xcframework_name }}" LICENSE
 
       - name: Calculate checksum
         id: calculate_checksum
@@ -90,7 +90,7 @@ jobs:
       - name: Change SHA256 in podspec file
         run: |
           XCFRAMEWORK_SHA256="${{ needs.build_xcframework.outputs.sha256 }}"
-          sed -i -e "s/:sha256 => \"\"$/:sha256 => \"$XCFRAMEWORK_SHA256\"/g" "${{ env.podspec_name }}"
+          sed -i -e "s/:sha256.*=>.*$/:sha256 => \"$XCFRAMEWORK_SHA256\"/g" "${{ env.podspec_name }}"
 
       - name: Setup git config
         run: |
@@ -160,6 +160,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
+          ref: "${{ needs.create_release_branch.outputs.tag }}"
           fetch-depth: 0
 
       - name: Set up JDK 11
@@ -192,6 +193,8 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: "${{ needs.create_release_branch.outputs.tag }}"
 
       - name: Publish to cocoadpods
         env:
