@@ -13,7 +13,7 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = "13.0"
 
   spec.source       = { :http => "#{spec.homepage}/releases/download/#{spec.version}/#{spec.name}.xcframework.zip",
-                        :sha256 => ""
+                        :sha256 => "444e02e506dd95f0e5ef4c34145bd7b10da681b94b6003bdd1f359ff7269acac"
                       }
 
   spec.vendored_frameworks = "#{spec.name}.xcframework"
