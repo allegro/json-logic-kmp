@@ -5,6 +5,7 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 
+// TODO add some crazy cases with maps and nested collections
 class GreaterThanOrEqualToTest : FunSpec({
     context("JsonLogic evaluation with only GreaterThanOrEqualTo operation") {
         withData(
@@ -81,6 +82,11 @@ class GreaterThanOrEqualToTest : FunSpec({
                     data = emptyMap<String, Any>(),
                     result = true
                 ),
+//                TestInput(
+//                    expression = mapOf(">=" to listOf(0, mapOf("var" to "temp"), 100)),
+//                    data = mapOf("temp" to 37),
+//                    result = true
+//                ),
             )
         ) { (expression, data, result) ->
             // when

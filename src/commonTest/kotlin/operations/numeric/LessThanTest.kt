@@ -71,6 +71,11 @@ class LessThanTest : FunSpec({
                     data = emptyMap<String, Any>(),
                     result = false
                 ),
+//                TestInput(
+//                    expression = mapOf("<" to listOf(0, mapOf("var" to "temp"), 100)),
+//                    data = mapOf("temp" to 37),
+//                    result = true
+//                ),
             )
         ) { (expression, data, result) ->
             // when
