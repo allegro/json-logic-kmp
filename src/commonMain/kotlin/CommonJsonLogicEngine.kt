@@ -1,20 +1,30 @@
-import expressions.Missing
-import expressions.MissingSome
-import expressions.Var
-import expressions.Var.operation
+import operations.data.Missing
+import operations.data.MissingSome
+import operations.data.Var
+import operations.numeric.GreaterThan
+import operations.numeric.GreaterThanOrEqualTo
+import operations.numeric.LessThan
+import operations.numeric.LessThanOrEqualTo
 
 internal class CommonJsonLogicEngine : JsonLogicEngine {
     private val operations: Map<String, (Any?, Any?) -> Any?> = mapOf(
+        // data
         Var.operation,
         MissingSome.operation,
-        Missing.operation
+        Missing.operation,
+
+        // numeric
+        GreaterThan.operation,
+        GreaterThanOrEqualTo.operation,
+        LessThan.operation,
+        LessThanOrEqualTo.operation
     )
 
     override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = apply(expression, data)
 
     @Throws(JsonLogicException::class)
     private fun apply(logic: Any?, data: Any?): Any? {
-        if (logic !is Map<*, *>) throw JsonLogicException("Invalid logic expression format.")
+        if (logic !is Map<*, *>) return logic
         if (logic.isEmpty()) return data
         val operator = logic.keys.firstOrNull()
         val values = logic[operator]

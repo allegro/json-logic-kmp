@@ -1,4 +1,4 @@
-internal interface LogicExpression : (Any?, Any?) -> Any? {
+internal interface LogicOperation : (Any?, Any?) -> Any? {
     val key: String
     val operation
         get() = key to this

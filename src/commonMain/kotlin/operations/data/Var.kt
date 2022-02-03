@@ -1,9 +1,9 @@
-package expressions
+package operations.data
 
-import LogicExpression
+import LogicOperation
 import intValue
 
-internal object Var : LogicExpression {
+internal object Var : LogicOperation {
     override val key: String = "var"
 
     override operator fun invoke(expression: Any?, data: Any?): Any? {
@@ -13,6 +13,7 @@ internal object Var : LogicExpression {
         } else {
             expression
         }?.toString()
+
 
         val indexParts = varName?.split(".").orEmpty()
         if (indexParts.isNotEmpty()) {

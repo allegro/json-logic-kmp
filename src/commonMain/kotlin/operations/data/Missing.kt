@@ -1,8 +1,8 @@
-package expressions
+package operations.data
 
-import LogicExpression
+import LogicOperation
 
-internal object Missing : LogicExpression {
+internal object Missing : LogicOperation {
     override val key: String = "missing"
 
     override fun invoke(expression: Any?, data: Any?): List<Any?> {

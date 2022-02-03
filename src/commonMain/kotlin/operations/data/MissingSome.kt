@@ -1,9 +1,9 @@
-package expressions
+package operations.data
 
-import LogicExpression
+import LogicOperation
 import intValue
 
-internal object MissingSome : LogicExpression {
+internal object MissingSome : LogicOperation {
     override val key: String = "missing_some"
 
     override fun invoke(expression: Any?, data: Any?): Any {
