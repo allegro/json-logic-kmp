@@ -13,7 +13,7 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
     override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = apply(expression, data)
 
     private fun apply(logic: Any?, data: Any?): Any? {
-        if (logic !is Map<*, *>) return logic
+        if (logic !is Map<*, *>) throw JsonLogicException("Invalid logic expression format.")
         if (logic.isEmpty()) return data
         val operator = logic.keys.firstOrNull()
         val values = logic[operator]
