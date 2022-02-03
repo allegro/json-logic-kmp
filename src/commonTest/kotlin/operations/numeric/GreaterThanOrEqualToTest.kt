@@ -6,7 +6,7 @@ import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 
 class GreaterThanOrEqualToTest : FunSpec({
-    context("JsonLogic evaluation with only MissingSome operation") {
+    context("JsonLogic evaluation with only GreaterThanOrEqualTo operation") {
         withData(
             nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}"},
             // given
@@ -30,7 +30,57 @@ class GreaterThanOrEqualToTest : FunSpec({
                     expression = mapOf(">=" to listOf("2", 1)),
                     data = emptyMap<String, Any>(),
                     result = true
-                )
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf("2", "banana")),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf(1, "banana")),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf(1, 2, 3)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf(1, 1, 3)),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf(1, 4, 3)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf(4, 1, 3)),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf(4, 3, 1)),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf("4", 3, "1")),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf("banana", 3, "1")),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf(4, "3", 1)),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
             )
         ) { (expression, data, result) ->
             // when
