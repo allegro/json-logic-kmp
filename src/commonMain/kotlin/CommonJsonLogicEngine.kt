@@ -14,7 +14,7 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
 
     @Throws(JsonLogicException::class)
     private fun apply(logic: Any?, data: Any?): Any? {
-        if (logic !is Map<*, *>) throw JsonLogicException("Invalid logic expression format.")
+        if (logic !is Map<*, *>) return logic
         if (logic.isEmpty()) return data
         val operator = logic.keys.firstOrNull()
         val values = logic[operator]
