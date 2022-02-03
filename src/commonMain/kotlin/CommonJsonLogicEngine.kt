@@ -22,7 +22,6 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
 
     override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = apply(expression, data)
 
-    @Throws(JsonLogicException::class)
     private fun apply(logic: Any?, data: Any?): Any? {
         if (logic !is Map<*, *>) return logic
         if (logic.isEmpty()) return data
