@@ -54,7 +54,38 @@ class VarTest : FunSpec({
                 TestInput(expression = mapOf("var" to "a.b.c"), data = mapOf("a" to mapOf("b" to null)), result = null),
                 TestInput(expression = mapOf("var" to ""), data = 1, result = 1),
                 TestInput(expression = mapOf("var" to null), data = 1, result = 1),
+                TestInput(
+                    expression = mapOf("var" to null),
+                    data = mapOf("a" to "apple", "b" to "banana"),
+                    result = mapOf("a" to "apple", "b" to "banana")
+                ),
+                TestInput(
+                    expression = mapOf("var" to null),
+                    data = mapOf("a" to "apple", "b" to listOf("banana", "beer")),
+                    result = mapOf("a" to "apple", "b" to listOf("banana", "beer"))
+                ),
+                TestInput(
+                    expression = mapOf("var" to null),
+                    data = listOf("apple", "banana"),
+                    result = listOf("apple", "banana")
+                ),
+                TestInput(
+                    expression = mapOf("var" to null),
+                    data = listOf("apple", 1, null),
+                    result = listOf("apple", 1, null)
+                ),
+                TestInput(
+                    expression = mapOf("var" to null),
+                    data = listOf("apple", listOf("banana", "beer")),
+                    result = listOf("apple", listOf("banana", "beer"))
+                ),
+
                 TestInput(expression = mapOf("var" to emptyList<Any>()), data = 1, result = 1),
+                TestInput(
+                    expression = mapOf("var" to emptyList<Any>()),
+                    data = listOf("apple", "banana"),
+                    result = listOf("apple", "banana")
+                ),
                 TestInput(
                     expression = mapOf("var" to "1"),
                     data = listOf("apple", listOf("banana", "beer")),
