@@ -73,3 +73,39 @@ class MissingTest : FunSpec({
         }
     }
 })
+
+private val unsupportedTestCases = listOf(
+    TestInput(
+        expression = mapOf(
+            "missing" to mapOf(
+                "merge" to listOf(
+                    "vin", mapOf(
+                        "if" to listOf(
+                            mapOf("var" to "financing"), listOf("apr"), emptyList<Any>()
+                        )
+                    )
+                )
+            )
+        ),
+        data = mapOf("financing" to true),
+        result = listOf(
+            "vin",
+            "apr"
+        )
+    ),
+    TestInput(
+        expression = mapOf(
+            "missing" to mapOf(
+                "merge" to listOf(
+                    "vin", mapOf(
+                        "if" to listOf(
+                            mapOf("var" to "financing"), listOf("apr"), emptyList<Any>()
+                        )
+                    )
+                )
+            )
+        ),
+        data = mapOf("financing" to false),
+        result = listOf("vin")
+    )
+)
