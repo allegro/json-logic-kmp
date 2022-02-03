@@ -1,7 +1,6 @@
 import expressions.Missing
 import expressions.MissingSome
 import expressions.Var
-import expressions.Var.operation
 
 internal class CommonJsonLogicEngine : JsonLogicEngine {
     private val operations: Map<String, (Any?, Any?) -> Any?> = mapOf(
@@ -12,7 +11,6 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
 
     override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = apply(expression, data)
 
-    @Throws(JsonLogicException::class)
     private fun apply(logic: Any?, data: Any?): Any? {
         if (logic !is Map<*, *>) return logic
         if (logic.isEmpty()) return data
