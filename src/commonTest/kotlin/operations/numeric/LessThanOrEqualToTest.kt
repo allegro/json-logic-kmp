@@ -12,9 +12,34 @@ class LessThanOrEqualToTest : FunSpec({
             // given
             ts = listOf(
                 TestInput(
-                    expression = mapOf("missing_some" to listOf(1, listOf("a", "b"))),
-                    data = mapOf("a" to "apple"),
-                    result = emptyList<Any>()
+                    expression = mapOf("<=" to listOf(2, 1)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf("<=" to listOf(1, 1)),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf("<=" to listOf(1, 2)),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf("<=" to listOf("1", 2)),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf("<=" to listOf(1, 2, 3)),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf("<=" to listOf(1, 4, 3)),
+                    data = emptyMap<String, Any>(),
+                    result = false
                 ),
             )
         ) { (expression, data, result) ->
