@@ -21,3 +21,15 @@ val Any?.truthy: Boolean
         is Array<*> -> size > 0
         else -> true
     }
+
+internal val Any?.asDoubleList: List<Double>
+    get() = asList.doubleList
+
+internal val List<Any?>.doubleList: List<Double>
+    get() = map {
+        when (it) {
+            is Number -> it.toDouble()
+            is String -> it.doubleValue
+            else -> 0.0
+        }
+    }
