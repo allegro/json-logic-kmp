@@ -29,6 +29,7 @@ class VarTest : FunSpec({
                 TestInput(expression = mapOf("var" to "b"), data = mapOf("a" to 1), result = null),
                 TestInput(expression = mapOf("var" to "a"), data = null, result = null),
                 TestInput(expression = mapOf("var" to listOf("a", 1)), data = null, result = 1),
+                TestInput(expression = mapOf("var" to listOf("a", 1, 2)), data = null, result = 1),
                 TestInput(expression = mapOf("var" to listOf("b", 2)), data = mapOf("a" to 1), result = 2),
                 TestInput(expression = mapOf("var" to "a.b"), data = mapOf("a" to mapOf("b" to "c")), result = "c"),
                 TestInput(expression = mapOf("var" to "a.q"), data = mapOf("a" to mapOf("b" to "c")), result = null),
@@ -102,6 +103,7 @@ class VarTest : FunSpec({
     }
 })
 
+@Suppress("unused")
 private val unsupportedTestCases = listOf(
     TestInput(
         expression = mapOf(

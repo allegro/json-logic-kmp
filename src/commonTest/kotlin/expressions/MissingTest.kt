@@ -74,6 +74,7 @@ class MissingTest : FunSpec({
     }
 })
 
+@Suppress("unused")
 private val unsupportedTestCases = listOf(
     TestInput(
         expression = mapOf(

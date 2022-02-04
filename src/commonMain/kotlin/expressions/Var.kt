@@ -19,8 +19,8 @@ internal object Var : LogicExpression {
             value = getIndexedValue(value, indexParts)
         }
 
-        return if ((value == expression || value == null) && expression is List<*> && expression.size > 1) {
-            expression.getOrNull(1)
+        return if (shouldUseDefaultValue(value, expression)) {
+            (expression as? List<*>)?.getOrNull(1)
         } else {
             value
         }
@@ -29,9 +29,9 @@ internal object Var : LogicExpression {
     private fun getIndexedValue(value: Any?, indexParts: List<String>): Any? {
         return when (value) {
             is List<*> -> {
-                if (indexParts.size == 1){
+                if (indexParts.size == 1) {
                     value[indexParts.first().intValue]
-                } else{
+                } else {
                     getRecursive(
                         indexParts,
                         value
@@ -40,13 +40,17 @@ internal object Var : LogicExpression {
             }
             is Map<*, *> -> {
                 val initial = value[indexParts.first()]
-                indexParts.drop(1).fold(initial) {
-                        acc: Any?, s: String ->  (acc as? Map<*, *>)?.get(s)
+                indexParts.drop(1).fold(initial) { acc: Any?, s: String ->
+                    (acc as? Map<*, *>)?.get(s)
                 }
             }
             else -> value
         }
     }
+
+    private fun shouldUseDefaultValue(value: Any?, expression: Any?) = (value == expression || value == null)
+        && expression is List<*>
+        && expression.size > 1
 
     private fun getRecursive(indexes: List<String>, data: List<Any?>): Any? = indexes.firstOrNull()?.apply {
         val indexedData = data.getOrNull(intValue) as? List<Any?>
