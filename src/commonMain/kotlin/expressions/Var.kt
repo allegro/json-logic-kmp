@@ -7,16 +7,16 @@ internal object Var : LogicExpression {
     override val key: String = "var"
 
     override operator fun invoke(expression: Any?, data: Any?): Any? {
-        var value: Any? = data
-        val varName = if (expression is List<*>) {
+        val indexParts = if (expression is List<*>) {
             expression.firstOrNull()
         } else {
             expression
-        }?.toString()
+        }?.toString()?.split(".").orEmpty()
 
-        val indexParts = varName?.split(".").orEmpty()
-        if (indexParts.isNotEmpty()) {
-            value = getIndexedValue(value, indexParts)
+        val value = if (indexParts.isNotEmpty()) {
+            getIndexedValue(data, indexParts)
+        } else {
+            data
         }
 
         return if (shouldUseDefaultValue(value, expression)) {
@@ -32,16 +32,13 @@ internal object Var : LogicExpression {
                 if (indexParts.size == 1) {
                     value[indexParts.first().intValue]
                 } else {
-                    getRecursive(
-                        indexParts,
-                        value
-                    )
+                    getRecursive(indexParts, value)
                 }
             }
             is Map<*, *> -> {
                 val initial = value[indexParts.first()]
-                indexParts.drop(1).fold(initial) { acc: Any?, s: String ->
-                    (acc as? Map<*, *>)?.get(s)
+                indexParts.drop(1).fold(initial) { acc: Any?, indexPart: String ->
+                    (acc as? Map<*, *>)?.get(indexPart)
                 }
             }
             else -> value
@@ -53,10 +50,11 @@ internal object Var : LogicExpression {
         && expression.size > 1
 
     private fun getRecursive(indexes: List<String>, data: List<Any?>): Any? = indexes.firstOrNull()?.apply {
-        val indexedData = data.getOrNull(intValue) as? List<Any?>
-        return if (indexedData is List<*>) getRecursive(
-            indexes.subList(1, indexes.size),
-            indexedData
-        ) else data.getOrNull(intValue)
+        val indexedData = data.getOrNull(intValue)
+        return if (indexedData is List<*>) {
+            getRecursive(indexes.subList(1, indexes.size), indexedData)
+        } else {
+            data.getOrNull(intValue)
+        }
     }
 }
