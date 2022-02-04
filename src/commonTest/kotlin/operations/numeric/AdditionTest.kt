@@ -32,6 +32,31 @@ class AdditionTest : FunSpec({
                     data = emptyMap<String, Any>(),
                     result = 2
                 ),
+                TestInput(
+                    expression = mapOf("+" to listOf("1", 1.5)),
+                    data = emptyMap<String, Any>(),
+                    result = 2.5
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf("1", 1.5, "banana")),
+                    data = emptyMap<String, Any>(),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf("1", 1.5, listOf("banana"))),
+                    data = emptyMap<String, Any>(),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(12.6543534, 1.1)),
+                    data = emptyMap<String, Any>(),
+                    result = 13.7543534
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(9, .9, .09, .009, .0009,.00009)),
+                    data = emptyMap<String, Any>(),
+                    result = 9.99999
+                ),
             )
         ) { (expression, data, result) ->
             // when

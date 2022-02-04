@@ -26,7 +26,37 @@ class DivisionTest : FunSpec({
                     expression = mapOf("/" to listOf("1", 1)),
                     data = emptyMap<String, Any>(),
                     result = 1
-                )
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf("1", 0)),
+                    data = emptyMap<String, Any>(),
+                    result = 1
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(0, 1)),
+                    data = emptyMap<String, Any>(),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf("1", "0")),
+                    data = emptyMap<String, Any>(),
+                    result = 1
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf("2.5", "2")),
+                    data = emptyMap<String, Any>(),
+                    result = 1.25
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf("2.5", "2", "3", 5)),
+                    data = emptyMap<String, Any>(),
+                    result = 1.25
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf("2.5", listOf("2", "3", 5))),
+                    data = emptyMap<String, Any>(),
+                    result = null
+                ),
             )
         ) { (expression, data, result) ->
             // when
