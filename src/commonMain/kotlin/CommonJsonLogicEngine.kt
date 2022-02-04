@@ -5,6 +5,8 @@ import operations.numeric.GreaterThan
 import operations.numeric.GreaterThanOrEqualTo
 import operations.numeric.LessThan
 import operations.numeric.LessThanOrEqualTo
+import operations.numeric.Max
+import operations.numeric.Min
 
 internal class CommonJsonLogicEngine : JsonLogicEngine {
     private val operations: Map<String, (Any?, Any?) -> Any?> = mapOf(
@@ -17,7 +19,9 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
         GreaterThan.operation,
         GreaterThanOrEqualTo.operation,
         LessThan.operation,
-        LessThanOrEqualTo.operation
+        LessThanOrEqualTo.operation,
+        Min.operation,
+        Max.operation
     )
 
     override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = apply(expression, data)
