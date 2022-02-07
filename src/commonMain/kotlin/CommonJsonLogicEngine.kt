@@ -9,7 +9,11 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
         Missing.operation
     )
 
-    override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = apply(expression, data)
+    override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = if (expression.isNotEmpty()) {
+        apply(expression, data)
+    } else {
+        throw JsonLogicException("JsonLogic expression mustn't be empty.")
+    }
 
     private fun apply(logic: Any?, data: Any?): Any? {
         return when {
