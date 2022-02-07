@@ -1,6 +1,5 @@
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
-import io.kotest.matchers.shouldBe
 
 class CommonJsonLogicEngineTest : BehaviorSpec({
     val logicEngine = CommonJsonLogicEngine()
@@ -9,10 +8,10 @@ class CommonJsonLogicEngineTest : BehaviorSpec({
         val logicExpression = emptyMap<String, Any?>()
         val data = listOf("apple", "banana")
 
-            then("throws and exception on evaluation") {
-                shouldThrow<JsonLogicException> {
-                    logicEngine.evaluate(logicExpression, data)
-                }
+        then("throws and exception on evaluation") {
+            shouldThrow<JsonLogicException> {
+                logicEngine.evaluate(logicExpression, data)
             }
+        }
     }
 })
