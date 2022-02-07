@@ -23,6 +23,11 @@ class MaxTest : FunSpec({
                     result = 3
                 ),
                 TestInput(
+                    expression = mapOf("max" to listOf("-1", -2, "-3")),
+                    data = emptyMap<String, Any>(),
+                    result = -1
+                ),
+                TestInput(
                     expression = mapOf("max" to listOf(3, 2, 1)),
                     data = emptyMap<String, Any>(),
                     result = 3

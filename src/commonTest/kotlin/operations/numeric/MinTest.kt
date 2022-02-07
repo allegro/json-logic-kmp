@@ -17,6 +17,16 @@ class MinTest : FunSpec({
                     result = 1
                 ),
                 TestInput(
+                    expression = mapOf("min" to listOf("1", "0.2", 0.3)),
+                    data = emptyMap<String, Any>(),
+                    result = 0.2
+                ),
+                TestInput(
+                    expression = mapOf("min" to listOf("-2", "0.2", 0.3)),
+                    data = emptyMap<String, Any>(),
+                    result = -2
+                ),
+                TestInput(
                     expression = mapOf("min" to listOf(1, 3, 3)),
                     data = emptyMap<String, Any>(),
                     result = 1

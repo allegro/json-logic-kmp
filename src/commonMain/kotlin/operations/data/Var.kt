@@ -1,7 +1,7 @@
 package operations.data
 
 import LogicOperation
-import intValue
+import intOrZero
 
 internal object Var : LogicOperation {
     override val key: String = "var"
@@ -30,7 +30,7 @@ internal object Var : LogicOperation {
         return when (value) {
             is List<*> -> {
                 if (indexParts.size == 1) {
-                    value[indexParts.first().intValue]
+                    value[indexParts.first().intOrZero]
                 } else {
                     getRecursive(indexParts, value)
                 }
@@ -50,11 +50,11 @@ internal object Var : LogicOperation {
         && expression.size > 1
 
     private fun getRecursive(indexes: List<String>, data: List<Any?>): Any? = indexes.firstOrNull()?.apply {
-        val indexedData = data.getOrNull(intValue)
+        val indexedData = data.getOrNull(intOrZero)
         return if (indexedData is List<*>) {
             getRecursive(indexes.subList(1, indexes.size), indexedData)
         } else {
-            data.getOrNull(intValue)
+            data.getOrNull(intOrZero)
         }
     }
 }

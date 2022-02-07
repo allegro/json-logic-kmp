@@ -22,14 +22,14 @@ val Any?.truthy: Boolean
         else -> true
     }
 
-internal val Any?.asDoubleList: List<Double>
+internal val Any?.asDoubleList: List<Double?>
     get() = asList.doubleList
 
-internal val List<Any?>.doubleList: List<Double>
+internal val List<Any?>.doubleList: List<Double?>
     get() = map {
         when (it) {
             is Number -> it.toDouble()
-            is String -> it.doubleValue
-            else -> 0.0
+            is String -> it.toDoubleOrNull()
+            else -> null
         }
     }

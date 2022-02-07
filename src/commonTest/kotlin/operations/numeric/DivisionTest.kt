@@ -30,17 +30,17 @@ class DivisionTest : FunSpec({
                 TestInput(
                     expression = mapOf("/" to listOf("1", 0)),
                     data = emptyMap<String, Any>(),
-                    result = 1
+                    result = null
                 ),
                 TestInput(
                     expression = mapOf("/" to listOf(0, 1)),
                     data = emptyMap<String, Any>(),
-                    result = null
+                    result = 0
                 ),
                 TestInput(
                     expression = mapOf("/" to listOf("1", "0")),
                     data = emptyMap<String, Any>(),
-                    result = 1
+                    result = null
                 ),
                 TestInput(
                     expression = mapOf("/" to listOf("2.5", "2")),

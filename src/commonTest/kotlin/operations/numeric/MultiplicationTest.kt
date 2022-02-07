@@ -32,6 +32,36 @@ class MultiplicationTest : FunSpec({
                     data = emptyMap<String, Any>(),
                     result = 1
                 ),
+                TestInput(
+                    expression = mapOf("*" to listOf("1.7", 3)),
+                    data = emptyMap<String, Any>(),
+                    result = 5.1
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf(2, 0)),
+                    data = emptyMap<String, Any>(),
+                    result = 0
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf(0, 2)),
+                    data = emptyMap<String, Any>(),
+                    result = 0
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf("1.3", "3.7")),
+                    data = emptyMap<String, Any>(),
+                    result = 4.81
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf("2", 1.5, "banana")),
+                    data = emptyMap<String, Any>(),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf("2", 1.5, listOf("banana"))),
+                    data = emptyMap<String, Any>(),
+                    result = null
+                ),
             )
         ) { (expression, data, result) ->
             // when

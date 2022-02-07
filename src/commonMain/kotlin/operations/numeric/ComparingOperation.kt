@@ -1,14 +1,14 @@
 package operations.numeric
 
 import comparableList
-import doubleValue
+import doubleOrZero
 import truthy
 
 internal interface ComparingOperation {
     fun compare(first: Comparable<*>?, second: Comparable<*>?) = when {
         first is Number && second is Number -> compareValues(first.toDouble(), second.toDouble())
-        first is String && second is Number -> compareValues(first.doubleValue, second.toDouble())
-        first is Number && second is String -> compareValues(first.toDouble(), second.doubleValue)
+        first is String && second is Number -> compareValues(first.toDoubleOrNull(), second.toDouble())
+        first is Number && second is String -> compareValues(first.toDouble(), second.toDoubleOrNull())
         // remove
         first is String && second is String -> compareValues(first.toString(), second.toString())
         first is Boolean || second is Boolean -> compareValues(first.truthy, second.truthy)

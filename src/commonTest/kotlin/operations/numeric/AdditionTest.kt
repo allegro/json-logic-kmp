@@ -43,7 +43,7 @@ class AdditionTest : FunSpec({
                     result = null
                 ),
                 TestInput(
-                    expression = mapOf("+" to listOf("1", 1.5, listOf("banana"))),
+                    expression = mapOf("+" to listOf("1", 1, listOf("banana"))),
                     data = emptyMap<String, Any>(),
                     result = null
                 ),
