@@ -9,6 +9,8 @@ plugins {
     id("pl.allegro.tech.build.axion-release") version Versions.axion
     id("io.gitlab.arturbosch.detekt") version Versions.detekt
     id("io.github.gradle-nexus.publish-plugin") version Versions.nexus
+    kotlin("plugin.serialization") version Versions.kotlin
+    id("io.kotest.multiplatform") version Versions.kotest
 }
 
 apply(from = "versionConfig.gradle")
@@ -19,6 +21,10 @@ version = scmVersion.version
 repositories {
     google()
     mavenCentral()
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
 
 kotlin {
@@ -50,7 +56,16 @@ kotlin {
 
         val commonTest by getting {
             dependencies {
+                implementation(Libs.KotlinX.serializationJson)
                 implementation(kotlin("test"))
+                implementation(Libs.Kotest.assertionsCore)
+                implementation(Libs.Kotest.frameworkEngine)
+                implementation(Libs.Kotest.frameworkDataset)
+            }
+        }
+        val jvmTest by getting {
+            dependencies {
+                implementation(Libs.Kotest.jvmJunit5Runner)
             }
         }
 

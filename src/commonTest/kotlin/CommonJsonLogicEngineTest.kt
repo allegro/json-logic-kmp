@@ -1,17 +1,17 @@
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.spec.style.BehaviorSpec
 
-class CommonJsonLogicEngineTest {
+class CommonJsonLogicEngineTest : BehaviorSpec({
+    val logicEngine = CommonJsonLogicEngine()
 
-    @Test
-    fun `should common engine always return SUCCESS`() {
-        // given
-        val logicEngine = CommonJsonLogicEngine()
+    given("An empty logic expression") {
+        val logicExpression = emptyMap<String, Any?>()
+        val data = listOf("apple", "banana")
 
-        // when
-        val result = logicEngine.evaluate("expression", mapOf())
-
-        // then
-        assertEquals(actual = result, expected = "SUCCESS")
+        then("throws and exception on evaluation") {
+            shouldThrow<JsonLogicException> {
+                logicEngine.evaluate(logicExpression, data)
+            }
+        }
     }
-}
+})
