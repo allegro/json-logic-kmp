@@ -1,25 +1,20 @@
+import type.JsonLogicList
+
 internal val Any?.asList: List<Any?>
     get() = when (this) {
-        is String -> listOf(this)
-        is List<*> -> this
-        else -> listOf()
+        is String -> JsonLogicList(listOf(this))
+        is List<*> -> JsonLogicList(this)
+        else -> JsonLogicList(emptyList())
     }
 
 internal val List<Any?>.comparableList: List<Comparable<*>?>
-    get() = map { if (it is Comparable<*>) it else null }
+    get() = asList.map { it.asComparable }
 
-internal val Any?.asComparableList: List<Comparable<*>?>
-    get() = asList.comparableList
-
-val Any?.truthy: Boolean
+val Any?.asComparable: Comparable<*>?
     get() = when (this) {
-        null -> false
-        is Boolean -> this
-        is Number -> toDouble() != 0.0
-        is String -> !isEmpty() && this != "[]" && this != "false" && this != "null"
-        is Collection<*> -> isNotEmpty()
-        is Array<*> -> isNotEmpty()
-        else -> true
+        is Comparable<*> -> this
+        is List<*> -> JsonLogicList(this)
+        else -> null
     }
 
 internal val Any?.asDoubleList: List<Double?>

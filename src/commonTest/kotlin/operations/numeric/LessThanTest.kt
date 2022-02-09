@@ -96,7 +96,6 @@ class LessThanTest : FunSpec({
                     data = emptyMap<String, Any>(),
                     result = false
                 ),
-                // new
                 TestInput(
                     expression = mapOf("<" to listOf(false, 3, 3)),
                     data = emptyMap<String, Any>(),
@@ -106,7 +105,42 @@ class LessThanTest : FunSpec({
                     expression = mapOf("<" to listOf("banana", 3, 3)),
                     data = emptyMap<String, Any>(),
                     result = false
-                )
+                ),
+                TestInput(
+                    expression = mapOf("<" to listOf(listOf(1, 2, 3), listOf(3))),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf("<" to listOf("true", true)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf("<" to listOf("true", false)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf("<" to listOf("true", "false")),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf("<" to listOf(true, false)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf("<" to listOf(true, "false")),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf("<" to listOf(false, "false")),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
             )
         ) { (expression, data, result) ->
             // when
