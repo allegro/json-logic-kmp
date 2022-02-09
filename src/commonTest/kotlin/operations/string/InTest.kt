@@ -7,7 +7,7 @@ import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 
 class InTest : FunSpec({
-    context("JsonLogic evaluation with Cat operation") {
+    context("JsonLogic evaluation with only In operation") {
         withData(
             nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
             // given
