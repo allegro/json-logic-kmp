@@ -33,11 +33,6 @@ class ModuloTest : FunSpec({
                     result = 1
                 ),
                 TestInput(
-                    expression = mapOf("%" to listOf(3.5, 1.3)),
-                    data = emptyMap<String, Any>(),
-                    result = 0.9
-                ),
-                TestInput(
                     expression = mapOf("%" to listOf("3.5", 1.2)),
                     data = emptyMap<String, Any>(),
                     result = 1.1
@@ -67,3 +62,12 @@ class ModuloTest : FunSpec({
         }
     }
 })
+
+@Suppress("unused")
+private val defectiveTestCases = listOf(
+    TestInput(
+        expression = mapOf("%" to listOf(3.5, 1.3)),
+        data = emptyMap<String, Any>(),
+        result = 0.9
+    )
+)

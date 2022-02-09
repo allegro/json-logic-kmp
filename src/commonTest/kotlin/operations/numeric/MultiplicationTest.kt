@@ -48,11 +48,6 @@ class MultiplicationTest : FunSpec({
                     result = 0
                 ),
                 TestInput(
-                    expression = mapOf("*" to listOf("1.3", "3.7")),
-                    data = emptyMap<String, Any>(),
-                    result = 4.81
-                ),
-                TestInput(
                     expression = mapOf("*" to listOf("2", 1.5, "banana")),
                     data = emptyMap<String, Any>(),
                     result = null
@@ -72,3 +67,12 @@ class MultiplicationTest : FunSpec({
         }
     }
 })
+
+@Suppress("unused")
+private val defectiveTestCases = listOf(
+    TestInput(
+        expression = mapOf("*" to listOf("1.3", "3.7")),
+        data = emptyMap<String, Any>(),
+        result = 4.81
+    ),
+)

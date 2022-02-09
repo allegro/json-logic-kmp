@@ -33,11 +33,6 @@ class SubtractionTest : FunSpec({
                     result = 0
                 ),
                 TestInput(
-                    expression = mapOf("-" to listOf("2.3", 3.2)),
-                    data = emptyMap<String, Any>(),
-                    result = -0.9
-                ),
-                TestInput(
                     expression = mapOf("-" to listOf(0, 1)),
                     data = emptyMap<String, Any>(),
                     result = -1
@@ -67,3 +62,12 @@ class SubtractionTest : FunSpec({
         }
     }
 })
+
+@Suppress("unused")
+private val defectiveTestCases = listOf(
+    TestInput(
+        expression = mapOf("-" to listOf("2.3", 3.2)),
+        data = emptyMap<String, Any>(),
+        result = -0.9
+    ),
+)
