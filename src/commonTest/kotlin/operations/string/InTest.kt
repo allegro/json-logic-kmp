@@ -6,41 +6,31 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 
-class CatTest : FunSpec({
+class InTest : FunSpec({
     context("JsonLogic evaluation with Cat operation") {
         withData(
             nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
             // given
             ts = listOf(
                 TestInput(
-                    expression = mapOf("cat" to "ice"),
+                    expression = mapOf("in" to listOf("Bart", listOf("Bart", "Homer", "Lisa", "Marge", "Maggie"))),
                     data = emptyMap<String, Any>(),
-                    result = "ice"
+                    result = true
                 ),
                 TestInput(
-                    expression = mapOf("cat" to listOf("ice")),
+                    expression = mapOf("in" to listOf("Milhouse", listOf("Bart", "Homer", "Lisa", "Marge", "Maggie"))),
                     data = emptyMap<String, Any>(),
-                    result = "ice"
+                    result = false
                 ),
                 TestInput(
-                    expression = mapOf("cat" to listOf("ice", "cream")),
+                    expression = mapOf("in" to listOf("Spring", "Springfield")),
                     data = emptyMap<String, Any>(),
-                    result = "icecream"
+                    result = true
                 ),
                 TestInput(
-                    expression = mapOf("cat" to listOf(1, 2)),
+                    expression = mapOf("in" to listOf("i", "team")),
                     data = emptyMap<String, Any>(),
-                    result = "12"
-                ),
-                TestInput(
-                    expression = mapOf("cat" to listOf("Robocop", 2)),
-                    data = emptyMap<String, Any>(),
-                    result = "Robocop2"
-                ),
-                TestInput(
-                    expression = mapOf("cat" to listOf("we all scream for ", "ice", "cream")),
-                    data = emptyMap<String, Any>(),
-                    result = "we all scream for icecream"
+                    result = false
                 ),
             )
         ) { (expression, data, result) ->

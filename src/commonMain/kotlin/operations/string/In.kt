@@ -7,11 +7,13 @@ import asList
 object In : LogicOperation {
     override val key: String = "in"
 
-    override fun invoke(expression: Any?, data: Any?) = with(expression?.asDoubleList) {
-        this?.getOrNull(1)
-            .takeIf { it != 0.0 }
-            ?.let { divisor ->
-                (this?.firstOrNull() ?: 0.0) / divisor
+    override fun invoke(expression: Any?, data: Any?): Boolean {
+        val first = expression.asList.firstOrNull().toString()
+        val second = expression.asList.getOrNull(1)
+        return when (second) {
+            is String -> second.contains(first)
+            is List<*> -> second.contains(first)
+            else -> false
         }
     }
 }
