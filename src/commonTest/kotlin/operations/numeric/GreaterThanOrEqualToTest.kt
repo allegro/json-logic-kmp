@@ -11,31 +11,31 @@ class GreaterThanOrEqualToTest : FunSpec({
             nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}"},
             // given
             ts = listOf(
-//                TestInput(
-//                    expression = mapOf(">=" to listOf(2, 1)),
-//                    data = emptyMap<String, Any>(),
-//                    result = true
-//                ),
-//                TestInput(
-//                    expression = mapOf(">=" to listOf(1, 1)),
-//                    data = emptyMap<String, Any>(),
-//                    result = true
-//                ),
-//                TestInput(
-//                    expression = mapOf(">=" to listOf(1, 2)),
-//                    data = emptyMap<String, Any>(),
-//                    result = false
-//                ),
-//                TestInput(
-//                    expression = mapOf(">=" to listOf("2", 1)),
-//                    data = emptyMap<String, Any>(),
-//                    result = true
-//                ),
-//                TestInput(
-//                    expression = mapOf(">=" to listOf("2", "banana")),
-//                    data = emptyMap<String, Any>(),
-//                    result = false
-//                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf(2, 1)),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf(1, 1)),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf(1, 2)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf("2", 1)),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf("2", "banana")),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
                 TestInput(
                     expression = mapOf(">=" to listOf("apple", "banana")),
                     data = emptyMap<String, Any>(),
@@ -56,51 +56,71 @@ class GreaterThanOrEqualToTest : FunSpec({
                     data = emptyMap<String, Any>(),
                     result = false
                 ),
-//                TestInput(
-//                    expression = mapOf(">=" to listOf(1, 2, 3)),
-//                    data = emptyMap<String, Any>(),
-//                    result = false
-//                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf(1, 2, 3)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
                 TestInput(
                     expression = mapOf(">=" to listOf(1, 1, 3)),
                     data = emptyMap<String, Any>(),
                     result = true
                 ),
-//                TestInput(
-//                    expression = mapOf(">=" to listOf(1, 4, 3)),
-//                    data = emptyMap<String, Any>(),
-//                    result = false
-//                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf(1, 4, 3)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
                 TestInput(
                     expression = mapOf(">=" to listOf(4, 1, 3)),
                     data = emptyMap<String, Any>(),
                     result = true
                 ),
-//                TestInput(
-//                    expression = mapOf(">=" to listOf(4, 3, 1)),
-//                    data = emptyMap<String, Any>(),
-//                    result = true
-//                ),
-//                TestInput(
-//                    expression = mapOf(">=" to listOf("4", 3, "1")),
-//                    data = emptyMap<String, Any>(),
-//                    result = true
-//                ),
-//                TestInput(
-//                    expression = mapOf(">=" to listOf("banana", 3, "1")),
-//                    data = emptyMap<String, Any>(),
-//                    result = false
-//                ),
-//                TestInput(
-//                    expression = mapOf(">=" to listOf(4, "3", 1)),
-//                    data = emptyMap<String, Any>(),
-//                    result = true
-//                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf(4, 3, 1)),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf("4", 3, "1")),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf("banana", 3, "1")),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf(4, "3", 1)),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
                 TestInput(
                     expression = mapOf(">=" to listOf(0, mapOf("var" to "temp"), 100)),
                     data = mapOf("temp" to 37),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf("grapes", true)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf(1, false)),
+                    data = emptyMap<String, Any>(),
                     result = true
                 ),
+                TestInput(
+                    expression = mapOf(">=" to listOf(false, 3, 3)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf("banana", 3, 3)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                )
             )
         ) { (expression, data, result) ->
             // when

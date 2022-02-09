@@ -97,6 +97,31 @@ class GreaterThanTest : FunSpec({
                     data = emptyMap<String, Any>(),
                     result = true
                 ),
+                TestInput(
+                    expression = mapOf(">" to listOf("grapes", true)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(">" to listOf(1, false)),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf(">" to listOf(false, 3, 3)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(">" to listOf("banana", 3, 3)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(">" to listOf(listOf(1, 2, 3), listOf(3))),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                )
             )
         ) { (expression, data, result) ->
             // when

@@ -74,7 +74,7 @@ class LessThanTest : FunSpec({
                 TestInput(
                     expression = mapOf("<" to listOf(0, mapOf("var" to "temp"), 100)),
                     data = mapOf("temp" to 37),
-                    result = false
+                    result = true
                 ),
                 TestInput(
                     expression = mapOf("<" to listOf("apple", "banana")),
@@ -86,6 +86,27 @@ class LessThanTest : FunSpec({
                     data = emptyMap<String, Any>(),
                     result = false
                 ),
+                TestInput(
+                    expression = mapOf("<" to listOf("grapes", true)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf("<" to listOf(1, false)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                // new
+                TestInput(
+                    expression = mapOf("<" to listOf(false, 3, 3)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf("<" to listOf("banana", 3, 3)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                )
             )
         ) { (expression, data, result) ->
             // when

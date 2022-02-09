@@ -1,5 +1,6 @@
 package operations.numeric
 
+import JsonLogicEngine
 import TestInput
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
@@ -8,7 +9,7 @@ import io.kotest.matchers.shouldBe
 class LessThanOrEqualToTest : FunSpec({
     context("JsonLogic evaluation with only LessThanOrEqualTo operation") {
         withData(
-            nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}"},
+            nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
             // given
             ts = listOf(
                 TestInput(
@@ -82,6 +83,27 @@ class LessThanOrEqualToTest : FunSpec({
                     data = emptyMap<String, Any>(),
                     result = false
                 ),
+                TestInput(
+                    expression = mapOf("<=" to listOf("grapes", true)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf("<=" to listOf(1, false)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                // new
+                TestInput(
+                    expression = mapOf("<=" to listOf(false, 3, 3)),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf("<=" to listOf("banana", 3, 3)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                )
             )
         ) { (expression, data, result) ->
             // when

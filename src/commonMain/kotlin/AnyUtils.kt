@@ -17,8 +17,8 @@ val Any?.truthy: Boolean
         is Boolean -> this
         is Number -> toDouble() != 0.0
         is String -> !isEmpty() && this != "[]" && this != "false" && this != "null"
-        is Collection<*> -> !isEmpty()
-        is Array<*> -> size > 0
+        is Collection<*> -> isNotEmpty()
+        is Array<*> -> isNotEmpty()
         else -> true
     }
 
