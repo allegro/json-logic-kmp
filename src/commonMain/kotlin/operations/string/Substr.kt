@@ -9,16 +9,18 @@ object Substr : LogicOperation {
 
     override fun invoke(expression: Any?, data: Any?): String? {
         return with(expression.asList) {
-            val str = firstOrNull().toString()
-            val a = getOrNull(1).toString().intOrZero
-            val b = getOrNull(2).toString().intOrZero
+            val baseString = firstOrNull().toString()
+            val startIndex = getOrNull(1).toString().intOrZero
+            val endIndex = getOrNull(2).toString().intOrZero
             when (size) {
-                2 -> if (a > 0) str.substring(a) else str.substring(str.length + a)
+                // extract
+                2 -> if (startIndex > 0) baseString.substring(startIndex) else baseString.substring(baseString.length + startIndex)
+                // extract
                 3 -> when {
-                    a >= 0 && b > 0 -> str.substring(a, a + b)
-                    a >= 0 && b < 0 -> str.substring(a, str.length + b)
-                    a < 0 && b < 0 -> str.substring(str.length + a, str.length + b)
-                    a < 0 -> str.substring(str.length + a)
+                    startIndex >= 0 && endIndex > 0 -> baseString.substring(startIndex, startIndex + endIndex)
+                    startIndex >= 0 && endIndex < 0 -> baseString.substring(startIndex, baseString.length + endIndex)
+                    startIndex < 0 && endIndex < 0 -> baseString.substring(baseString.length + startIndex, baseString.length + endIndex)
+                    startIndex < 0 -> baseString.substring(baseString.length + startIndex)
                     else -> null
                 }
                 else -> null
