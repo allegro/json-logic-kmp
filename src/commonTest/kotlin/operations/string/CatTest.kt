@@ -43,9 +43,29 @@ class CatTest : FunSpec({
                     result = "Robocop2"
                 ),
                 TestInput(
+                    expression = mapOf("cat" to listOf(true, "Robocop")),
+                    data = emptyMap<String, Any>(),
+                    result = "trueRobocop"
+                ),
+                TestInput(
+                    expression = mapOf("cat" to listOf("false", "Robocop")),
+                    data = emptyMap<String, Any>(),
+                    result = "falseRobocop"
+                ),
+                TestInput(
                     expression = mapOf("cat" to listOf("we all scream for ", "ice", "cream")),
                     data = emptyMap<String, Any>(),
                     result = "we all scream for icecream"
+                ),
+                TestInput(
+                    expression = mapOf("cat" to listOf("we all scream for ", listOf("ice", "cream"))),
+                    data = emptyMap<String, Any>(),
+                    result = "we all scream for ice,cream"
+                ),
+                TestInput(
+                    expression = mapOf("cat" to listOf("easy as ", listOf(1, 2.0, "3"))),
+                    data = emptyMap<String, Any>(),
+                    result = "easy as 1,2,3"
                 ),
             )
         ) { (expression, data, result) ->

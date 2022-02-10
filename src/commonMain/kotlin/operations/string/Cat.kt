@@ -7,12 +7,14 @@ object Cat : LogicOperation {
     override val key: String = "cat"
 
     override fun invoke(expression: Any?, data: Any?) = expression.asList
-        .map(::formatNumberValues)
+        .map(::formatValues)
         .joinToString("")
 
-    private fun formatNumberValues(value: Any?): Any? {
-        return if (value is Number && value.toDouble() == value.toInt().toDouble()) {
-            value.toInt()
-        } else value
+    private fun formatValues(value: Any?): Any? {
+        return when {
+            (value is Number && value.toDouble() == value.toInt().toDouble()) -> value.toInt()
+            value is List<*> -> value.map(::formatValues).joinToString(separator = ",")
+            else -> value
+        }
     }
 }
