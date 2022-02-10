@@ -2,6 +2,7 @@ package operations.data
 
 import LogicOperation
 import intOrZero
+import longOrZero
 
 internal object Var : LogicOperation {
     override val key: String = "var"

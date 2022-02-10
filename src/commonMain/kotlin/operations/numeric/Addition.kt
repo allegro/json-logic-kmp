@@ -8,10 +8,8 @@ object Addition : LogicOperation {
 
     override fun invoke(expression: Any?, data: Any?): Any? {
         val (nullValues, doubleValues) = expression?.asDoubleList?.partition { it == null } ?: (null to null)
-        return if(nullValues?.isNotEmpty() == true) {
-            null
-        } else {
+        return if (nullValues?.isEmpty() == true) {
             doubleValues?.filterNotNull()?.sum()
-        }
+        } else null
     }
 }

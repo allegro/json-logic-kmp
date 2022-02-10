@@ -37,12 +37,22 @@ class LessThanTest : FunSpec({
                     result = true
                 ),
                 TestInput(
+                    expression = mapOf("<" to listOf(1, 2, 3, 0)),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
                     expression = mapOf("<" to listOf(1, 1, 3)),
                     data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf("<" to listOf(1, 4, 3)),
+                    data = emptyMap<String, Any>(),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf("<" to listOf(1, 4, 3, 2)),
                     data = emptyMap<String, Any>(),
                     result = false
                 ),

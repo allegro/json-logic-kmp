@@ -2,7 +2,6 @@ package operations.numeric
 
 import LogicOperation
 import asDoubleList
-import asList
 
 object Division : LogicOperation {
     override val key: String = "/"
@@ -12,6 +11,6 @@ object Division : LogicOperation {
             .takeIf { it != 0.0 }
             ?.let { divisor ->
                 (this?.firstOrNull() ?: 0.0) / divisor
-        }
+            }
     }
 }

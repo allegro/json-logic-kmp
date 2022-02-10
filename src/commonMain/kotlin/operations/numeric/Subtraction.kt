@@ -2,8 +2,6 @@ package operations.numeric
 
 import LogicOperation
 import asDoubleList
-import asList
-import kotlin.math.exp
 
 object Subtraction : LogicOperation {
     override val key: String = "-"

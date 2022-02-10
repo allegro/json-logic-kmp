@@ -19,13 +19,13 @@ internal interface ComparingOperation {
         ?.takeIf { it.size >= 2 }
         ?.compare(operator) ?: false
 
-    fun List<Any?>?.compareOrBetween(operator: (Int, Int) -> Boolean) = this?.comparableList.let { comparableList ->
-        when (comparableList?.size) {
-            2 -> comparableList.compare(operator)
-            3 -> comparableList.between(operator)
+    fun List<Any?>?.compareOrBetween(operator: (Int, Int) -> Boolean) = this?.comparableList?.let { comparableList ->
+        when {
+            comparableList.size == 2 -> comparableList.compare(operator)
+            comparableList.size >= 3 -> comparableList.between(operator)
             else -> false
         }
-    }
+    } ?: false
 
     private fun booleanCompare(first: Comparable<*>?, second: Comparable<*>?): Int? {
         val castedFirst = first.toBooleanOrNull()
@@ -43,8 +43,8 @@ internal interface ComparingOperation {
 
     private fun Any?.toBooleanOrNull() = when (this) {
         is Boolean -> this
-        is Number -> toInt() > 0
-        is String -> toDoubleOrNull()?.toInt()?.let { it > 0 }
+        is Number -> toLong() > 0
+        is String -> toDoubleOrNull()?.toLong()?.let { it > 0 }
         else -> null
     }
 
