@@ -64,6 +64,11 @@ class InTest : FunSpec({
                     data = emptyMap<String, Any>(),
                     result = false
                 ),
+                TestInput(
+                    expression = mapOf("in" to listOf("Spring", "Springfield")),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
             )
         ) { (expression, data, result) ->
             // when

@@ -67,6 +67,11 @@ class CatTest : FunSpec({
                     data = emptyMap<String, Any>(),
                     result = "easy as 1,2,3"
                 ),
+                TestInput(
+                    expression = mapOf("cat" to listOf("I love ", mapOf("var" to "filling"), " pie")),
+                    data = mapOf("filling" to "apple", "temp" to 110),
+                    result = "I love apple pie"
+                ),
             )
         ) { (expression, data, result) ->
             // when
