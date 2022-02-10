@@ -14,67 +14,54 @@ class LessThanOrEqualToTest : FunSpec({
             ts = listOf(
                 TestInput(
                     expression = mapOf("<=" to listOf(2, 1)),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf(1, 1)),
-                    data = emptyMap<String, Any>(),
                     result = true
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf(1, 2)),
-                    data = emptyMap<String, Any>(),
                     result = true
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf("1", 2)),
-                    data = emptyMap<String, Any>(),
                     result = true
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf(1, 2, 3)),
-                    data = emptyMap<String, Any>(),
                     result = true
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf(1, 2, 3, 0)),
-                    data = emptyMap<String, Any>(),
                     result = true
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf(1, 4, 3)),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf(1, 4, 3, 2)),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf(4, 1, 3)),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf(4, 3, 1)),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf("4", 3, "1")),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf("banana", 3, "1")),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf(4, "3", 1)),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
@@ -84,67 +71,54 @@ class LessThanOrEqualToTest : FunSpec({
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf("apple", "banana")),
-                    data = emptyMap<String, Any>(),
                     result = true
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf("grapes", "banana")),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf("grapes", true)),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf(1, false)),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf(false, 3, 3)),
-                    data = emptyMap<String, Any>(),
                     result = true
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf("banana", 3, 3)),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf(listOf(1, 2, 3), listOf(3))),
-                    data = emptyMap<String, Any>(),
                     result = true
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf("true", true)),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf("true", false)),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf("true", "false")),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf(true, false)),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf(true, "false")),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf("<=" to listOf(false, "false")),
-                    data = emptyMap<String, Any>(),
                     result = false
                 ),
             )

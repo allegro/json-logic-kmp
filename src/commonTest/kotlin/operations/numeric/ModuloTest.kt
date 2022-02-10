@@ -14,42 +14,34 @@ class ModuloTest : FunSpec({
             ts = listOf(
                 TestInput(
                     expression = mapOf("%" to listOf(1, 2)),
-                    data = emptyMap<String, Any>(),
                     result = 1
                 ),
                 TestInput(
                     expression = mapOf("%" to listOf(1, 2, 5)),
-                    data = emptyMap<String, Any>(),
                     result = 1
                 ),
                 TestInput(
                     expression = mapOf("%" to listOf(2, 2)),
-                    data = emptyMap<String, Any>(),
                     result = 0
                 ),
                 TestInput(
                     expression = mapOf("%" to listOf(3, 2)),
-                    data = emptyMap<String, Any>(),
                     result = 1
                 ),
                 TestInput(
                     expression = mapOf("%" to listOf("3.5", 1.2)),
-                    data = emptyMap<String, Any>(),
                     result = 1.1
                 ),
                 TestInput(
                     expression = mapOf("%" to listOf(0, 1.2)),
-                    data = emptyMap<String, Any>(),
                     result = 0
                 ),
                 TestInput(
                     expression = mapOf("%" to listOf("2", 1.5, "banana")),
-                    data = emptyMap<String, Any>(),
                     result = 0.5
                 ),
                 TestInput(
                     expression = mapOf("%" to listOf("2", 2.5, listOf("banana"))),
-                    data = emptyMap<String, Any>(),
                     result = 2
                 ),
             )
