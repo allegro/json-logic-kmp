@@ -1,13 +1,18 @@
 package operations.string
 
 import LogicOperation
-import asDoubleList
 import asList
 
 object Cat : LogicOperation {
     override val key: String = "cat"
 
-    // make it prettier
-    override fun invoke(expression: Any?, data: Any?) = expression.asList.map { if (it is Number && it.toDouble() == it.toInt().toDouble()) it.toInt() else it }
+    override fun invoke(expression: Any?, data: Any?) = expression.asList
+        .map(::formatNumberValues)
         .joinToString("")
+
+    private fun formatNumberValues(value: Any?): Any? {
+        return if (value is Number && value.toDouble() == value.toInt().toDouble()) {
+            value.toInt()
+        } else value
+    }
 }
