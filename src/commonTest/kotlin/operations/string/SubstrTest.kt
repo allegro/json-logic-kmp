@@ -52,6 +52,27 @@ class SubstrTest : FunSpec({
                     data = emptyMap<String, Any>(),
                     result = "son"
                 ),
+
+                TestInput(
+                    expression = mapOf("substr" to listOf("jsonlogic", 1, -5, 8)),
+                    data = emptyMap<String, Any>(),
+                    result = "son"
+                ),
+                TestInput(
+                    expression = mapOf("substr" to listOf(true, 1, -5)),
+                    data = emptyMap<String, Any>(),
+                    result = ""
+                ),
+                TestInput(
+                    expression = mapOf("substr" to listOf(133, 1)),
+                    data = emptyMap<String, Any>(),
+                    result = "33"
+                ),
+                TestInput(
+                    expression = mapOf("substr" to listOf(listOf("apple", "banana"), 1)),
+                    data = emptyMap<String, Any>(),
+                    result = "pple,banana"
+                ),
             )
         ) { (expression, data, result) ->
             // when
