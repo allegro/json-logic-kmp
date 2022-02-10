@@ -2,6 +2,7 @@ package operations.numeric
 
 import LogicOperation
 import asDoubleList
+import secondOrNull
 
 object Subtraction : LogicOperation {
     override val key: String = "-"
@@ -10,7 +11,7 @@ object Subtraction : LogicOperation {
         when (size) {
             0 -> null
             1 -> firstOrNull()?.unaryMinus()
-            else -> (firstOrNull() ?: 0.0) - (getOrNull(1) ?: 0.0)
+            else -> (firstOrNull() ?: 0.0) - (secondOrNull() ?: 0.0)
         }
     }
 }
