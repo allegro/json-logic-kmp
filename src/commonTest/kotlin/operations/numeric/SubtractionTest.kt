@@ -44,6 +44,22 @@ class SubtractionTest : FunSpec({
                     expression = mapOf("-" to listOf("1", 1, listOf("banana"))),
                     result = 0.0
                 ),
+                TestInput(
+                    expression = mapOf("-" to listOf("a", 2)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("-" to listOf("5")),
+                    result = -5
+                ),
+                TestInput(
+                    expression = mapOf("-" to listOf(listOf("5"))),
+                    result = -5
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf("5"), listOf("6"))),
+                    result = -1
+                ),
             )
         ) { (expression, data, result) ->
             // when

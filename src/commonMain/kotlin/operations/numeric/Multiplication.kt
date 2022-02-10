@@ -1,17 +1,13 @@
 package operations.numeric
 
 import LogicOperation
-import asDoubleList
 
-object Multiplication : LogicOperation {
+object Multiplication : LogicOperation, DoubleTypeSensitiveOperation {
     override val key: String = "*"
 
-    override fun invoke(expression: Any?, data: Any?): Any? {
-        val (nullValues, doubleValues) = expression?.asDoubleList?.partition { it == null } ?: (null to null)
-        return if (nullValues?.isEmpty() == true) {
-            doubleValues?.filterNotNull()?.reduce { sum: Double, value: Double ->
-                sum * value
-            }
-        } else null
+    override fun invoke(expression: Any?, data: Any?): Any? = resultOrNull(expression) {
+        it.reduce { sum: Double, value: Double ->
+            sum * value
+        }
     }
 }

@@ -48,6 +48,18 @@ class AdditionTest : FunSpec({
                     expression = mapOf("+" to listOf(9, .9, .09, .009, .0009, .00009)),
                     result = 9.99999
                 ),
+                TestInput(
+                    expression = mapOf("+" to listOf("5")),
+                    result = 5
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf("5"))),
+                    result = 5
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf("5"), listOf("6"))),
+                    result = 11
+                ),
             )
         ) { (expression, data, result) ->
             // when
