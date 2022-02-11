@@ -100,6 +100,54 @@ class AdditionTest : FunSpec({
                     expression = mapOf("+" to listOf(listOf("5"), listOf("6"))),
                     result = 11
                 ),
+                TestInput(
+                    expression = mapOf("+" to listOf(null, 5)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(5, null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(null, null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(true, false)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(true)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(false)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(true, null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(false, null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(false, true)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(0, true)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(1, true)),
+                    result = null
+                ),
             )
         ) { (expression, data, result) ->
             // when
