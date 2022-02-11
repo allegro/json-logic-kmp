@@ -49,10 +49,6 @@ class AdditionTest : FunSpec({
                     result = 9.99999
                 ),
                 TestInput(
-                    expression = mapOf("+" to listOf("5")),
-                    result = 5
-                ),
-                TestInput(
                     expression = mapOf("+" to listOf("a", 2)),
                     result = null
                 ),
