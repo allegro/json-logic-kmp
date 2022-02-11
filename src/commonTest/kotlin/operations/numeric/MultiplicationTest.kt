@@ -152,6 +152,10 @@ class MultiplicationTest : FunSpec({
                     expression = mapOf("*" to listOf(listOf(listOf("5"), listOf(6)))),
                     result = listOf(listOf("5"), listOf(6))
                 ),
+                TestInput(
+                    expression = mapOf("*" to listOf(emptyList<String>(), 2)),
+                    result = null
+                ),
             )
         ) { (expression, data, result) ->
             // when

@@ -13,6 +13,10 @@ class ModuloTest : FunSpec({
             // given
             ts = listOf(
                 TestInput(
+                    expression = mapOf("%" to listOf(2)),
+                    result = null
+                ),
+                TestInput(
                     expression = mapOf("%" to listOf(1, 2)),
                     result = 1
                 ),
@@ -90,6 +94,10 @@ class ModuloTest : FunSpec({
                 ),
                 TestInput(
                     expression = mapOf("%" to listOf(0, true)),
+                    result = 0
+                ),
+                TestInput(
+                    expression = mapOf("%" to listOf(emptyList<String>(), 2)),
                     result = 0
                 ),
                 TestInput(

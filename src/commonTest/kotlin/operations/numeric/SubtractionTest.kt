@@ -140,6 +140,10 @@ class SubtractionTest : FunSpec({
                     expression = mapOf("-" to listOf(1, true)),
                     result = 0
                 ),
+                TestInput(
+                    expression = mapOf("-" to listOf(emptyList<String>(), 2)),
+                    result = -2
+                ),
             )
         ) { (expression, data, result) ->
             // when

@@ -148,6 +148,10 @@ class DivisionTest : FunSpec({
                     expression = mapOf("/" to listOf(listOf(listOf("5"), listOf(6)))),
                     result = null
                 ),
+                TestInput(
+                    expression = mapOf("/" to listOf(emptyList<String>(), 2)),
+                    result = 0
+                )
             )
         ) { (expression, data, result) ->
             // when
