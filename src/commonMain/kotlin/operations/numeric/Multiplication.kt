@@ -12,11 +12,21 @@ object Multiplication : LogicOperation, DoubleTypeSensitiveOperation {
         return when (values.size) {
             0 -> throw JsonLogicException("")
             1 -> values.first()
-            else -> resultOrNull(expression) {
+            else -> resultOrNull(expression.unwrapValues()) {
                 it.reduce { sum: Double, value: Double ->
                     sum * value
                 }
             }
         }
     }
+
+    private fun Any?.unwrapValues() = asList.map(::unwrapValueFromList)
+
+    private fun unwrapValueFromList(value: Any?): Any? =
+        when (value) {
+            is Number -> value.toDouble()
+            is String -> value.toDoubleOrNull()
+            is List<*> -> unwrapValueFromList(value.firstOrNull())
+            else -> null
+        }
 }
