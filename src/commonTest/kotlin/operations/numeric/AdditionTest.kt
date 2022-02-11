@@ -53,7 +53,47 @@ class AdditionTest : FunSpec({
                     result = 5
                 ),
                 TestInput(
-                    expression = mapOf("+" to listOf(listOf("5"))),
+                    expression = mapOf("+" to listOf("a", 2)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf(2, "a"), 2)),
+                    result = 4
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf("a", 2), 2)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf(2, 2), 2)),
+                    result = 4
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf(2, "a"), listOf("a", 2))),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf("5"), listOf("5"), listOf("5"))),
+                    result = 15
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf("5", listOf("5")), listOf("5"), listOf("5"))),
+                    result = 15
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf("5"), 6)),
+                    result = 11
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf(listOf("5")), 6)),
+                    result = 11
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf(listOf("5")), listOf(6))),
+                    result = 11
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf(listOf("5"), listOf(6)))),
                     result = 5
                 ),
                 TestInput(
