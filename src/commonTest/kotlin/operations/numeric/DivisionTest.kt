@@ -48,6 +48,58 @@ class DivisionTest : FunSpec({
                     expression = mapOf("/" to listOf("2.5", listOf("2", "3", 5))),
                     result = null
                 ),
+                TestInput(
+                    expression = mapOf("/" to listOf(null, 5)),
+                    result = 0
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(2, null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(null, null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf("banana")),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(true, false)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(true)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(false)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(true, null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(false, null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(false, true)),
+                    result = 0
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(0, true)),
+                    result = 0
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(1, true)),
+                    result = 1
+                ),
             )
         ) { (expression, data, result) ->
             // when
