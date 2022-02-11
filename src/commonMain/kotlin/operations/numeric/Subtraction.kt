@@ -22,6 +22,7 @@ object Subtraction : LogicOperation {
         }
     }
 
+    // TODO extract unwrapping to some interface because many mathematical operations do with their own style
     private fun Any?.unwrapValues() = asList.map(::unwrap)
 
     private fun unwrap(value: Any?): Double? =
