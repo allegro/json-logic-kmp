@@ -108,6 +108,50 @@ class MultiplicationTest : FunSpec({
                     expression = mapOf("*" to listOf(1, true)),
                     result = null
                 ),
+                TestInput(
+                    expression = mapOf("*" to listOf("a", 2)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf(listOf(2, "a"), 2)),
+                    result = 4
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf(listOf("a", 2), 2)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf(listOf(2, 2), 2)),
+                    result = 4
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf(listOf(2, "a"), listOf("a", 2))),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf(listOf("5"), listOf("5"), listOf("5"))),
+                    result = 125
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf(listOf("5", listOf("5")), listOf("5"), listOf("5"))),
+                    result = 125
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf(listOf("5"), 6)),
+                    result = 30
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf(listOf(listOf("5")), 6)),
+                    result = 30
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf(listOf(listOf("5")), listOf(6))),
+                    result = 30
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf(listOf(listOf("5"), listOf(6)))),
+                    result = listOf(listOf("5"), listOf(6))
+                ),
             )
         ) { (expression, data, result) ->
             // when
