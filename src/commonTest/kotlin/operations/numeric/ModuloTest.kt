@@ -96,6 +96,50 @@ class ModuloTest : FunSpec({
                     expression = mapOf("%" to listOf(1, true)),
                     result = 0
                 ),
+                TestInput(
+                    expression = mapOf("%" to listOf("a", 2)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("%" to listOf(listOf(2, "a"), 2)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("%" to listOf(listOf("a", 2), 2)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("%" to listOf(listOf(2, 2), 2)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("%" to listOf(listOf(2, "a"), listOf("a", 2))),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("%" to listOf(listOf("1"), listOf("2"), listOf("3"))),
+                    result = 1
+                ),
+                TestInput(
+                    expression = mapOf("%" to listOf(listOf("5", listOf("5")), listOf("5"), listOf("5"))),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("%" to listOf(listOf("2"), 3)),
+                    result = 2
+                ),
+                TestInput(
+                    expression = mapOf("%" to listOf(listOf(listOf("5")), 6)),
+                    result = 2
+                ),
+                TestInput(
+                    expression = mapOf("%" to listOf(listOf(listOf("5")), listOf(6))),
+                    result = 2
+                ),
+                TestInput(
+                    expression = mapOf("%" to listOf(listOf(listOf("5"), listOf(6)))),
+                    result = null
+                ),
             )
         ) { (expression, data, result) ->
             // when
