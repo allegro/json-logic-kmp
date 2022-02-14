@@ -50,7 +50,7 @@ class DivisionTest : FunSpec({
                 ),
                 TestInput(
                     expression = mapOf("/" to listOf(listOf("2.5"), 2)),
-                    result = null
+                    result = 1.25
                 ),
                 TestInput(
                     expression = mapOf("/" to listOf(null, 5)),
