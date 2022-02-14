@@ -1,17 +1,17 @@
 package operations.numeric
 
 import LogicOperation
-import asDoubleList
-import asList
+import operations.numeric.unwrap.LenientUnwrapStrategy
 
-object Division : LogicOperation {
+internal object Division : LogicOperation, LenientUnwrapStrategy {
     override val key: String = "/"
 
-    override fun invoke(expression: Any?, data: Any?) = with(expression?.asDoubleList) {
-        this?.getOrNull(1)
-            .takeIf { it != 0.0 }
-            ?.let { divisor ->
-                (this?.firstOrNull() ?: 0.0) / divisor
+    override fun invoke(expression: Any?, data: Any?) =
+        unwrapValues(expression).takeIf { it.size >= 2 }?.let {
+            val second = it[1]
+            val first = it.first()
+            if (first != null && second != null && second != 0.0) {
+                first / second
+            } else null
         }
-    }
 }

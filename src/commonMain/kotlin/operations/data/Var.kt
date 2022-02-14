@@ -2,6 +2,7 @@ package operations.data
 
 import LogicOperation
 import intOrZero
+import secondOrNull
 
 internal object Var : LogicOperation {
     override val key: String = "var"
@@ -20,7 +21,7 @@ internal object Var : LogicOperation {
         }
 
         return if (shouldUseDefaultValue(value, expression)) {
-            (expression as? List<*>)?.getOrNull(1)
+            (expression as? List<*>)?.secondOrNull()
         } else {
             value
         }

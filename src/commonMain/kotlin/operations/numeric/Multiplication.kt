@@ -1,19 +1,21 @@
 package operations.numeric
 
 import LogicOperation
-import asDoubleList
 import asList
+import operations.numeric.unwrap.StrictUnwrapStrategy
 
-object Multiplication : LogicOperation {
+internal object Multiplication : LogicOperation, DoubleTypeSensitiveOperation, StrictUnwrapStrategy {
     override val key: String = "*"
 
     override fun invoke(expression: Any?, data: Any?): Any? {
-        val (nullValues, doubleValues) = expression?.asDoubleList?.partition { it == null } ?: (null to null)
-        return if(nullValues?.isNotEmpty() == true) {
-            null
-        } else {
-            doubleValues?.filterNotNull()?.reduce { sum: Double, value: Double ->
-                sum * value
+        val values = expression.asList
+        return when (values.size) {
+            0 -> null
+            1 -> values.first()
+            else -> resultOrNull(unwrapValues(expression)) {
+                it.reduce { sum: Double, value: Double ->
+                    sum * value
+                }
             }
         }
     }

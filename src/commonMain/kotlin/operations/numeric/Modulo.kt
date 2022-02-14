@@ -1,15 +1,17 @@
 package operations.numeric
 
 import LogicOperation
-import asDoubleList
+import operations.numeric.unwrap.LenientUnwrapStrategy
 
-object Modulo : LogicOperation {
+internal object Modulo : LogicOperation, LenientUnwrapStrategy {
     override val key: String = "%"
 
-    override fun invoke(expression: Any?, data: Any?) = expression?.asDoubleList
-        ?.filterNotNull()
-        ?.takeIf { it.size > 1 && it[1] != 0.0 }
-        ?.let {
-            it.first() % it[1]
+    override fun invoke(expression: Any?, data: Any?) =
+        unwrapValues(expression).takeIf { it.size >= 2 }?.let {
+            val second = it[1]
+            val first = it.first()
+            if (first != null && second != null && second != 0.0) {
+                first % second
+            } else null
         }
 }

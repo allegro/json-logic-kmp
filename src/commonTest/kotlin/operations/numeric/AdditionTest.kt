@@ -14,48 +14,143 @@ class AdditionTest : FunSpec({
             ts = listOf(
                 TestInput(
                     expression = mapOf("+" to listOf(1, 2)),
-                    data = emptyMap<String, Any>(),
                     result = 3
                 ),
                 TestInput(
                     expression = mapOf("+" to listOf(2, 2, 2)),
-                    data = emptyMap<String, Any>(),
                     result = 6
                 ),
                 TestInput(
                     expression = mapOf("+" to listOf(1)),
-                    data = emptyMap<String, Any>(),
                     result = 1
                 ),
                 TestInput(
+                    expression = mapOf("+" to emptyList<Double>()),
+                    result = 0
+                ),
+                TestInput(
                     expression = mapOf("+" to listOf("1", 1)),
-                    data = emptyMap<String, Any>(),
                     result = 2
                 ),
                 TestInput(
                     expression = mapOf("+" to listOf("1", 1.5)),
-                    data = emptyMap<String, Any>(),
                     result = 2.5
                 ),
                 TestInput(
                     expression = mapOf("+" to listOf("1", 1.5, "banana")),
-                    data = emptyMap<String, Any>(),
                     result = null
                 ),
                 TestInput(
                     expression = mapOf("+" to listOf("1", 1, listOf("banana"))),
-                    data = emptyMap<String, Any>(),
                     result = null
                 ),
                 TestInput(
                     expression = mapOf("+" to listOf(12.6543534, 1.1)),
-                    data = emptyMap<String, Any>(),
                     result = 13.7543534
                 ),
                 TestInput(
-                    expression = mapOf("+" to listOf(9, .9, .09, .009, .0009,.00009)),
-                    data = emptyMap<String, Any>(),
+                    expression = mapOf("+" to listOf(9, .9, .09, .009, .0009, .00009)),
                     result = 9.99999
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf("a", 2)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf(2, "a"), 2)),
+                    result = 4
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf("a", 2), 2)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf(2, 2), 2)),
+                    result = 4
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf(2, "a"), listOf("a", 2))),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf("5"), listOf("5"), listOf("5"))),
+                    result = 15
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf("5", listOf("5")), listOf("5"), listOf("5"))),
+                    result = 15
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf("5"), 6)),
+                    result = 11
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf(listOf("5")), 6)),
+                    result = 11
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf(listOf("5")), listOf(6))),
+                    result = 11
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf(listOf("5"), listOf(6)))),
+                    result = 5
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(listOf("5"), listOf("6"))),
+                    result = 11
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(null, 5)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(5, null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(null, null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(true, false)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(true)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(false)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(true, null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(false, null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(false, true)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(0, true)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(1, true)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("+" to listOf(emptyList<String>(), 2)),
+                    result = null
                 ),
             )
         ) { (expression, data, result) ->

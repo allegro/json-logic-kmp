@@ -1,18 +1,20 @@
 package operations.numeric
 
 import LogicOperation
-import asDoubleList
-import asList
-import kotlin.math.exp
+import operations.numeric.unwrap.LenientUnwrapStrategy
 
-object Subtraction : LogicOperation {
+internal object Subtraction : LogicOperation, LenientUnwrapStrategy {
     override val key: String = "-"
 
-    override fun invoke(expression: Any?, data: Any?) = with(expression?.asDoubleList.orEmpty()) {
+    override fun invoke(expression: Any?, data: Any?) = with(unwrapValues(expression)) {
         when (size) {
             0 -> null
-            1 -> firstOrNull()?.unaryMinus()
-            else -> (firstOrNull() ?: 0.0) - (getOrNull(1) ?: 0.0)
+            1 -> first()?.unaryMinus()
+            else -> minusOrNull(first(), get(1))
         }
     }
+
+    private fun minusOrNull(first: Double?, second: Double?) = if (first != null && second != null) {
+        first - second
+    } else null
 }

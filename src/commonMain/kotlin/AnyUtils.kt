@@ -10,7 +10,7 @@ internal val Any?.asList: List<Any?>
 internal val List<Any?>.comparableList: List<Comparable<*>?>
     get() = asList.map { it.asComparable }
 
-val Any?.asComparable: Comparable<*>?
+private val Any?.asComparable: Comparable<*>?
     get() = when (this) {
         is Comparable<*> -> this
         is List<*> -> JsonLogicList(this)
@@ -20,7 +20,7 @@ val Any?.asComparable: Comparable<*>?
 internal val Any?.asDoubleList: List<Double?>
     get() = asList.doubleList
 
-internal val List<Any?>.doubleList: List<Double?>
+private val List<Any?>.doubleList: List<Double?>
     get() = map {
         when (it) {
             is Number -> it.toDouble()

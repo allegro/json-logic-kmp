@@ -14,49 +14,144 @@ class DivisionTest : FunSpec({
             ts = listOf(
                 TestInput(
                     expression = mapOf("/" to listOf(4, 2)),
-                    data = emptyMap<String, Any>(),
                     result = 2
                 ),
                 TestInput(
                     expression = mapOf("/" to listOf(2, 4)),
-                    data = emptyMap<String, Any>(),
                     result = 0.5
                 ),
                 TestInput(
                     expression = mapOf("/" to listOf("1", 1)),
-                    data = emptyMap<String, Any>(),
                     result = 1
                 ),
                 TestInput(
                     expression = mapOf("/" to listOf("1", 0)),
-                    data = emptyMap<String, Any>(),
                     result = null
                 ),
                 TestInput(
                     expression = mapOf("/" to listOf(0, 1)),
-                    data = emptyMap<String, Any>(),
                     result = 0
                 ),
                 TestInput(
                     expression = mapOf("/" to listOf("1", "0")),
-                    data = emptyMap<String, Any>(),
                     result = null
                 ),
                 TestInput(
                     expression = mapOf("/" to listOf("2.5", "2")),
-                    data = emptyMap<String, Any>(),
                     result = 1.25
                 ),
                 TestInput(
                     expression = mapOf("/" to listOf("2.5", "2", "3", 5)),
-                    data = emptyMap<String, Any>(),
                     result = 1.25
                 ),
                 TestInput(
                     expression = mapOf("/" to listOf("2.5", listOf("2", "3", 5))),
-                    data = emptyMap<String, Any>(),
                     result = null
                 ),
+                TestInput(
+                    expression = mapOf("/" to listOf(listOf("2.5"), 2)),
+                    result = 1.25
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(null, 5)),
+                    result = 0
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(2, null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(null, null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf("banana")),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(true, false)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(true)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(false)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(true, null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(false, null)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(false, true)),
+                    result = 0
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(0, true)),
+                    result = 0
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(1, true)),
+                    result = 1
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf("a", 2)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(listOf(2, "a"), 2)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(listOf("a", 2), 2)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(listOf(2, 2), 2)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(listOf(2, "a"), listOf("a", 2))),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(listOf("5"), listOf("5"), listOf("5"))),
+                    result = 1
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(listOf("5", listOf("5")), listOf("5"), listOf("5"))),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(listOf("5"), 5)),
+                    result = 1
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(listOf(listOf("5")), 5)),
+                    result = 1
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(listOf(listOf("5")), listOf(5))),
+                    result = 1
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(listOf(listOf("5"), listOf(6)))),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("/" to listOf(emptyList<String>(), 2)),
+                    result = 0
+                )
             )
         ) { (expression, data, result) ->
             // when
