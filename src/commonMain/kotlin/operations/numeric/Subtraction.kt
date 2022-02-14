@@ -1,10 +1,7 @@
 package operations.numeric
 
 import LogicOperation
-import asDoubleList
-import asList
 import operations.numeric.unwrap.LenientUnwrapStrategy
-import secondOrNull
 
 internal object Subtraction : LogicOperation, LenientUnwrapStrategy {
     override val key: String = "-"
@@ -13,13 +10,11 @@ internal object Subtraction : LogicOperation, LenientUnwrapStrategy {
         when (size) {
             0 -> null
             1 -> first()?.unaryMinus()
-            else -> {
-                val second = get(1)
-                val first = first()
-                if(first != null && second != null) {
-                    first - second
-                } else null
-            }
+            else -> minusOrNull(first(), get(1))
         }
     }
+
+    private fun minusOrNull(first: Double?, second: Double?) = if (first != null && second != null) {
+        first - second
+    } else null
 }
