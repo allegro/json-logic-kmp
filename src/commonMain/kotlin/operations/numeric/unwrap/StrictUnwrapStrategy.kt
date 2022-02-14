@@ -3,7 +3,7 @@ package operations.numeric.unwrap
 import asList
 
 internal interface StrictUnwrapStrategy: UnwrapStrategy {
-    override fun unwrapValues(wrappedValue: Any?) = wrappedValue.asList.map(::unwrap)
+    override fun unwrapValues(wrappedValue: Any?): List<Any?> = wrappedValue.asList.map(::unwrap)
 
     private fun unwrap(value: Any?): Any? =
         when (value) {
