@@ -138,11 +138,11 @@ class ModuloTest : FunSpec({
                 ),
                 TestInput(
                     expression = mapOf("%" to listOf(listOf(listOf("5")), 6)),
-                    result = 2
+                    result = 5
                 ),
                 TestInput(
                     expression = mapOf("%" to listOf(listOf(listOf("5")), listOf(6))),
-                    result = 2
+                    result = 5
                 ),
                 TestInput(
                     expression = mapOf("%" to listOf(listOf(listOf("5"), listOf(6)))),
