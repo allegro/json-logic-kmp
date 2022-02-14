@@ -2,7 +2,7 @@ package operations.numeric.unwrap
 
 import asList
 
-interface StrictUnwrapStrategy: UnwrapStrategy {
+internal interface StrictUnwrapStrategy: UnwrapStrategy {
     override fun Any?.unwrapValues() = asList.map(::unwrap)
 
     private fun unwrap(value: Any?): Any? =

@@ -5,7 +5,7 @@ import LogicOperation
 import asList
 import operations.numeric.unwrap.StrictUnwrapStrategy
 
-object Multiplication : LogicOperation, DoubleTypeSensitiveOperation, StrictUnwrapStrategy {
+internal object Multiplication : LogicOperation, DoubleTypeSensitiveOperation, StrictUnwrapStrategy {
     override val key: String = "*"
 
     override fun invoke(expression: Any?, data: Any?): Any? {

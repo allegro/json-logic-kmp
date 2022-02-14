@@ -2,7 +2,7 @@ package operations.numeric.unwrap
 
 import asList
 
-interface LenientUnwrapStrategy: UnwrapStrategy {
+internal interface LenientUnwrapStrategy: UnwrapStrategy {
     override fun Any?.unwrapValues() = asList.map(::unwrap)
 
     private fun unwrap(value: Any?): Double? =

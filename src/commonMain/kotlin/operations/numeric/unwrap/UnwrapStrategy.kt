@@ -1,5 +1,5 @@
 package operations.numeric.unwrap
 
-interface UnwrapStrategy {
+internal interface UnwrapStrategy {
     fun Any?.unwrapValues(): List<Any?>
 }

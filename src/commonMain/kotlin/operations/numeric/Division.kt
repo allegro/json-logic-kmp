@@ -6,7 +6,7 @@ import asList
 import operations.numeric.unwrap.LenientUnwrapStrategy
 import secondOrNull
 
-object Division : LogicOperation, LenientUnwrapStrategy {
+internal object Division : LogicOperation, LenientUnwrapStrategy {
     override val key: String = "/"
 
     override fun invoke(expression: Any?, data: Any?) =

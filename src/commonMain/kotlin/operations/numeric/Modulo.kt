@@ -3,7 +3,7 @@ package operations.numeric
 import LogicOperation
 import operations.numeric.unwrap.LenientUnwrapStrategy
 
-object Modulo : LogicOperation, LenientUnwrapStrategy {
+internal object Modulo : LogicOperation, LenientUnwrapStrategy {
     override val key: String = "%"
 
     override fun invoke(expression: Any?, data: Any?) =
