@@ -9,7 +9,7 @@ import secondOrNull
 internal object Subtraction : LogicOperation, LenientUnwrapStrategy {
     override val key: String = "-"
 
-    override fun invoke(expression: Any?, data: Any?) = with(expression.unwrapValues()) {
+    override fun invoke(expression: Any?, data: Any?) = with(unwrapValues(expression)) {
         when (size) {
             0 -> null
             1 -> first()?.unaryMinus()

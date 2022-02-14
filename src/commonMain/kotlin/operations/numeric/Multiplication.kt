@@ -13,7 +13,7 @@ internal object Multiplication : LogicOperation, DoubleTypeSensitiveOperation, S
         return when (values.size) {
             0 -> throw JsonLogicException("")
             1 -> values.first()
-            else -> resultOrNull(expression.unwrapValues()) {
+            else -> resultOrNull(unwrapValues(expression)) {
                 it.reduce { sum: Double, value: Double ->
                     sum * value
                 }

@@ -4,11 +4,11 @@ import comparableList
 import secondOrNull
 
 internal interface ComparingOperation {
-    fun List<Any?>?.compareListOfTwo(operator: (Int, Int) -> Boolean) = this?.comparableList
+    fun compareListOfTwo(values: List<Any?>?, operator: (Int, Int) -> Boolean) = values?.comparableList
         ?.takeIf { it.size >= 2 }
         ?.compare(operator) ?: false
 
-    fun List<Any?>?.compareOrBetween(operator: (Int, Int) -> Boolean) = this?.comparableList?.let { comparableList ->
+    fun compareOrBetween(values: List<Any?>?, operator: (Int, Int) -> Boolean) = values?.comparableList?.let { comparableList ->
         when {
             comparableList.size == 2 -> comparableList.compare(operator)
             comparableList.size >= 3 -> comparableList.between(operator)
