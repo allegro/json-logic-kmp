@@ -28,3 +28,5 @@ private val List<Any?>.doubleList: List<Double?>
             else -> null
         }
     }
+
+internal fun Any?.toStringOrEmpty() = this?.let { toString() }.orEmpty()

@@ -3,6 +3,7 @@ package operations.string
 import LogicOperation
 import asList
 import intOrZero
+import toStringOrEmpty
 
 object Substr : LogicOperation {
     override val key: String = "substr"
@@ -33,8 +34,6 @@ object Substr : LogicOperation {
     private fun Any?.flattenNestedLists(): List<String> = (this as? List<*>)?.flatMap {
         it.flattenNestedLists()
     } ?: listOf(toStringOrEmpty())
-
-    private fun Any?.toStringOrEmpty() = this?.let { toString() }.orEmpty()
 
     private fun String.fromStartIndexToEnd(startIndex: Int) = if (startIndex > 0) {
         substring(startIndex)

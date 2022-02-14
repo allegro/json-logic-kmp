@@ -2,6 +2,7 @@ package operations.string
 
 import LogicOperation
 import asList
+import toStringOrEmpty
 
 object Cat : LogicOperation {
     override val key: String = "cat"
@@ -14,7 +15,7 @@ object Cat : LogicOperation {
         return when {
             (value is Number && value.toDouble() == value.toInt().toDouble()) -> value.toInt()
             value is List<*> -> value.map(::formatValues).joinToString(separator = ",")
-            else -> value
+            else -> value.toStringOrEmpty()
         }
     }
 }
