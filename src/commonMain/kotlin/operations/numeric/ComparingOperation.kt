@@ -14,7 +14,7 @@ internal interface ComparingOperation {
     ) = values?.comparableList?.let { comparableList ->
         when {
             comparableList.size == 2 -> comparableList.compare(operator)
-            comparableList.size >= 3 -> comparableList.between(operator)
+            comparableList.size > 2 -> comparableList.between(operator)
             else -> false
         }
     } ?: false
