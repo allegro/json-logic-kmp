@@ -18,4 +18,12 @@ object Cat : LogicOperation {
             else -> value.toStringOrEmpty()
         }
     }
+
+    private fun Any?.stringify() = (this as? List<*>)?.flatMap { nestedValue ->
+        nestedValue.flattenNestedLists()
+    }?.joinToString(separator = ",") ?: this.toString()
+
+    private fun Any?.flattenNestedLists(): List<String> = (this as? List<*>)?.flatMap {
+        it.flattenNestedLists()
+    } ?: listOf(toStringOrEmpty())
 }
