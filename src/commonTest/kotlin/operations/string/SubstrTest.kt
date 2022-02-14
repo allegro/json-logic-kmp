@@ -64,6 +64,36 @@ class SubstrTest : FunSpec({
                     result = ""
                 ),
                 TestInput(
+                    expression = mapOf("substr" to listOf(true, 1, 2)),
+                    data = emptyMap<String, Any>(),
+                    result = "ru"
+                ),
+                TestInput(
+                    expression = mapOf("substr" to listOf(true)),
+                    data = emptyMap<String, Any>(),
+                    result = "true"
+                ),
+                TestInput(
+                    expression = mapOf("substr" to listOf(listOf("apple", listOf("banana")))),
+                    data = emptyMap<String, Any>(),
+                    result = "apple,banana"
+                ),
+                TestInput(
+                    expression = mapOf("substr" to listOf(listOf("apple", listOf("banana", true)))),
+                    data = emptyMap<String, Any>(),
+                    result = "apple,banana,true"
+                ),
+                TestInput(
+                    expression = mapOf("substr" to listOf(listOf("apple", listOf("banana", true, listOf(null))))),
+                    data = emptyMap<String, Any>(),
+                    result = "apple,banana,true,"
+                ),
+                TestInput(
+                    expression = mapOf("substr" to listOf(listOf("apple", listOf(null, "banana", listOf(null))))),
+                    data = emptyMap<String, Any>(),
+                    result = "apple,,banana,"
+                ),
+                TestInput(
                     expression = mapOf("substr" to listOf(133, 1)),
                     data = emptyMap<String, Any>(),
                     result = "33"

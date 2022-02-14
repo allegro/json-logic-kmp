@@ -7,18 +7,34 @@ import intOrZero
 object Substr : LogicOperation {
     override val key: String = "substr"
 
-    override fun invoke(expression: Any?, data: Any?): String? {
+    override fun invoke(expression: Any?, data: Any?): String {
         return with(expression.asList) {
-            val baseString = firstOrNull().toString()
             val startIndex = getOrNull(1).toString().intOrZero
             val endIndex = getOrNull(2).toString().intOrZero
-            when (size) {
-                2 -> baseString.fromStartIndexToEnd(startIndex)
-                3 -> baseString.fromStartIndexToEndIndex(startIndex, endIndex)
-                else -> null
-            }
+            substringOrEmpty(startIndex, endIndex)
         }
     }
+
+    private fun List<Any?>.substringOrEmpty(startIndex: Int, endIndex: Int): String {
+        val baseString = firstOrNull().stringify()
+        return runCatching {
+            when {
+                size == 2 -> baseString.fromStartIndexToEnd(startIndex)
+                size >= 3 -> baseString.fromStartIndexToEndIndex(startIndex, endIndex)
+                else -> baseString
+            }
+        }.getOrNull().orEmpty()
+    }
+
+    private fun Any?.stringify() = (this as? List<*>)?.flatMap { nestedValue ->
+        nestedValue.flattenNestedLists()
+    }?.joinToString(separator = ",") ?: this.toString()
+
+    private fun Any?.flattenNestedLists(): List<String> = (this as? List<*>)?.flatMap {
+        it.flattenNestedLists()
+    } ?: listOf(toStringOrEmpty())
+
+    private fun Any?.toStringOrEmpty() = this?.let { toString() }.orEmpty()
 
     private fun String.fromStartIndexToEnd(startIndex: Int) = if (startIndex > 0) {
         substring(startIndex)
