@@ -25,6 +25,10 @@ class SubtractionTest : FunSpec({
                     result = -3
                 ),
                 TestInput(
+                    expression = mapOf("-" to emptyList<Double>()),
+                    result = null
+                ),
+                TestInput(
                     expression = mapOf("-" to listOf("1", 1)),
                     result = 0
                 ),

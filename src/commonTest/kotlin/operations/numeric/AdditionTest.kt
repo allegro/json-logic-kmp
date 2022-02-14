@@ -25,6 +25,10 @@ class AdditionTest : FunSpec({
                     result = 1
                 ),
                 TestInput(
+                    expression = mapOf("+" to emptyList<Double>()),
+                    result = 0
+                ),
+                TestInput(
                     expression = mapOf("+" to listOf("1", 1)),
                     result = 2
                 ),

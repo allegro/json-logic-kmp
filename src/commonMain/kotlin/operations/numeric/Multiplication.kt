@@ -3,8 +3,9 @@ package operations.numeric
 import JsonLogicException
 import LogicOperation
 import asList
+import operations.numeric.unwrap.StrictUnwrapStrategy
 
-object Multiplication : LogicOperation, DoubleTypeSensitiveOperation {
+object Multiplication : LogicOperation, DoubleTypeSensitiveOperation, StrictUnwrapStrategy {
     override val key: String = "*"
 
     override fun invoke(expression: Any?, data: Any?): Any? {
@@ -19,14 +20,4 @@ object Multiplication : LogicOperation, DoubleTypeSensitiveOperation {
             }
         }
     }
-
-    private fun Any?.unwrapValues() = asList.map(::unwrapValueFromList)
-
-    private fun unwrapValueFromList(value: Any?): Any? =
-        when (value) {
-            is Number -> value.toDouble()
-            is String -> value.toDoubleOrNull()
-            is List<*> -> unwrapValueFromList(value.firstOrNull())
-            else -> null
-        }
 }
