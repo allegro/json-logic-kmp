@@ -1,6 +1,5 @@
 package operations.numeric
 
-import JsonLogicException
 import LogicOperation
 import asList
 import operations.numeric.unwrap.StrictUnwrapStrategy
@@ -11,7 +10,7 @@ internal object Multiplication : LogicOperation, DoubleTypeSensitiveOperation, S
     override fun invoke(expression: Any?, data: Any?): Any? {
         val values = expression.asList
         return when (values.size) {
-            0 -> throw JsonLogicException("")
+            0 -> null
             1 -> values.first()
             else -> resultOrNull(unwrapValues(expression)) {
                 it.reduce { sum: Double, value: Double ->
