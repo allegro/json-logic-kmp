@@ -103,6 +103,11 @@ class SubstrTest : FunSpec({
                     data = emptyMap<String, Any>(),
                     result = "pple,banana"
                 ),
+                TestInput(
+                    expression = mapOf("substr" to listOf(emptyList<String>())),
+                    data = emptyMap<String, Any>(),
+                    result = ""
+                ),
             )
         ) { (expression, data, result) ->
             // when
