@@ -8,7 +8,10 @@ internal interface ComparingOperation {
         ?.takeIf { it.size >= 2 }
         ?.compare(operator) ?: false
 
-    fun compareOrBetween(values: List<Any?>?, operator: (Int, Int) -> Boolean) = values?.comparableList?.let { comparableList ->
+    fun compareOrBetween(
+        values: List<Any?>?,
+        operator: (Int, Int) -> Boolean
+    ) = values?.comparableList?.let { comparableList ->
         when {
             comparableList.size == 2 -> comparableList.compare(operator)
             comparableList.size >= 3 -> comparableList.between(operator)
