@@ -136,6 +136,14 @@ class GreaterThanOrEqualToTest : FunSpec({
                     expression = mapOf(">=" to listOf(false, "false")),
                     result = false
                 ),
+                TestInput(
+                    expression = mapOf(">=" to listOf("banana", "2")),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf(">=" to listOf("banana", 2)),
+                    result = false
+                ),
             )
         ) { (expression, data, result) ->
             // when
