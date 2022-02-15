@@ -4,6 +4,7 @@ import asList
 import operations.UnwrapStrategy
 
 internal interface StrictUnwrapStrategy: UnwrapStrategy<List<Any?>> {
+
     override fun unwrapValues(wrappedValue: Any?): List<Any?> = wrappedValue.asList.map(::unwrap)
 
     private fun unwrap(value: Any?): Any? =

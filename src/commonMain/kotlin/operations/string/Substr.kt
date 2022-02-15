@@ -3,9 +3,6 @@ package operations.string
 import LogicOperation
 import asList
 import intOrZero
-//import operations.numeric.Subtraction.unwrap
-//import operations.string.Cat.stringify
-import toStringOrEmpty
 
 object Substr : LogicOperation, StringUnwrapStrategy {
     override val key: String = "substr"
@@ -19,9 +16,7 @@ object Substr : LogicOperation, StringUnwrapStrategy {
     }
 
     private fun List<Any?>.substringOrEmpty(startIndex: Int, endIndex: Int): String {
-//        val baseString = firstOrNull().stringify()
-        // not null safe
-        val baseString = unwrapAsStrings(firstOrNull()).joinToString(",")
+        val baseString = unwrapValues(firstOrNull()).joinToString(",")
         return runCatching {
             when {
                 size == 2 -> baseString.fromStartIndexToEnd(startIndex)
@@ -30,24 +25,6 @@ object Substr : LogicOperation, StringUnwrapStrategy {
             }
         }.getOrNull().orEmpty()
     }
-
-//    // common
-//    private fun Any?.stringify() = (this as? List<*>)?.flatMap { nestedValue ->
-//        nestedValue.flattenNestedLists()
-//    }?.joinToString(separator = ",") ?: formatValues()
-//
-//    // common
-//    private fun Any?.flattenNestedLists(): List<String> = (this as? List<*>)?.flatMap {
-//        it.flattenNestedLists()
-//    } ?: listOf(formatValues())
-//
-//    // common
-//    private fun Any?.formatValues(): String {
-//        return when {
-//            (this is Number && toDouble() == toInt().toDouble()) -> toInt().toString()
-//            else -> toStringOrEmpty()
-//        }
-//    }
 
     private fun String.fromStartIndexToEnd(startIndex: Int) = if (startIndex > 0) {
         substring(startIndex)

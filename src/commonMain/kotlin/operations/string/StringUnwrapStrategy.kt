@@ -4,24 +4,22 @@ import asList
 import operations.UnwrapStrategy
 import toStringOrEmpty
 
-// rename functions
-internal interface StringUnwrapStrategy: UnwrapStrategy<List<String>> {
-    override fun unwrapValues(wrappedValue: Any?): List<String> = wrappedValue.asList.map(::stringify)
+internal interface StringUnwrapStrategy : UnwrapStrategy<List<String>> {
 
-    fun unwrapAsStrings(wrappedValue: Any?): List<String> = wrappedValue.asList.map(::stringify)
+    override fun unwrapValues(wrappedValue: Any?): List<String> = wrappedValue.asList.map(::stringify)
 
     private fun stringify(value: Any?) = (value as? List<*>)?.flatMap { nestedValue ->
         nestedValue.flattenNestedLists()
-    }?.joinToString(separator = ",") ?: value.formatValues()
+    }?.joinToString(separator = ",") ?: value.formatAsString()
 
-    private fun Any?.flattenNestedLists(): List<String> = (this@flattenNestedLists as? List<*>)?.flatMap {
+    private fun Any?.flattenNestedLists(): List<String> = (this as? List<*>)?.flatMap {
         it.flattenNestedLists()
-    } ?: listOf(this@flattenNestedLists.formatValues())
+    } ?: listOf(formatAsString())
 
-    private fun Any?.formatValues(): String {
+    private fun Any?.formatAsString(): String {
         return when {
             (this is Number && toDouble() == toInt().toDouble()) -> toInt().toString()
-            else -> this@formatValues.toStringOrEmpty()
+            else -> toStringOrEmpty()
         }
     }
 }
