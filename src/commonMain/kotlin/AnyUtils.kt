@@ -1,10 +1,9 @@
 import type.JsonLogicList
 
 internal val Any?.asList: List<Any?>
-    get() = when (this) {
-        is List<*> -> JsonLogicList(this)
-        else -> JsonLogicList(listOf(this))
-    }
+    get() = (this as? List<*>)?.let {
+        JsonLogicList(it)
+    } ?: JsonLogicList(listOf(this))
 
 internal val List<Any?>.comparableList: List<Comparable<*>?>
     get() = asList.map { it.asComparable }
