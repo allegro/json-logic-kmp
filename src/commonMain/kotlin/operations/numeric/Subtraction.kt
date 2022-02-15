@@ -7,7 +7,7 @@ import operations.numeric.unwrap.LenientUnwrapStrategy
 internal object Subtraction : LogicOperation, LenientUnwrapStrategy {
     override val key: String = "-"
 
-    override fun invoke(expression: Any?, data: Any?) = with(unwrapValues(expression).asDoubleList) {
+    override fun invoke(expression: Any?, data: Any?) = with(unwrapAsDoubles(expression)) {
         when (size) {
             0 -> null
             1 -> first()?.unaryMinus()

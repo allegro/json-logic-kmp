@@ -3,7 +3,10 @@ package operations.numeric.unwrap
 import asList
 
 internal interface LenientUnwrapStrategy: UnwrapStrategy {
-    override fun unwrapValues(wrappedValue: Any?): List<Any?> = wrappedValue.asList.map(::unwrap)
+
+    override fun unwrapValues(wrappedValue: Any?): List<Any?> = unwrapAsDoubles(wrappedValue)
+
+    fun unwrapAsDoubles(wrappedValue: Any?): List<Double?> = wrappedValue.asList.map(::unwrap)
 
     private fun unwrap(value: Any?): Double? =
         when (value) {
