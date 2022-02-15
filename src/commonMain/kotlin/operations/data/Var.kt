@@ -1,9 +1,10 @@
-package expressions
+package operations.data
 
-import LogicExpression
-import intValue
+import LogicOperation
+import intOrZero
+import secondOrNull
 
-internal object Var : LogicExpression {
+internal object Var : LogicOperation {
     override val key: String = "var"
 
     override operator fun invoke(expression: Any?, data: Any?): Any? {
@@ -20,7 +21,7 @@ internal object Var : LogicExpression {
         }
 
         return if (shouldUseDefaultValue(value, expression)) {
-            (expression as? List<*>)?.getOrNull(1)
+            (expression as? List<*>)?.secondOrNull()
         } else {
             value
         }
@@ -30,7 +31,7 @@ internal object Var : LogicExpression {
         return when (value) {
             is List<*> -> {
                 if (indexParts.size == 1) {
-                    value[indexParts.first().intValue]
+                    value[indexParts.first().intOrZero]
                 } else {
                     getRecursive(indexParts, value)
                 }
@@ -50,11 +51,11 @@ internal object Var : LogicExpression {
         && expression.size > 1
 
     private fun getRecursive(indexes: List<String>, data: List<Any?>): Any? = indexes.firstOrNull()?.apply {
-        val indexedData = data.getOrNull(intValue)
+        val indexedData = data.getOrNull(intOrZero)
         return if (indexedData is List<*>) {
             getRecursive(indexes.subList(1, indexes.size), indexedData)
         } else {
-            data.getOrNull(intValue)
+            data.getOrNull(intOrZero)
         }
     }
 }

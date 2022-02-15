@@ -1,12 +1,37 @@
-import expressions.Missing
-import expressions.MissingSome
-import expressions.Var
+import operations.data.Missing
+import operations.data.MissingSome
+import operations.data.Var
+import operations.numeric.Addition
+import operations.numeric.Division
+import operations.numeric.GreaterThan
+import operations.numeric.GreaterThanOrEqualTo
+import operations.numeric.LessThan
+import operations.numeric.LessThanOrEqualTo
+import operations.numeric.Max
+import operations.numeric.Min
+import operations.numeric.Modulo
+import operations.numeric.Multiplication
+import operations.numeric.Subtraction
 
 internal class CommonJsonLogicEngine : JsonLogicEngine {
     private val operations: Map<String, (Any?, Any?) -> Any?> = mapOf(
+        // data
         Var.operation,
         MissingSome.operation,
-        Missing.operation
+        Missing.operation,
+
+        // numeric
+        GreaterThan.operation,
+        GreaterThanOrEqualTo.operation,
+        LessThan.operation,
+        LessThanOrEqualTo.operation,
+        Min.operation,
+        Max.operation,
+        Addition.operation,
+        Subtraction.operation,
+        Multiplication.operation,
+        Division.operation,
+        Modulo.operation,
     )
 
     override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = if (expression.isNotEmpty()) {

@@ -37,7 +37,6 @@ kotlin {
         }
     }
 
-
     val xcFramework = XCFramework(LibConfig.name)
     listOf(
         iosX64(),
