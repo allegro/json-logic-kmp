@@ -5,7 +5,6 @@ import operations.UnwrapStrategy
 import toStringOrEmpty
 
 internal interface StringUnwrapStrategy : UnwrapStrategy<List<String>> {
-
     override fun unwrapValues(wrappedValue: Any?): List<String> = wrappedValue.asList.map(::stringify)
 
     private fun stringify(value: Any?) = (value as? List<*>)?.flatMap { nestedValue ->
@@ -16,10 +15,7 @@ internal interface StringUnwrapStrategy : UnwrapStrategy<List<String>> {
         it.flattenNestedLists()
     } ?: listOf(formatAsString())
 
-    private fun Any?.formatAsString(): String {
-        return when {
-            (this is Number && toDouble() == toInt().toDouble()) -> toInt().toString()
-            else -> toStringOrEmpty()
-        }
-    }
+    private fun Any?.formatAsString(): String = if (this is Number && toDouble() == toInt().toDouble()) {
+        toInt().toString()
+    } else toStringOrEmpty()
 }

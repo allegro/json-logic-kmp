@@ -2,7 +2,6 @@ import type.JsonLogicList
 
 internal val Any?.asList: List<Any?>
     get() = when (this) {
-//        is String -> JsonLogicList(listOf(this))
         is List<*> -> JsonLogicList(this)
         else -> JsonLogicList(listOf(this))
     }
