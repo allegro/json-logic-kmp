@@ -7,10 +7,11 @@ import io.kotest.matchers.shouldBe
 
 // TODO extend unit tests cases
 class EqualsTest : FunSpec({
-    context("JsonLogic evaluation with Equals operation") {
+    context("JsonLogic evaluation with only Equals operation") {
         withData(
+            nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
             // given
-            listOf(
+            ts = listOf(
                 TestInput(mapOf("==" to listOf(1, 1)), null, true),
                 TestInput(mapOf("==" to listOf(1, "1")), null, true),
                 TestInput(mapOf("==" to listOf(1, 2)), null, false)

@@ -7,10 +7,11 @@ import io.kotest.matchers.shouldBe
 
 // TODO extend unit tests cases
 class NotEqualsTest : FunSpec({
-    context("JsonLogic evaluation with NotEquals operation") {
+    context("JsonLogic evaluation with only NotEquals operation") {
         withData(
+            nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
             // given
-            listOf(
+            ts = listOf(
                 TestInput(mapOf("!=" to listOf(1, 1)), null, false),
                 TestInput(mapOf("!=" to listOf(1, "1")), null, false),
                 TestInput(mapOf("!=" to listOf(1, 2)), null, true)

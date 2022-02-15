@@ -30,3 +30,14 @@ private val List<Any?>.doubleList: List<Double?>
     }
 
 internal fun Any?.toStringOrEmpty() = this?.let { toString() }.orEmpty()
+
+internal val Any?.truthy: Boolean
+    get() = when (this) {
+        null -> false
+        is Boolean -> this
+        is Number -> toDouble() != 0.0
+        is String -> isNotEmpty() && this != "[]" && this != "null"
+        is Collection<*> -> isNotEmpty()
+        is Array<*> -> isNotEmpty()
+        else -> true
+    }
