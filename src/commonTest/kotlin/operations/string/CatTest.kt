@@ -73,6 +73,26 @@ class CatTest : FunSpec({
                     result = "easy as 1,2,3"
                 ),
                 TestInput(
+                    expression = mapOf("cat" to listOf(listOf(2.0))),
+                    data = emptyMap<String, Any>(),
+                    result = "2"
+                ),
+                TestInput(
+                    expression = mapOf("cat" to listOf(2.5, 1)),
+                    data = emptyMap<String, Any>(),
+                    result = "2.51"
+                ),
+                TestInput(
+                    expression = mapOf("cat" to listOf("2.0")),
+                    data = emptyMap<String, Any>(),
+                    result = "2.0"
+                ),
+                TestInput(
+                    expression = mapOf("cat" to listOf("easy as ", listOf(1, 2, "3"))),
+                    data = emptyMap<String, Any>(),
+                    result = "easy as 1,2,3"
+                ),
+                TestInput(
                     expression = mapOf("cat" to listOf("easy as ", listOf(null, listOf(true), "3"))),
                     data = emptyMap<String, Any>(),
                     result = "easy as ,true,3"

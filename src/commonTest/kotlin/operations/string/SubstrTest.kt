@@ -113,6 +113,31 @@ class SubstrTest : FunSpec({
                     data = emptyMap<String, Any>(),
                     result = ""
                 ),
+                TestInput(
+                    expression = mapOf("substr" to listOf(2.0, 1)),
+                    data = emptyMap<String, Any>(),
+                    result = ""
+                ),
+                TestInput(
+                    expression = mapOf("substr" to listOf(2.5, 1)),
+                    data = emptyMap<String, Any>(),
+                    result = ".5"
+                ),
+                TestInput(
+                    expression = mapOf("substr" to listOf(2.5)),
+                    data = emptyMap<String, Any>(),
+                    result = "2.5"
+                ),
+                TestInput(
+                    expression = mapOf("substr" to listOf(2.0)),
+                    data = emptyMap<String, Any>(),
+                    result = "2"
+                ),
+                TestInput(
+                    expression = mapOf("substr" to listOf("2.0")),
+                    data = emptyMap<String, Any>(),
+                    result = "2.0"
+                ),
             )
         ) { (expression, data, result) ->
             // when
