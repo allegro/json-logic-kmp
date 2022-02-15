@@ -1,3 +1,5 @@
+package utils
+
 internal val String.intOrZero: Int
     get() = doubleOrZero.toInt()
 

@@ -1,8 +1,7 @@
 package operations.string
 
-import LogicOperation
-import asDoubleList
-import asList
+import operations.LogicOperation
+import utils.asList
 
 object In : LogicOperation {
     override val key: String = "in"

@@ -19,6 +19,8 @@ import operations.numeric.Subtraction
 import operations.string.Cat
 import operations.string.In
 import operations.string.Substr
+import utils.JsonLogicException
+import utils.asList
 
 internal class CommonJsonLogicEngine : JsonLogicEngine {
     private val operations: Map<String, (Any?, Any?) -> Any?> = mapOf(

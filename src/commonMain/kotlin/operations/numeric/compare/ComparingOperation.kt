@@ -1,7 +1,7 @@
 package operations.numeric.compare
 
-import comparableList
-import secondOrNull
+import utils.comparableList
+import utils.secondOrNull
 
 //move to the outer package
 internal interface ComparingOperation {
@@ -9,7 +9,7 @@ internal interface ComparingOperation {
         ?.takeIf { it.size >= 2 }
         ?.compare(operator) ?: false
 
-    // shouldnt be extension function
+    // shouldnt be an extension function
     fun List<Comparable<*>?>.compare(operator: (Int, Int) -> Boolean): Boolean {
         return compareOrNull(firstOrNull(), secondOrNull())?.let { operator(it, 0) } ?: false
     }

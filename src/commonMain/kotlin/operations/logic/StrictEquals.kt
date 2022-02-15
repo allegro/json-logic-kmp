@@ -1,11 +1,8 @@
 package operations.logic
 
-import LogicOperation
-import asList
-import comparableList
-import operations.numeric.compare.ComparingOperation
+import operations.LogicOperation
+import utils.asList
 import operations.numeric.compare.StrictComparingOperation
-import secondOrNull
 
 internal object StrictEquals : LogicOperation, StrictComparingOperation {
     override val key: String = "==="

@@ -1,3 +1,5 @@
+package utils
+
 import type.JsonLogicList
 
 internal val Any?.asList: List<Any?>

@@ -1,7 +1,7 @@
 package operations.numeric
 
-import LogicOperation
-import asList
+import operations.LogicOperation
+import utils.asList
 import operations.numeric.unwrap.StrictUnwrapStrategy
 
 internal object Multiplication : LogicOperation, DoubleTypeSensitiveOperation, StrictUnwrapStrategy {

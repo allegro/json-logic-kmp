@@ -1,7 +1,7 @@
 package operations.logic
 
-import LogicOperation
-import asList
+import operations.LogicOperation
+import utils.asList
 import operations.numeric.compare.ComparingOperation
 
 internal object Equals : LogicOperation, ComparingOperation {

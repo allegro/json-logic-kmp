@@ -1,7 +1,7 @@
 package operations.numeric.compare
 
-import LogicOperation
-import asList
+import operations.LogicOperation
+import utils.asList
 
 internal object GreaterThan : LogicOperation, ComparingOperation {
     override val key: String = ">"

@@ -1,7 +1,7 @@
 package operations.numeric.compare
 
-import comparableList
-import secondOrNull
+import utils.comparableList
+import utils.secondOrNull
 
 //move to the outer package
 internal interface StrictComparingOperation : ComparingOperation {

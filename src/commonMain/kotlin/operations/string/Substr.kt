@@ -1,8 +1,8 @@
 package operations.string
 
-import LogicOperation
-import asList
-import intOrZero
+import operations.LogicOperation
+import utils.asList
+import utils.intOrZero
 
 object Substr : LogicOperation, StringUnwrapStrategy {
     override val key: String = "substr"
