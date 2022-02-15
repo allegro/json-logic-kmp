@@ -1,11 +1,13 @@
 import operations.data.Missing
 import operations.data.MissingSome
 import operations.data.Var
+import operations.logic.And
 import operations.logic.DoubleNegation
 import operations.logic.Equals
 import operations.logic.Negation
 import operations.logic.NotEquals
 import operations.logic.NotStrictEquals
+import operations.logic.Or
 import operations.logic.StrictEquals
 import operations.numeric.Addition
 import operations.numeric.Division
@@ -56,6 +58,8 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
         NotStrictEquals.operation,
         Negation.operation,
         DoubleNegation.operation,
+        And.operation,
+        Or.operation
     )
 
     override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = if (expression.isNotEmpty()) {
