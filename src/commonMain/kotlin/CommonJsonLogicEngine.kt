@@ -1,12 +1,16 @@
 import operations.data.Missing
 import operations.data.MissingSome
 import operations.data.Var
+import operations.logic.Equals
+import operations.logic.NotEquals
+import operations.logic.NotStrictEquals
+import operations.logic.StrictEquals
 import operations.numeric.Addition
 import operations.numeric.Division
-import operations.numeric.GreaterThan
-import operations.numeric.GreaterThanOrEqualTo
-import operations.numeric.LessThan
-import operations.numeric.LessThanOrEqualTo
+import operations.numeric.compare.GreaterThan
+import operations.numeric.compare.GreaterThanOrEqualTo
+import operations.numeric.compare.LessThan
+import operations.numeric.compare.LessThanOrEqualTo
 import operations.numeric.Max
 import operations.numeric.Min
 import operations.numeric.Modulo
@@ -39,7 +43,14 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
         // string
         Cat.operation,
         In.operation,
-        Substr.operation
+        Substr.operation,
+
+        // logic
+        Equals.operation,
+        NotEquals.operation,
+        StrictEquals.operation,
+        NotStrictEquals.operation
+
     )
 
     override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = if (expression.isNotEmpty()) {

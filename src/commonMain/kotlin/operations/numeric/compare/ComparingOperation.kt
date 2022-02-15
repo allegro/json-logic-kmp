@@ -1,37 +1,20 @@
-package operations.numeric
+package operations.numeric.compare
 
 import comparableList
 import secondOrNull
 
+//move to the outer package
 internal interface ComparingOperation {
     fun compareListOfTwo(values: List<Any?>?, operator: (Int, Int) -> Boolean) = values?.comparableList
         ?.takeIf { it.size >= 2 }
         ?.compare(operator) ?: false
 
-    fun compareOrBetween(
-        values: List<Any?>?,
-        operator: (Int, Int) -> Boolean
-    ) = values?.comparableList?.let { comparableList ->
-        when {
-            comparableList.size == 2 -> comparableList.compare(operator)
-            comparableList.size > 2 -> comparableList.between(operator)
-            else -> false
-        }
-    } ?: false
-
-    private fun List<Comparable<*>?>.compare(operator: (Int, Int) -> Boolean): Boolean {
+    // shouldnt be extension function
+    fun List<Comparable<*>?>.compare(operator: (Int, Int) -> Boolean): Boolean {
         return compareOrNull(firstOrNull(), secondOrNull())?.let { operator(it, 0) } ?: false
     }
 
-    private fun List<Comparable<*>?>.between(operator: (Int, Int) -> Boolean): Boolean {
-        val firstEvaluation = compareOrNull(firstOrNull(), secondOrNull())
-        val secondEvaluation = compareOrNull(secondOrNull(), getOrNull(2))
-        return if (firstEvaluation != null && secondEvaluation != null) {
-            operator(firstEvaluation, 0) && operator(secondEvaluation, 0)
-        } else false
-    }
-
-    private fun compareOrNull(first: Comparable<*>?, second: Comparable<*>?) = when {
+    fun compareOrNull(first: Comparable<*>?, second: Comparable<*>?) = when {
         first is Number && second is Number -> compareValues(first.toDouble(), second.toDouble())
         first is String && second is Number -> first.toDoubleOrNull()?.let {
             compareValues(it, second.toDouble())
