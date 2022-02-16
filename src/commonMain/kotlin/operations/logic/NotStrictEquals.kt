@@ -2,7 +2,6 @@ package operations.logic
 
 import operations.LogicOperation
 import utils.asList
-import operations.numeric.compare.StrictComparingOperation
 
 internal object NotStrictEquals : LogicOperation, StrictComparingOperation {
     override val key: String = "!=="
