@@ -1,11 +1,11 @@
 package operations.logic
 
+import JsonLogicEngine
 import TestInput
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 
-// TODO extend unit tests cases
 class NegationTest : FunSpec({
     context("JsonLogic evaluation with only Negation operation") {
         withData(
@@ -23,6 +23,13 @@ class NegationTest : FunSpec({
                 TestInput(expression = mapOf("!" to listOf(0)), result = true),
                 TestInput(expression = mapOf("!" to listOf("")), result = true),
                 TestInput(expression = mapOf("!" to listOf("0")), result = false),
+                TestInput(expression = mapOf("!" to listOf(null)), result = true),
+                TestInput(expression = mapOf("!" to listOf("banana", null)), result = false),
+                TestInput(expression = mapOf("!" to listOf(13)), result = false),
+                TestInput(expression = mapOf("!" to listOf(false, false)), result = true),
+                TestInput(expression = mapOf("!" to listOf(true, true)), result = false),
+                TestInput(expression = mapOf("!" to listOf(true, null)), result = false),
+                TestInput(expression = mapOf("!" to listOf(null, null)), result = true),
             )
         ) { (expression, data, result) ->
             // when
