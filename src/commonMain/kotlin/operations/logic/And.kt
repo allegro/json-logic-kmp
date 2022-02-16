@@ -2,16 +2,15 @@ package operations.logic
 
 import operations.LogicOperation
 import utils.asList
-import utils.truthy
 
-internal object And : LogicOperation {
+internal object And : LogicOperation, TruthyUnwrapStrategy {
     override val key: String = "and"
 
     override fun invoke(expression: Any?, data: Any?) = with(expression.asList) {
         if (all { it is Boolean }) {
-            all { it.truthy }
+            all { unwrapValue(it) }
         } else {
-            (firstOrNull { !it.truthy } ?: last())
+            (firstOrNull { !unwrapValue(it) } ?: last())
         }
     }
 }

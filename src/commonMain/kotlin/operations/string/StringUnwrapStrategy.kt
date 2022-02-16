@@ -5,7 +5,7 @@ import operations.UnwrapStrategy
 import utils.toStringOrEmpty
 
 internal interface StringUnwrapStrategy : UnwrapStrategy<List<String>> {
-    override fun unwrapValues(wrappedValue: Any?): List<String> = wrappedValue.asList.map(::stringify)
+    override fun unwrapValue(wrappedValue: Any?): List<String> = wrappedValue.asList.map(::stringify)
 
     private fun stringify(value: Any?) = (value as? List<*>)?.flatMap { nestedValue ->
         nestedValue.flattenNestedLists()

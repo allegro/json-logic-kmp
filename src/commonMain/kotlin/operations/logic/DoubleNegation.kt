@@ -1,10 +1,10 @@
 package operations.logic
 
+import operations.LogicOperation
 import utils.asList
-import utils.truthy
 
-internal object DoubleNegation : operations.LogicOperation {
+internal object DoubleNegation : LogicOperation, TruthyUnwrapStrategy {
     override val key: String = "!!"
 
-    override fun invoke(expression: Any?, data: Any?): Boolean = expression.asList.firstOrNull().truthy
+    override fun invoke(expression: Any?, data: Any?): Boolean = unwrapValue(expression.asList.firstOrNull())
 }

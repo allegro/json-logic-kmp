@@ -4,7 +4,7 @@ import utils.asList
 import operations.UnwrapStrategy
 
 internal interface StrictUnwrapStrategy: UnwrapStrategy<List<Any?>> {
-    override fun unwrapValues(wrappedValue: Any?): List<Any?> = wrappedValue.asList.map(::unwrap)
+    override fun unwrapValue(wrappedValue: Any?): List<Any?> = wrappedValue.asList.map(::unwrap)
 
     private tailrec fun unwrap(value: Any?): Any? =
         when (value) {

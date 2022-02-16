@@ -27,7 +27,7 @@ class OrTest : FunSpec({
                 TestInput(mapOf("or" to listOf(emptyList<String>(), true)), null, true),
                 TestInput(mapOf("or" to listOf(0, true)), null, true),
                 TestInput(mapOf("or" to listOf("", true)), null, true),
-                TestInput(mapOf("or" to listOf("0", true)), null, true),
+                TestInput(mapOf("or" to listOf("0", true)), null, "0"),
             )
         ) { (expression, data, result) ->
             // when
