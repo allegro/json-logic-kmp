@@ -6,7 +6,6 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 
-// TODO extend unit tests cases
 class OrTest : FunSpec({
     context("JsonLogic evaluation with only Or operation") {
         withData(
