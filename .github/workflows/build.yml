@@ -10,6 +10,14 @@ jobs:
     name: Build libraries
     runs-on: macos-latest
     steps:
+      - name: Install python dependencies
+        uses: nick-invision/retry@v2
+        with:
+          max_attempts: 3
+          timeout_minutes: 2
+          shell: bash
+          command: pip3 install
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
