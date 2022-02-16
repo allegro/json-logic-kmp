@@ -1,7 +1,6 @@
 package operations.string
 
 import LogicOperation
-import asDoubleList
 import asList
 
 object In : LogicOperation {
@@ -16,3 +15,4 @@ object In : LogicOperation {
         }
     }
 }
+
