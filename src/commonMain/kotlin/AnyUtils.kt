@@ -1,9 +1,11 @@
 import type.JsonLogicList
 
 internal val Any?.asList: List<Any?>
-    get() = (this as? List<*>)?.let {
-        JsonLogicList(it)
-    } ?: JsonLogicList(listOf(this))
+    get() = when (this) {
+        is String -> JsonLogicList(listOf(this))
+        is List<*> -> JsonLogicList(this)
+        else -> JsonLogicList(emptyList())
+    }
 
 internal val List<Any?>.comparableList: List<Comparable<*>?>
     get() = asList.map { it.asComparable }
@@ -26,5 +28,3 @@ private val List<Any?>.doubleList: List<Double?>
             else -> null
         }
     }
-
-internal fun Any?.toStringOrEmpty() = this?.let { toString() }.orEmpty()

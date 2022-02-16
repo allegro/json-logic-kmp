@@ -12,7 +12,7 @@ internal object Multiplication : LogicOperation, DoubleTypeSensitiveOperation, S
         return when (values.size) {
             0 -> null
             1 -> values.first()
-            else -> resultOrNull(unwrapValues(expression)) {
+            else -> doubleResultOrNull(unwrapValues(expression)) {
                 it.reduce { sum: Double, value: Double ->
                     sum * value
                 }

@@ -1,7 +1,6 @@
 package operations.numeric
 
 import LogicOperation
-import asDoubleList
 import operations.numeric.unwrap.LenientUnwrapStrategy
 
 internal object Subtraction : LogicOperation, LenientUnwrapStrategy {
