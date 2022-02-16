@@ -1,15 +1,14 @@
-package operations.numeric.compare
+package operations
 
 import utils.comparableList
 import utils.secondOrNull
 
-//move to the outer package
 internal interface ComparingOperation {
     fun compareListOfTwo(values: List<Any?>?, operator: (Int, Int) -> Boolean) = values?.comparableList
         ?.takeIf { it.size >= 2 }
         ?.compare(operator) ?: false
 
-    // shouldnt be an extension function
+    // TODO shouldnt be an extension function
     fun List<Comparable<*>?>.compare(operator: (Int, Int) -> Boolean): Boolean {
         return compareOrNull(firstOrNull(), secondOrNull())?.let { operator(it, 0) } ?: false
     }

@@ -6,7 +6,6 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 
-// TODO unit tests with 3+ params and single or zero
 class EqualsTest : FunSpec({
     context("JsonLogic evaluation with only Equals operation") {
         withData(
@@ -44,6 +43,19 @@ class EqualsTest : FunSpec({
                 TestInput(expression = mapOf("==" to listOf(0, true)), result = false),
                 TestInput(expression = mapOf("==" to listOf(1, true)), result = true),
                 TestInput(expression = mapOf("==" to listOf(-1, true)), result = false),
+                TestInput(expression = mapOf("==" to listOf(true, true, false)), result = true),
+                TestInput(expression = mapOf("==" to listOf(1, 0, 1)), result = false),
+                TestInput(expression = mapOf("==" to listOf(1)), result = false),
+                TestInput(expression = mapOf("==" to listOf(true)), result = false),
+                TestInput(expression = mapOf("==" to true), result = false),
+                TestInput(expression = mapOf("==" to false), result = false),
+                TestInput(expression = mapOf("==" to listOf("true")), result = false),
+                TestInput(expression = mapOf("==" to listOf("banana")), result = false),
+                TestInput(expression = mapOf("==" to "banana"), result = false),
+                TestInput(expression = mapOf("==" to listOf(null)), result = true),
+                TestInput(expression = mapOf("==" to null), result = true),
+                TestInput(expression = mapOf("==" to emptyList<Any>()), result = true),
+                TestInput(expression = mapOf("==" to listOf(emptyList<Any>())), result = false),
             )
         ) { (expression, data, result) ->
             // when

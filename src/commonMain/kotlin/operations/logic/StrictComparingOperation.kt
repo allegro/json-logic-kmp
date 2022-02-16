@@ -1,6 +1,6 @@
 package operations.logic
 
-import operations.numeric.compare.ComparingOperation
+import operations.ComparingOperation
 import utils.comparableList
 import utils.secondOrNull
 

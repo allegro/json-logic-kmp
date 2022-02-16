@@ -1,5 +1,6 @@
 package operations.numeric.compare
 
+import operations.ComparingOperation
 import operations.LogicOperation
 import utils.asList
 

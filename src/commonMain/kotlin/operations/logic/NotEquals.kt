@@ -2,7 +2,7 @@ package operations.logic
 
 import operations.LogicOperation
 import utils.asList
-import operations.numeric.compare.ComparingOperation
+import operations.ComparingOperation
 
 internal object NotEquals : LogicOperation, ComparingOperation {
     override val key: String = "!="

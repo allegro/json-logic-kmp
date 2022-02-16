@@ -1,10 +1,11 @@
 package operations.numeric.compare
 
+import operations.ComparingOperation
 import utils.comparableList
 import utils.secondOrNull
 
 //move to the outer package
-internal interface RangeComparingOperation : ComparingOperation{
+internal interface RangeComparingOperation : ComparingOperation {
 
     fun compareOrBetween(
         values: List<Any?>?,
