@@ -20,7 +20,7 @@ object Substr : LogicOperation, StringUnwrapStrategy {
         return runCatching {
             when {
                 size == 2 -> baseString.fromStartIndexToEnd(startIndex)
-                size >= 3 -> baseString.fromStartIndexToEndIndex(startIndex, charsCount)
+                size > 2 -> baseString.fromStartIndexToEndIndex(startIndex, charsCount)
                 else -> baseString
             }
         }.getOrNull().orEmpty()
