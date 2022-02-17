@@ -1,8 +1,6 @@
 package operations.logic
 
-import operations.ComparingOperation
 import operations.LogicOperation
-import operations.UnwrapStrategy
 import utils.asList
 
 internal object Equals : LogicOperation, NoArgumentSafeComparingOperation {
