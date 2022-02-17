@@ -23,7 +23,10 @@ class EqualsTest : FunSpec({
                 TestInput(expression = mapOf("==" to listOf(false, "false")), result = false),
                 TestInput(expression = mapOf("==" to listOf(false, listOf("false"))), result = false),
                 TestInput(expression = mapOf("==" to listOf(false, listOf(false))), result = false),
-                TestInput(expression = mapOf("==" to listOf(emptyList<Any>(), listOf(emptyList<Any>()))), result = false),
+                TestInput(
+                    expression = mapOf("==" to listOf(emptyList<Any>(), listOf(emptyList<Any>()))),
+                    result = false
+                ),
                 TestInput(expression = mapOf("==" to listOf(emptyList<Any>(), null)), result = false),
                 TestInput(expression = mapOf("==" to listOf(emptyList(), emptyList<Any>())), result = false),
                 TestInput(expression = mapOf("==" to listOf("null", null)), result = false),

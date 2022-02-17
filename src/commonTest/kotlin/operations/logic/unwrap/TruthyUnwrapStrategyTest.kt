@@ -1,7 +1,8 @@
-package operations.logic
+package operations.logic.unwrap
 
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
+import operations.logic.unwrap.TruthyUnwrapStrategy
 
 class TruthyUnwrapStrategyTest : BehaviorSpec({
     val strategyImplementation: TruthyUnwrapStrategy = object : TruthyUnwrapStrategy {}

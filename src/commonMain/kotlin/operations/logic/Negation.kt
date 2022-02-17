@@ -1,6 +1,7 @@
 package operations.logic
 
 import operations.LogicOperation
+import operations.logic.unwrap.TruthyUnwrapStrategy
 import utils.asList
 
 internal object Negation : LogicOperation, TruthyUnwrapStrategy {

@@ -24,7 +24,6 @@ internal interface ComparingOperation : BooleanUnwrapStrategy {
         else -> nonPrimitiveCompare(first, second)
     }
 
-
     private fun booleanCompare(first: Comparable<*>?, second: Comparable<*>?): Int? {
         val castedFirst = unwrapValue(first)
         val castedSecond = unwrapValue(second)
@@ -32,9 +31,6 @@ internal interface ComparingOperation : BooleanUnwrapStrategy {
             compareValues(castedFirst, castedSecond)
         } else null
     }
-
-    // wydzielic do osobnego interfejsu
-
 
     private fun nonPrimitiveCompare(first: Comparable<*>?, second: Comparable<*>?): Int? {
         return if (first != null && second != null && first::class == second::class) {

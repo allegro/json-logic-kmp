@@ -4,11 +4,11 @@ import operations.LogicOperation
 import utils.asList
 import operations.ComparingOperation
 
-internal object NotEquals : LogicOperation, ComparingOperation {
+internal object NotEquals : LogicOperation, NoArgumentSafeComparingOperation {
     override val key: String = "!="
 
     override fun invoke(expression: Any?, data: Any?): Boolean = with(expression.asList) {
-        !compareListOfTwo(this) { first, second -> first == second }
+        !sizeSafeCompare(this) { first, second -> first == second }
     }
 }
 
