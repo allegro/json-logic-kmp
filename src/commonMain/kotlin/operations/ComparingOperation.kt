@@ -3,7 +3,7 @@ package operations
 import utils.comparableList
 import utils.secondOrNull
 
-internal interface ComparingOperation {
+internal interface ComparingOperation : BooleanUnwrapStrategy {
     fun compareListOfTwo(values: List<Any?>?, operator: (Int, Int) -> Boolean) = values?.comparableList
         ?.takeIf { it.size >= 2 }
         ?.let { compare(it, operator) } ?: false
@@ -26,19 +26,15 @@ internal interface ComparingOperation {
 
 
     private fun booleanCompare(first: Comparable<*>?, second: Comparable<*>?): Int? {
-        val castedFirst = first.toBooleanOrNull()
-        val castedSecond = second.toBooleanOrNull()
+        val castedFirst = unwrapValue(first)
+        val castedSecond = unwrapValue(second)
         return if (castedFirst != null && castedSecond != null) {
             compareValues(castedFirst, castedSecond)
         } else null
     }
 
-    private fun Any?.toBooleanOrNull() = when (this) {
-        is Boolean -> this
-        is Number -> toLong() > 0
-        is String -> toDoubleOrNull()?.toLong()?.let { it > 0 }
-        else -> null
-    }
+    // wydzielic do osobnego interfejsu
+
 
     private fun nonPrimitiveCompare(first: Comparable<*>?, second: Comparable<*>?): Int? {
         return if (first != null && second != null && first::class == second::class) {

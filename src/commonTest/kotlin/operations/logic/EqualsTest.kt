@@ -36,9 +36,12 @@ class EqualsTest : FunSpec({
                 TestInput(expression = mapOf("==" to listOf(false, true)), result = false),
                 TestInput(expression = mapOf("==" to listOf(true, true)), result = true),
                 TestInput(expression = mapOf("==" to listOf(1, listOf("1"))), result = true),
-                TestInput(expression = mapOf("==" to listOf(1, listOf(1))), result = true),
+                TestInput(expression = mapOf("==" to listOf(1, listOf(listOf("1")))), result = true),
+                TestInput(expression = mapOf("==" to listOf("banana", listOf(listOf("banana")))), result = true),
+                TestInput(expression = mapOf("==" to listOf("banana", listOf("banana", "banana"))), result = false),
+                TestInput(expression = mapOf("==" to listOf(1, listOf(1))), result = true), //
                 TestInput(expression = mapOf("==" to listOf(1, false)), result = false),
-                TestInput(expression = mapOf("==" to listOf(-1, false)), result = false),
+                TestInput(expression = mapOf("==" to listOf(-1, false)), result = false), //
                 TestInput(expression = mapOf("==" to listOf(0, false)), result = true),
                 TestInput(expression = mapOf("==" to listOf(0, true)), result = false),
                 TestInput(expression = mapOf("==" to listOf(1, true)), result = true),
@@ -52,9 +55,9 @@ class EqualsTest : FunSpec({
                 TestInput(expression = mapOf("==" to listOf("true")), result = false),
                 TestInput(expression = mapOf("==" to listOf("banana")), result = false),
                 TestInput(expression = mapOf("==" to "banana"), result = false),
-                TestInput(expression = mapOf("==" to listOf(null)), result = true),
-                TestInput(expression = mapOf("==" to null), result = true),
-                TestInput(expression = mapOf("==" to emptyList<Any>()), result = true),
+                TestInput(expression = mapOf("==" to listOf(null)), result = true), //
+                TestInput(expression = mapOf("==" to null), result = true), //
+                TestInput(expression = mapOf("==" to emptyList<Any>()), result = true), //
                 TestInput(expression = mapOf("==" to listOf(emptyList<Any>())), result = false),
             )
         ) { (expression, data, result) ->

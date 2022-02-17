@@ -98,6 +98,10 @@ class GreaterThanTest : FunSpec({
                     result = true
                 ),
                 TestInput(
+                    expression = mapOf(">" to listOf(-1, false)),
+                    result = false
+                ),
+                TestInput(
                     expression = mapOf(">" to listOf(false, 3, 3)),
                     result = false
                 ),
