@@ -10,17 +10,17 @@ object Substr : LogicOperation, StringUnwrapStrategy {
     override fun invoke(expression: Any?, data: Any?): String {
         return with(expression.asList) {
             val startIndex = getOrNull(1).toString().intOrZero
-            val endIndex = getOrNull(2).toString().intOrZero
-            substringOrEmpty(startIndex, endIndex)
+            val charsCount = getOrNull(2).toString().intOrZero
+            substringOrEmpty(startIndex, charsCount)
         }
     }
 
-    private fun List<Any?>.substringOrEmpty(startIndex: Int, endIndex: Int): String {
+    private fun List<Any?>.substringOrEmpty(startIndex: Int, charsCount: Int): String {
         val baseString = unwrapValues(firstOrNull()).joinToString(",")
         return runCatching {
             when {
                 size == 2 -> baseString.fromStartIndexToEnd(startIndex)
-                size >= 3 -> baseString.fromStartIndexToEndIndex(startIndex, endIndex)
+                size >= 3 -> baseString.fromStartIndexToEndIndex(startIndex, charsCount)
                 else -> baseString
             }
         }.getOrNull().orEmpty()
@@ -32,10 +32,10 @@ object Substr : LogicOperation, StringUnwrapStrategy {
         substring(length + startIndex)
     }
 
-    private fun String.fromStartIndexToEndIndex(startIndex: Int, endIndex: Int) = when {
-        startIndex >= 0 && endIndex > 0 -> substring(startIndex, startIndex + endIndex)
-        startIndex >= 0 && endIndex < 0 -> substring(startIndex, length + endIndex)
-        startIndex < 0 && endIndex < 0 -> substring(length + startIndex, length + endIndex)
+    private fun String.fromStartIndexToEndIndex(startIndex: Int, charsCount: Int) = when {
+        startIndex >= 0 && charsCount > 0 -> substring(startIndex, startIndex + charsCount)
+        startIndex >= 0 && charsCount < 0 -> substring(startIndex, length + charsCount)
+        startIndex < 0 && charsCount < 0 -> substring(length + startIndex, length + charsCount)
         startIndex < 0 -> substring(length + startIndex)
         else -> null
     }

@@ -43,6 +43,11 @@ class InTest : FunSpec({
                     result = false
                 ),
                 TestInput(
+                    expression = mapOf("in" to listOf(1, "133")),
+                    data = emptyMap<String, Any>(),
+                    result = true
+                ),
+                TestInput(
                     expression = mapOf("in" to listOf(1, 133)),
                     data = emptyMap<String, Any>(),
                     result = false
@@ -51,6 +56,11 @@ class InTest : FunSpec({
                     expression = mapOf("in" to listOf("t", true)),
                     data = emptyMap<String, Any>(),
                     result = false
+                ),
+                TestInput(
+                    expression = mapOf("in" to listOf(true, "true gold")),
+                    data = emptyMap<String, Any>(),
+                    result = true
                 ),
                 TestInput(
                     expression = mapOf("in" to listOf(null, "banana")),
