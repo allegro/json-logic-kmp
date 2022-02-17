@@ -4,7 +4,6 @@ import operations.ComparingOperation
 import utils.comparableList
 import utils.secondOrNull
 
-//move to the outer package
 internal interface RangeComparingOperation : ComparingOperation {
 
     fun compareOrBetween(
@@ -12,7 +11,7 @@ internal interface RangeComparingOperation : ComparingOperation {
         operator: (Int, Int) -> Boolean
     ) = values?.comparableList?.let { comparableList ->
         when {
-            comparableList.size == 2 -> comparableList.compare(operator)
+            comparableList.size == 2 -> compare(comparableList, operator)
             comparableList.size > 2 -> comparableList.between(operator)
             else -> false
         }

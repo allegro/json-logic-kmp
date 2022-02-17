@@ -6,11 +6,10 @@ import utils.secondOrNull
 internal interface ComparingOperation {
     fun compareListOfTwo(values: List<Any?>?, operator: (Int, Int) -> Boolean) = values?.comparableList
         ?.takeIf { it.size >= 2 }
-        ?.compare(operator) ?: false
+        ?.let { compare(it, operator) } ?: false
 
-    // TODO shouldnt be an extension function
-    fun List<Comparable<*>?>.compare(operator: (Int, Int) -> Boolean): Boolean {
-        return compareOrNull(firstOrNull(), secondOrNull())?.let { operator(it, 0) } ?: false
+    fun compare(values: List<Comparable<*>?>, operator: (Int, Int) -> Boolean): Boolean {
+        return compareOrNull(values.firstOrNull(), values.secondOrNull())?.let { operator(it, 0) } ?: false
     }
 
     fun compareOrNull(first: Comparable<*>?, second: Comparable<*>?) = when {

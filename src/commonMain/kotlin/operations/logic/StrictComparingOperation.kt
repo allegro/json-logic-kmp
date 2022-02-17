@@ -8,7 +8,8 @@ internal interface StrictComparingOperation : ComparingOperation {
     fun compareListOfTwoOrDefault(values: List<Any?>?, default: Boolean, operator: (Int, Int) -> Boolean) =
         values?.comparableList
             ?.takeIf { it.size >= 2 && nullSafeCompare(it.firstOrNull(), it.secondOrNull()) }
-            ?.compare(operator) ?: default
+            ?.let { compare(it, operator) } ?: default
+
 
     private fun nullSafeCompare(first: Any?, second: Any?) = first != null && second != null && first::class == second::class
 }
