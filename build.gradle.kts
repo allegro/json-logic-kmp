@@ -121,8 +121,8 @@ publishing {
                 }
                 developers {
                     developer {
-                        id.set("allegro")
-                        name.set("opensource@allegro.pl")
+                        name.set("Marek Krogulski")
+                        email.set("marek.krogulski@allegro.pl")
                     }
                 }
                 scm {
