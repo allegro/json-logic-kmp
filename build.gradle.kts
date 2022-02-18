@@ -27,6 +27,10 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+val javadocJar = tasks.register("javadocJar", Jar::class.java) {
+    archiveClassifier.set("javadoc")
+}
+
 kotlin {
     jvm {
         compilations.all {
@@ -101,6 +105,8 @@ publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
+
+            artifact(javadocJar)
 
             pom {
                 name.set(LibConfig.name)

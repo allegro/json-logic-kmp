@@ -1,1 +1,1 @@
-internal class JsonLogicException(override val message: String) : Exception(message)
+class JsonLogicException(override val message: String) : Exception(message)
