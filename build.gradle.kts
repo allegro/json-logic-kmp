@@ -27,6 +27,10 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+val javadocJar = tasks.register("javadocJar", Jar::class.java) {
+    archiveClassifier.set("javadoc")
+}
+
 kotlin {
     jvm {
         compilations.all {
@@ -102,6 +106,8 @@ publishing {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
 
+            artifact(javadocJar)
+
             pom {
                 name.set(LibConfig.name)
                 description.set("Kotlin multiplatform JsonLogic expressions evaluation engine")
@@ -115,8 +121,8 @@ publishing {
                 }
                 developers {
                     developer {
-                        id.set("allegro")
-                        name.set("opensource@allegro.pl")
+                        name.set("Marek Krogulski")
+                        email.set("marek.krogulski@allegro.pl")
                     }
                 }
                 scm {
