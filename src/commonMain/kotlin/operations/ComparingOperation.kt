@@ -33,8 +33,10 @@ internal interface ComparingOperation : BooleanUnwrapStrategy {
     }
 
     private fun nonPrimitiveCompare(first: Comparable<*>?, second: Comparable<*>?): Int? {
-        return if (first != null && second != null && first::class == second::class) {
-            compareValues(first, second)
-        } else null
+            return when {
+            (first != null && second != null && first::class == second::class) -> compareValues(first, second)
+            first == null && second == null -> compareValues(first, second)
+            else -> null
+        }
     }
 }
