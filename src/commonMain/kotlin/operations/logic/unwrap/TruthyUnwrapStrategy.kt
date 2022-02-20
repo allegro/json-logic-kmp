@@ -1,9 +1,7 @@
 package operations.logic.unwrap
 
-import operations.UnwrapStrategy
-
-internal interface TruthyUnwrapStrategy : UnwrapStrategy<Boolean> {
-    override fun unwrapValue(wrappedValue: Any?): Boolean = when (wrappedValue) {
+internal interface TruthyUnwrapStrategy {
+    fun unwrapValueAsBoolean(wrappedValue: Any?): Boolean = when (wrappedValue) {
         null -> false
         is Boolean -> wrappedValue
         is Number -> wrappedValue.toDouble() != 0.0

@@ -2,7 +2,6 @@ package operations.logic.unwrap
 
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
-import operations.logic.unwrap.TruthyUnwrapStrategy
 
 class TruthyUnwrapStrategyTest : BehaviorSpec({
     val strategyImplementation: TruthyUnwrapStrategy = object : TruthyUnwrapStrategy {}
@@ -10,7 +9,7 @@ class TruthyUnwrapStrategyTest : BehaviorSpec({
     given("A string zero") {
         val wrappedValue = "0"
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsBoolean(wrappedValue)
             then("should be true") {
                 unwrapResult shouldBe true
             }
@@ -20,7 +19,7 @@ class TruthyUnwrapStrategyTest : BehaviorSpec({
     given("A null") {
         val wrappedValue = null
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsBoolean(wrappedValue)
             then("should be false") {
                 unwrapResult shouldBe false
             }
@@ -30,7 +29,7 @@ class TruthyUnwrapStrategyTest : BehaviorSpec({
     given("Any non-empty string") {
         val wrappedValue = "anything"
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsBoolean(wrappedValue)
             then("should be true") {
                 unwrapResult shouldBe true
             }
@@ -40,7 +39,7 @@ class TruthyUnwrapStrategyTest : BehaviorSpec({
     given("An empty string") {
         val wrappedValue = ""
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsBoolean(wrappedValue)
             then("should be false") {
                 unwrapResult shouldBe false
             }
@@ -50,7 +49,7 @@ class TruthyUnwrapStrategyTest : BehaviorSpec({
     given("A non-empty list") {
         val wrappedValue = listOf("banana", "strawberry")
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsBoolean(wrappedValue)
             then("should be true") {
                 unwrapResult shouldBe true
             }
@@ -60,7 +59,7 @@ class TruthyUnwrapStrategyTest : BehaviorSpec({
     given("An empty list") {
         val wrappedValue = emptyList<Any>()
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsBoolean(wrappedValue)
             then("should be false") {
                 unwrapResult shouldBe false
             }
@@ -70,7 +69,7 @@ class TruthyUnwrapStrategyTest : BehaviorSpec({
     given("Any non-zero number") {
         val wrappedValue = -1
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsBoolean(wrappedValue)
             then("should be true") {
                 unwrapResult shouldBe true
             }
@@ -80,7 +79,7 @@ class TruthyUnwrapStrategyTest : BehaviorSpec({
     given("A zero number") {
         val wrappedValue = 0
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsBoolean(wrappedValue)
             then("should be false") {
                 unwrapResult shouldBe false
             }

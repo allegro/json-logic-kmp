@@ -8,7 +8,7 @@ internal interface StrictComparingOperation : NoArgumentSafeComparingOperation {
         return with(value.asList) {
             val preparedValue = (if( size < 2 ) {
                 sprawdzTo(this)
-            } else this).map(::unwrapValues)
+            } else this).map(::unwrapValue)
 
             if (!nullSafeTypeCompare(preparedValue.firstOrNull(), preparedValue.secondOrNull())) {
                 false
@@ -29,13 +29,13 @@ internal interface StrictComparingOperation : NoArgumentSafeComparingOperation {
             listOf(null, listOf(values.firstOrNull())) // wsadz aktualny argument w liste i dodaj razem z nullem do kolejnej listy
         }
 
-    override fun unwrapValues(wrappedValue: Any?): Any? =
+    override fun unwrapValue(wrappedValue: Any?): Any? =
         when (wrappedValue) {
             is Number -> wrappedValue.toDouble()
             else -> wrappedValue
         }
 
-    override fun unwrapValue(wrappedValue: Any?): Boolean? = when (wrappedValue) {
+    override fun unwrapValueAsBoolean(wrappedValue: Any?): Boolean? = when (wrappedValue) {
         is Boolean -> wrappedValue
         else -> null
     }

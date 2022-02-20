@@ -1,11 +1,10 @@
 package operations.numeric.unwrap
 
 import utils.asList
-import operations.UnwrapStrategy
 import utils.asNumber
 
-internal interface LenientUnwrapStrategy: UnwrapStrategy<List<Double?>> {
-    override fun unwrapValue(wrappedValue: Any?): List<Double?> = wrappedValue.asList.map(::unwrap)
+internal interface LenientUnwrapStrategy {
+    fun unwrapValueAsDouble(wrappedValue: Any?): List<Double?> = wrappedValue.asList.map(::unwrap)
 
     private fun unwrap(value: Any?): Double? =
         when (value) {

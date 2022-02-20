@@ -25,8 +25,8 @@ internal interface ComparingOperation : BooleanUnwrapStrategy {
     }
 
     private fun booleanCompare(first: Comparable<*>?, second: Comparable<*>?): Int? {
-        val castedFirst = unwrapValue(first)
-        val castedSecond = unwrapValue(second)
+        val castedFirst = unwrapValueAsBoolean(first)
+        val castedSecond = unwrapValueAsBoolean(second)
         return if (castedFirst != null && castedSecond != null) {
             compareValues(castedFirst, castedSecond)
         } else null

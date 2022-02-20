@@ -9,9 +9,9 @@ internal object Or : LogicOperation, TruthyUnwrapStrategy {
 
     override fun invoke(expression: Any?, data: Any?) = with(expression.asList) {
         if (all { it is Boolean }) {
-            firstOrNull { unwrapValue(it) } != null
+            firstOrNull { unwrapValueAsBoolean(it) } != null
         } else {
-            (firstOrNull { unwrapValue(it) } ?: last())
+            (firstOrNull { unwrapValueAsBoolean(it) } ?: last())
         }
     }
 }

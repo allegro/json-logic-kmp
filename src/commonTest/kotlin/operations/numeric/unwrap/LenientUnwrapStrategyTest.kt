@@ -10,7 +10,7 @@ class LenientUnwrapStrategyTest : BehaviorSpec({
     given("A false value") {
         val wrappedValue = listOf(false)
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsDouble(wrappedValue)
             then("should be equal to 0") {
                 unwrapResult shouldHaveSize 1
                 unwrapResult.first() shouldBe 0.0
@@ -21,7 +21,7 @@ class LenientUnwrapStrategyTest : BehaviorSpec({
     given("A true value") {
         val wrappedValue = listOf(true)
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsDouble(wrappedValue)
             then("should be equal to 1") {
                 unwrapResult shouldHaveSize 1
                 unwrapResult.first() shouldBe 1.0
@@ -32,7 +32,7 @@ class LenientUnwrapStrategyTest : BehaviorSpec({
     given("A null") {
         val wrappedValue = listOf(null)
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsDouble(wrappedValue)
             then("should be equal to 0") {
                 unwrapResult shouldHaveSize 1
                 unwrapResult.first() shouldBe 0.0
@@ -43,7 +43,7 @@ class LenientUnwrapStrategyTest : BehaviorSpec({
     given("Any other value") {
         val wrappedValue = listOf(Pair("a", "apple"))
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsDouble(wrappedValue)
             then("should return null") {
                 unwrapResult shouldHaveSize 1
                 unwrapResult.first() shouldBe null
@@ -54,7 +54,7 @@ class LenientUnwrapStrategyTest : BehaviorSpec({
     given("A number string") {
         val wrappedValue = listOf("32.5")
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsDouble(wrappedValue)
             then("should be equal to its number value") {
                 unwrapResult shouldHaveSize 1
                 unwrapResult.first() shouldBe 32.5
@@ -65,7 +65,7 @@ class LenientUnwrapStrategyTest : BehaviorSpec({
     given("A not number string") {
         val wrappedValue = listOf("Not a number")
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsDouble(wrappedValue)
             then("should be null") {
                 unwrapResult shouldHaveSize 1
                 unwrapResult.first() shouldBe null
@@ -76,7 +76,7 @@ class LenientUnwrapStrategyTest : BehaviorSpec({
     given("An empty list") {
         val wrappedValue = listOf(emptyList<String>())
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsDouble(wrappedValue)
             then("should be equal to 0") {
                 unwrapResult shouldHaveSize 1
                 unwrapResult.first() shouldBe 0
@@ -87,7 +87,7 @@ class LenientUnwrapStrategyTest : BehaviorSpec({
     given("A more than 2 element list") {
         val wrappedValue = listOf(listOf(1, 2, "Not a number"))
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsDouble(wrappedValue)
             then("should be null") {
                 unwrapResult shouldHaveSize 1
                 unwrapResult.first() shouldBe null
@@ -98,7 +98,7 @@ class LenientUnwrapStrategyTest : BehaviorSpec({
     given("A single element list") {
         val wrappedValue = listOf(listOf("20"))
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsDouble(wrappedValue)
             then("should be equal to its element") {
                 unwrapResult shouldHaveSize 1
                 unwrapResult.first() shouldBe 20
@@ -109,7 +109,7 @@ class LenientUnwrapStrategyTest : BehaviorSpec({
     given("A nested single element list") {
         val wrappedValue = listOf(listOf(listOf("20")))
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            val unwrapResult = strategyImplementation.unwrapValueAsDouble(wrappedValue)
             then("should be equal to its deepest element") {
                 unwrapResult shouldHaveSize 1
                 unwrapResult.first() shouldBe 20

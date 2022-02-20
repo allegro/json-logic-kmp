@@ -16,7 +16,7 @@ object Substr : LogicOperation, StringUnwrapStrategy {
     }
 
     private fun List<Any?>.substringOrEmpty(startIndex: Int, charsCount: Int): String {
-        val baseString = unwrapValue(firstOrNull()).joinToString(",")
+        val baseString = unwrapValueAsString(firstOrNull()).joinToString(",")
         return runCatching {
             when {
                 size == 2 -> baseString.fromStartIndexToEnd(startIndex)
