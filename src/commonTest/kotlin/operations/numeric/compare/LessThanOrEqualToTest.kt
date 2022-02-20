@@ -121,6 +121,14 @@ class LessThanOrEqualToTest : FunSpec({
                     expression = mapOf("<=" to listOf(false, "false")),
                     result = false
                 ),
+//                TestInput(
+//                    expression = mapOf("<=" to listOf(null, 1)),
+//                    result = true
+//                ),
+//                TestInput(
+//                    expression = mapOf("<=" to listOf(null, null)),
+//                    result = true
+//                ),
             )
         ) { (expression, data, result) ->
             // when

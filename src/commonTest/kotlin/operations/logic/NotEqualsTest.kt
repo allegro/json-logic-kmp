@@ -63,6 +63,15 @@ class NotEqualsTest : FunSpec({
                 TestInput(expression = mapOf("!=" to emptyList<Any>()), result = false),
                 TestInput(expression = mapOf("!=" to listOf(emptyList<Any>())), result = true),
                 TestInput(expression = mapOf("!=" to listOf(null, null)), result = false),
+
+                TestInput(expression = mapOf("!=" to listOf(listOf(null), listOf(null))), result = true),
+                TestInput(expression = mapOf("!=" to listOf(null, listOf(null))), result = true),
+                TestInput(expression = mapOf("!=" to listOf(1, listOf(null))), result = true),
+                TestInput(expression = mapOf("!=" to listOf(0, listOf(null))), result = false),
+                TestInput(expression = mapOf("!=" to listOf(true, listOf(null))), result = true),
+                TestInput(expression = mapOf("!=" to listOf(false, listOf(null))), result = false),
+                TestInput(expression = mapOf("!=" to listOf(-1, listOf(null))), result = true),
+                TestInput(expression = mapOf("!=" to listOf(0.5, listOf(null))), result = true),
             )
         ) { (expression, data, result) ->
             // when

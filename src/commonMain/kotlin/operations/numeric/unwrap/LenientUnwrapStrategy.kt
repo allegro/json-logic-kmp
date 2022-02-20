@@ -2,6 +2,7 @@ package operations.numeric.unwrap
 
 import utils.asList
 import operations.UnwrapStrategy
+import utils.asNumber
 
 internal interface LenientUnwrapStrategy: UnwrapStrategy<List<Double?>> {
     override fun unwrapValue(wrappedValue: Any?): List<Double?> = wrappedValue.asList.map(::unwrap)
@@ -22,5 +23,4 @@ internal interface LenientUnwrapStrategy: UnwrapStrategy<List<Double?>> {
         else -> null
     }
 
-    private fun Boolean.asNumber() = if (this) 1.0 else 0.0
 }

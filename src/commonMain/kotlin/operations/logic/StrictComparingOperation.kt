@@ -1,35 +1,42 @@
 package operations.logic
 
+import utils.asList
 import utils.secondOrNull
 
 internal interface StrictComparingOperation : NoArgumentSafeComparingOperation {
-//    fun compareListOfTwoOrDefault(values: List<Any?>?, default: Boolean, operator: (Int, Int) -> Boolean) =
-//        values?.comparableList
-//            ?.takeIf { it.size >= 2 && nullSafeTypeCompare(it.firstOrNull(), it.secondOrNull()) }
-//            ?.let { compare(it, operator) } ?: default
+    override fun sizeSafeCompare(value: Any?, operator: (Int, Int) -> Boolean): Boolean {
+        return with(value.asList) {
+            val preparedValue = (if( size < 2 ) {
+                sprawdzTo(this)
+            } else this).map(::unwrapValues)
 
-//    override fun compareListOfTwo(values: List<Any?>?, operator: (Int, Int) -> Boolean) = values?.comparableList
-//        ?.takeIf { it.size >= 2 }
-//        ?.let { compare(it, operator) } ?: false
-
-    override fun sizeSafeCompare(values: List<Any?>?, operator: (Int, Int) -> Boolean): Boolean {
-        return if (isValueEmpty(values)) {
-            true
-        } else {
-           if (!nullSafeTypeCompare(values?.firstOrNull(), values?.secondOrNull())) {
+            if (!nullSafeTypeCompare(preparedValue.firstOrNull(), preparedValue.secondOrNull())) {
                 false
             } else {
-                compareListOfTwo(values?.map(::unwrapValues)) { first, second -> first == second }
+                compareListOfTwo(preparedValue) { first, second -> first == second }
             }
         }
     }
 
     private fun nullSafeTypeCompare(first: Any?, second: Any?) =
-        first != null && second != null && first::class == second::class
+        (first == null && second == null) || (first != null && second != null && first::class == second::class)
 
-    override fun isValueEmpty(value: Any?) = when (value) {
-        is List<*> -> value.isEmpty() || value.all { it == null }
-        null -> false
-        else -> false
+    // align to default
+    // polaczyc to z unwrapValues i sprawdzTo
+    private fun sprawdzTo(values: List<Any?>) = if(values.isEmpty()) {
+            listOf(null, null)
+        } else {
+            listOf(null, listOf(values.firstOrNull())) // wsadz aktualny argument w liste i dodaj razem z nullem do kolejnej listy
+        }
+
+    override fun unwrapValues(wrappedValue: Any?): Any? =
+        when (wrappedValue) {
+            is Number -> wrappedValue.toDouble()
+            else -> wrappedValue
+        }
+
+    override fun unwrapValue(wrappedValue: Any?): Boolean? = when (wrappedValue) {
+        is Boolean -> wrappedValue
+        else -> null
     }
 }
