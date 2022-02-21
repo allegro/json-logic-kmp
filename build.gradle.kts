@@ -129,6 +129,7 @@ publishing {
             }
         }
     }
+}
 
 nexusPublishing {
     repositories {
