@@ -1,9 +1,7 @@
 package operations.logic.unwrap
 
-import operations.BooleanUnwrapStrategy
-
-internal interface BinaryValueBooleanUnwrapStrategy : BooleanUnwrapStrategy {
-    override fun unwrapValueAsBoolean(wrappedValue: Any?): Boolean? = when (wrappedValue) {
+internal interface BinaryValueBooleanUnwrapStrategy {
+    fun unwrapValueAsBoolean(wrappedValue: Any?): Boolean? = when (wrappedValue) {
         is Boolean -> wrappedValue
         is Number -> wrappedValue.toLong().toBooleanOrNull()
         is String -> wrappedValue.toDoubleOrNull()?.toLong()?.toBooleanOrNull()

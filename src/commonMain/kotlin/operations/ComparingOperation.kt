@@ -3,7 +3,7 @@ package operations
 import utils.comparableList
 import utils.secondOrNull
 
-internal interface ComparingOperation : BooleanUnwrapStrategy {
+internal interface ComparingOperation : ComparableUnwrapStrategy {
     fun compareListOfTwo(values: List<Any?>?, operator: (Int, Int) -> Boolean) = values?.comparableList
         ?.let { compare(it, operator) } ?: false
 
@@ -11,31 +11,11 @@ internal interface ComparingOperation : BooleanUnwrapStrategy {
         return compareOrNull(values.firstOrNull(), values.secondOrNull())?.let { operator(it, 0) } ?: false
     }
 
-    fun compareOrNull(first: Comparable<*>?, second: Comparable<*>?) = when {
-        first is Number && second is Number -> compareValues(first.toDouble(), second.toDouble())
-        first is String && second is Number -> first.toDoubleOrNull()?.let {
-            compareValues(it, second.toDouble())
+    fun compareOrNull(first: Comparable<*>?, second: Comparable<*>?) = unwrapAsComparable(first, second)?.let {
+            when {
+                it.firstOrNull() == null && it.secondOrNull() == null -> compareValues(it.firstOrNull(), it.secondOrNull())
+                it.firstOrNull() == null || it.secondOrNull() == null -> null
+                else -> compareValues(it.firstOrNull(), it.secondOrNull())
+            }
         }
-        first is Number && second is String -> second.toDoubleOrNull()?.let {
-            compareValues(first.toDouble(), it)
-        }
-        first is Boolean || second is Boolean -> booleanCompare(first, second)
-        else -> nonPrimitiveCompare(first, second)
-    }
-
-    private fun booleanCompare(first: Comparable<*>?, second: Comparable<*>?): Int? {
-        val castedFirst = unwrapValueAsBoolean(first)
-        val castedSecond = unwrapValueAsBoolean(second)
-        return if (castedFirst != null && castedSecond != null) {
-            compareValues(castedFirst, castedSecond)
-        } else null
-    }
-
-    private fun nonPrimitiveCompare(first: Comparable<*>?, second: Comparable<*>?): Int? {
-            return when {
-            (first != null && second != null && first::class == second::class) -> compareValues(first, second)
-            first == null && second == null -> compareValues(first, second)
-            else -> null
-        }
-    }
 }

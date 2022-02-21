@@ -3,7 +3,7 @@ package operations.logic
 import utils.asList
 import utils.secondOrNull
 
-internal interface StrictComparingOperation : NoArgumentSafeComparingOperation {
+internal interface StrictComparingOperation : DefectiveArgumentSafeComparingOperation {
     override fun sizeSafeCompare(values: Any?, operator: (Int, Int) -> Boolean): Boolean =
         with(fillValuesWithNullsIfNecessary(values.asList)) {
             if (!nullSafeTypeCompare(firstOrNull(), secondOrNull())) {
