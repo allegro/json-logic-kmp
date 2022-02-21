@@ -7,7 +7,7 @@ internal interface StrictEqualsOperation : DefectiveArgumentSafeComparingOperati
     override fun sizeSafeCompare(values: Any?, operator: (Int, Int) -> Boolean): Boolean =
         with(complementValues(values.asList)) {
             if(firstOrNull() isTheSameType secondOrNull()) {
-                compareListOfTwo(this) { first, second -> first == second }
+                compareListOfTwo(this, operator)
             } else false
         }
 
