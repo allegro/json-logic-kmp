@@ -130,24 +130,23 @@ publishing {
         }
     }
 
-    nexusPublishing {
-        repositories {
-            sonatype {
-                username.set(System.getenv("SONATYPE_USERNAME"))
-                password.set(System.getenv("SONATYPE_PASSWORD"))
-            }
+nexusPublishing {
+    repositories {
+        sonatype {
+            username.set(System.getenv("SONATYPE_USERNAME"))
+            password.set(System.getenv("SONATYPE_PASSWORD"))
         }
     }
+}
 
-    System.getenv("GPG_KEY_ID")?.let { gpgKeyId ->
-        signing {
-            useInMemoryPgpKeys(
-                gpgKeyId,
-                System.getenv("GPG_PRIVATE_KEY"),
-                System.getenv("GPG_PRIVATE_KEY_PASSWORD")
-            )
-            sign(publishing.publications)
-        }
+System.getenv("GPG_KEY_ID")?.let { gpgKeyId ->
+    signing {
+        useInMemoryPgpKeys(
+            gpgKeyId,
+            System.getenv("GPG_PRIVATE_KEY"),
+            System.getenv("GPG_PRIVATE_KEY_PASSWORD")
+        )
+        sign(publishing.publications)
     }
 }
 
