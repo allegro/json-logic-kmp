@@ -12,6 +12,9 @@ import operations.numeric.Min
 import operations.numeric.Modulo
 import operations.numeric.Multiplication
 import operations.numeric.Subtraction
+import operations.string.Cat
+import operations.string.In
+import operations.string.Substr
 
 internal class CommonJsonLogicEngine : JsonLogicEngine {
     private val operations: Map<String, (Any?, Any?) -> Any?> = mapOf(
@@ -32,6 +35,11 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
         Multiplication.operation,
         Division.operation,
         Modulo.operation,
+
+        // string
+        Cat.operation,
+        In.operation,
+        Substr.operation
     )
 
     override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = if (expression.isNotEmpty()) {
