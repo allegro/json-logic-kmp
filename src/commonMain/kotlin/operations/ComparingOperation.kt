@@ -5,7 +5,6 @@ import utils.secondOrNull
 
 internal interface ComparingOperation : BooleanUnwrapStrategy {
     fun compareListOfTwo(values: List<Any?>?, operator: (Int, Int) -> Boolean) = values?.comparableList
-        ?.takeIf { it.size >= 2 }
         ?.let { compare(it, operator) } ?: false
 
     fun compare(values: List<Comparable<*>?>, operator: (Int, Int) -> Boolean): Boolean {

@@ -31,4 +31,4 @@ private val List<Any?>.doubleList: List<Double?>
 
 internal fun Any?.toStringOrEmpty() = this?.let { toString() }.orEmpty()
 
-internal fun Any?.isListWithSingleNull() = this is List<*> && size == 1 && first() == null
+internal fun Any?.isSingleNullList() = this is List<*> && size == 1 && first() == null
