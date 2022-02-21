@@ -4,7 +4,10 @@ import utils.asList
 import utils.isSingleNullList
 
 internal interface EqualsOperation : DefectiveArgumentSafeComparingOperation {
-    override fun sizeSafeCompare(values: Any?, operator: (Int, Int) -> Boolean) = compareListOfTwo(complementValues(values.asList), operator)
+    override fun sizeSafeCompare(
+        values: Any?,
+        operator: (Int, Int) -> Boolean
+    ) = compareListOfTwo(complementValues(values.asList), operator)
 
     override fun complementValues(defectiveValues: List<Any?>): List<Any?> = when {
         defectiveValues.isEmpty() -> listOf(null, null)

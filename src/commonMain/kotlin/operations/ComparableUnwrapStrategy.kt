@@ -9,7 +9,10 @@ internal interface ComparableUnwrapStrategy: BooleanUnwrapStrategy {
         else -> unwrapValuesAsNonPrimitives(first, second)
     }
 
-    private fun unwrapValuesAsNonPrimitives(first: Comparable<*>?, second: Comparable<*>?): List<Comparable<*>?>? = when {
+    private fun unwrapValuesAsNonPrimitives(
+        first: Comparable<*>?,
+        second: Comparable<*>?
+    ): List<Comparable<*>?>? = when {
         (first != null && second != null && first::class == second::class) -> listOf(first, second)
         first == null && second == null -> listOf(first, second)
         else -> null
