@@ -58,6 +58,7 @@ class NotStrictEqualsTest : FunSpec({
                 TestInput(expression = mapOf("!==" to listOf(null)), result = true),
                 TestInput(expression = mapOf("!==" to null), result = true),
                 TestInput(expression = mapOf("!==" to ""), result = true),
+                TestInput(expression = mapOf("!==" to "     "), result = true),
                 TestInput(expression = mapOf("!==" to emptyList<Any>()), result = false),
                 TestInput(expression = mapOf("!==" to listOf(emptyList<Any>())), result = true),
                 TestInput(expression = mapOf("!==" to listOf(null, null)), result = false),

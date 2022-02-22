@@ -58,6 +58,7 @@ class StrictEqualsTest : FunSpec({
                 TestInput(expression = mapOf("===" to listOf(null)), result = false),
                 TestInput(expression = mapOf("===" to null), result = false),
                 TestInput(expression = mapOf("===" to ""), result = false),
+                TestInput(expression = mapOf("===" to "     "), result = false),
                 TestInput(expression = mapOf("===" to emptyList<Any>()), result = true),
                 TestInput(expression = mapOf("===" to listOf(emptyList<Any>())), result = false),
                 TestInput(expression = mapOf("===" to listOf(1, listOf(listOf("1")))), result = false),
