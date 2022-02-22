@@ -30,7 +30,7 @@ class BooleanUnwrapStrategyTest : BehaviorSpec({
         val wrappedValue = 0.5
         `when`("unwrapped") {
             val unwrapResult = strategyImplementation.unwrapValueAsBoolean(wrappedValue)
-            then("should has its decimal value ignored and be true") {
+            then("should has its decimal value ignored and be false") {
                 unwrapResult shouldBe false
             }
         }
@@ -42,16 +42,6 @@ class BooleanUnwrapStrategyTest : BehaviorSpec({
             val unwrapResult = strategyImplementation.unwrapValueAsBoolean(wrappedValue)
             then("should be true") {
                 unwrapResult shouldBe true
-            }
-        }
-    }
-
-    given("A positive number string") {
-        val wrappedValue = 0.5
-        `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValueAsBoolean(wrappedValue)
-            then("should has its decimal value ignored and be true") {
-                unwrapResult shouldBe false
             }
         }
     }
@@ -97,17 +87,7 @@ class BooleanUnwrapStrategyTest : BehaviorSpec({
     }
 
     given("A negative number string") {
-        val wrappedValue = -0.5
-        `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapValueAsBoolean(wrappedValue)
-            then("should has its decimal value ignored and be false") {
-                unwrapResult shouldBe false
-            }
-        }
-    }
-
-    given("A negative number string") {
-        val wrappedValue = -0.5
+        val wrappedValue = "-0.5"
         `when`("unwrapped") {
             val unwrapResult = strategyImplementation.unwrapValueAsBoolean(wrappedValue)
             then("should has its decimal value ignored and be false") {

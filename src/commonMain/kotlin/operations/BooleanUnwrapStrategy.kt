@@ -1,6 +1,6 @@
 package operations
 
-interface BooleanUnwrapStrategy {
+internal interface BooleanUnwrapStrategy {
     fun unwrapValueAsBoolean(wrappedValue: Any?): Boolean? = when (wrappedValue) {
         is Boolean -> wrappedValue
         is Number -> wrappedValue.toLong() > 0

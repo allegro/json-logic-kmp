@@ -11,7 +11,7 @@ internal object And : LogicOperation, TruthyUnwrapStrategy {
         if (all { it is Boolean }) {
             all { unwrapValueAsBoolean(it) }
         } else {
-            (firstOrNull { !unwrapValueAsBoolean(it) } ?: last())
+            firstOrNull { !unwrapValueAsBoolean(it) } ?: last()
         }
     }
 }

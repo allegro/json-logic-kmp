@@ -46,6 +46,16 @@ class TruthyUnwrapStrategyTest : BehaviorSpec({
         }
     }
 
+    given("A blank string") {
+        val wrappedValue = "     "
+        `when`("unwrapped") {
+            val unwrapResult = strategyImplementation.unwrapValueAsBoolean(wrappedValue)
+            then("should be true") {
+                unwrapResult shouldBe true
+            }
+        }
+    }
+
     given("A non-empty list") {
         val wrappedValue = listOf("banana", "strawberry")
         `when`("unwrapped") {
