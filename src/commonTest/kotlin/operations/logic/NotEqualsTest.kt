@@ -71,7 +71,14 @@ class NotEqualsTest : FunSpec({
                 TestInput(expression = mapOf("!=" to listOf(false, listOf(null))), result = false),
                 TestInput(expression = mapOf("!=" to listOf(-1, listOf(null))), result = true),
                 TestInput(expression = mapOf("!=" to listOf(0.5, listOf(null))), result = true),
-            )
+                TestInput(expression = mapOf("!=" to listOf("", "")), result = false),
+                TestInput(expression = mapOf("==" to listOf("", "    ")), result = false),
+                TestInput(expression = mapOf("!=" to listOf("", emptyList<String>())), result = false),
+                TestInput(expression = mapOf("!=" to listOf("", listOf(""))), result = false),
+                TestInput(expression = mapOf("!=" to listOf(listOf(""), listOf(""))), result = true),
+                TestInput(expression = mapOf("!=" to listOf("", listOf(listOf("")))), result = false),
+
+                )
         ) { (expression, data, result) ->
             // when
             val evaluationResult = JsonLogicEngine.instance.evaluate(expression, data)

@@ -13,7 +13,11 @@ internal interface EqualsUnwrapStrategy {
             else -> wrappedValue
         }
 
-    private fun List<*>.unwrapList() = if (this.isSingleNullList()) 0.0 else unwrapNotBooleanSingleElement()
+    private fun List<*>.unwrapList() = when {
+        isSingleNullList() -> 0.0
+        isEmpty() -> ""
+        else -> unwrapNotBooleanSingleElement()
+    }
 
     private fun List<*>.unwrapNotBooleanSingleElement() = takeIf { size == 1 && firstOrNull() !is Boolean }
         ?.let { unwrapValue(firstOrNull()) }

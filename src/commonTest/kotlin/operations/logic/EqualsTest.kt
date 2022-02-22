@@ -72,6 +72,12 @@ class EqualsTest : FunSpec({
                 TestInput(expression = mapOf("==" to listOf(listOf(false), listOf(false))), result = false),
                 TestInput(expression = mapOf("==" to listOf(-1, listOf(null))), result = false),
                 TestInput(expression = mapOf("==" to listOf(0.5, listOf(null))), result = false),
+                TestInput(expression = mapOf("==" to listOf("", "")), result = true),
+                TestInput(expression = mapOf("==" to listOf("", "    ")), result = false),
+                TestInput(expression = mapOf("==" to listOf("", listOf(""))), result = true),
+                TestInput(expression = mapOf("==" to listOf(listOf(""), listOf(""))), result = false),
+                TestInput(expression = mapOf("==" to listOf("", listOf(listOf("")))), result = true),
+                TestInput(expression = mapOf("==" to listOf("", emptyList<String>())), result = true),
             )
         ) { (expression, data, result) ->
             // when

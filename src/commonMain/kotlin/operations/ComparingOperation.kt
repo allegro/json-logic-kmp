@@ -11,7 +11,7 @@ internal interface ComparingOperation : ComparableUnwrapStrategy {
         return compareOrNull(values.firstOrNull(), values.secondOrNull())?.let { operator(it, 0) } ?: false
     }
 
-    private fun compareOrNull(
+    fun compareOrNull(
         first: Comparable<*>?,
         second: Comparable<*>?
     ) = unwrapAsComparable(first, second)?.let { values ->
@@ -21,4 +21,5 @@ internal interface ComparingOperation : ComparableUnwrapStrategy {
             else -> compareValues(values.firstOrNull(), values.secondOrNull())
         }
     }
+
 }
