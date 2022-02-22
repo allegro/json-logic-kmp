@@ -80,8 +80,18 @@ class EqualsUnwrapStrategyTest : BehaviorSpec({
         val wrappedValue = emptyList<String>()
         `when`("unwrapped") {
             val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
-            then("should be the same") {
-                unwrapResult shouldBe emptyList<String>()
+            then("should be an empty string") {
+                unwrapResult shouldBe ""
+            }
+        }
+    }
+
+    given("A nested empty list") {
+        val wrappedValue = listOf(emptyList<String>())
+        `when`("unwrapped") {
+            val unwrapResult = strategyImplementation.unwrapValue(wrappedValue)
+            then("should be an empty string") {
+                unwrapResult shouldBe ""
             }
         }
     }

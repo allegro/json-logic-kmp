@@ -3,22 +3,21 @@ package operations.logic
 import utils.asList
 import utils.secondOrNull
 
-internal interface StrictEqualsOperation : DefectiveArgumentSafeComparingOperation {
-    override fun sizeSafeCompare(values: Any?, operator: (Int, Int) -> Boolean): Boolean =
-        with(complementValues(values.asList)) {
-            if(firstOrNull() isTheSameType secondOrNull()) {
-                compareListOfTwo(this, operator)
-            } else false
+internal interface StrictEqualsOperation : ListTypeSensitiveComparingOperation {
+    override fun safeCompare(values: Any?, operator: (Int, Int) -> Boolean): Boolean {
+        val unwrappedValues = values.asList.let {
+            if (it.size == 1) {
+                listOf(null, it)
+            } else it.map(::unwrapValue)
         }
+
+        return if (unwrappedValues.firstOrNull() isTheSameType unwrappedValues.secondOrNull()) {
+            compareListOfTwo(unwrappedValues, operator)
+        } else false
+    }
 
     private infix fun Any?.isTheSameType(second: Any?) =
         (this == null && second == null) || (this != null && second != null && this::class == second::class)
-
-    override fun complementValues(defectiveValues: List<Any?>) = when {
-        defectiveValues.isEmpty() -> listOf(null, null)
-        defectiveValues.size == 1 -> listOf(null, defectiveValues)
-        else -> defectiveValues.map(::unwrapValue)
-    }
 
     override fun unwrapValue(wrappedValue: Any?): Any? =
         when (wrappedValue) {

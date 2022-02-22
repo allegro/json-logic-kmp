@@ -8,5 +8,5 @@ internal object Equals : LogicOperation, EqualsOperation {
     override fun invoke(
         expression: Any?,
         data: Any?
-    ): Boolean = sizeSafeCompare(expression) { first, second -> first == second }
+    ): Boolean = safeCompare(expression) { first, second -> first == second }
 }
