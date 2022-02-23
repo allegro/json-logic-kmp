@@ -1,6 +1,5 @@
 package operations.logic.unwrap
 
-import type.SingleNestedValue
 import utils.asNumber
 import utils.isSingleNullList
 
@@ -22,15 +21,4 @@ internal interface EqualsUnwrapStrategy {
 
     private fun List<*>.unwrapNotBooleanSingleElement() = takeIf { size == 1 && firstOrNull() !is Boolean }
         ?.let { unwrapValue(firstOrNull()) }
-
-    fun unwrapSingleNestedValueOrDefault(value: Any?) = value.unwrapSingleNestedValue().let {
-        if (it != value) {
-            SingleNestedValue(it)
-        } else value
-    }
-
-    private fun Any?.unwrapSingleNestedValue(): Any? = when {
-        this is List<*> && this.size == 1 -> this.firstOrNull().unwrapSingleNestedValue()
-        else -> this
-    }
 }

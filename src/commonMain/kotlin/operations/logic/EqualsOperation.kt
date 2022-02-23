@@ -2,11 +2,12 @@ package operations.logic
 
 import operations.ComparingOperation
 import operations.logic.unwrap.EqualsUnwrapStrategy
-import type.SingleNestedValue
+import operations.logic.unwrap.SingleNestedValueUnwrapStrategy
+import operations.logic.unwrap.SingleNestedValue
 import utils.asList
 import utils.secondOrNull
 
-internal interface EqualsOperation : ComparingOperation, EqualsUnwrapStrategy {
+internal interface EqualsOperation : ComparingOperation, EqualsUnwrapStrategy, SingleNestedValueUnwrapStrategy {
     fun compare(values: Any?, operator: (Int, Int) -> Boolean): Boolean =
         with(values.asList) {
             val firstUnwrappedValue = unwrapSingleNestedValueOrDefault(firstOrNull())
