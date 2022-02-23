@@ -80,6 +80,8 @@ class EqualsTest : FunSpec({
                 TestInput(expression = mapOf("==" to listOf(listOf(""), listOf(""))), result = false),
                 TestInput(expression = mapOf("==" to listOf("", listOf(listOf("")))), result = true),
                 TestInput(expression = mapOf("==" to listOf("", emptyList<String>())), result = true),
+                TestInput(expression = mapOf("==" to listOf(false, emptyList<String>())), result = true),
+                TestInput(expression = mapOf("==" to listOf(0, emptyList<String>())), result = true),
             )
         ) { (expression, data, result) ->
             // when

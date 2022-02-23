@@ -1,29 +1,74 @@
 package operations.logic
 
-import utils.comparableList
+import operations.ComparingOperation
+import operations.logic.unwrap.EqualsUnwrapStrategy
+import type.SingleNestedValue
+import utils.asList
 import utils.secondOrNull
 
-internal interface EqualsOperation : ListTypeSensitiveComparingOperation {
-    override fun unwrapValueAsBoolean(wrappedValue: Any?): Boolean? = when (wrappedValue) {
-        is Boolean -> wrappedValue
-        is Number -> wrappedValue.toLong().toBooleanOrNull()
-        is String -> wrappedValue.toDoubleOrNull()?.toLong()?.toBooleanOrNull()
-        else -> null
-    }
+internal interface EqualsOperation : ComparingOperation, EqualsUnwrapStrategy {
+    fun compare(values: Any?, operator: (Int, Int) -> Boolean): Boolean =
+        with(values.asList) {
+            val firstUnwrappedValue = unwrapSingleNestedValueOrDefault(firstOrNull())
+            val secondUnwrappedValue = unwrapSingleNestedValueOrDefault(secondOrNull())
+            val firstPossibleTrueValues = equalsTableOfTruth[firstUnwrappedValue]
+            val secondPossibleTrueValues = equalsTableOfTruth[secondUnwrappedValue]
 
-    private fun Long.toBooleanOrNull() = when (this) {
-        0L -> false
-        1L -> true
-        else -> null
-    }
-
-    override fun compareOrNull(first: Comparable<*>?, second: Comparable<*>?): Int? {
-        return if (first is List<*> && second is List<*>) {
-            null // JS compares lists by their references, so it always returns false/null
-        } else {
-            listOf(first, second).map(::unwrapValue).comparableList.let {
-                super.compareOrNull(it.firstOrNull(), it.secondOrNull())
+            when {
+                firstPossibleTrueValues != null -> firstPossibleTrueValues.contains(secondUnwrappedValue)
+                secondPossibleTrueValues != null -> secondPossibleTrueValues.contains(firstUnwrappedValue)
+                else -> compareListOfTwo(map(::unwrapValue), operator)
             }
         }
-    }
 }
+
+private val equalsTableOfTruth = mapOf(
+    true to listOf(true, 1, "1", SingleNestedValue(1), SingleNestedValue("1")),
+    false to listOf(
+        false,
+        0,
+        "0",
+        "",
+        emptyList<Any>(),
+        SingleNestedValue(emptyList<Any>()),
+        SingleNestedValue(0),
+        SingleNestedValue("0"),
+        SingleNestedValue(""),
+        SingleNestedValue(null)
+    ),
+    1 to listOf(true, 1, "1", SingleNestedValue(1), SingleNestedValue("1")),
+    0 to listOf(
+        false,
+        0,
+        "0",
+        "",
+        emptyList<Any>(),
+        SingleNestedValue(emptyList<Any>()),
+        SingleNestedValue(0),
+        SingleNestedValue("0"),
+        SingleNestedValue(""),
+        SingleNestedValue(null)
+    ),
+    -1 to listOf(-1, "-1", SingleNestedValue(-1), SingleNestedValue("-1")),
+    "true" to listOf("true"),
+    "false" to listOf("false"),
+    "1" to listOf(true, 1, "1", SingleNestedValue(1), SingleNestedValue("1")),
+    "0" to listOf(false, 0, "0", SingleNestedValue(0), SingleNestedValue("0")),
+    "-1" to listOf(-1, "-1", SingleNestedValue(-1), SingleNestedValue("-1")),
+    "" to listOf(
+        false,
+        0,
+        "",
+        emptyList<Any>(),
+        SingleNestedValue(emptyList<Any>()),
+        SingleNestedValue(""),
+        SingleNestedValue(null)
+    ),
+    null to listOf(null),
+    emptyList<Any>() to listOf(false, 0, ""),
+    SingleNestedValue(null) to listOf(false, 0, ""),
+    SingleNestedValue("") to listOf(false, 0, ""),
+    SingleNestedValue(emptyList<Any>()) to listOf(false, 0, ""),
+    SingleNestedValue(0) to listOf(false, 0, "0"),
+    SingleNestedValue(1) to listOf(true, 1, "1")
+)
