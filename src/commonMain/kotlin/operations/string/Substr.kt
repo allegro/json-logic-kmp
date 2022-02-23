@@ -3,14 +3,16 @@ package operations.string
 import operations.LogicOperation
 import utils.asList
 import utils.intOrZero
+import utils.secondOrNull
+import utils.thirdOrNull
 
 object Substr : LogicOperation, StringUnwrapStrategy {
     override val key: String = "substr"
 
     override fun invoke(expression: Any?, data: Any?): String {
         return with(expression.asList) {
-            val startIndex = getOrNull(1).toString().intOrZero
-            val charsCount = getOrNull(2).toString().intOrZero
+            val startIndex = secondOrNull().toString().intOrZero
+            val charsCount = thirdOrNull().toString().intOrZero
             substringOrEmpty(startIndex, charsCount)
         }
     }
