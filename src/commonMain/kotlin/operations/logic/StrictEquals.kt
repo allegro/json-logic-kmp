@@ -8,7 +8,7 @@ internal object StrictEquals : LogicOperation, StrictEqualsOperation {
     override fun invoke(
         expression: Any?,
         data: Any?
-    ): Boolean = safeCompare(expression) { first, second -> first == second }
+    ): Boolean = compare(expression) { first, second -> first == second }
 }
 
 

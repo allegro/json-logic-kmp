@@ -79,6 +79,8 @@ class NotStrictEqualsTest : FunSpec({
                 TestInput(expression = mapOf("!==" to listOf("", listOf(""))), result = true),
                 TestInput(expression = mapOf("!==" to listOf(listOf(""), listOf(""))), result = true),
                 TestInput(expression = mapOf("!==" to listOf("", listOf(listOf("")))), result = true),
+                TestInput(expression = mapOf("!==" to listOf(false, emptyList<String>())), result = true),
+                TestInput(expression = mapOf("!==" to listOf(0, emptyList<String>())), result = true),
                 )
         ) { (expression, data, result) ->
             // when
