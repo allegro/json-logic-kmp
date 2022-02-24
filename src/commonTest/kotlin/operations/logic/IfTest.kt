@@ -7,11 +7,6 @@ import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 /*
 "If/then/elseif/then cases",
-[{"if":[true, "apple", true, "banana", "carrot"]}, null, "apple"],
-[{"if":[true, "apple", false, "banana", "carrot"]}, null, "apple"],
-[{"if":[false, "apple", true, "banana", "carrot"]}, null, "banana"],
-[{"if":[false, "apple", false, "banana", "carrot"]}, null, "carrot"],
-
 [{"if":[false, "apple", false, "banana", false, "carrot"]}, null, null],
 [{"if":[false, "apple", false, "banana", false, "carrot", "date"]}, null, "date"],
 [{"if":[false, "apple", false, "banana", true, "carrot", "date"]}, null, "carrot"],
@@ -29,6 +24,11 @@ class IfTest : FunSpec({
             nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
             // given
             ts = listOf(
+                TestInput(expression = mapOf("if" to listOf(true, "apple", true, "banana", "carrot")), result = "apple"),
+                TestInput(expression = mapOf("if" to listOf(true, "apple", false, "banana", "carrot")), result = "apple"),
+                TestInput(expression = mapOf("if" to listOf(false, "apple", true, "banana", "carrot")), result = "banana"),
+                TestInput(expression = mapOf("if" to listOf(false, "apple", false, "banana", "carrot")), result = "carrot"),
+
                 TestInput(expression = mapOf("if" to listOf(true, "apple", true, "banana")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(true, "apple", false, "banana")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(false, "apple", true, "banana")), result = "banana"),
