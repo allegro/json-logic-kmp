@@ -28,11 +28,6 @@ internal interface StrictEqualsOperation : EqualsOperation {
             is Number -> wrappedValue.toDouble()
             else -> wrappedValue
         }
-
-    override fun unwrapValueAsBoolean(wrappedValue: Any?): Boolean? = when (wrappedValue) {
-        is Boolean -> wrappedValue
-        else -> null
-    }
 }
 
 private val strictEqualsTableOfTruth = mapOf(
