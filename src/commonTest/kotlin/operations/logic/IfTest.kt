@@ -19,6 +19,9 @@ class IfTest : FunSpec({
                 TestInput(expression = mapOf("if" to listOf("apple")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(true, "apple")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(false, "apple")), result = null),
+                TestInput(expression = mapOf("if" to listOf(emptyList<Any>(), "apple", "banana")), result = "banana"),
+                TestInput(expression = mapOf("if" to listOf(listOf(1), "apple", "banana")), result = "apple"),
+                TestInput(expression = mapOf("if" to listOf(listOf(1, 2, 3, 4), "apple", "banana")), result = "apple"),
 
                 TestInput(expression = mapOf("if" to listOf(true, "yes", "no")), result = "yes"),
                 TestInput(expression = mapOf("if" to listOf(false, "yes", "no")), result = "no"),
