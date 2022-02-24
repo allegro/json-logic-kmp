@@ -1,6 +1,5 @@
 package operations.logic.unwrap
 
-// TODO requires unit tests
 internal interface SingleNestedValueUnwrapStrategy {
     fun unwrapSingleNestedValueOrDefault(value: Any?) = value.unwrapSingleNestedValue().let {
         if (it != value) {
