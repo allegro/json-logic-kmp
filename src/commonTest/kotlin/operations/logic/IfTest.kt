@@ -6,6 +6,7 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 
+
 class IfTest : FunSpec({
     context("JsonLogic evaluation with If operation") {
         withData(
@@ -24,6 +25,12 @@ class IfTest : FunSpec({
                 TestInput(expression = mapOf("if" to listOf("", "apple", "banana")), result = "banana"),
                 TestInput(expression = mapOf("if" to listOf("zucchini", "apple", "banana")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf("0", "apple", "banana")), result = "apple"),
+                TestInput(expression = mapOf("if" to listOf(mapOf("+" to "0"), "apple", "banana")), result = "banana"),
+                TestInput(expression = mapOf("if" to listOf(mapOf("+" to "1"), "apple", "banana")), result = "apple"),
+                TestInput(expression = mapOf("if" to listOf(0, "apple", "banana")), result = "banana"),
+                TestInput(expression = mapOf("if" to listOf(1, "apple", "banana")), result = "apple"),
+                TestInput(expression = mapOf("if" to listOf(3.1416, "apple", "banana")), result = "apple"),
+                TestInput(expression = mapOf("if" to listOf(-1, "apple", "banana")), result = "apple"),
 
                 TestInput(expression = mapOf("if" to listOf(true, "yes", "no")), result = "yes"),
                 TestInput(expression = mapOf("if" to listOf(false, "yes", "no")), result = "no"),
