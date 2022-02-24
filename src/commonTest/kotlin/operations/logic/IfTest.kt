@@ -5,25 +5,24 @@ import TestInput
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
-/*
-"If/then/elseif/then cases",
-[{"if":[false, "apple", false, "banana", false, "carrot"]}, null, null],
-[{"if":[false, "apple", false, "banana", false, "carrot", "date"]}, null, "date"],
-[{"if":[false, "apple", false, "banana", true, "carrot", "date"]}, null, "carrot"],
-[{"if":[false, "apple", true, "banana", false, "carrot", "date"]}, null, "banana"],
-[{"if":[false, "apple", true, "banana", true, "carrot", "date"]}, null, "banana"],
-[{"if":[true, "apple", false, "banana", false, "carrot", "date"]}, null, "apple"],
-[{"if":[true, "apple", false, "banana", true, "carrot", "date"]}, null, "apple"],
-[{"if":[true, "apple", true, "banana", false, "carrot", "date"]}, null, "apple"],
-[{"if":[true, "apple", true, "banana", true, "carrot", "date"]}, null, "apple"],
-[{"if": [{"var": "x"}, [{"var": "y"}], 99]}, {"x": true, "y": 42}, [42]],
-*/
+
 class IfTest : FunSpec({
     context("JsonLogic evaluation with If operation") {
         withData(
             nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
             // given
             ts = listOf(
+                TestInput(expression = mapOf("if" to listOf(false, "apple", false, "banana", false, "carrot")), result = null),
+                TestInput(expression = mapOf("if" to listOf(false, "apple", false, "banana", false, "carrot", "date")), result = "date"),
+                TestInput(expression = mapOf("if" to listOf(false, "apple", false, "banana", true, "carrot", "date")), result = "carrot"),
+                TestInput(expression = mapOf("if" to listOf(false, "apple", true, "banana", false, "carrot", "date")), result = "banana"),
+                TestInput(expression = mapOf("if" to listOf(false, "apple", true, "banana", true, "carrot", "date")), result = "banana"),
+                TestInput(expression = mapOf("if" to listOf(true, "apple", false, "banana", false, "carrot", "date")), result = "apple"),
+                TestInput(expression = mapOf("if" to listOf(true, "apple", false, "banana", true, "carrot", "date")), result = "apple"),
+                TestInput(expression = mapOf("if" to listOf(true, "apple", true, "banana", false, "carrot", "date")), result = "apple"),
+                TestInput(expression = mapOf("if" to listOf(true, "apple", true, "banana", true, "carrot", "date")), result = "apple"),
+                TestInput(expression = mapOf("if" to listOf(mapOf("var" to "x"), listOf(mapOf("var" to "y")), 99)), data = mapOf("x" to true, "y" to 42), result = listOf(42)),
+
                 TestInput(expression = mapOf("if" to listOf(true, "apple", true, "banana", "carrot")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(true, "apple", false, "banana", "carrot")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(false, "apple", true, "banana", "carrot")), result = "banana"),
