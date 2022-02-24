@@ -7,11 +7,6 @@ import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 /*
 "If/then/elseif/then cases",
-[{"if":[true, "apple", true, "banana"]}, null, "apple"],
-[{"if":[true, "apple", false, "banana"]}, null, "apple"],
-[{"if":[false, "apple", true, "banana"]}, null, "banana"],
-[{"if":[false, "apple", false, "banana"]}, null, null],
-
 [{"if":[true, "apple", true, "banana", "carrot"]}, null, "apple"],
 [{"if":[true, "apple", false, "banana", "carrot"]}, null, "apple"],
 [{"if":[false, "apple", true, "banana", "carrot"]}, null, "banana"],
@@ -34,9 +29,14 @@ class IfTest : FunSpec({
             nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
             // given
             ts = listOf(
-                TestInput(expression = mapOf("if" to listOf(mapOf("missing" to "a"), "missed it", "found it")), data = mapOf("a" to "apple"), result = "found it"),
-                TestInput(expression = mapOf("if" to listOf(mapOf("missing" to "a"), "missed it", "found it")), data = mapOf("b" to "banana"), result = "found it"),
+                TestInput(expression = mapOf("if" to listOf(true, "apple", true, "banana")), result = "apple"),
+                TestInput(expression = mapOf("if" to listOf(true, "apple", false, "banana")), result = "apple"),
+                TestInput(expression = mapOf("if" to listOf(false, "apple", true, "banana")), result = "banana"),
+                TestInput(expression = mapOf("if" to listOf(false, "apple", false, "banana")), result = null),
 
+
+                TestInput(expression = mapOf("if" to listOf(mapOf("missing" to "a"), "missed it", "found it")), data = mapOf("a" to "apple"), result = "found it"),
+                TestInput(expression = mapOf("if" to listOf(mapOf("missing" to "a"), "missed it", "found it")), data = mapOf("b" to "banana"), result = "missed it"),
 
                 TestInput(expression = mapOf("if" to listOf(true, mapOf("cat" to listOf("ap", "ple")), mapOf("cat" to listOf("ba", "na", "na")))), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(false, mapOf("cat" to listOf("ap", "ple")), mapOf("cat" to listOf("ba", "na", "na")))), result = "banana"),
