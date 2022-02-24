@@ -12,6 +12,9 @@ class IfTest : FunSpec({
             nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
             // given
             ts = listOf(
+                TestInput(expression = mapOf("if" to listOf(true, mapOf("cat" to listOf("ap", "ple")), mapOf("cat" to listOf("ba", "na", "na")))), result = "apple"),
+                TestInput(expression = mapOf("if" to listOf(false, mapOf("cat" to listOf("ap", "ple")), mapOf("cat" to listOf("ba", "na", "na")))), result = "banana"),
+
                 TestInput(expression = mapOf("if" to listOf(mapOf(">" to listOf(2,1)), "apple", "banana")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(mapOf(">" to listOf(1,2)), "apple", "banana")), result = "banana"),
 
