@@ -12,30 +12,103 @@ class IfTest : FunSpec({
             nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
             // given
             ts = listOf(
-                TestInput(expression = mapOf("if" to listOf(false, "apple", false, "banana", false, "carrot")), result = null),
-                TestInput(expression = mapOf("if" to listOf(false, "apple", false, "banana", false, "carrot", "date")), result = "date"),
-                TestInput(expression = mapOf("if" to listOf(false, "apple", false, "banana", true, "carrot", "date")), result = "carrot"),
-                TestInput(expression = mapOf("if" to listOf(false, "apple", true, "banana", false, "carrot", "date")), result = "banana"),
-                TestInput(expression = mapOf("if" to listOf(false, "apple", true, "banana", true, "carrot", "date")), result = "banana"),
-                TestInput(expression = mapOf("if" to listOf(true, "apple", false, "banana", false, "carrot", "date")), result = "apple"),
-                TestInput(expression = mapOf("if" to listOf(true, "apple", false, "banana", true, "carrot", "date")), result = "apple"),
-                TestInput(expression = mapOf("if" to listOf(true, "apple", true, "banana", false, "carrot", "date")), result = "apple"),
-                TestInput(expression = mapOf("if" to listOf(true, "apple", true, "banana", true, "carrot", "date")), result = "apple"),
-                TestInput(expression = mapOf("if" to listOf(mapOf("var" to "x"), listOf(mapOf("var" to "y")), 99)), data = mapOf("x" to true, "y" to 42), result = listOf(42)),
-                TestInput(expression = mapOf("if" to listOf(true, "apple", true, "banana", "carrot")), result = "apple"),
-                TestInput(expression = mapOf("if" to listOf(true, "apple", false, "banana", "carrot")), result = "apple"),
-                TestInput(expression = mapOf("if" to listOf(false, "apple", true, "banana", "carrot")), result = "banana"),
-                TestInput(expression = mapOf("if" to listOf(false, "apple", false, "banana", "carrot")), result = "carrot"),
+                TestInput(
+                    expression = mapOf("if" to listOf(false, "apple", false, "banana", false, "carrot")),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("if" to listOf(false, "apple", false, "banana", false, "carrot", "date")),
+                    result = "date"
+                ),
+                TestInput(
+                    expression = mapOf("if" to listOf(false, "apple", false, "banana", true, "carrot", "date")),
+                    result = "carrot"
+                ),
+                TestInput(
+                    expression = mapOf("if" to listOf(false, "apple", true, "banana", false, "carrot", "date")),
+                    result = "banana"
+                ),
+                TestInput(
+                    expression = mapOf("if" to listOf(false, "apple", true, "banana", true, "carrot", "date")),
+                    result = "banana"
+                ),
+                TestInput(
+                    expression = mapOf("if" to listOf(true, "apple", false, "banana", false, "carrot", "date")),
+                    result = "apple"
+                ),
+                TestInput(
+                    expression = mapOf("if" to listOf(true, "apple", false, "banana", true, "carrot", "date")),
+                    result = "apple"
+                ),
+                TestInput(
+                    expression = mapOf("if" to listOf(true, "apple", true, "banana", false, "carrot", "date")),
+                    result = "apple"
+                ),
+                TestInput(
+                    expression = mapOf("if" to listOf(true, "apple", true, "banana", true, "carrot", "date")),
+                    result = "apple"
+                ),
+                TestInput(
+                    expression = mapOf("if" to listOf(mapOf("var" to "x"), listOf(mapOf("var" to "y")), 99)),
+                    data = mapOf("x" to true, "y" to 42),
+                    result = listOf(42)
+                ),
+                TestInput(
+                    expression = mapOf("if" to listOf(true, "apple", true, "banana", "carrot")),
+                    result = "apple"
+                ),
+                TestInput(
+                    expression = mapOf("if" to listOf(true, "apple", false, "banana", "carrot")),
+                    result = "apple"
+                ),
+                TestInput(
+                    expression = mapOf("if" to listOf(false, "apple", true, "banana", "carrot")),
+                    result = "banana"
+                ),
+                TestInput(
+                    expression = mapOf("if" to listOf(false, "apple", false, "banana", "carrot")),
+                    result = "carrot"
+                ),
                 TestInput(expression = mapOf("if" to listOf(true, "apple", true, "banana")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(true, "apple", false, "banana")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(false, "apple", true, "banana")), result = "banana"),
                 TestInput(expression = mapOf("if" to listOf(false, "apple", false, "banana")), result = null),
-                TestInput(expression = mapOf("if" to listOf(mapOf("missing" to "a"), "missed it", "found it")), data = mapOf("a" to "apple"), result = "found it"),
-                TestInput(expression = mapOf("if" to listOf(mapOf("missing" to "a"), "missed it", "found it")), data = mapOf("b" to "banana"), result = "missed it"),
-                TestInput(expression = mapOf("if" to listOf(true, mapOf("cat" to listOf("ap", "ple")), mapOf("cat" to listOf("ba", "na", "na")))), result = "apple"),
-                TestInput(expression = mapOf("if" to listOf(false, mapOf("cat" to listOf("ap", "ple")), mapOf("cat" to listOf("ba", "na", "na")))), result = "banana"),
-                TestInput(expression = mapOf("if" to listOf(mapOf(">" to listOf(2,1)), "apple", "banana")), result = "apple"),
-                TestInput(expression = mapOf("if" to listOf(mapOf(">" to listOf(1,2)), "apple", "banana")), result = "banana"),
+                TestInput(
+                    expression = mapOf("if" to listOf(mapOf("missing" to "a"), "missed it", "found it")),
+                    data = mapOf("a" to "apple"),
+                    result = "found it"
+                ),
+                TestInput(
+                    expression = mapOf("if" to listOf(mapOf("missing" to "a"), "missed it", "found it")),
+                    data = mapOf("b" to "banana"),
+                    result = "missed it"
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "if" to listOf(
+                            true,
+                            mapOf("cat" to listOf("ap", "ple")),
+                            mapOf("cat" to listOf("ba", "na", "na"))
+                        )
+                    ), result = "apple"
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "if" to listOf(
+                            false,
+                            mapOf("cat" to listOf("ap", "ple")),
+                            mapOf("cat" to listOf("ba", "na", "na"))
+                        )
+                    ), result = "banana"
+                ),
+                TestInput(
+                    expression = mapOf("if" to listOf(mapOf(">" to listOf(2, 1)), "apple", "banana")),
+                    result = "apple"
+                ),
+                TestInput(
+                    expression = mapOf("if" to listOf(mapOf(">" to listOf(1, 2)), "apple", "banana")),
+                    result = "banana"
+                ),
                 TestInput(expression = mapOf("if" to listOf<Any>()), result = null),
                 TestInput(expression = mapOf("if" to listOf(true)), result = true),
                 TestInput(expression = mapOf("if" to listOf(false)), result = false),
