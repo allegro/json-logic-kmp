@@ -61,7 +61,7 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
         DoubleNegation.operation,
         And.operation,
         Or.operation,
-        If.operation
+        If.operation,
     )
 
     override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = if (expression.isNotEmpty()) {
@@ -72,17 +72,20 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
 
     private fun apply(logic: Any?, data: Any?): Any? {
         return when {
+            logic is List<*> -> logic.map { apply(it, data) }
             logic !is Map<*, *> -> logic
             logic.isEmpty() -> data
-            else -> {
-                val operator = logic.keys.firstOrNull()
-                val values = logic[operator]
-                operations[operator]?.invoke(when (values) {
-                    is List<*> -> values.map { apply(it, data) }
-                    is Map<*, *> -> apply(values, data)
-                    else -> apply(listOf(values), data)
-                }.asList, data)
-            }
+            else -> execute(logic, data)
         }
+    }
+
+    private fun execute(logic: Map<*, *>, data: Any?): Any? {
+        val operator = logic.keys.firstOrNull()
+        val values = logic[operator]
+        return operations[operator]?.invoke(when (values) {
+            is List<*> -> values.map { apply(it, data) }
+            is Map<*, *> -> apply(values, data)
+            else -> apply(listOf(values), data)
+        }.asList, data)
     }
 }

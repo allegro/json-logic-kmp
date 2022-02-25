@@ -22,27 +22,20 @@ class IfTest : FunSpec({
                 TestInput(expression = mapOf("if" to listOf(true, "apple", true, "banana", false, "carrot", "date")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(true, "apple", true, "banana", true, "carrot", "date")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(mapOf("var" to "x"), listOf(mapOf("var" to "y")), 99)), data = mapOf("x" to true, "y" to 42), result = listOf(42)),
-
                 TestInput(expression = mapOf("if" to listOf(true, "apple", true, "banana", "carrot")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(true, "apple", false, "banana", "carrot")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(false, "apple", true, "banana", "carrot")), result = "banana"),
                 TestInput(expression = mapOf("if" to listOf(false, "apple", false, "banana", "carrot")), result = "carrot"),
-
                 TestInput(expression = mapOf("if" to listOf(true, "apple", true, "banana")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(true, "apple", false, "banana")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(false, "apple", true, "banana")), result = "banana"),
                 TestInput(expression = mapOf("if" to listOf(false, "apple", false, "banana")), result = null),
-
-
                 TestInput(expression = mapOf("if" to listOf(mapOf("missing" to "a"), "missed it", "found it")), data = mapOf("a" to "apple"), result = "found it"),
                 TestInput(expression = mapOf("if" to listOf(mapOf("missing" to "a"), "missed it", "found it")), data = mapOf("b" to "banana"), result = "missed it"),
-
                 TestInput(expression = mapOf("if" to listOf(true, mapOf("cat" to listOf("ap", "ple")), mapOf("cat" to listOf("ba", "na", "na")))), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(false, mapOf("cat" to listOf("ap", "ple")), mapOf("cat" to listOf("ba", "na", "na")))), result = "banana"),
-
                 TestInput(expression = mapOf("if" to listOf(mapOf(">" to listOf(2,1)), "apple", "banana")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(mapOf(">" to listOf(1,2)), "apple", "banana")), result = "banana"),
-
                 TestInput(expression = mapOf("if" to listOf<Any>()), result = null),
                 TestInput(expression = mapOf("if" to listOf(true)), result = true),
                 TestInput(expression = mapOf("if" to listOf(false)), result = false),
@@ -61,7 +54,6 @@ class IfTest : FunSpec({
                 TestInput(expression = mapOf("if" to listOf(1, "apple", "banana")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(3.1416, "apple", "banana")), result = "apple"),
                 TestInput(expression = mapOf("if" to listOf(-1, "apple", "banana")), result = "apple"),
-
                 TestInput(expression = mapOf("if" to listOf(true, "yes", "no")), result = "yes"),
                 TestInput(expression = mapOf("if" to listOf(false, "yes", "no")), result = "no"),
                 TestInput(
