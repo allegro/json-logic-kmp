@@ -12,15 +12,15 @@ import operations.logic.Or
 import operations.logic.StrictEquals
 import operations.numeric.Addition
 import operations.numeric.Division
-import operations.numeric.compare.GreaterThan
-import operations.numeric.compare.GreaterThanOrEqualTo
-import operations.numeric.compare.LessThan
-import operations.numeric.compare.LessThanOrEqualTo
 import operations.numeric.Max
 import operations.numeric.Min
 import operations.numeric.Modulo
 import operations.numeric.Multiplication
 import operations.numeric.Subtraction
+import operations.numeric.compare.GreaterThan
+import operations.numeric.compare.GreaterThanOrEqualTo
+import operations.numeric.compare.LessThan
+import operations.numeric.compare.LessThanOrEqualTo
 import operations.string.Cat
 import operations.string.In
 import operations.string.Substr
@@ -65,27 +65,27 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
     )
 
     override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = if (expression.isNotEmpty()) {
-        apply(expression, data)
+        executeExpression(expression, data)
     } else {
         throw JsonLogicException("JsonLogic expression mustn't be empty.")
     }
 
-    private fun apply(logic: Any?, data: Any?): Any? {
+    private fun executeExpression(logic: Any?, data: Any?): Any? {
         return when {
-            logic is List<*> -> logic.map { apply(it, data) }
+            logic is List<*> -> logic.map { executeExpression(it, data) }
             logic !is Map<*, *> -> logic
             logic.isEmpty() -> data
-            else -> execute(logic, data)
+            else -> executeOperation(logic, data)
         }
     }
 
-    private fun execute(logic: Map<*, *>, data: Any?): Any? {
+    private fun executeOperation(logic: Map<*, *>, data: Any?): Any? {
         val operator = logic.keys.firstOrNull()
         val values = logic[operator]
         return operations[operator]?.invoke(when (values) {
-            is List<*> -> values.map { apply(it, data) }
-            is Map<*, *> -> apply(values, data)
-            else -> apply(listOf(values), data)
+            is List<*> -> values.map { executeExpression(it, data) }
+            is Map<*, *> -> executeExpression(values, data)
+            else -> executeExpression(listOf(values), data)
         }.asList, data)
     }
 }
