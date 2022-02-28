@@ -1,12 +1,20 @@
 import operations.data.Missing
 import operations.data.MissingSome
 import operations.data.Var
+import operations.logic.And
+import operations.logic.DoubleNegation
+import operations.logic.Equals
+import operations.logic.Negation
+import operations.logic.NotEquals
+import operations.logic.NotStrictEquals
+import operations.logic.Or
+import operations.logic.StrictEquals
 import operations.numeric.Addition
 import operations.numeric.Division
-import operations.numeric.GreaterThan
-import operations.numeric.GreaterThanOrEqualTo
-import operations.numeric.LessThan
-import operations.numeric.LessThanOrEqualTo
+import operations.numeric.compare.GreaterThan
+import operations.numeric.compare.GreaterThanOrEqualTo
+import operations.numeric.compare.LessThan
+import operations.numeric.compare.LessThanOrEqualTo
 import operations.numeric.Max
 import operations.numeric.Min
 import operations.numeric.Modulo
@@ -15,6 +23,8 @@ import operations.numeric.Subtraction
 import operations.string.Cat
 import operations.string.In
 import operations.string.Substr
+import utils.JsonLogicException
+import utils.asList
 
 internal class CommonJsonLogicEngine : JsonLogicEngine {
     private val operations: Map<String, (Any?, Any?) -> Any?> = mapOf(
@@ -39,7 +49,17 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
         // string
         Cat.operation,
         In.operation,
-        Substr.operation
+        Substr.operation,
+
+        // logic
+        Equals.operation,
+        NotEquals.operation,
+        StrictEquals.operation,
+        NotStrictEquals.operation,
+        Negation.operation,
+        DoubleNegation.operation,
+        And.operation,
+        Or.operation
     )
 
     override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = if (expression.isNotEmpty()) {

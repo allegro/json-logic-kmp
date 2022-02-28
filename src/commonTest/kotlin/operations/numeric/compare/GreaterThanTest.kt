@@ -1,4 +1,4 @@
-package operations.numeric
+package operations.numeric.compare
 
 import JsonLogicEngine
 import TestInput
@@ -96,6 +96,10 @@ class GreaterThanTest : FunSpec({
                 TestInput(
                     expression = mapOf(">" to listOf(1, false)),
                     result = true
+                ),
+                TestInput(
+                    expression = mapOf(">" to listOf(-1, false)),
+                    result = false
                 ),
                 TestInput(
                     expression = mapOf(">" to listOf(false, 3, 3)),

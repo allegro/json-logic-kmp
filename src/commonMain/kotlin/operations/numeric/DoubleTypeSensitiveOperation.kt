@@ -1,6 +1,6 @@
 package operations.numeric
 
-import asDoubleList
+import utils.asDoubleList
 
 internal interface DoubleTypeSensitiveOperation {
     fun doubleResultOrNull(expression: Any?, operation: (List<Double>) -> Double?): Double? {

@@ -1,6 +1,6 @@
 package operations.numeric
 
-import LogicOperation
+import operations.LogicOperation
 
 internal object Min : LogicOperation, DoubleTypeSensitiveOperation {
     override val key: String = "min"

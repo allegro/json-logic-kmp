@@ -1,5 +1,6 @@
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
+import utils.JsonLogicException
 
 class CommonJsonLogicEngineTest : BehaviorSpec({
     val logicEngine = CommonJsonLogicEngine()

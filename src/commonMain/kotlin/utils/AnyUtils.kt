@@ -1,3 +1,5 @@
+package utils
+
 import type.JsonLogicList
 
 internal val Any?.asList: List<Any?>
@@ -28,3 +30,5 @@ private val List<Any?>.doubleList: List<Double?>
     }
 
 internal fun Any?.toStringOrEmpty() = this?.let { toString() }.orEmpty()
+
+internal fun Any?.isSingleNullList() = this is List<*> && size == 1 && first() == null

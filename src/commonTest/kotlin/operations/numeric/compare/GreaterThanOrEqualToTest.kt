@@ -1,4 +1,4 @@
-package operations.numeric
+package operations.numeric.compare
 
 import TestInput
 import io.kotest.core.spec.style.FunSpec

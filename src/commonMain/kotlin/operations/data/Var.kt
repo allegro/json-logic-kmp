@@ -1,8 +1,8 @@
 package operations.data
 
-import LogicOperation
-import intOrZero
-import secondOrNull
+import operations.LogicOperation
+import utils.intOrZero
+import utils.secondOrNull
 
 internal object Var : LogicOperation {
     override val key: String = "var"

@@ -1,8 +1,8 @@
 package operations.string
 
-import LogicOperation
-import asList
-import intOrZero
+import operations.LogicOperation
+import utils.asList
+import utils.intOrZero
 
 object Substr : LogicOperation, StringUnwrapStrategy {
     override val key: String = "substr"
@@ -16,7 +16,7 @@ object Substr : LogicOperation, StringUnwrapStrategy {
     }
 
     private fun List<Any?>.substringOrEmpty(startIndex: Int, charsCount: Int): String {
-        val baseString = unwrapValues(firstOrNull()).joinToString(",")
+        val baseString = unwrapValueAsString(firstOrNull()).joinToString(",")
         return runCatching {
             when {
                 size == 2 -> baseString.fromStartIndexToEnd(startIndex)

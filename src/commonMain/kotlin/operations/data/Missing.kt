@@ -1,6 +1,6 @@
 package operations.data
 
-import LogicOperation
+import operations.LogicOperation
 
 internal object Missing : LogicOperation {
     override val key: String = "missing"
