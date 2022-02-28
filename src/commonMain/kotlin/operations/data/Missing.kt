@@ -7,7 +7,9 @@ internal object Missing : LogicOperation {
 
     override fun invoke(expression: Any?, data: Any?): List<Any?> {
         return (expression as? List<Any?>)?.mapNotNull {
-            it.takeIf { Var(it, data) == null }
+            it.takeIf { Var(it, data).isNullOrEmptyString() }
         }.orEmpty()
     }
+
+    private fun Any?.isNullOrEmptyString() = this == null || (this is String && this.isEmpty())
 }

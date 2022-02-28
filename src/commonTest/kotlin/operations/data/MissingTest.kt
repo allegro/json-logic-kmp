@@ -12,6 +12,9 @@ class MissingTest : FunSpec({
             nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
             // given
             ts = listOf(
+                TestInput(expression = mapOf("missing" to listOf("a")), data = mapOf("a" to ""), result = listOf("a")),
+                TestInput(expression = mapOf("missing" to listOf("a")), data = mapOf("a" to emptyList<Any>()), result = emptyList<Any>()),
+                TestInput(expression = mapOf("missing" to listOf("a")), data = mapOf("a" to null), result = listOf("a")),
                 TestInput(expression = mapOf("missing" to emptyList<Any>()), data = null, result = emptyList<Any>()),
                 TestInput(expression = mapOf("missing" to listOf("a")), data = null, result = listOf("a")),
                 TestInput(
