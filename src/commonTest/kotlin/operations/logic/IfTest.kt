@@ -13,7 +13,13 @@ class IfTest : FunSpec({
             // given
             ts = listOf(
                 TestInput(
-                    expression = mapOf("if" to listOf(mapOf("missing" to listOf("a", "b")), "Not enough fruit", "OK to proceed")),
+                    expression = mapOf(
+                        "if" to listOf(
+                            mapOf("missing" to listOf("a", "b")),
+                            "Not enough fruit",
+                            "OK to proceed"
+                        )
+                    ),
                     data = mapOf("a" to "apple", "b" to "banana"),
                     result = "OK to proceed"
                 ),

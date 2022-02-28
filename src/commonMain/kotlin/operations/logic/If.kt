@@ -6,6 +6,7 @@ import utils.asList
 import utils.secondOrNull
 import utils.thirdOrNull
 
+@Suppress("MagicNumber")
 internal object If : LogicOperation, TruthyUnwrapStrategy {
     override val key: String = "if"
 
