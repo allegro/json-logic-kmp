@@ -3,6 +3,7 @@ package operations.numeric.compare
 import operations.ComparingOperation
 import utils.comparableList
 import utils.secondOrNull
+import utils.thirdOrNull
 
 internal interface RangeComparingOperation : ComparingOperation {
     fun compareOrBetween(
@@ -18,7 +19,7 @@ internal interface RangeComparingOperation : ComparingOperation {
 
     private fun List<Comparable<*>?>.between(operator: (Int, Int) -> Boolean): Boolean {
         val firstEvaluation = compareListOfTwo(listOf(firstOrNull(), secondOrNull()), operator)
-        val secondEvaluation = compareListOfTwo(listOf(secondOrNull(), getOrNull(2)), operator)
+        val secondEvaluation = compareListOfTwo(listOf(secondOrNull(), thirdOrNull()), operator)
         return firstEvaluation && secondEvaluation
     }
 }

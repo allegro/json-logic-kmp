@@ -12,8 +12,51 @@ class MissingTest : FunSpec({
             nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
             // given
             ts = listOf(
-                TestInput(expression = mapOf("missing" to emptyList<Any>()), data = null, result = emptyList<Any>()),
-                TestInput(expression = mapOf("missing" to listOf("a")), data = null, result = listOf("a")),
+                TestInput(
+                    expression = mapOf("missing" to listOf("a")),
+                    data = mapOf("a" to ""),
+                    result = listOf("a")
+                ),
+                TestInput(
+                    expression = mapOf("missing" to listOf("a")),
+                    data = mapOf("a" to emptyList<Any>()),
+                    result = emptyList<Any>()
+                ),
+                TestInput(
+                    expression = mapOf("missing" to listOf("a")),
+                    data = mapOf("a" to null),
+                    result = listOf("a")
+                ),
+                TestInput(
+                    expression = mapOf("missing" to listOf("a")),
+                    data = mapOf("a" to 0),
+                    result = emptyList<Any>()
+                ),
+                TestInput(
+                    expression = mapOf("missing" to listOf("a")),
+                    data = mapOf("a" to "0"),
+                    result = emptyList<Any>()
+                ),
+                TestInput(
+                    expression = mapOf("missing" to listOf("a")),
+                    data = mapOf("a" to listOf(null)),
+                    result = emptyList<Any>()
+                ),
+                TestInput(
+                    expression = mapOf("missing" to listOf("a")),
+                    data = mapOf("a" to listOf("")),
+                    result = emptyList<Any>()
+                ),
+                TestInput(
+                    expression = mapOf("missing" to emptyList<Any>()),
+                    data = null,
+                    result = emptyList<Any>()
+                ),
+                TestInput(
+                    expression = mapOf("missing" to listOf("a")),
+                    data = null,
+                    result = listOf("a")
+                ),
                 TestInput(
                     expression = mapOf("missing" to "a"),
                     data = mapOf("a" to "apple"),
@@ -34,14 +77,21 @@ class MissingTest : FunSpec({
                     data = mapOf("a" to "apple", "b" to "banana"),
                     result = emptyList<Any>()
                 ),
-
                 TestInput(
                     expression = mapOf("missing" to listOf("a", "b")),
                     data = emptyMap<String, Any>(),
                     result = listOf("a", "b")
                 ),
-                TestInput(expression = mapOf("missing" to listOf("a", "b")), data = null, result = listOf("a", "b")),
-                TestInput(expression = mapOf("missing" to listOf("a.b")), data = null, result = listOf("a.b")),
+                TestInput(
+                    expression = mapOf("missing" to listOf("a", "b")),
+                    data = null,
+                    result = listOf("a", "b")
+                ),
+                TestInput(
+                    expression = mapOf("missing" to listOf("a.b")),
+                    data = null,
+                    result = listOf("a.b")
+                ),
                 TestInput(
                     expression = mapOf("missing" to listOf("a.b")),
                     data = mapOf("a" to "apple"),
@@ -52,7 +102,6 @@ class MissingTest : FunSpec({
                     data = mapOf("a" to mapOf("c" to "apple cake")),
                     result = listOf("a.b")
                 ),
-
                 TestInput(
                     expression = mapOf("missing" to listOf("a.b")),
                     data = mapOf("a" to mapOf("b" to "apple brownie")),
@@ -62,7 +111,7 @@ class MissingTest : FunSpec({
                     expression = mapOf("missing" to listOf("a.b", "a.c")),
                     data = mapOf("a" to mapOf("b" to "apple brownie")),
                     result = listOf("a.c")
-                ),
+                )
             )
         ) { (expression, data, result) ->
             // when
