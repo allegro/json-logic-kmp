@@ -15,6 +15,10 @@ class MissingTest : FunSpec({
                 TestInput(expression = mapOf("missing" to listOf("a")), data = mapOf("a" to ""), result = listOf("a")),
                 TestInput(expression = mapOf("missing" to listOf("a")), data = mapOf("a" to emptyList<Any>()), result = emptyList<Any>()),
                 TestInput(expression = mapOf("missing" to listOf("a")), data = mapOf("a" to null), result = listOf("a")),
+                TestInput(expression = mapOf("missing" to listOf("a")), data = mapOf("a" to 0), result = emptyList<Any>()),
+                TestInput(expression = mapOf("missing" to listOf("a")), data = mapOf("a" to "0"), result = emptyList<Any>()),
+                TestInput(expression = mapOf("missing" to listOf("a")), data = mapOf("a" to listOf(null)), result = emptyList<Any>()),
+                TestInput(expression = mapOf("missing" to listOf("a")), data = mapOf("a" to listOf("")), result = emptyList<Any>()),
                 TestInput(expression = mapOf("missing" to emptyList<Any>()), data = null, result = emptyList<Any>()),
                 TestInput(expression = mapOf("missing" to listOf("a")), data = null, result = listOf("a")),
                 TestInput(
