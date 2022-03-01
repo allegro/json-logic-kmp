@@ -28,7 +28,7 @@ import utils.JsonLogicException
 import utils.asList
 
 internal class CommonJsonLogicEngine : JsonLogicEngine {
-    private val operations: Map<String, (Any?, Any?) -> Any?> = mapOf(
+    private val standardOperations: Map<String, (Any?, Any?) -> Any?> = mapOf(
         // data
         Var.operation,
         MissingSome.operation,
@@ -64,6 +64,11 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
         If.operation,
     )
 
+    private val selfEvaluatingOperations: Map<String, (Any?, Any?) -> Any?> = mapOf(
+        // array
+        operations.array.Map.operation
+    )
+
     override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = if (expression.isNotEmpty()) {
         executeExpression(expression, data)
     } else {
@@ -82,10 +87,15 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
     private fun executeOperation(logic: Map<*, *>, data: Any?): Any? {
         val operator = logic.keys.firstOrNull()
         val values = logic[operator]
-        return operations[operator]?.invoke(when (values) {
-            is List<*> -> values.map { executeExpression(it, data) }
-            is Map<*, *> -> executeExpression(values, data)
-            else -> executeExpression(listOf(values), data)
-        }.asList, data)
+        // jednak trzeba dodac, bo zle przekazuje dane
+        return if (selfEvaluatingOperations.keys.contains(operator)) {
+            selfEvaluatingOperations[operator]?.invoke(values.asList, data)
+        } else {
+            standardOperations[operator]?.invoke(when (values) {
+                is List<*> -> values.map { executeExpression(it, data) }
+                is Map<*, *> -> executeExpression(values, data)
+                else -> executeExpression(listOf(values), data)
+            }.asList, data)
+        }
     }
 }
