@@ -1,4 +1,5 @@
 import operations.array.Filter
+import operations.array.Reduce
 import operations.data.Missing
 import operations.data.MissingSome
 import operations.data.Var
@@ -68,7 +69,8 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
     private val selfEvaluatingOperations: Map<String, (Any?, Any?) -> Any?> = mapOf(
         // array
         operations.array.Map.operation,
-        Filter.operation
+        Filter.operation,
+        Reduce.operation
     )
 
     override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = if (expression.isNotEmpty()) {

@@ -1,8 +1,9 @@
 package operations.array
 
-import JsonLogicEngine
+import utils.secondOrNull
 import kotlin.collections.Map
 
-internal interface ArrayOperation {
-    fun evaluate(expression: Map<String, Any?>, data: Any?) = JsonLogicEngine.instance.evaluate(expression, data)
+internal interface ArrayOperation : EvaluatingUnwrapStrategy {
+    fun getMappingOperationOrNull(expression: List<Any?>) =
+        expression.secondOrNull().takeIf { isNotEmptyExpression(it) } as? Map<String, Any>
 }
