@@ -1,29 +1,18 @@
 package operations.data
 
 import operations.LogicOperation
-import operations.logic.unwrap.SingleNestedValue
-import operations.logic.unwrap.SingleNestedValueUnwrapStrategy
+import operations.data.unwrap.ValueFetchingUnwrapStrategy
 import utils.intOrZero
 import utils.secondOrNull
 
-// do testow wrzucic to co w playgroundach
-internal object Var : LogicOperation , SingleNestedValueUnwrapStrategy {
+internal object Var : LogicOperation, ValueFetchingUnwrapStrategy {
     override val key: String = "var"
 
-    override operator fun invoke(expression: Any?, data: Any?): Any? {
-        val indexParts = if (expression is List<*>) {
-           val value = expression.getProperValue()
-            if(value is List<*>) {
-                // jakas lista, traktowana w jsie jako null, nie ma po co isc dalej
-                return@invoke null
-            } else value //tutaj moze byc null, ktory oznacza wszystko
+    override operator fun invoke(expression: Any?, data: Any?): Any? = unwrapDataKeys(expression)?.fetchValueOrDefault(expression, data)
 
-        } else {
-            expression
-        }?.toString()?.split(".").orEmpty()
-
-        val value = if (indexParts.isNotEmpty()) {
-            getIndexedValue(data, indexParts)
+    private fun List<String>.fetchValueOrDefault(expression: Any?, data: Any?): Any? {
+        val value = if (isNotEmpty()) {
+            getIndexedValue(data, this)
         } else {
             data
         }
@@ -34,40 +23,6 @@ internal object Var : LogicOperation , SingleNestedValueUnwrapStrategy {
             value
         }
     }
-    private fun List<*>.getProperValue(): Any? =
-        when (val a = firstOrNull()) {
-            is List<*> -> if(a.getProperValue() == null) {
-                //jazda dalej
-                a
-            } else if(a.size > 1) {
-                a
-            } else {
-                a.getProperValue()
-            }
-            null -> null
-            emptyList<Any>() -> null
-            "" -> null
-            else   -> a
-        }
-
-//         fun unwrapSingleNestedValueOrDefault(value: Any?) = value.unwrapSingleNestedValue().let {
-//            if (it != value) {
-//                SingleNestedValue(it)
-//            } else value
-//        }
-//
-//        private fun Any?.unwrapSingleNestedValue(): Any? = when {
-//            this is List<*> && this.size == 1 -> this.firstOrNull().unwrapSingleNestedValue()
-//            else -> this
-//        }
-    private fun Any?.wezvalueisprawdz() = if(this is SingleNestedValue) {
-        when (this.value) {
-            null -> null
-            "" -> null
-            emptyList<Any>() -> null
-            else -> this.value
-        }
-        } else this
 
     private fun getIndexedValue(value: Any?, indexParts: List<String>): Any? {
         return when (value) {
