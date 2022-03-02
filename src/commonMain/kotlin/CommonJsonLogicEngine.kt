@@ -1,3 +1,4 @@
+import operations.array.Filter
 import operations.data.Missing
 import operations.data.MissingSome
 import operations.data.Var
@@ -61,12 +62,13 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
         DoubleNegation.operation,
         And.operation,
         Or.operation,
-        If.operation,
+        If.operation
     )
 
     private val selfEvaluatingOperations: Map<String, (Any?, Any?) -> Any?> = mapOf(
         // array
-        operations.array.Map.operation
+        operations.array.Map.operation,
+        Filter.operation
     )
 
     override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = if (expression.isNotEmpty()) {
@@ -87,7 +89,6 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
     private fun executeOperation(logic: Map<*, *>, data: Any?): Any? {
         val operator = logic.keys.firstOrNull()
         val values = logic[operator]
-        // jednak trzeba dodac, bo zle przekazuje dane
         return if (selfEvaluatingOperations.keys.contains(operator)) {
             selfEvaluatingOperations[operator]?.invoke(values.asList, data)
         } else {

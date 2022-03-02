@@ -1,21 +1,22 @@
 package operations.array
 
 import operations.LogicOperation
+import operations.logic.unwrap.TruthyUnwrapStrategy
 import utils.asList
 import utils.secondOrNull
 import kotlin.collections.Map as MapCollection
 
-internal object Map : LogicOperation, ArrayOperation {
-    override val key: String = "map"
+internal object Filter : LogicOperation, ArrayOperation, TruthyUnwrapStrategy {
+    override val key: String = "filter"
 
     // TODO add test for size < 2
     override fun invoke(expression: Any?, data: Any?): Any? =
         expression.asList.takeIf { it.size >= 2 }?.let { expressionValues ->
             val evaluatedOperationData = expressionValues.evaluateOperationData(data)
             val mappingOperation = expressionValues.getMappingOperationOrNull()
-            evaluatedOperationData.map { evaluatedValue ->
+            evaluatedOperationData.filter { evaluatedValue ->
                 // TODO extract
-                mappingOperation?.let { evaluate(it, evaluatedValue) } ?: expressionValues.secondOrNull()
+                unwrapValueAsBoolean((mappingOperation?.let { evaluate(it, evaluatedValue) } ?: expressionValues.secondOrNull()))
             }
         }
 

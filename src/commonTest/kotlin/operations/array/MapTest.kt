@@ -129,7 +129,16 @@ class MapTest : FunSpec({
                     data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
                     result = listOf(2, 2, 2, null, 8, 10, 2)
                 ),
-
+                TestInput(
+                    expression = mapOf(
+                        "map" to listOf(
+                            mapOf("var" to "integers"),
+                            mapOf("%" to listOf(mapOf("var" to ""), 2))
+                        )
+                    ),
+                    data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
+                    result = listOf(1, 0, 1, 0, 1)
+                ),
                 )
         ) { (expression, data, result) ->
             // when
