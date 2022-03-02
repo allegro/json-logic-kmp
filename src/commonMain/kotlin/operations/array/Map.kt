@@ -9,19 +9,24 @@ internal object Map : LogicOperation, ArrayOperation {
     override val key: String = "map"
 
     override fun invoke(expression: Any?, data: Any?): Any? =
-        expression.asList.takeIf { it.size >= 2 }?.let { args ->
-            val evaluatedOperationData = (args.firstOrNull().unwrapOperationData(data) as? List<*>) ?: emptyList<Any>()
-            // evaluated data music byc lista bo inaczej return emptyArray - tak mowi js
-            evaluatedOperationData.map { argumencik ->
-                args.secondOrNull().takeIf { it.isNotEmptyExpression() }?.let {
-                    evaluate(it as MapCollection<String, Any>, argumencik)
-                } ?: args.secondOrNull()
+        expression.asList.takeIf { it.size >= 2 }?.let { expressionValues ->
+            val evaluatedOperationData = expressionValues.evaluateOperationData(data)
+            val mappingOperation = expressionValues.getMappingOperationOrNull()
+            evaluatedOperationData.map { evaluatedValue ->
+                mappingOperation?.let { evaluate(it, evaluatedValue) } ?: expressionValues.secondOrNull()
             }
         }
 
+    private fun List<Any?>.evaluateOperationData(data: Any?) =
+        (firstOrNull().unwrapOperationData(data) as? List<*>).orEmpty()
+
+    private fun List<Any?>.getMappingOperationOrNull() =
+        secondOrNull().takeIf { it.isNotEmptyExpression() } as? MapCollection<String, Any>
+
+    // TODO might be extracted
     private fun Any?.unwrapOperationData(data: Any?): Any? =
         when {
-            this is List<*> -> unwrapOperationData(data)
+            this is List<*> -> map { it.unwrapOperationData(data) }
             isNotEmptyExpression() -> evaluate(this as MapCollection<String, Any?>, data)
             else -> this
         }
@@ -30,20 +35,3 @@ internal object Map : LogicOperation, ArrayOperation {
         it.isNotEmpty() && it.keys.all { key -> key is String }
     } ?: false
 }
-// jezeli data to tablica to bierze tylko pierwsze wartosci z kolejnych kolekcji
-/*
-{"map":[
-[{"var":"integers"}, [1], [[1]], [null, null], 4, 5, [1, 2]],
-{"*":[{"var":""},2]}
-]},
-
-{"map":[
-[{"var":"integers"}, 1],
-{"*":[{"var":""},2]}
-]}
-
-{"map":[
-[{"var":"integers"}],
-{"*":[{"var":""},2]}
-]}
- */
