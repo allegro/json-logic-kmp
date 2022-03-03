@@ -74,7 +74,6 @@ class MapTest : FunSpec({
                     expression = mapOf(
                         "map" to listOf(
                             listOf(2, "banana"),
-                            mapOf("var" to "integers"),
                             mapOf("*" to listOf(mapOf("var" to ""), 2))
                         )
                     ),
@@ -115,23 +114,6 @@ class MapTest : FunSpec({
                 TestInput(
                     expression = mapOf(
                         "map" to listOf(
-                            listOf(
-                                listOf(mapOf("var" to "integers"), listOf(1), listOf(1)),
-                                listOf(null),
-                                listOf(null),
-                                4,
-                                5,
-                                listOf(1, 2)
-                            ),
-                            mapOf("*" to listOf(mapOf("var" to ""), 2))
-                        )
-                    ),
-                    data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
-                    result = listOf(2, 2, 2, null, 8, 10, 2)
-                ),
-                TestInput(
-                    expression = mapOf(
-                        "map" to listOf(
                             mapOf("var" to "integers"),
                             mapOf("%" to listOf(mapOf("var" to ""), 2))
                         )
@@ -144,6 +126,38 @@ class MapTest : FunSpec({
                         "map" to listOf(
                             mapOf("var" to "integers", "var" to "integers"),
                             mapOf("%" to listOf(mapOf("var" to ""), 2))
+                        )
+                    ),
+                    data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
+                    result = listOf(1, 0, 1, 0, 1)
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "map" to listOf(
+                            mapOf("%" to listOf(mapOf("var" to ""), 2))
+                        )
+                    ),
+                    data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
+                    result = emptyList<Any>()
+                ),
+                TestInput(
+                    expression = mapOf("map" to emptyList<Any>()),
+                    result = emptyList<Any>()
+                ),
+                TestInput(
+                    expression = mapOf("map" to null),
+                    result = emptyList<Any>()
+                ),
+                TestInput(
+                    expression = mapOf("map" to "banana"),
+                    result = emptyList<Any>()
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "map" to listOf(
+                            mapOf("var" to "integers", "var" to "integers"),
+                            mapOf("%" to listOf(mapOf("var" to ""), 2)),
+                            mapOf("var" to "integers", "var" to "integers"),
                         )
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
