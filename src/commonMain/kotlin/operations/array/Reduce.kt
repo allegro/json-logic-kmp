@@ -14,7 +14,7 @@ internal object Reduce : LogicOperation, ArrayOperation {
     // TODO add test for size < 2
     override fun invoke(expression: Any?, data: Any?): Any? =
         expression.asList.takeIf { it.size >= 2 }?.let { expressionValues ->
-            val evaluatedOperationData = evaluateOperationData(expressionValues, data)
+            val evaluatedOperationData = unwrapOperationData(expressionValues, data)
             val mappingOperation = getMappingOperationOrNull(expressionValues)
             val initialValue = expressionValues.thirdOrNull()
 

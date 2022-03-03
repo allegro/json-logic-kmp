@@ -11,7 +11,7 @@ internal object Map : LogicOperation, ArrayOperation {
     // TODO add test for size < 2
     override fun invoke(expression: Any?, data: Any?): Any? =
         expression.asList.takeIf { it.size >= 2 }?.let { expressionValues ->
-            val evaluatedOperationData = evaluateOperationData(expressionValues, data)
+            val evaluatedOperationData = unwrapOperationData(expressionValues, data)
             val mappingOperation = getMappingOperationOrNull(expressionValues)
 
             mapOrEmptyList(evaluatedOperationData, mappingOperation, expressionValues.secondOrNull())
@@ -25,6 +25,6 @@ internal object Map : LogicOperation, ArrayOperation {
         mappingOperation?.let { operation -> evaluate(operation, evaluatedValue) } ?: operationDefault
     }
 
-    override fun evaluateOperationData(expression: List<Any?>, data: Any?) =
-        super.evaluateOperationData(expression, data).orEmpty()
+    override fun unwrapOperationData(expression: List<Any?>, data: Any?) =
+        super.unwrapOperationData(expression, data).orEmpty()
 }

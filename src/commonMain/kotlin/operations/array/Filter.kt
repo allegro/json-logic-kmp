@@ -12,7 +12,7 @@ internal object Filter : LogicOperation, ArrayOperation, TruthyUnwrapStrategy {
     // TODO add test for size < 2
     override fun invoke(expression: Any?, data: Any?): Any? =
         expression.asList.takeIf { it.size >= 2 }?.let { expressionValues ->
-            val evaluatedOperationData = evaluateOperationData(expressionValues, data)
+            val evaluatedOperationData = unwrapOperationData(expressionValues, data)
             val mappingOperation = getMappingOperationOrNull(expressionValues)
 
             filterOrEmptyList(evaluatedOperationData, mappingOperation, expressionValues.secondOrNull())
@@ -28,6 +28,6 @@ internal object Filter : LogicOperation, ArrayOperation, TruthyUnwrapStrategy {
         } ?: operationDefault))
     }
 
-    override fun evaluateOperationData(expression: List<Any?>, data: Any?) =
-        super.evaluateOperationData(expression, data).orEmpty()
+    override fun unwrapOperationData(expression: List<Any?>, data: Any?) =
+        super.unwrapOperationData(expression, data).orEmpty()
 }

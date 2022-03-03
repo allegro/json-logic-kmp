@@ -139,7 +139,17 @@ class MapTest : FunSpec({
                     data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
                     result = listOf(1, 0, 1, 0, 1)
                 ),
-                )
+                TestInput(
+                    expression = mapOf(
+                        "map" to listOf(
+                            mapOf("var" to "integers", "var" to "integers"),
+                            mapOf("%" to listOf(mapOf("var" to ""), 2))
+                        )
+                    ),
+                    data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
+                    result = listOf(1, 0, 1, 0, 1)
+                ),
+            )
         ) { (expression, data, result) ->
             // when
             val evaluationResult = JsonLogicEngine.instance.evaluate(expression, data)
