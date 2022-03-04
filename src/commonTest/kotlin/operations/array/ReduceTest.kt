@@ -14,6 +14,39 @@ class ReduceTest : FunSpec({
             ts = listOf(
                 TestInput(
                     expression = mapOf(
+                        "reduce" to listOf(mapOf("var" to "integers"))
+                    ),
+                    data = mapOf("integers" to listOf(1, 2, 3, 4)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("reduce" to listOf(mapOf("var" to "integers"), 0)),
+                    data = mapOf("integers" to listOf(1, 2, 3, 4)),
+                    result = 0
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "reduce" to listOf(
+                            mapOf("*" to listOf(mapOf("var" to "current"), mapOf("var" to "accumulator"))),
+                            0
+                        )
+                    ),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("reduce" to listOf(0)),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("reduce" to emptyList<Any>()),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf("reduce" to null),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf(
                         "reduce" to listOf(
                             mapOf("var" to "desserts"),
                             mapOf("+" to listOf(mapOf("var" to "accumulator"), mapOf("var" to "current.qty"))),

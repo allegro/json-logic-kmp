@@ -1,7 +1,7 @@
 package operations.array
 
 import operations.LogicOperation
-import kotlin.collections.Map as MapCollection
+import kotlin.collections.Map
 
 internal object Map : LogicOperation, NoInitialValueOperation {
     override val key: String = "map"
@@ -10,7 +10,7 @@ internal object Map : LogicOperation, NoInitialValueOperation {
 
     private fun mapOrEmptyList(
         operationData: List<Any?>,
-        mappingOperation: MapCollection<String, Any>?,
+        mappingOperation: Map<String, Any>?,
         operationDefault: Any?
     ) = operationData.map { evaluatedValue ->
         mappingOperation?.let { operation -> evaluate(operation, evaluatedValue) } ?: operationDefault
