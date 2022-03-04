@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "JsonLogicKMP"
-  spec.version      = "0.0.5"
+  spec.version      = "0.0.6"
   spec.summary      = "Kotlin multiplatform JsonLogic"
   spec.description  = <<-DESC
   * Kotlin multiplatform JsonLogic expressions evaluation engine
@@ -13,7 +13,7 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = "13.0"
 
   spec.source       = { :http => "#{spec.homepage}/releases/download/#{spec.version}/#{spec.name}.xcframework.zip",
-                        :sha256 => "2ea50e3bff4b702f3b2c9639967bba5b8e48989fecbe33e5e132534c109c2682"
+                        :sha256 => "246ce54ffef86bf3f8607ab5a8efb75cf4a6965dd1eb83cf481b78d1bf81a707"
                       }
 
   spec.vendored_frameworks = "#{spec.name}.xcframework"
