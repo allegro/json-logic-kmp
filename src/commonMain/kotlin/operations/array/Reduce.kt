@@ -2,7 +2,6 @@ package operations.array
 
 import operations.LogicOperation
 import utils.asList
-import utils.secondOrNull
 import utils.thirdOrNull
 import kotlin.collections.Map
 
@@ -29,11 +28,6 @@ internal object Reduce : LogicOperation, ArrayOperation {
     ) = operationData?.fold(initialValue) { accumulator, evaluatedValue ->
         reduceValue(mappingOperation, accumulator, evaluatedValue) ?: operationDefault
     } ?: initialValue
-
-    private fun getOperationDefault(mappingOperation: Map<String, Any>?, expressionValues: List<Any?>) =
-        if (mappingOperation == null) {
-            expressionValues.secondOrNull()
-        } else null
 
     private fun reduceValue(mappingOperation: Map<String, Any>?, accumulator: Any?, evaluatedValue: Any?) =
         mappingOperation?.let { operation ->

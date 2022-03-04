@@ -1,7 +1,6 @@
 package operations.array
 
 import utils.asList
-import utils.secondOrNull
 import kotlin.collections.Map
 
 internal interface NoInitialValueOperation : ArrayOperation {
@@ -16,11 +15,6 @@ internal interface NoInitialValueOperation : ArrayOperation {
 
         arrayOperation(evaluatedOperationData, mappingOperation, operationDefault)
     }
-
-    private fun getOperationDefault(mappingOperation: Map<String, Any>?, expressionValues: List<Any?>) =
-        if (mappingOperation == null) {
-            expressionValues.secondOrNull()
-        } else null
 
     override fun unwrapOperationData(expression: List<Any?>, data: Any?) =
         super.unwrapOperationData(expression, data).orEmpty()
