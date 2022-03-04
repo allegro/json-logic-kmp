@@ -14,21 +14,6 @@ class VarTest : FunSpec({
             ts = listOf(
                 TestInput(
                     expression = mapOf(
-                        "and" to listOf(
-                            mapOf(
-                                "<" to listOf(mapOf("var" to "temp"), 110)
-                            ),
-                            mapOf("==" to listOf(mapOf("var" to "pie.filling"), "apple"))
-                        )
-                    ),
-                    data = mapOf(
-                        "temp" to 100,
-                        "pie" to mapOf("filling" to "apple")
-                    ),
-                    result = true
-                ),
-                TestInput(
-                    expression = mapOf(
                         "var" to listOf(
                             mapOf(
                                 "if" to listOf(
@@ -38,16 +23,6 @@ class VarTest : FunSpec({
                         )
                     ),
                     data = mapOf("temp" to 100, "pie" to mapOf("filling" to "apple", "eta" to "60s")), result = "apple"
-                ),
-                TestInput(
-                    expression = mapOf(
-                        "in" to listOf(
-                            mapOf("var" to "filling"),
-                            listOf("apple", "cherry")
-                        )
-                    ),
-                    data = mapOf("filling" to "apple"),
-                    result = true
                 ),
                 TestInput(
                     expression = mapOf("var" to emptyList<Any>()),

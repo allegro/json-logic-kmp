@@ -13,6 +13,16 @@ class InTest : FunSpec({
             // given
             ts = listOf(
                 TestInput(
+                    expression = mapOf(
+                        "in" to listOf(
+                            mapOf("var" to "filling"),
+                            listOf("apple", "cherry")
+                        )
+                    ),
+                    data = mapOf("filling" to "apple"),
+                    result = true
+                ),
+                TestInput(
                     expression = mapOf("in" to listOf("Bart", listOf("Bart", "Homer", "Lisa", "Marge", "Maggie"))),
                     data = emptyMap<String, Any>(),
                     result = true
