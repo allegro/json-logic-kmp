@@ -26,7 +26,7 @@ internal object Reduce : LogicOperation, ArrayOperation {
         operationDefault: Any?,
         initialValue: Any?
     ) = operationData?.fold(initialValue) { accumulator, evaluatedValue ->
-        reduceValue(mappingOperation, accumulator, evaluatedValue) ?: operationDefault
+        reduceValue(mappingOperation, accumulator, evaluatedValue) ?: return operationDefault
     } ?: initialValue
 
     private fun reduceValue(mappingOperation: Map<String, Any>?, accumulator: Any?, evaluatedValue: Any?) =
