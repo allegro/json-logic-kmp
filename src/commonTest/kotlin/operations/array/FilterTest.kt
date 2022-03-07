@@ -12,8 +12,8 @@ class FilterTest : FunSpec({
             nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
             // given
             ts = listOf(
+
                 TestInput(
-                    // check
                     expression = mapOf(
                         "filter" to listOf(mapOf(">=" to listOf(mapOf("var" to ""), 2)))
                     ),
@@ -94,8 +94,7 @@ class FilterTest : FunSpec({
                     data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
                     result = listOf(1, 3, 5)
                 ),
-
-                )
+            )
         ) { (expression, data, result) ->
             // when
             val evaluationResult = JsonLogicEngine.instance.evaluate(expression, data)
