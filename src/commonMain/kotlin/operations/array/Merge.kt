@@ -12,7 +12,7 @@ internal object Merge : LogicOperation, NoInitialValueOperation {
     private fun List<Any?>.merge(): List<Any?> = mutableListOf<Any?>().apply {
         this@merge.forEach {
             when (it) {
-                is List<*> -> addAll(it.merge())
+                is List<*> -> addAll(it)
                 else -> add(it)
             }
         }

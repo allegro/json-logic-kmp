@@ -13,6 +13,14 @@ class MergeTest : FunSpec({
             // given
             ts = listOf(
                 TestInput(
+                    expression = mapOf("merge" to null),
+                    result = listOf(null)
+                ),
+                TestInput(
+                    expression = mapOf("merge" to listOf(1, listOf(2, listOf(3,4)))),
+                    result = listOf(1, 2, listOf(3,4))
+                ),
+                TestInput(
                     expression = mapOf("merge" to listOf(1, listOf(2))),
                     result = listOf(1, 2)
                 ),
