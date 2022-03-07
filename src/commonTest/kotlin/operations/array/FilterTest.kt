@@ -14,6 +14,15 @@ class FilterTest : FunSpec({
             ts = listOf(
                 TestInput(
                     expression = mapOf(
+                        "filter" to listOf(
+                            listOf(1, 2, "banana"),
+                            mapOf(">=" to listOf(mapOf("var" to ""), 2))
+                        )
+                    ),
+                    result = listOf(2)
+                ),
+                TestInput(
+                    expression = mapOf(
                         "filter" to listOf(mapOf(">=" to listOf(mapOf("var" to ""), 2)))
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
