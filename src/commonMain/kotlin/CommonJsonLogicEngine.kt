@@ -1,4 +1,5 @@
 import operations.array.Filter
+import operations.array.Merge
 import operations.array.Reduce
 import operations.data.Missing
 import operations.data.MissingSome
@@ -63,7 +64,10 @@ internal class CommonJsonLogicEngine : JsonLogicEngine {
         DoubleNegation.operation,
         And.operation,
         Or.operation,
-        If.operation
+        If.operation,
+
+        // array
+        Merge.operation
     )
 
     private val selfEvaluatingOperations: Map<String, (Any?, Any?) -> Any?> = mapOf(
