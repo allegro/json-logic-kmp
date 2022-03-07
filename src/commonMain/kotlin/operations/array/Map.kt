@@ -13,6 +13,6 @@ internal object Map : LogicOperation, NoInitialValueOperation {
         mappingOperation: Map<String, Any>?,
         operationDefault: Any?
     ) = operationData.map { evaluatedValue ->
-        mappingOperation?.let { operation -> evaluate(operation, evaluatedValue) } ?: operationDefault
+        mappingOperation?.let { operation -> evaluateLogic(operation, evaluatedValue) } ?: operationDefault
     }
 }

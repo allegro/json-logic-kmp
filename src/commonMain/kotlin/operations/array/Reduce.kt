@@ -31,7 +31,7 @@ internal object Reduce : LogicOperation, ArrayOperation {
 
     private fun reduceValue(mappingOperation: Map<String, Any>?, accumulator: Any?, evaluatedValue: Any?) =
         mappingOperation?.let { operation ->
-            evaluate(operation, toReduceIterationData(accumulator, evaluatedValue))
+            evaluateLogic(operation, toReduceIterationData(accumulator, evaluatedValue))
         }
 
     private fun toReduceIterationData(accumulator: Any?, current: Any?) =
