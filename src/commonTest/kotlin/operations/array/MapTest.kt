@@ -15,6 +15,15 @@ class MapTest : FunSpec({
                 TestInput(
                     expression = mapOf(
                         "map" to listOf(
+                            listOf(1, 5, mapOf("var" to "A")),
+                            mapOf("+" to listOf(mapOf("var" to ""), 2))
+                        )
+                    ),
+                    result = listOf(3, 7, null)
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "map" to listOf(
                             mapOf("var" to "desserts"),
                             mapOf("var" to "qty")
                         )
