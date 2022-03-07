@@ -12,7 +12,6 @@ class FilterTest : FunSpec({
             nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
             // given
             ts = listOf(
-
                 TestInput(
                     expression = mapOf(
                         "filter" to listOf(mapOf(">=" to listOf(mapOf("var" to ""), 2)))
