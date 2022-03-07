@@ -26,12 +26,12 @@ internal object Reduce : LogicOperation, ArrayOperation {
         operationDefault: Any?,
         initialValue: Any?
     ) = operationData?.fold(initialValue) { accumulator, evaluatedValue ->
-        reduceValue(mappingOperation, accumulator, evaluatedValue) ?: operationDefault
+        reduceValue(mappingOperation, accumulator, evaluatedValue) ?: return operationDefault
     } ?: initialValue
 
     private fun reduceValue(mappingOperation: Map<String, Any>?, accumulator: Any?, evaluatedValue: Any?) =
         mappingOperation?.let { operation ->
-            evaluate(operation, toReduceIterationData(accumulator, evaluatedValue))
+            evaluateLogic(operation, toReduceIterationData(accumulator, evaluatedValue))
         }
 
     private fun toReduceIterationData(accumulator: Any?, current: Any?) =

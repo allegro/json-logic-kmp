@@ -8,7 +8,8 @@ import utils.secondOrNull
 internal object Var : LogicOperation, ValueFetchingUnwrapStrategy {
     override val key: String = "var"
 
-    override operator fun invoke(expression: Any?, data: Any?): Any? = unwrapDataKeys(expression)?.fetchValueOrDefault(expression, data)
+    override operator fun invoke(expression: Any?, data: Any?): Any? =
+        unwrapDataKeys(expression)?.fetchValueOrDefault(expression, data)
 
     private fun List<String>.fetchValueOrDefault(expression: Any?, data: Any?): Any? {
         val value = if (isNotEmpty()) {

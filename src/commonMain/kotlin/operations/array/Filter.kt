@@ -16,7 +16,7 @@ internal object Filter : LogicOperation, NoInitialValueOperation, TruthyUnwrapSt
         operationDefault: Any?
     ) = operationData.filter { evaluatedValue ->
         unwrapValueAsBoolean((mappingOperation?.let { operation ->
-            evaluate(operation, evaluatedValue)
+            evaluateLogic(operation, evaluatedValue)
         } ?: operationDefault))
     }
 }

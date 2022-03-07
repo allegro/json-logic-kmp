@@ -47,6 +47,24 @@ class ReduceTest : FunSpec({
                 ),
                 TestInput(
                     expression = mapOf(
+                        "reduce" to listOf(1, 2, 3)
+                    ),
+                    result = 3
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "reduce" to listOf(listOf(1, 2), 3, 4)
+                    ),
+                    result = 3
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "reduce" to listOf(listOf(1, 2), null, 4)
+                    ),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf(
                         "reduce" to listOf(
                             mapOf("var" to "desserts"),
                             mapOf("+" to listOf(mapOf("var" to "accumulator"), mapOf("var" to "current.qty"))),
@@ -104,6 +122,27 @@ class ReduceTest : FunSpec({
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4)),
                     result = 10
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "reduce" to listOf(
+                            listOf(1, 5, mapOf("var" to "A")),
+                            mapOf("+" to listOf(mapOf("var" to "current"), mapOf("var" to "accumulator"))),
+                            9
+                        )
+                    ),
+                    result = null
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "reduce" to listOf(
+                            listOf(1, 5, mapOf("var" to "b")),
+                            mapOf("+" to listOf(mapOf("var" to "current"), mapOf("var" to "accumulator"))),
+                            9
+                        )
+                    ),
+                    data = mapOf("b" to "banana"),
+                    result = null
                 ),
             )
         ) { (expression, data, result) ->
