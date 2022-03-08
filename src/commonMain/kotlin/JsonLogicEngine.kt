@@ -3,6 +3,7 @@ import operations.array.Filter
 import operations.array.Merge
 import operations.array.None
 import operations.array.Reduce
+import operations.array.Some
 import operations.data.Missing
 import operations.data.MissingSome
 import operations.data.Var
@@ -81,7 +82,8 @@ interface JsonLogicEngine {
             Filter.operation,
             Reduce.operation,
             All.operation,
-            None.operation
+            None.operation,
+            Some.operation
         )
     }
 }
