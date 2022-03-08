@@ -12,25 +12,18 @@ internal object Some : LogicOperation, NoInitialValueOperation, TruthyUnwrapStra
         expression.asList.let { expressionValues ->
             val evaluatedOperationData = unwrapOperationData(expressionValues, data)
             val mappingOperation = getMappingOperationOrNull(expressionValues)
-            return if (evaluatedOperationData.isEmpty()) {
-                false
-            } else {
+            return if (mappingOperation != null && evaluatedOperationData.isNotEmpty()) {
                 some(evaluatedOperationData, mappingOperation)
-            }
+            } else false
         }
     }
 
-    private fun some(
-        operationData: List<Any?>,
-        mappingOperation: Map<String, Any>?,
-    ): Boolean {
-        mappingOperation?.let { operation ->
-            operationData.forEach { dataValue ->
-                if (unwrapValueAsBoolean(evaluateLogic(operation, dataValue))) {
-                    return@some true
-                }
+    private fun some(operationData: List<Any?>, mappingOperation: Map<String, Any>): Boolean {
+        operationData.forEach { dataValue ->
+            if (unwrapValueAsBoolean(evaluateLogic(mappingOperation, dataValue))) {
+                return@some true
             }
-        } ?: return false
+        }
         return false
     }
 }

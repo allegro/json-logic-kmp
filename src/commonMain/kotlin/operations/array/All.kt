@@ -12,25 +12,21 @@ internal object All : LogicOperation, NoInitialValueOperation, TruthyUnwrapStrat
         expression.asList.let { expressionValues ->
             val evaluatedOperationData = unwrapOperationData(expressionValues, data)
             val mappingOperation = getMappingOperationOrNull(expressionValues)
-            return if (evaluatedOperationData.isEmpty()) {
-                false
-            } else {
+            return if (mappingOperation != null && evaluatedOperationData.isNotEmpty()) {
                 all(evaluatedOperationData, mappingOperation)
-            }
+            } else false
         }
     }
 
     private fun all(
         operationData: List<Any?>,
-        mappingOperation: Map<String, Any>?,
+        mappingOperation: Map<String, Any>,
     ): Boolean {
-        mappingOperation?.let { operation ->
             operationData.forEach { dataValue ->
-                if (unwrapValueAsBoolean(evaluateLogic(operation, dataValue)).not()) {
+                if (unwrapValueAsBoolean(evaluateLogic(mappingOperation, dataValue)).not()) {
                     return@all false
                 }
             }
-        } ?: return false
         return true
     }
 }
