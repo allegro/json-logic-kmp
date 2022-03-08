@@ -9,7 +9,7 @@ import io.kotest.matchers.shouldBe
 class ReduceTest : FunSpec({
     context("JsonLogic evaluation with Reduce operation") {
         withData(
-            nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
+            nameFn = { "Should apply ${it.data} on reduce expression result in ${it.result}" },
             // given
             ts = listOf(
                 TestInput(
