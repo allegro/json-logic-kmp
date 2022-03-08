@@ -1,6 +1,7 @@
 import operations.array.All
 import operations.array.Filter
 import operations.array.Merge
+import operations.array.None
 import operations.array.Reduce
 import operations.data.Missing
 import operations.data.MissingSome
@@ -79,7 +80,8 @@ interface JsonLogicEngine {
             operations.array.Map.operation,
             Filter.operation,
             Reduce.operation,
-            All.operation
+            All.operation,
+            None.operation
         )
     }
 }
