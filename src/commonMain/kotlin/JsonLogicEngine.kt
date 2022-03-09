@@ -29,8 +29,7 @@ import operations.string.Substr
 import utils.JsonLogicException
 
 interface JsonLogicEngine {
-    @Throws(JsonLogicException::class)
-    fun evaluate(expression: Map<String, Any?>, data: Any?): Any?
+    fun evaluate(expression: Map<String, Any?>, data: Any?): JsonLogicResult
 
     companion object {
         val instance: JsonLogicEngine by lazy { CommonJsonLogicEngine() }
