@@ -20,15 +20,15 @@ class SomeTest : FunSpec({
                 ),
                 TestInput(
                     expression = mapOf(
-                        "some" to null
+                        "some" to listOf(null)
                     ),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf(
-                        "some" to listOf(listOf(1,2,3), listOf(3,4,5))
+                        "some" to null
                     ),
-                    result = true
+                    result = false
                 ),
                 TestInput(
                     expression = mapOf(
@@ -39,6 +39,12 @@ class SomeTest : FunSpec({
                 TestInput(
                     expression = mapOf(
                         "some" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
+                    ),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "some" to listOf(mapOf(">=" to listOf(mapOf("var" to ""), 1)), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                     ),
                     result = false
                 ),

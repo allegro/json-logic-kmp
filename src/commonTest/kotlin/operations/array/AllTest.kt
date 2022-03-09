@@ -26,19 +26,25 @@ class AllTest : FunSpec({
                 ),
                 TestInput(
                     expression = mapOf(
+                        "all" to listOf(null)
+                    ),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(
                         "all" to null
                     ),
                     result = false
                 ),
                 TestInput(
                     expression = mapOf(
-                        "all" to listOf(listOf(1,2,3), listOf(3,4,5))
+                        "all" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                     ),
-                    result = true
+                    result = false
                 ),
                 TestInput(
                     expression = mapOf(
-                        "all" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
+                        "all" to listOf(mapOf(">=" to listOf(mapOf("var" to ""), 1)), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                     ),
                     result = false
                 ),

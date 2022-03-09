@@ -20,15 +20,15 @@ class NoneTest : FunSpec({
                 ),
                 TestInput(
                     expression = mapOf(
-                        "none" to null
+                        "none" to listOf(null)
                     ),
                     result = true
                 ),
                 TestInput(
                     expression = mapOf(
-                        "none" to listOf(listOf(1,2,3), listOf(3,4,5))
+                        "none" to null
                     ),
-                    result = false
+                    result = true
                 ),
                 TestInput(
                     expression = mapOf(
@@ -39,6 +39,12 @@ class NoneTest : FunSpec({
                 TestInput(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
+                    ),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "none" to listOf(mapOf(">=" to listOf(mapOf("var" to ""), 1)), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                     ),
                     result = true
                 ),
