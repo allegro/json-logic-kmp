@@ -3,10 +3,10 @@ internal class CommonJsonLogicEngine : JsonLogicEngine, LogicEvaluator {
         expression.takeIf {
             it.isNotEmpty()
         }?.let {
-            nullSafeEvaluate(expression, data)
+            safeEvaluate(expression, data)
         } ?: JsonLogicResult.Failure("JsonLogic expression mustn't be empty.")
 
-    private fun nullSafeEvaluate(expression: Map<String, Any?>, data: Any?) = runCatching {
+    private fun safeEvaluate(expression: Map<String, Any?>, data: Any?) = runCatching {
         evaluateLogic(expression, data)
     }.fold(
         onSuccess = ::toJsonLogicResult,

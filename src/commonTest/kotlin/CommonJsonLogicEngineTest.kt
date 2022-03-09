@@ -1,17 +1,42 @@
-import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
-import utils.JsonLogicException
+import io.kotest.matchers.types.shouldBeTypeOf
 
 class CommonJsonLogicEngineTest : BehaviorSpec({
     val logicEngine = CommonJsonLogicEngine()
 
     given("An empty logic expression") {
         val logicExpression = emptyMap<String, Any?>()
-        val data = listOf("apple", "banana")
 
-        then("throws and exception on evaluation") {
-            shouldThrow<JsonLogicException> {
-                logicEngine.evaluate(logicExpression, data)
+        `when`("on evaluation") {
+            val result = logicEngine.evaluate(logicExpression, null)
+
+            then("returns failure result") {
+                result.shouldBeTypeOf<JsonLogicResult.Failure>()
+            }
+        }
+    }
+
+    given("A null result expression") {
+        val logicExpression = mapOf("var" to null)
+
+        `when`("on evaluation") {
+            val result = logicEngine.evaluate(logicExpression, null)
+
+            then("returns failure result") {
+                result.shouldBeTypeOf<JsonLogicResult.Failure>()
+            }
+        }
+    }
+
+    given("A not null result expression") {
+        val logicExpression = mapOf("var" to "int")
+        val data = mapOf("int" to 2)
+
+        `when`("on evaluation") {
+            val result = logicEngine.evaluate(logicExpression, data)
+
+            then("returns success result") {
+                result.shouldBeTypeOf<JsonLogicResult.Success>()
             }
         }
     }
