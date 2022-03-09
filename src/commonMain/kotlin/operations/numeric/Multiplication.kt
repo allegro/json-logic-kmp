@@ -1,8 +1,8 @@
 package operations.numeric
 
 import operations.LogicOperation
-import utils.asList
 import operations.numeric.unwrap.StrictUnwrapStrategy
+import utils.asList
 
 internal object Multiplication : LogicOperation, DoubleTypeSensitiveOperation, StrictUnwrapStrategy {
     override val key: String = "*"

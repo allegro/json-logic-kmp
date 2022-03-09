@@ -21,6 +21,10 @@ class AdditionTest : FunSpec({
                     result = 6
                 ),
                 TestInput(
+                    expression = mapOf("+" to listOf(2, 2, null)),
+                    result = null
+                ),
+                TestInput(
                     expression = mapOf("+" to listOf(1)),
                     result = 1
                 ),

@@ -1,21 +1,19 @@
 package operations.data
 
 import operations.LogicOperation
+import operations.data.unwrap.ValueFetchingUnwrapStrategy
 import utils.intOrZero
 import utils.secondOrNull
 
-internal object Var : LogicOperation {
+internal object Var : LogicOperation, ValueFetchingUnwrapStrategy {
     override val key: String = "var"
 
-    override operator fun invoke(expression: Any?, data: Any?): Any? {
-        val indexParts = if (expression is List<*>) {
-            expression.firstOrNull()
-        } else {
-            expression
-        }?.toString()?.split(".").orEmpty()
+    override operator fun invoke(expression: Any?, data: Any?): Any? =
+        unwrapDataKeys(expression)?.fetchValueOrDefault(expression, data)
 
-        val value = if (indexParts.isNotEmpty()) {
-            getIndexedValue(data, indexParts)
+    private fun List<String>.fetchValueOrDefault(expression: Any?, data: Any?): Any? {
+        val value = if (isNotEmpty()) {
+            getIndexedValue(data, this)
         } else {
             data
         }

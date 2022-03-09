@@ -12,6 +12,21 @@ class AndTest : FunSpec({
             nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
             // given
             ts = listOf(
+                TestInput(
+                    expression = mapOf(
+                        "and" to listOf(
+                            mapOf(
+                                "<" to listOf(mapOf("var" to "temp"), 110)
+                            ),
+                            mapOf("==" to listOf(mapOf("var" to "pie.filling"), "apple"))
+                        )
+                    ),
+                    data = mapOf(
+                        "temp" to 100,
+                        "pie" to mapOf("filling" to "apple")
+                    ),
+                    result = true
+                ),
                 TestInput(expression = mapOf("and" to listOf(true, false)), result = false),
                 TestInput(expression = mapOf("and" to listOf(true, true)), result = true),
                 TestInput(expression = mapOf("and" to listOf(false, true)), result = false),

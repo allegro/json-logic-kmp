@@ -14,21 +14,6 @@ class VarTest : FunSpec({
             ts = listOf(
                 TestInput(
                     expression = mapOf(
-                        "and" to listOf(
-                            mapOf(
-                                "<" to listOf(mapOf("var" to "temp"), 110)
-                            ),
-                            mapOf("==" to listOf(mapOf("var" to "pie.filling"), "apple"))
-                        )
-                    ),
-                    data = mapOf(
-                        "temp" to 100,
-                        "pie" to mapOf("filling" to "apple")
-                    ),
-                    result = true
-                ),
-                TestInput(
-                    expression = mapOf(
                         "var" to listOf(
                             mapOf(
                                 "if" to listOf(
@@ -38,16 +23,6 @@ class VarTest : FunSpec({
                         )
                     ),
                     data = mapOf("temp" to 100, "pie" to mapOf("filling" to "apple", "eta" to "60s")), result = "apple"
-                ),
-                TestInput(
-                    expression = mapOf(
-                        "in" to listOf(
-                            mapOf("var" to "filling"),
-                            listOf("apple", "cherry")
-                        )
-                    ),
-                    data = mapOf("filling" to "apple"),
-                    result = true
                 ),
                 TestInput(
                     expression = mapOf("var" to emptyList<Any>()),
@@ -91,6 +66,34 @@ class VarTest : FunSpec({
                 TestInput(expression = mapOf("var" to "a.b.c"), data = mapOf("a" to null), result = null),
                 TestInput(expression = mapOf("var" to "a.b.c"), data = mapOf("a" to mapOf("b" to null)), result = null),
                 TestInput(expression = mapOf("var" to ""), data = 1, result = 1),
+                TestInput(expression = mapOf("var" to ""), data = listOf(1, 2, 3, 4), result = listOf(1, 2, 3, 4)),
+                TestInput(
+                    expression = mapOf("var" to emptyList<Any>()),
+                    data = listOf(1, 2, 3, 4),
+                    result = listOf(1, 2, 3, 4)
+                ),
+                TestInput(expression = mapOf("var" to null), data = listOf(1, 2, 3, 4), result = listOf(1, 2, 3, 4)),
+                TestInput(
+                    expression = mapOf("var" to listOf(null)),
+                    data = listOf(1, 2, 3, 4),
+                    result = listOf(1, 2, 3, 4)
+                ),
+                TestInput(
+                    expression = mapOf("var" to listOf("")),
+                    data = listOf(1, 2, 3, 4),
+                    result = listOf(1, 2, 3, 4)
+                ),
+                TestInput(expression = mapOf("var" to listOf(listOf(""))), data = listOf(1, 2, 3, 4), result = null),
+                TestInput(expression = mapOf("var" to listOf(listOf(null))), data = listOf(1, 2, 3, 4), result = null),
+                TestInput(
+                    expression = mapOf("var" to listOf(emptyList<Any>())),
+                    data = listOf(1, 2, 3, 4),
+                    result = null
+                ),
+                TestInput(expression = mapOf("var" to listOf(1)), data = listOf(1, 2, 3, 4), result = 2),
+                TestInput(expression = mapOf("var" to listOf(listOf(1))), data = listOf(1, 2, 3, 4), result = 2),
+                TestInput(expression = mapOf("var" to listOf(listOf(1), 2)), data = listOf(1, 2, 3, 4), result = 2),
+                TestInput(expression = mapOf("var" to listOf(1, 2)), data = listOf(1, 2, 3, 4), result = 2),
                 TestInput(expression = mapOf("var" to null), data = 1, result = 1),
                 TestInput(
                     expression = mapOf("var" to null),
