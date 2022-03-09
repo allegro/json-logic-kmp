@@ -14,6 +14,36 @@ class SomeTest : FunSpec({
             ts = listOf(
                 TestInput(
                     expression = mapOf(
+                        "some" to emptyList<Any>()
+                    ),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "some" to null
+                    ),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "some" to listOf(listOf(1,2,3), listOf(3,4,5))
+                    ),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "some" to listOf(mapOf(">=" to listOf(mapOf("var" to ""), 1)))
+                    ),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "some" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
+                    ),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(
                         "some" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                     ),
                     data = mapOf("integers" to listOf(1,2,3)),

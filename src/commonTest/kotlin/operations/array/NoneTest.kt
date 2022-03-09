@@ -14,6 +14,36 @@ class NoneTest : FunSpec({
             ts = listOf(
                 TestInput(
                     expression = mapOf(
+                        "none" to emptyList<Any>()
+                    ),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "none" to null
+                    ),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "none" to listOf(listOf(1,2,3), listOf(3,4,5))
+                    ),
+                    result = false
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "none" to listOf(mapOf(">=" to listOf(mapOf("var" to ""), 1)))
+                    ),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf(
+                        "none" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
+                    ),
+                    result = true
+                ),
+                TestInput(
+                    expression = mapOf(
                         "none" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                     ),
                     data = mapOf("integers" to listOf(1,2,3)),
