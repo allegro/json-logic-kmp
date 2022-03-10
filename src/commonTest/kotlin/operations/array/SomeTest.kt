@@ -44,7 +44,10 @@ class SomeTest : FunSpec({
                 ),
                 TestInput(
                     expression = mapOf(
-                        "some" to listOf(mapOf(">=" to listOf(mapOf("var" to ""), 1)), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
+                        "some" to listOf(
+                            mapOf(">=" to listOf(mapOf("var" to ""), 1)),
+                            mapOf(">=" to listOf(mapOf("var" to ""), 1))
+                        )
                     ),
                     result = false
                 ),
@@ -52,21 +55,21 @@ class SomeTest : FunSpec({
                     expression = mapOf(
                         "some" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                     ),
-                    data = mapOf("integers" to listOf(1,2,3)),
+                    data = mapOf("integers" to listOf(1, 2, 3)),
                     result = true
                 ),
                 TestInput(
                     expression = mapOf(
                         "some" to listOf(mapOf("var" to "integers"), mapOf("==" to listOf(mapOf("var" to ""), 1)))
                     ),
-                    data = mapOf("integers" to listOf(1,2,3)),
+                    data = mapOf("integers" to listOf(1, 2, 3)),
                     result = true
                 ),
                 TestInput(
                     expression = mapOf(
                         "some" to listOf(mapOf("var" to "integers"), mapOf("<" to listOf(mapOf("var" to ""), 1)))
                     ),
-                    data = mapOf("integers" to listOf(1,2,3)),
+                    data = mapOf("integers" to listOf(1, 2, 3)),
                     result = false
                 ),
                 TestInput(
@@ -80,21 +83,36 @@ class SomeTest : FunSpec({
                     expression = mapOf(
                         "some" to listOf(mapOf("var" to "items"), mapOf(">=" to listOf(mapOf("var" to "qty"), 1)))
                     ),
-                    data = mapOf("items" to listOf(mapOf("qty" to 1, "sku" to "apple"), mapOf("qty" to 2, "sku" to "banana"))),
+                    data = mapOf(
+                        "items" to listOf(
+                            mapOf("qty" to 1, "sku" to "apple"),
+                            mapOf("qty" to 2, "sku" to "banana")
+                        )
+                    ),
                     result = true
                 ),
                 TestInput(
                     expression = mapOf(
                         "some" to listOf(mapOf("var" to "items"), mapOf(">" to listOf(mapOf("var" to "qty"), 1)))
                     ),
-                    data = mapOf("items" to listOf(mapOf("qty" to 1, "sku" to "apple"), mapOf("qty" to 2, "sku" to "banana"))),
+                    data = mapOf(
+                        "items" to listOf(
+                            mapOf("qty" to 1, "sku" to "apple"),
+                            mapOf("qty" to 2, "sku" to "banana")
+                        )
+                    ),
                     result = true
                 ),
                 TestInput(
                     expression = mapOf(
                         "some" to listOf(mapOf("var" to "items"), mapOf("<" to listOf(mapOf("var" to "qty"), 1)))
                     ),
-                    data = mapOf("items" to listOf(mapOf("qty" to 1, "sku" to "apple"), mapOf("qty" to 2, "sku" to "banana"))),
+                    data = mapOf(
+                        "items" to listOf(
+                            mapOf("qty" to 1, "sku" to "apple"),
+                            mapOf("qty" to 2, "sku" to "banana")
+                        )
+                    ),
                     result = false
                 ),
                 TestInput(
