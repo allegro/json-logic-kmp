@@ -30,8 +30,8 @@ class VarTest : LogicOperationTest(
         ),
         TestInput(expression = mapOf("var" to listOf("a")), data = mapOf("a" to 1), resultValue = 1),
         TestInput(expression = mapOf("var" to "a"), data = mapOf("a" to 1), resultValue = 1),
-        TestInput(expression = mapOf("var" to listOf("a", 1)), data = null, resultValue = 1),
-        TestInput(expression = mapOf("var" to listOf("a", 1, 2)), data = null, resultValue = 1),
+        TestInput(expression = mapOf("var" to listOf("a", 1)), resultValue = 1),
+        TestInput(expression = mapOf("var" to listOf("a", 1, 2)), resultValue = 1),
         TestInput(expression = mapOf("var" to listOf("b", 2)), data = mapOf("a" to 1), resultValue = 2),
         TestInput(expression = mapOf("var" to "a.b"), data = mapOf("a" to mapOf("b" to "c")), resultValue = "c"),
         TestInput(
@@ -115,17 +115,17 @@ class VarTest : LogicOperationTest(
     ),
     failureResultTestInput = listOf(
         TestInput(expression = mapOf("var" to "b"), data = mapOf("a" to 1), resultValue = null),
-        TestInput(expression = mapOf("var" to "a"), data = null, resultValue = null),
+        TestInput(expression = mapOf("var" to "a"), resultValue = null),
         TestInput(expression = mapOf("var" to listOf(listOf(""))), data = listOf(1, 2, 3, 4), resultValue = null),
         TestInput(expression = mapOf("var" to listOf(listOf(null))), data = listOf(1, 2, 3, 4), resultValue = null),
         TestInput(expression = mapOf("var" to listOf("b")), data = mapOf("a" to 1), resultValue = null),
-        TestInput(expression = mapOf("var" to listOf("b")), data = null, resultValue = null),
+        TestInput(expression = mapOf("var" to listOf("b")), resultValue = null),
         TestInput(
             expression = mapOf("var" to listOf(emptyList<Any>())),
             data = listOf(1, 2, 3, 4),
             resultValue = null
         ),
-        TestInput(expression = mapOf("var" to "a.b.c"), data = null, resultValue = null),
+        TestInput(expression = mapOf("var" to "a.b.c"), resultValue = null),
         TestInput(expression = mapOf("var" to "a.b.c"), data = mapOf("a" to null), resultValue = null),
         TestInput(expression = mapOf("var" to "a.q"), data = mapOf("a" to mapOf("b" to "c")), resultValue = null),
 

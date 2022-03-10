@@ -1,4 +1,4 @@
-package operations.string
+package operations
 
 import LogicOperationTest
 import TestInput

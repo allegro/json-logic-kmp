@@ -1,3 +1,4 @@
+import operations.In
 import operations.array.All
 import operations.array.Filter
 import operations.array.Merge
@@ -28,9 +29,7 @@ import operations.numeric.compare.GreaterThanOrEqualTo
 import operations.numeric.compare.LessThan
 import operations.numeric.compare.LessThanOrEqualTo
 import operations.string.Cat
-import operations.string.In
 import operations.string.Substr
-import utils.JsonLogicException
 
 interface JsonLogicEngine {
     fun evaluate(expression: Map<String, Any?>, data: Any?): JsonLogicResult
@@ -56,11 +55,6 @@ interface JsonLogicEngine {
             Division.operation,
             Modulo.operation,
 
-            // string
-            Cat.operation,
-            In.operation,
-            Substr.operation,
-
             // logic
             Equals.operation,
             NotEquals.operation,
@@ -72,8 +66,15 @@ interface JsonLogicEngine {
             Or.operation,
             If.operation,
 
+            // string
+            Cat.operation,
+            Substr.operation,
+
             // array
-            Merge.operation
+            Merge.operation,
+
+            // string & array
+            In.operation
         )
         internal val selfEvaluatingOperations: Map<String, (Any?, Any?) -> Any?> = mapOf(
             // array
