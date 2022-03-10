@@ -152,7 +152,6 @@ class ModuloTest : LogicOperationTest(
 private val defectiveTestCases = listOf(
     TestInput(
         expression = mapOf("%" to listOf(3.5, 1.3)),
-        data = emptyMap<String, Any>(),
         resultValue = 0.9
     )
 )

@@ -152,7 +152,6 @@ class SubtractionTest : LogicOperationTest(
 private val defectiveTestCases = listOf(
     TestInput(
         expression = mapOf("-" to listOf("2.3", 3.2)),
-        data = emptyMap<String, Any>(),
         resultValue = -0.9
     ),
 )

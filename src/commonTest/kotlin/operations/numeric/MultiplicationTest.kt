@@ -162,7 +162,6 @@ class MultiplicationTest : LogicOperationTest(
 private val defectiveTestCases = listOf(
     TestInput(
         expression = mapOf("*" to listOf("1.3", "3.7")),
-        data = emptyMap<String, Any>(),
         resultValue = 4.81
     ),
 )

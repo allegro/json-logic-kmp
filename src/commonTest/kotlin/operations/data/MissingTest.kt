@@ -71,7 +71,6 @@ class MissingTest : LogicOperationTest(
         ),
         TestInput(
             expression = mapOf("missing" to listOf("a", "b")),
-            data = emptyMap<String, Any>(),
             resultValue = listOf("a", "b")
         ),
         TestInput(
