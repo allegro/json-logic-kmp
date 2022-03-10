@@ -101,43 +101,39 @@ class MissingTest : LogicOperationTest(
             expression = mapOf("missing" to listOf("a.b", "a.c")),
             data = mapOf("a" to mapOf("b" to "apple brownie")),
             resultValue = listOf("a.c")
-        )
-    )
-)
-
-@Suppress("unused")
-private val unsupportedTestCases = listOf(
-    TestInput(
-        expression = mapOf(
-            "missing" to mapOf(
-                "merge" to listOf(
-                    "vin", mapOf(
-                        "if" to listOf(
-                            mapOf("var" to "financing"), listOf("apr"), emptyList<Any>()
+        ),
+        TestInput(
+            expression = mapOf(
+                "missing" to mapOf(
+                    "merge" to listOf(
+                        "vin", mapOf(
+                            "if" to listOf(
+                                mapOf("var" to "financing"), listOf("apr"), emptyList<Any>()
+                            )
                         )
                     )
                 )
+            ),
+            data = mapOf("financing" to true),
+            resultValue = listOf(
+                "vin",
+                "apr"
             )
         ),
-        data = mapOf("financing" to true),
-        resultValue = listOf(
-            "vin",
-            "apr"
-        )
-    ),
-    TestInput(
-        expression = mapOf(
-            "missing" to mapOf(
-                "merge" to listOf(
-                    "vin", mapOf(
-                        "if" to listOf(
-                            mapOf("var" to "financing"), listOf("apr"), emptyList<Any>()
+        TestInput(
+            expression = mapOf(
+                "missing" to mapOf(
+                    "merge" to listOf(
+                        "vin", mapOf(
+                            "if" to listOf(
+                                mapOf("var" to "financing"), listOf("apr"), emptyList<Any>()
+                            )
                         )
                     )
                 )
-            )
-        ),
-        data = mapOf("financing" to false),
-        resultValue = listOf("vin")
+            ),
+            data = mapOf("financing" to false),
+            resultValue = listOf("vin")
+        )
     )
 )

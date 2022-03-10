@@ -6,10 +6,10 @@ import kotlin.collections.Map
 internal interface NoInitialValueOperation : ArrayOperation {
     fun invokeArrayOperation(
         expression: Any?,
-        data: Any?,
+        operationData: Any?,
         arrayOperation: (List<Any?>, Map<String, Any>?, Any?) -> Any?
     ) = expression.asList.let { expressionValues ->
-        val evaluatedOperationData = unwrapOperationData(expressionValues, data)
+        val evaluatedOperationData = unwrapOperationData(expressionValues, operationData)
         val mappingOperation = getMappingOperationOrNull(expressionValues)
         val operationDefault = getOperationDefault(mappingOperation, expressionValues)
 
