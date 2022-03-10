@@ -4,7 +4,18 @@ import operations.logic.unwrap.TruthyUnwrapStrategy
 import kotlin.collections.Map
 
 internal interface OccurrenceCheckOperation : NoInitialValueOperation, TruthyUnwrapStrategy {
-    fun evaluateOrDefault(
+    fun check(
+        operationData: List<Any?>,
+        mappingOperation: Map<String, Any>,
+        operationDefault: Any?
+    ): Any?
+
+    fun checkOccurrence(expression: Any?, data: Any?) =
+        invokeArrayOperation(expression, data) { operationData, operation, default ->
+            evaluateOrDefault(operationData, operation, default, ::check)
+        }
+
+    private fun evaluateOrDefault(
         operationData: List<Any?>,
         mappingOperation: Map<String, Any>?,
         operationDefault: Any?,
