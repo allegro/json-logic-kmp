@@ -23,6 +23,7 @@ abstract class LogicOperationTest(
             evaluationResult.value shouldBe result
         }
     }
+
     context("$testName - failure results") {
         withData(
             nameFn = nameFunction,
