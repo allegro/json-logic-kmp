@@ -1,10 +1,10 @@
-import JsonLogicEngine.Companion.selfEvaluatingOperations
-import JsonLogicEngine.Companion.standardOperations
 import utils.JsonLogicException
 import utils.asList
 
 internal interface LogicEvaluator {
     fun evaluateLogic(expression: Map<String, Any?>, data: Any?): Any? = executeExpression(expression, data)
+//    val standardOperations: Map<String, (Any?, Any?) -> Any?>
+//    val selfEvaluatingOperations: Map<String, (Any?, Any?) -> Any?>
 
     private fun executeExpression(logic: Any?, data: Any?): Any? {
         return when {

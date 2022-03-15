@@ -1,6 +1,6 @@
 package operations
 
-internal interface LogicOperation : (Any?, Any?) -> Any? {
+interface LogicOperation : (Any?, Any?) -> Any? {
     val key: String
     val operation
         get() = key to this

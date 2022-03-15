@@ -1,4 +1,5 @@
 import operations.In
+import operations.LogicOperation
 import operations.array.All
 import operations.array.Filter
 import operations.array.Merge
@@ -34,9 +35,9 @@ import operations.string.Substr
 interface JsonLogicEngine {
     fun evaluate(expression: Map<String, Any?>, data: Any?): JsonLogicResult
 
-    companion object {
-        val instance: JsonLogicEngine by lazy { CommonJsonLogicEngine() }
-        internal val standardOperations: Map<String, (Any?, Any?) -> Any?> = mapOf(
+    class Builder() {
+        private var logger: ((String) -> Unit)? = null
+        private val standardOperations: MutableMap<String, (Any?, Any?) -> Any?> = mutableMapOf(
             // data
             Var.operation,
             MissingSome.operation,
@@ -74,9 +75,9 @@ interface JsonLogicEngine {
             Merge.operation,
 
             // string & array
-            In.operation
+            In.operation,
         )
-        internal val selfEvaluatingOperations: Map<String, (Any?, Any?) -> Any?> = mapOf(
+        private val selfEvaluatingOperations: MutableMap<String, (Any?, Any?) -> Any?> = mutableMapOf(
             // array
             operations.array.Map.operation,
             Filter.operation,
@@ -85,5 +86,30 @@ interface JsonLogicEngine {
             None.operation,
             Some.operation
         )
+
+        fun addSelfEvaluatingOperation(operation: LogicOperation) =
+            selfEvaluatingOperations.put(operation.key, operation)
+
+        fun addSelfEvaluatingOperations(vararg operations: LogicOperation) =
+            operations.forEach { addSelfEvaluatingOperation(it) }
+
+        fun addSelfEvaluatingOperations(operations: List<LogicOperation>) =
+            operations.forEach { addSelfEvaluatingOperation(it) }
+
+        fun addStandardOperation(operation: LogicOperation) =
+            standardOperations.put(operation.key, operation)
+
+        fun addStandardOperations(vararg operations: LogicOperation) = operations.forEach { addStandardOperation(it) }
+
+        fun addStandardOperations(operations: List<LogicOperation>) = operations.forEach { addStandardOperation(it) }
+
+        fun addLogger(loggingCallback: ((String) -> Unit)) {
+            logger = loggingCallback
+        }
+
+        // podczas budowanai selfEvaluating functions beda potrzebowac dostepnych operacji i dodatkowo samych siebie nawzajem tez
+        fun build(): JsonLogicEngine {
+            
+        }
     }
 }
