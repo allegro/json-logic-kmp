@@ -5,13 +5,13 @@ import io.kotest.matchers.types.shouldBeTypeOf
 
 abstract class LogicOperationTest(
     testName: String,
-    successResultTestInput: List<TestInput> = emptyList(),
-    failureResultTestInput: List<TestInput> = emptyList(),
-    nameFunction: (TestInput) -> String = { "Should apply ${it.data} on ${it.expression} result in ${it.resultValue}" }
+    successResultTestInput: List<TestInput.Successful> = emptyList(),
+    failureResultTestInput: List<TestInput.Unsuccessful> = emptyList(),
+    nameFunction: (TestInput) -> String = { "Should apply ${it.data} on ${it.expression.keys} result in ${it.resolveResultValueInTestName()}" }
 ) : FunSpec({
     context("$testName - success results") {
         withData(
-            nameFn = nameFunction,
+            nameFn =  nameFunction,
             // given
             ts = successResultTestInput
         ) { (expression, data, result) ->
@@ -29,7 +29,7 @@ abstract class LogicOperationTest(
             nameFn = nameFunction,
             // given
             ts = failureResultTestInput
-        ) { (expression, data, _) ->
+        ) { (expression, data) ->
             // when
             val evaluationResult = JsonLogicEngine.instance.evaluate(expression, data)
 
@@ -38,3 +38,8 @@ abstract class LogicOperationTest(
         }
     }
 })
+
+private fun TestInput.resolveResultValueInTestName() = when(this) {
+    is TestInput.Successful -> resultValue
+    is TestInput.Unsuccessful -> "failure"
+}

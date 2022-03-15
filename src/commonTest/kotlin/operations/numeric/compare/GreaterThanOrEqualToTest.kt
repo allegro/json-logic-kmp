@@ -1,141 +1,141 @@
 package operations.numeric.compare
 
 import LogicOperationTest
-import TestInput
+import TestInput.Successful
 
 class GreaterThanOrEqualToTest : LogicOperationTest(
     testName = "JsonLogic evaluation with only GreaterThanOrEqualTo operation",
     successResultTestInput = listOf(
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(2, 1)),
             resultValue = true
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(1, 1)),
             resultValue = true
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(1, 2)),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf("2", 1)),
             resultValue = true
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf("2", "banana")),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf("apple", "banana")),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf("grapes", "banana")),
             resultValue = true
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(1, "banana")),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(1, listOf("banana"))),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(1, 2, 3)),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(1, 2, 3, 4)),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(1, 1, 3)),
             resultValue = true
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(1, 1, 3, 0)),
             resultValue = true
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(1, 4, 3)),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(4, 1, 3)),
             resultValue = true
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(4, 3, 1)),
             resultValue = true
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf("4", 3, "1")),
             resultValue = true
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf("banana", 3, "1")),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(4, "3", 1)),
             resultValue = true
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(0, mapOf("var" to "temp"), 100)),
             data = mapOf("temp" to 37),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf("grapes", true)),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(1, false)),
             resultValue = true
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(false, 3, 3)),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf("banana", 3, 3)),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(listOf(1, 2, 3), listOf(3))),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf("true", true)),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf("true", false)),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf("true", "false")),
             resultValue = true
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(true, false)),
             resultValue = true
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(true, "false")),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf(false, "false")),
             resultValue = false
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf("banana", "2")),
             resultValue = true
         ),
-        TestInput(
+        Successful(
             expression = mapOf(">=" to listOf("banana", 2)),
             resultValue = false
         ),

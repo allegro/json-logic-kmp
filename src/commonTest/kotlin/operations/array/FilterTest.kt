@@ -2,12 +2,12 @@ package operations.array
 
 import JsonLogicResult
 import LogicOperationTest
-import TestInput
+import TestInput.Successful
 
 class FilterTest : LogicOperationTest(
     testName = "JsonLogic evaluation with Filter operation",
     successResultTestInput = listOf(
-        TestInput(
+        Successful(
             expression = mapOf(
                 "filter" to listOf(
                     listOf(1, 2, "banana"),
@@ -16,26 +16,26 @@ class FilterTest : LogicOperationTest(
             ),
             resultValue = listOf(2)
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "filter" to listOf(mapOf(">=" to listOf(mapOf("var" to ""), 2)))
             ),
             data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("filter" to emptyList<Any>()),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("filter" to null),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("filter" to "banana"),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "filter" to listOf(
                     listOf(1, 2, 3, 4, 5),
@@ -44,7 +44,7 @@ class FilterTest : LogicOperationTest(
             ),
             resultValue = listOf(2, 3, 4, 5)
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "filter" to listOf(
                     listOf(1, 2, 3, 4, 5),
@@ -54,7 +54,7 @@ class FilterTest : LogicOperationTest(
             ),
             resultValue = listOf(1, 2, 3, 4, 5)
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "filter" to listOf(
                     mapOf(">=" to listOf(mapOf("var" to ""), 2)),
@@ -63,7 +63,7 @@ class FilterTest : LogicOperationTest(
             ),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "filter" to listOf(
                     mapOf("var" to "integers"),
@@ -73,21 +73,21 @@ class FilterTest : LogicOperationTest(
             data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
             resultValue = listOf(2, 3, 4, 5)
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "filter" to listOf(mapOf("var" to "integers"), false)
             ),
             data = mapOf("integers" to listOf(1, 2, 3)),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "filter" to listOf(mapOf("var" to "integers"), true)
             ),
             data = mapOf("integers" to listOf(1, 2, 3)),
             resultValue = listOf(1, 2, 3)
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "filter" to listOf(
                     mapOf("var" to "integers"),

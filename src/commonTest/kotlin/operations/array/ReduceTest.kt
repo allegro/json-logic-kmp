@@ -1,30 +1,30 @@
 package operations.array
 
 import LogicOperationTest
-import TestInput
+import TestInput.Successful
+import TestInput.Unsuccessful
 
 class ReduceTest : LogicOperationTest(
     testName = "JsonLogic evaluation with Reduce operation",
-    nameFunction = { "Should apply ${it.data} on reduce expression result in ${it.resultValue}" },
     successResultTestInput = listOf(
-        TestInput(
+        Successful(
             expression = mapOf("reduce" to listOf(mapOf("var" to "integers"), 0)),
             data = mapOf("integers" to listOf(1, 2, 3, 4)),
             resultValue = 0
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "reduce" to listOf(1, 2, 3)
             ),
             resultValue = 3
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "reduce" to listOf(listOf(1, 2), 3, 4)
             ),
             resultValue = 3
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "reduce" to listOf(
                     mapOf("var" to "desserts"),
@@ -41,7 +41,7 @@ class ReduceTest : LogicOperationTest(
             ),
             resultValue = 6
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "reduce" to listOf(
                     mapOf("var" to "integers"),
@@ -52,7 +52,7 @@ class ReduceTest : LogicOperationTest(
             data = mapOf("integers" to listOf(1, 2, 3, 4)),
             resultValue = 0
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "reduce" to listOf(
                     mapOf("var" to "integers"),
@@ -63,7 +63,7 @@ class ReduceTest : LogicOperationTest(
             data = mapOf("integers" to listOf(1, 2, 3, 4)),
             resultValue = 24
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "reduce" to listOf(
                     mapOf("var" to "integers"),
@@ -73,7 +73,7 @@ class ReduceTest : LogicOperationTest(
             ),
             resultValue = 0
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "reduce" to listOf(
                     mapOf("var" to "integers"),
@@ -86,17 +86,16 @@ class ReduceTest : LogicOperationTest(
         ),
     ),
     failureResultTestInput = listOf(
-        TestInput(
+        Unsuccessful(
             expression = mapOf(
                 "reduce" to listOf(
                     listOf(1, 5, mapOf("var" to "A")),
                     mapOf("+" to listOf(mapOf("var" to "current"), mapOf("var" to "accumulator"))),
                     9
                 )
-            ),
-            resultValue = null
+            )
         ),
-        TestInput(
+        Unsuccessful(
             expression = mapOf(
                 "reduce" to listOf(
                     listOf(1, 5, mapOf("var" to "b")),
@@ -104,42 +103,33 @@ class ReduceTest : LogicOperationTest(
                     9
                 )
             ),
-            data = mapOf("b" to "banana"),
-            resultValue = null
+            data = mapOf("b" to "banana")
         ),
-        TestInput(
+        Unsuccessful(
             expression = mapOf(
                 "reduce" to listOf(mapOf("var" to "integers"))
             ),
-            data = mapOf("integers" to listOf(1, 2, 3, 4)),
-            resultValue = null
+            data = mapOf("integers" to listOf(1, 2, 3, 4))
         ),
-        TestInput(
+        Unsuccessful(
             expression = mapOf(
                 "reduce" to listOf(
                     mapOf("*" to listOf(mapOf("var" to "current"), mapOf("var" to "accumulator"))),
                     0
                 )
             ),
-            resultValue = null
+            
         ),
-        TestInput(
+        Unsuccessful(
             expression = mapOf("reduce" to listOf(0)),
-            resultValue = null
+            
         ),
-        TestInput(
-            expression = mapOf("reduce" to emptyList<Any>()),
-            resultValue = null
-        ),
-        TestInput(
-            expression = mapOf("reduce" to null),
-            resultValue = null
-        ),
-        TestInput(
+        Unsuccessful(expression = mapOf("reduce" to emptyList<Any>())),
+        Unsuccessful(expression = mapOf("reduce" to null)),
+        Unsuccessful(
             expression = mapOf(
                 "reduce" to listOf(listOf(1, 2), null, 4)
-            ),
-            resultValue = null
+            )
         ),
     )
 )

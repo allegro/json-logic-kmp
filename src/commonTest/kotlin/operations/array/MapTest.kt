@@ -1,12 +1,12 @@
 package operations.array
 
 import LogicOperationTest
-import TestInput
+import TestInput.Successful
 
 class MapTest : LogicOperationTest(
     testName = "JsonLogic evaluation with Map operation",
     successResultTestInput = listOf(
-        TestInput(
+        Successful(
             expression = mapOf(
                 "map" to listOf(
                     listOf(1, 5, mapOf("var" to "A")),
@@ -15,7 +15,7 @@ class MapTest : LogicOperationTest(
             ),
             resultValue = listOf(3, 7, null)
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "map" to listOf(
                     mapOf("var" to "desserts"),
@@ -31,7 +31,7 @@ class MapTest : LogicOperationTest(
             ),
             resultValue = listOf(1, 2, 3)
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "map" to listOf(
                     mapOf("var" to "integers"),
@@ -40,7 +40,7 @@ class MapTest : LogicOperationTest(
             ),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "map" to listOf(
                     mapOf("var" to "integers"),
@@ -50,7 +50,7 @@ class MapTest : LogicOperationTest(
             data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
             resultValue = listOf(2, 4, 6, 8, 10)
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "map" to listOf(
                     1,
@@ -61,7 +61,7 @@ class MapTest : LogicOperationTest(
             data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "map" to listOf(
                     listOf(null),
@@ -73,7 +73,7 @@ class MapTest : LogicOperationTest(
             data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
             resultValue = listOf(1)
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "map" to listOf(
                     listOf(2, "banana"),
@@ -82,7 +82,7 @@ class MapTest : LogicOperationTest(
             ),
             resultValue = listOf(4, null)
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "map" to listOf(
                     2,
@@ -92,19 +92,19 @@ class MapTest : LogicOperationTest(
             ),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("map" to listOf(1, 2, 3, 4, 5)),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("map" to listOf(listOf(1, 2, 3, 4, 5))),
             resultValue = listOf(null, null, null, null, null)
         ),
-        TestInput(
+        Successful(
             expression = mapOf("map" to listOf(listOf(1, 2, 3), listOf(1, 2))),
             resultValue = listOf(listOf(1, 2), listOf(1, 2), listOf(1, 2))
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "map" to listOf(
                     listOf(mapOf("var" to "integers"), 1),
@@ -114,7 +114,7 @@ class MapTest : LogicOperationTest(
             data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
             resultValue = listOf(2, 2)
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "map" to listOf(
                     mapOf("var" to "integers"),
@@ -124,7 +124,7 @@ class MapTest : LogicOperationTest(
             data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
             resultValue = listOf(1, 0, 1, 0, 1)
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "map" to listOf(
                     mapOf("var" to "integers", "var" to "integers"),
@@ -134,7 +134,7 @@ class MapTest : LogicOperationTest(
             data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
             resultValue = listOf(1, 0, 1, 0, 1)
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "map" to listOf(
                     mapOf("%" to listOf(mapOf("var" to ""), 2))
@@ -143,19 +143,19 @@ class MapTest : LogicOperationTest(
             data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("map" to emptyList<Any>()),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("map" to null),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("map" to "banana"),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "map" to listOf(
                     mapOf("var" to "integers", "var" to "integers"),

@@ -1,64 +1,64 @@
 package operations.array
 
 import LogicOperationTest
-import TestInput
+import TestInput.Successful
 
 class MergeTest : LogicOperationTest(
     testName = "JsonLogic evaluation with Merge operation",
     successResultTestInput = listOf(
-        TestInput(
+        Successful(
             expression = mapOf("merge" to null),
             resultValue = listOf(null)
         ),
-        TestInput(
+        Successful(
             expression = mapOf("merge" to listOf(1, listOf(2, listOf(3, 4)))),
             resultValue = listOf(1, 2, listOf(3, 4))
         ),
-        TestInput(
+        Successful(
             expression = mapOf("merge" to listOf(1, listOf(2))),
             resultValue = listOf(1, 2)
         ),
-        TestInput(
+        Successful(
             expression = mapOf("merge" to listOf(1, 2)),
             resultValue = listOf(1, 2)
         ),
-        TestInput(
+        Successful(
             expression = mapOf("merge" to 1),
             resultValue = listOf(1)
         ),
-        TestInput(
+        Successful(
             expression = mapOf("merge" to listOf(listOf(1), listOf(2, 3))),
             resultValue = listOf(1, 2, 3)
         ),
-        TestInput(
+        Successful(
             expression = mapOf("merge" to listOf(listOf(1, 2), listOf(3))),
             resultValue = listOf(1, 2, 3)
         ),
-        TestInput(
+        Successful(
             expression = mapOf("merge" to listOf(listOf(1), listOf(2), listOf(3))),
             resultValue = listOf(1, 2, 3)
         ),
-        TestInput(
+        Successful(
             expression = mapOf("merge" to listOf(listOf(1), listOf(2))),
             resultValue = listOf(1, 2)
         ),
-        TestInput(
+        Successful(
             expression = mapOf("merge" to listOf(listOf(1), emptyList())),
             resultValue = listOf(1)
         ),
-        TestInput(
+        Successful(
             expression = mapOf("merge" to listOf(listOf(1))),
             resultValue = listOf(1)
         ),
-        TestInput(
+        Successful(
             expression = mapOf("merge" to emptyList<Any>()),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("merge" to listOf(1, 2, listOf(3, 4))),
             resultValue = listOf(1, 2, 3, 4)
         ),
-        TestInput(
+        Successful(
             expression = mapOf("merge" to listOf(listOf(1, 2), listOf(3, 4))),
             resultValue = listOf(1, 2, 3, 4)
         )

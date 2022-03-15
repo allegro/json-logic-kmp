@@ -1,107 +1,107 @@
 package operations.data
 
 import LogicOperationTest
-import TestInput
+import TestInput.Successful
 
 class MissingTest : LogicOperationTest(
     testName = "JsonLogic evaluation with only Missing operation",
     successResultTestInput = listOf(
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a")),
             data = mapOf("a" to ""),
             resultValue = listOf("a")
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a")),
             data = mapOf("a" to emptyList<Any>()),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a")),
             data = mapOf("a" to null),
             resultValue = listOf("a")
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a")),
             data = mapOf("a" to 0),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a")),
             data = mapOf("a" to "0"),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a")),
             data = mapOf("a" to listOf(null)),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a")),
             data = mapOf("a" to listOf("")),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to emptyList<Any>()),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a")),
             resultValue = listOf("a")
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to "a"),
             data = mapOf("a" to "apple"),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a")),
             data = mapOf("a" to "apple"),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a", "b")),
             data = mapOf("a" to "apple"),
             resultValue = listOf("b")
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a", "b")),
             data = mapOf("a" to "apple", "b" to "banana"),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a", "b")),
             resultValue = listOf("a", "b")
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a", "b")),
             resultValue = listOf("a", "b")
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a.b")),
             resultValue = listOf("a.b")
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a.b")),
             data = mapOf("a" to "apple"),
             resultValue = listOf("a.b")
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a.b")),
             data = mapOf("a" to mapOf("c" to "apple cake")),
             resultValue = listOf("a.b")
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a.b")),
             data = mapOf("a" to mapOf("b" to "apple brownie")),
             resultValue = emptyList<Any>()
         ),
-        TestInput(
+        Successful(
             expression = mapOf("missing" to listOf("a.b", "a.c")),
             data = mapOf("a" to mapOf("b" to "apple brownie")),
             resultValue = listOf("a.c")
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "missing" to mapOf(
                     "merge" to listOf(
@@ -119,7 +119,7 @@ class MissingTest : LogicOperationTest(
                 "apr"
             )
         ),
-        TestInput(
+        Successful(
             expression = mapOf(
                 "missing" to mapOf(
                     "merge" to listOf(
