@@ -7,11 +7,11 @@ abstract class LogicOperationTest(
     testName: String,
     successResultTestInput: List<TestInput.Successful> = emptyList(),
     failureResultTestInput: List<TestInput.Unsuccessful> = emptyList(),
-    nameFunction: (TestInput) -> String = { "Should apply ${it.data} on ${it.expression.keys} result in ${it.resolveResultValueInTestName()}" }
+    nameFunction: (TestInput) -> String = { it.resolveTestName() }
 ) : FunSpec({
     context("$testName - success results") {
         withData(
-            nameFn =  nameFunction,
+            nameFn = nameFunction,
             // given
             ts = successResultTestInput
         ) { (expression, data, result) ->
@@ -39,7 +39,10 @@ abstract class LogicOperationTest(
     }
 })
 
-private fun TestInput.resolveResultValueInTestName() = when(this) {
+private fun TestInput.resolveTestName() =
+    "Should apply $data on ${expression.keys} result in ${resolveResultValueInTestName()}"
+
+private fun TestInput.resolveResultValueInTestName() = when (this) {
     is TestInput.Successful -> resultValue
     is TestInput.Unsuccessful -> "failure"
 }
