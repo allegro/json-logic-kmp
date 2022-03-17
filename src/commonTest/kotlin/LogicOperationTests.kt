@@ -6,7 +6,9 @@ import io.kotest.matchers.types.shouldBeTypeOf
 
 suspend fun FunSpecContainerScope.testWithSuccessResultData(
     data: List<TestInput.Successful>,
-    nameFunction: (TestInput.Successful) -> String = { "Should apply ${it.data} on ${it.expression} result in ${it.resultValue}" }
+    nameFunction: (TestInput.Successful) -> String = {
+        "Should apply ${it.data} on ${it.expression} result in ${it.resultValue}"
+    }
 ) = withData(
     nameFn = nameFunction,
     // given
@@ -25,7 +27,9 @@ private fun successResultTestBody(): ContainerScope.(TestInput.Successful) -> Un
 
 suspend fun FunSpecContainerScope.testWithFailureResultData(
     data: List<TestInput.Unsuccessful>,
-    nameFunction: (TestInput.Unsuccessful) -> String = { "Should apply ${it.data} on ${it.expression} result in failure" }
+    nameFunction: (TestInput.Unsuccessful) -> String = {
+        "Should apply ${it.data} on ${it.expression} result in failure"
+    }
 ) = withData(
     nameFn = nameFunction,
     // given
