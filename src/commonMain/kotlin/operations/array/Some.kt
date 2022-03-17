@@ -1,12 +1,14 @@
 package operations.array
 
+import FunctionalLogicOperation
+import LogicOperations
 import operations.LogicOperation
 import kotlin.collections.Map
 
-internal object Some : LogicOperation, OccurrenceCheckOperation {
+internal class Some(operations: LogicOperations) : FunctionalLogicOperation(operations), OccurrenceCheckOperation {
     override val key: String = "some"
 
-    override fun invoke(expression: Any?, data: Any?): Any? = checkOccurrence(expression, data)
+    override fun invoke(expression: Any?, data: Any?): Any? = checkOccurrence(expression, data, operations)
 
     override fun check(
         operationData: List<Any?>,
@@ -14,7 +16,7 @@ internal object Some : LogicOperation, OccurrenceCheckOperation {
         operationDefault: Any?
     ): Any? {
         operationData.forEach { dataValue ->
-            if (unwrapValueAsBoolean(evaluateLogic(mappingOperation, dataValue))) {
+            if (unwrapValueAsBoolean(evaluateLogic(mappingOperation, dataValue, operations))) {
                 return@check true
             }
         }

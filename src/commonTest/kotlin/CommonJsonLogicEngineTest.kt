@@ -2,7 +2,7 @@ import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.types.shouldBeTypeOf
 
 class CommonJsonLogicEngineTest : BehaviorSpec({
-    val logicEngine = CommonJsonLogicEngine()
+    val logicEngine = JsonLogicEngine.Builder().build()
 
     given("An empty logic expression") {
         val logicExpression = emptyMap<String, Any?>()

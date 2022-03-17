@@ -1,5 +1,6 @@
 package operations.array
 
+import LogicOperations
 import operations.logic.unwrap.TruthyUnwrapStrategy
 import kotlin.collections.Map
 
@@ -10,8 +11,8 @@ internal interface OccurrenceCheckOperation : NoInitialValueOperation, TruthyUnw
         operationDefault: Any?
     ): Any?
 
-    fun checkOccurrence(expression: Any?, data: Any?) =
-        invokeArrayOperation(expression, data) { operationData, operation, default ->
+    fun checkOccurrence(expression: Any?, data: Any?, operations: LogicOperations) =
+        invokeArrayOperation(expression, data, operations) { operationData, operation, default ->
             evaluateOrDefault(operationData, operation, default, ::check)
         }
 

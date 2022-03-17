@@ -1,4 +1,4 @@
-internal class CommonJsonLogicEngine : JsonLogicEngine, LogicEvaluator {
+internal class CommonJsonLogicEngine(private val operations: LogicOperations) : JsonLogicEngine, LogicEvaluator {
     override fun evaluate(expression: Map<String, Any?>, data: Any?): JsonLogicResult =
         expression.takeIf {
             it.isNotEmpty()
@@ -7,7 +7,7 @@ internal class CommonJsonLogicEngine : JsonLogicEngine, LogicEvaluator {
         } ?: JsonLogicResult.Failure("JsonLogic expression mustn't be empty.")
 
     private fun safeEvaluate(expression: Map<String, Any?>, data: Any?) = runCatching {
-        evaluateLogic(expression, data)
+        evaluateLogic(expression, data, operations)
     }.fold(
         onSuccess = ::toJsonLogicResult,
         onFailure = { JsonLogicResult.Failure(it.message) }
@@ -17,3 +17,8 @@ internal class CommonJsonLogicEngine : JsonLogicEngine, LogicEvaluator {
         JsonLogicResult.Success(notNullResult)
     } ?: JsonLogicResult.Failure("Evaluated expression has returned null.")
 }
+
+// pierwszy pomysl to podczas buildowania wrzucic wszystko do common enginea i niech on przy kazdym evaluateLogic przekazuje dostepne operacje
+
+// TODO
+// wymyslec sposob, zeby do raz zainicjalizowanego zestawu operacji kazdy impl of LogicEvaluator mial do nich dostep

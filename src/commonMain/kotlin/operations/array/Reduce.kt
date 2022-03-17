@@ -1,18 +1,22 @@
 package operations.array
 
-import operations.LogicOperation
+import FunctionalLogicOperation
+import LogicOperations
 import utils.asList
 import utils.thirdOrNull
 import kotlin.collections.Map
 
-internal object Reduce : LogicOperation, ArrayOperation {
+internal class Reduce(operations: LogicOperations) : FunctionalLogicOperation(operations), ArrayOperation {
     override val key: String = "reduce"
-    private const val CURRENT_DATA_KEY = "current"
-    private const val ACCUMULATOR_DATA_KEY = "accumulator"
+
+    companion object {
+        private const val CURRENT_DATA_KEY = "current"
+        private const val ACCUMULATOR_DATA_KEY = "accumulator"
+    }
 
     override fun invoke(expression: Any?, data: Any?): Any? =
         expression.asList.let { expressionValues ->
-            val evaluatedOperationData = unwrapOperationData(expressionValues, data)
+            val evaluatedOperationData = unwrapOperationData(expressionValues, data, operations)
             val mappingOperation = getMappingOperationOrNull(expressionValues)
             val operationDefault = getOperationDefault(mappingOperation, expressionValues)
             val initialValue = expressionValues.thirdOrNull()
@@ -31,7 +35,7 @@ internal object Reduce : LogicOperation, ArrayOperation {
 
     private fun reduceValue(mappingOperation: Map<String, Any>?, accumulator: Any?, evaluatedValue: Any?) =
         mappingOperation?.let { operation ->
-            evaluateLogic(operation, toReduceIterationData(accumulator, evaluatedValue))
+            evaluateLogic(operation, toReduceIterationData(accumulator, evaluatedValue), operations)
         }
 
     private fun toReduceIterationData(accumulator: Any?, current: Any?) =

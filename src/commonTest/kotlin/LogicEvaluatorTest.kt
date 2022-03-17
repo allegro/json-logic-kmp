@@ -10,7 +10,7 @@ class LogicEvaluatorTest : BehaviorSpec({
 
         then("throws an exception on evaluation") {
             shouldThrow<JsonLogicException> {
-                evaluator.evaluateLogic(logicExpression, null)
+                evaluator.evaluateLogic(logicExpression, null, LogicOperations())
             }
         }
     }

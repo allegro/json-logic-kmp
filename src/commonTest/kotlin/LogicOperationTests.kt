@@ -18,7 +18,8 @@ suspend fun FunSpecContainerScope.testWithSuccessResultData(
 
 private fun successResultTestBody(): ContainerScope.(TestInput.Successful) -> Unit = { (expression, data, result) ->
     // when
-    val evaluationResult = JsonLogicEngine.instance.evaluate(expression, data)
+    // TODO extract to not build every time
+    val evaluationResult = JsonLogicEngine.Builder().build().evaluate(expression, data)
 
     // then
     evaluationResult.shouldBeTypeOf<JsonLogicResult.Success>()
@@ -39,7 +40,7 @@ suspend fun FunSpecContainerScope.testWithFailureResultData(
 
 private fun failureResultTestBody(): ContainerScope.(TestInput.Unsuccessful) -> Unit = { (expression, data) ->
     // when
-    val evaluationResult = JsonLogicEngine.instance.evaluate(expression, data)
+    val evaluationResult = JsonLogicEngine.Builder().build().evaluate(expression, data)
 
     // then
     evaluationResult.shouldBeTypeOf<JsonLogicResult.Failure>()
