@@ -1,150 +1,115 @@
 package operations.string
 
-import JsonLogicEngine
-import TestInput
+import TestInput.Successful
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.datatest.withData
-import io.kotest.matchers.shouldBe
+import testWithSuccessResultData
 
 class SubstrTest : FunSpec({
     context("JsonLogic evaluation with Substr operation") {
-        withData(
-            nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
-            // given
-            ts = listOf(
-                TestInput(
+        testWithSuccessResultData(
+            listOf(
+                Successful(
                     expression = mapOf("substr" to listOf("jsonlogic", 4)),
-                    data = emptyMap<String, Any>(),
-                    result = "logic"
+                    resultValue = "logic"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf("jsonlogic", -5)),
-                    data = emptyMap<String, Any>(),
-                    result = "logic"
+                    resultValue = "logic"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf("jsonlogic", 0, 1)),
-                    data = emptyMap<String, Any>(),
-                    result = "j"
+                    resultValue = "j"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf("jsonlogic", -1, 1)),
-                    data = emptyMap<String, Any>(),
-                    result = "c"
+                    resultValue = "c"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf("jsonlogic", 4, 5)),
-                    data = emptyMap<String, Any>(),
-                    result = "logic"
+                    resultValue = "logic"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf("jsonlogic", -5, 5)),
-                    data = emptyMap<String, Any>(),
-                    result = "logic"
+                    resultValue = "logic"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf("jsonlogic", -5, -2)),
-                    data = emptyMap<String, Any>(),
-                    result = "log"
+                    resultValue = "log"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf("jsonlogic", 1, -5)),
-                    data = emptyMap<String, Any>(),
-                    result = "son"
+                    resultValue = "son"
                 ),
-
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf("jsonlogic", 1, -5, 8)),
-                    data = emptyMap<String, Any>(),
-                    result = "son"
+                    resultValue = "son"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf(true, 1, -5)),
-                    data = emptyMap<String, Any>(),
-                    result = ""
+                    resultValue = ""
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf(true, 1, 2)),
-                    data = emptyMap<String, Any>(),
-                    result = "ru"
+                    resultValue = "ru"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf(true)),
-                    data = emptyMap<String, Any>(),
-                    result = "true"
+                    resultValue = "true"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf(listOf("apple", listOf("banana")))),
-                    data = emptyMap<String, Any>(),
-                    result = "apple,banana"
+                    resultValue = "apple,banana"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf(listOf("apple", listOf("banana", true)))),
-                    data = emptyMap<String, Any>(),
-                    result = "apple,banana,true"
+                    resultValue = "apple,banana,true"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf(listOf("apple", listOf("banana", true, listOf(null))))),
-                    data = emptyMap<String, Any>(),
-                    result = "apple,banana,true,"
+                    resultValue = "apple,banana,true,"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf(listOf("apple", listOf(null, "banana", listOf(null))))),
-                    data = emptyMap<String, Any>(),
-                    result = "apple,,banana,"
+                    resultValue = "apple,,banana,"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf(133, 1)),
-                    data = emptyMap<String, Any>(),
-                    result = "33"
+                    resultValue = "33"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf(listOf("apple", "banana"), 1)),
-                    data = emptyMap<String, Any>(),
-                    result = "pple,banana"
+                    resultValue = "pple,banana"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf(emptyList<String>())),
-                    data = emptyMap<String, Any>(),
-                    result = ""
+                    resultValue = ""
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf("", -3, 15)),
-                    data = emptyMap<String, Any>(),
-                    result = ""
+                    resultValue = ""
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf(2.0, 1)),
-                    data = emptyMap<String, Any>(),
-                    result = ""
+                    resultValue = ""
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf(2.5, 1)),
-                    data = emptyMap<String, Any>(),
-                    result = ".5"
+                    resultValue = ".5"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf(2.5)),
-                    data = emptyMap<String, Any>(),
-                    result = "2.5"
+                    resultValue = "2.5"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf(2.0)),
-                    data = emptyMap<String, Any>(),
-                    result = "2"
+                    resultValue = "2"
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("substr" to listOf("2.0")),
-                    data = emptyMap<String, Any>(),
-                    result = "2.0"
+                    resultValue = "2.0"
                 ),
             )
-        ) { (expression, data, result) ->
-            // when
-            val evaluationResult = JsonLogicEngine.instance.evaluate(expression, data)
-
-            // then
-            evaluationResult shouldBe result
-        }
+        )
     }
 })
+

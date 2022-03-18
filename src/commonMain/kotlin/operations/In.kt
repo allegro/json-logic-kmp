@@ -1,6 +1,5 @@
-package operations.string
+package operations
 
-import operations.LogicOperation
 import utils.asList
 import utils.secondOrNull
 

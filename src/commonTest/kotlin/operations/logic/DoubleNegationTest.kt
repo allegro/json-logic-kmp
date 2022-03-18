@@ -1,42 +1,32 @@
 package operations.logic
 
-import JsonLogicEngine
-import TestInput
+import TestInput.Successful
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.datatest.withData
-import io.kotest.matchers.shouldBe
+import testWithSuccessResultData
 
 class DoubleNegationTest : FunSpec({
-    context("JsonLogic evaluation with only DoubleNegation operation") {
-        withData(
-            nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
-            // given
-            ts = listOf(
-                TestInput(expression = mapOf("!!" to listOf(false)), result = false),
-                TestInput(expression = mapOf("!!" to listOf(true)), result = true),
-                TestInput(expression = mapOf("!!" to false), result = false),
-                TestInput(expression = mapOf("!!" to "false"), result = true),
-                TestInput(expression = mapOf("!!" to true), result = true),
-                TestInput(expression = mapOf("!!" to 0), result = false),
-                TestInput(expression = mapOf("!!" to 1), result = true),
-                TestInput(expression = mapOf("!!" to listOf(emptyList<Boolean>())), result = false),
-                TestInput(expression = mapOf("!!" to listOf(0)), result = false),
-                TestInput(expression = mapOf("!!" to listOf("")), result = false),
-                TestInput(expression = mapOf("!!" to listOf("0")), result = true),
-                TestInput(expression = mapOf("!!" to listOf(null)), result = false),
-                TestInput(expression = mapOf("!!" to listOf("banana", null)), result = true),
-                TestInput(expression = mapOf("!!" to listOf(13)), result = true),
-                TestInput(expression = mapOf("!!" to listOf(false, false)), result = false),
-                TestInput(expression = mapOf("!!" to listOf(true, true)), result = true),
-                TestInput(expression = mapOf("!!" to listOf(true, null)), result = true),
-                TestInput(expression = mapOf("!!" to listOf(null, null)), result = false),
+    context("JsonLogic evaluation with DoubleNegation operation") {
+        testWithSuccessResultData(
+            listOf(
+                Successful(expression = mapOf("!!" to listOf(false)), resultValue = false),
+                Successful(expression = mapOf("!!" to listOf(true)), resultValue = true),
+                Successful(expression = mapOf("!!" to false), resultValue = false),
+                Successful(expression = mapOf("!!" to "false"), resultValue = true),
+                Successful(expression = mapOf("!!" to true), resultValue = true),
+                Successful(expression = mapOf("!!" to 0), resultValue = false),
+                Successful(expression = mapOf("!!" to 1), resultValue = true),
+                Successful(expression = mapOf("!!" to listOf(emptyList<Boolean>())), resultValue = false),
+                Successful(expression = mapOf("!!" to listOf(0)), resultValue = false),
+                Successful(expression = mapOf("!!" to listOf("")), resultValue = false),
+                Successful(expression = mapOf("!!" to listOf("0")), resultValue = true),
+                Successful(expression = mapOf("!!" to listOf(null)), resultValue = false),
+                Successful(expression = mapOf("!!" to listOf("banana", null)), resultValue = true),
+                Successful(expression = mapOf("!!" to listOf(13)), resultValue = true),
+                Successful(expression = mapOf("!!" to listOf(false, false)), resultValue = false),
+                Successful(expression = mapOf("!!" to listOf(true, true)), resultValue = true),
+                Successful(expression = mapOf("!!" to listOf(true, null)), resultValue = true),
+                Successful(expression = mapOf("!!" to listOf(null, null)), resultValue = false),
             )
-        ) { (expression, data, result) ->
-            // when
-            val evaluationResult = JsonLogicEngine.instance.evaluate(expression, data)
-
-            // then
-            evaluationResult shouldBe result
-        }
+        )
     }
 })

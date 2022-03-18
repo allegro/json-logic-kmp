@@ -1,9 +1,19 @@
-import utils.JsonLogicException
-
 internal class CommonJsonLogicEngine : JsonLogicEngine, LogicEvaluator {
-    override fun evaluate(expression: Map<String, Any?>, data: Any?): Any? = if (expression.isNotEmpty()) {
+    override fun evaluate(expression: Map<String, Any?>, data: Any?): JsonLogicResult =
+        expression.takeIf {
+            it.isNotEmpty()
+        }?.let {
+            safeEvaluate(expression, data)
+        } ?: JsonLogicResult.Failure("JsonLogic expression mustn't be empty.")
+
+    private fun safeEvaluate(expression: Map<String, Any?>, data: Any?) = runCatching {
         evaluateLogic(expression, data)
-    } else {
-        throw JsonLogicException("JsonLogic expression mustn't be empty.")
-    }
+    }.fold(
+        onSuccess = ::toJsonLogicResult,
+        onFailure = { JsonLogicResult.Failure(it.message) }
+    )
+
+    private fun toJsonLogicResult(evaluatedValue: Any?) = evaluatedValue?.let { notNullResult ->
+        JsonLogicResult.Success(notNullResult)
+    } ?: JsonLogicResult.Failure("Evaluated expression has returned null.")
 }

@@ -5,6 +5,7 @@ import utils.secondOrNull
 import kotlin.collections.Map
 
 internal interface ArrayOperation : EvaluatingUnwrapStrategy {
+    @Suppress("UNCHECKED_CAST")
     fun getMappingOperationOrNull(expression: List<Any?>) =
         expression.secondOrNull().takeIf { isExpression(it) } as? Map<String, Any>
 

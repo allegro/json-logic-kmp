@@ -1,18 +1,14 @@
 package operations.logic
 
-import JsonLogicEngine
-import TestInput
+import TestInput.Successful
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.datatest.withData
-import io.kotest.matchers.shouldBe
+import testWithSuccessResultData
 
 class AndTest : FunSpec({
     context("JsonLogic evaluation with And operation") {
-        withData(
-            nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
-            // given
-            ts = listOf(
-                TestInput(
+        testWithSuccessResultData(
+            listOf(
+                Successful(
                     expression = mapOf(
                         "and" to listOf(
                             mapOf(
@@ -25,80 +21,74 @@ class AndTest : FunSpec({
                         "temp" to 100,
                         "pie" to mapOf("filling" to "apple")
                     ),
-                    result = true
+                    resultValue = true
                 ),
-                TestInput(expression = mapOf("and" to listOf(true, false)), result = false),
-                TestInput(expression = mapOf("and" to listOf(true, true)), result = true),
-                TestInput(expression = mapOf("and" to listOf(false, true)), result = false),
-                TestInput(expression = mapOf("and" to listOf(false, false)), result = false),
-                TestInput(expression = mapOf("and" to listOf(true, true, true)), result = true),
-                TestInput(expression = mapOf("and" to listOf(true, true, false)), result = false),
-                TestInput(expression = mapOf("and" to listOf(false)), result = false),
-                TestInput(expression = mapOf("and" to listOf(true)), result = true),
-                TestInput(expression = mapOf("and" to listOf(1, 3)), result = 3),
-                TestInput(expression = mapOf("and" to listOf(3, false)), result = false),
-                TestInput(expression = mapOf("and" to listOf(false, 3)), result = false),
-                TestInput(
+                Successful(expression = mapOf("and" to listOf(true, false)), resultValue = false),
+                Successful(expression = mapOf("and" to listOf(true, true)), resultValue = true),
+                Successful(expression = mapOf("and" to listOf(false, true)), resultValue = false),
+                Successful(expression = mapOf("and" to listOf(false, false)), resultValue = false),
+                Successful(expression = mapOf("and" to listOf(true, true, true)), resultValue = true),
+                Successful(expression = mapOf("and" to listOf(true, true, false)), resultValue = false),
+                Successful(expression = mapOf("and" to listOf(false)), resultValue = false),
+                Successful(expression = mapOf("and" to listOf(true)), resultValue = true),
+                Successful(expression = mapOf("and" to listOf(1, 3)), resultValue = 3),
+                Successful(expression = mapOf("and" to listOf(3, false)), resultValue = false),
+                Successful(expression = mapOf("and" to listOf(false, 3)), resultValue = false),
+                Successful(
                     expression = mapOf("and" to listOf(emptyList<Any>(), true)),
-                    result = emptyList<Any>()
+                    resultValue = emptyList<Any>()
                 ),
-                TestInput(expression = mapOf("and" to listOf(0, true)), result = 0),
-                TestInput(expression = mapOf("and" to listOf("", true)), result = ""),
-                TestInput(expression = mapOf("and" to listOf("0", true)), result = true),
-                TestInput(
+                Successful(expression = mapOf("and" to listOf(0, true)), resultValue = 0),
+                Successful(expression = mapOf("and" to listOf("", true)), resultValue = ""),
+                Successful(expression = mapOf("and" to listOf("0", true)), resultValue = true),
+                Successful(
                     expression = mapOf("and" to listOf(mapOf(">" to listOf(3, 1)), true)),
-                    result = true
+                    resultValue = true
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("and" to listOf(mapOf(">" to listOf(3, 1)), false)),
-                    result = false
+                    resultValue = false
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("and" to listOf(mapOf(">" to listOf(3, 1)), mapOf("!" to true))),
-                    result = false
+                    resultValue = false
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("and" to listOf(mapOf(">" to listOf(3, 1)), mapOf("<" to listOf(1, 3)))),
-                    result = true
+                    resultValue = true
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("and" to listOf("0", listOf("banana"))),
-                    result = listOf("banana")
+                    resultValue = listOf("banana")
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("and" to listOf(listOf("grapes"), listOf("banana"))),
-                    result = listOf("banana")
+                    resultValue = listOf("banana")
                 ),
-                TestInput(expression = mapOf("and" to listOf(false, listOf("banana"))), result = false),
-                TestInput(
+                Successful(expression = mapOf("and" to listOf(false, listOf("banana"))), resultValue = false),
+                Successful(
                     expression = mapOf("and" to listOf(true, listOf("banana"))),
-                    result = listOf("banana")
+                    resultValue = listOf("banana")
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("and" to listOf(listOf(null), listOf("banana"))),
-                    result = listOf("banana")
+                    resultValue = listOf("banana")
                 ),
-                TestInput(expression = mapOf("and" to listOf(listOf(null), true)), result = true),
-                TestInput(expression = mapOf("and" to listOf(listOf(null), false)), result = false),
-                TestInput(
+                Successful(expression = mapOf("and" to listOf(listOf(null), true)), resultValue = true),
+                Successful(expression = mapOf("and" to listOf(listOf(null), false)), resultValue = false),
+                Successful(
                     expression = mapOf("and" to listOf(listOf(emptyList<String>()), listOf("banana"))),
-                    result = listOf("banana")
+                    resultValue = listOf("banana")
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("and" to listOf(listOf(emptyList<String>()), listOf(null))),
-                    result = listOf(null)
+                    resultValue = listOf(null)
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf("and" to listOf(listOf(emptyList<String>()), listOf(null), listOf("banana"))),
-                    result = listOf("banana")
+                    resultValue = listOf("banana")
                 ),
             )
-        ) { (expression, data, result) ->
-            // when
-            val evaluationResult = JsonLogicEngine.instance.evaluate(expression, data)
-
-            // then
-            evaluationResult shouldBe result
-        }
+        )
     }
 })

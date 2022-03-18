@@ -1,69 +1,34 @@
 package operations.array
 
-import JsonLogicEngine
-import TestInput
+import TestInput.Successful
+import TestInput.Unsuccessful
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.datatest.withData
-import io.kotest.matchers.shouldBe
+import testWithFailureResultData
+import testWithSuccessResultData
 
 class ReduceTest : FunSpec({
     context("JsonLogic evaluation with Reduce operation") {
-        withData(
-            nameFn = { "Should apply ${it.data} on reduce expression result in ${it.result}" },
-            // given
-            ts = listOf(
-                TestInput(
-                    expression = mapOf(
-                        "reduce" to listOf(mapOf("var" to "integers"))
-                    ),
-                    data = mapOf("integers" to listOf(1, 2, 3, 4)),
-                    result = null
-                ),
-                TestInput(
+        testWithSuccessResultData(
+            nameFunction = { "Should apply ${it.data} on ${it.expression.keys} result in ${it.resultValue}" },
+            data = listOf(
+                Successful(
                     expression = mapOf("reduce" to listOf(mapOf("var" to "integers"), 0)),
                     data = mapOf("integers" to listOf(1, 2, 3, 4)),
-                    result = 0
+                    resultValue = 0
                 ),
-                TestInput(
-                    expression = mapOf(
-                        "reduce" to listOf(
-                            mapOf("*" to listOf(mapOf("var" to "current"), mapOf("var" to "accumulator"))),
-                            0
-                        )
-                    ),
-                    result = null
-                ),
-                TestInput(
-                    expression = mapOf("reduce" to listOf(0)),
-                    result = null
-                ),
-                TestInput(
-                    expression = mapOf("reduce" to emptyList<Any>()),
-                    result = null
-                ),
-                TestInput(
-                    expression = mapOf("reduce" to null),
-                    result = null
-                ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "reduce" to listOf(1, 2, 3)
                     ),
-                    result = 3
+                    resultValue = 3
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "reduce" to listOf(listOf(1, 2), 3, 4)
                     ),
-                    result = 3
+                    resultValue = 3
                 ),
-                TestInput(
-                    expression = mapOf(
-                        "reduce" to listOf(listOf(1, 2), null, 4)
-                    ),
-                    result = null
-                ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "reduce" to listOf(
                             mapOf("var" to "desserts"),
@@ -78,9 +43,9 @@ class ReduceTest : FunSpec({
                             mapOf("name" to "cupcake", "qty" to 3)
                         )
                     ),
-                    result = 6
+                    resultValue = 6
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "reduce" to listOf(
                             mapOf("var" to "integers"),
@@ -89,9 +54,9 @@ class ReduceTest : FunSpec({
                         )
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4)),
-                    result = 0
+                    resultValue = 0
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "reduce" to listOf(
                             mapOf("var" to "integers"),
@@ -100,9 +65,9 @@ class ReduceTest : FunSpec({
                         )
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4)),
-                    result = 24
+                    resultValue = 24
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "reduce" to listOf(
                             mapOf("var" to "integers"),
@@ -110,9 +75,9 @@ class ReduceTest : FunSpec({
                             0
                         )
                     ),
-                    result = 0
+                    resultValue = 0
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "reduce" to listOf(
                             mapOf("var" to "integers"),
@@ -121,19 +86,22 @@ class ReduceTest : FunSpec({
                         )
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4)),
-                    result = 10
+                    resultValue = 10
                 ),
-                TestInput(
+            )
+        )
+        testWithFailureResultData(
+            listOf(
+                Unsuccessful(
                     expression = mapOf(
                         "reduce" to listOf(
                             listOf(1, 5, mapOf("var" to "A")),
                             mapOf("+" to listOf(mapOf("var" to "current"), mapOf("var" to "accumulator"))),
                             9
                         )
-                    ),
-                    result = null
+                    )
                 ),
-                TestInput(
+                Unsuccessful(
                     expression = mapOf(
                         "reduce" to listOf(
                             listOf(1, 5, mapOf("var" to "b")),
@@ -141,16 +109,35 @@ class ReduceTest : FunSpec({
                             9
                         )
                     ),
-                    data = mapOf("b" to "banana"),
-                    result = null
+                    data = mapOf("b" to "banana")
+                ),
+                Unsuccessful(
+                    expression = mapOf(
+                        "reduce" to listOf(mapOf("var" to "integers"))
+                    ),
+                    data = mapOf("integers" to listOf(1, 2, 3, 4))
+                ),
+                Unsuccessful(
+                    expression = mapOf(
+                        "reduce" to listOf(
+                            mapOf("*" to listOf(mapOf("var" to "current"), mapOf("var" to "accumulator"))),
+                            0
+                        )
+                    ),
+
+                    ),
+                Unsuccessful(
+                    expression = mapOf("reduce" to listOf(0)),
+
+                    ),
+                Unsuccessful(expression = mapOf("reduce" to emptyList<Any>())),
+                Unsuccessful(expression = mapOf("reduce" to null)),
+                Unsuccessful(
+                    expression = mapOf(
+                        "reduce" to listOf(listOf(1, 2), null, 4)
+                    )
                 ),
             )
-        ) { (expression, data, result) ->
-            // when
-            val evaluationResult = JsonLogicEngine.instance.evaluate(expression, data)
-
-            // then
-            evaluationResult shouldBe result
-        }
+        )
     }
 })

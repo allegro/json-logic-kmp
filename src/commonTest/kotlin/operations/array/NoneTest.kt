@@ -1,85 +1,81 @@
 package operations.array
 
-import JsonLogicEngine
-import TestInput
+import TestInput.Successful
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.datatest.withData
-import io.kotest.matchers.shouldBe
+import testWithSuccessResultData
 
 class NoneTest : FunSpec({
     context("JsonLogic evaluation with None operation") {
-        withData(
-            nameFn = { "Should apply ${it.data} on ${it.expression} result in ${it.result}" },
-            // given
-            ts = listOf(
-                TestInput(
+        testWithSuccessResultData(
+            listOf(
+                Successful(
                     expression = mapOf(
                         "none" to emptyList<Any>()
                     ),
-                    result = true
+                    resultValue = true
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "none" to listOf(null)
                     ),
-                    result = true
+                    resultValue = true
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "none" to null
                     ),
-                    result = true
+                    resultValue = true
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "none" to listOf(mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                     ),
-                    result = true
+                    resultValue = true
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                     ),
-                    result = true
+                    resultValue = true
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "none" to listOf(
                             mapOf(">=" to listOf(mapOf("var" to ""), 1)),
                             mapOf(">=" to listOf(mapOf("var" to ""), 1))
                         )
                     ),
-                    result = true
+                    resultValue = true
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3)),
-                    result = false
+                    resultValue = false
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "integers"), mapOf("==" to listOf(mapOf("var" to ""), 1)))
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3)),
-                    result = false
+                    resultValue = false
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "integers"), mapOf("<" to listOf(mapOf("var" to ""), 1)))
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3)),
-                    result = true
+                    resultValue = true
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "integers"), mapOf("<" to listOf(mapOf("var" to ""), 1)))
                     ),
                     data = mapOf("integers" to emptyList<Any>()),
-                    result = true
+                    resultValue = true
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "items"), mapOf(">=" to listOf(mapOf("var" to "qty"), 1)))
                     ),
@@ -89,9 +85,9 @@ class NoneTest : FunSpec({
                             mapOf("qty" to 2, "sku" to "banana")
                         )
                     ),
-                    result = false
+                    resultValue = false
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "items"), mapOf(">" to listOf(mapOf("var" to "qty"), 1)))
                     ),
@@ -101,9 +97,9 @@ class NoneTest : FunSpec({
                             mapOf("qty" to 2, "sku" to "banana")
                         )
                     ),
-                    result = false
+                    resultValue = false
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "items"), mapOf("<" to listOf(mapOf("var" to "qty"), 1)))
                     ),
@@ -113,22 +109,16 @@ class NoneTest : FunSpec({
                             mapOf("qty" to 2, "sku" to "banana")
                         )
                     ),
-                    result = true
+                    resultValue = true
                 ),
-                TestInput(
+                Successful(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "items"), mapOf(">=" to listOf(mapOf("var" to "qty"), 1)))
                     ),
                     data = mapOf("items" to emptyList<Any>()),
-                    result = true
+                    resultValue = true
                 )
             )
-        ) { (expression, data, result) ->
-            // when
-            val evaluationResult = JsonLogicEngine.instance.evaluate(expression, data)
-
-            // then
-            evaluationResult shouldBe result
-        }
+        )
     }
 })
