@@ -1,13 +1,11 @@
 package operations.data
 
-import operations.LogicOperation
+import operations.StandardLogicOperation
 import operations.data.unwrap.ValueFetchingUnwrapStrategy
 import utils.intOrZero
 import utils.secondOrNull
 
-internal object Var : LogicOperation, ValueFetchingUnwrapStrategy {
-    override val key: String = "var"
-
+internal object Var : StandardLogicOperation, ValueFetchingUnwrapStrategy {
     override operator fun invoke(expression: Any?, data: Any?): Any? =
         unwrapDataKeys(expression)?.fetchValueOrDefault(expression, data)
 

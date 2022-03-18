@@ -1,11 +1,9 @@
 package operations.array
 
-import operations.LogicOperation
+import operations.StandardLogicOperation
 import utils.asList
 
-internal object Merge : LogicOperation, NoInitialValueOperation {
-    override val key: String = "merge"
-
+internal object Merge : StandardLogicOperation, NoInitialValueOperation {
     override fun invoke(expression: Any?, data: Any?): Any = expression.asList.mergeOrAdd()
 
     private fun List<Any?>.mergeOrAdd(): List<Any?> = flatMap {

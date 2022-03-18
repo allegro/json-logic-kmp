@@ -1,6 +1,7 @@
+import operations.FunctionalLogicOperation
 import operations.In
 import operations.Log
-import operations.LogicOperation
+import operations.StandardLogicOperation
 import operations.array.All
 import operations.array.Filter
 import operations.array.Merge
@@ -32,13 +33,7 @@ import operations.numeric.compare.LessThan
 import operations.numeric.compare.LessThanOrEqualTo
 import operations.string.Cat
 import operations.string.Substr
-import kotlin.collections.List
 import kotlin.collections.Map
-import kotlin.collections.MutableMap
-import kotlin.collections.contains
-import kotlin.collections.forEach
-import kotlin.collections.mapOf
-import kotlin.collections.mutableMapOf
 import operations.array.Map as LogicMap
 
 //operacje nie moga przechowywac zbioru akcji w swoim stanie, bo musialby byc modyfikowalny, uzytkownik tworzac instancje operacji nie moze zapewnic setu operacji, co najwyzej moze przekazac konstruktor/przepis na stworzneie operacji
@@ -49,105 +44,102 @@ import operations.array.Map as LogicMap
 interface JsonLogicEngine {
     fun evaluate(expression: Map<String, Any?>, data: Any?): JsonLogicResult
 
-    class Builder() {
+    class Builder {
         private var logger: ((Any?) -> Unit)? = null
-        private val standardOperations: MutableMap<String, LogicOperation> = mutableMapOf(
+        private val standardOperations: MutableMap<String, StandardLogicOperation> = mutableMapOf(
             // data
-            Var.operation,
-            MissingSome.operation,
-            Missing.operation,
+            "var" to Var,
+            "missing_some" to MissingSome,
+            "missing" to Missing,
 
             // numeric
-            GreaterThan.operation,
-            GreaterThanOrEqualTo.operation,
-            LessThan.operation,
-            LessThanOrEqualTo.operation,
-            Min.operation,
-            Max.operation,
-            Addition.operation,
-            Subtraction.operation,
-            Multiplication.operation,
-            Division.operation,
-            Modulo.operation,
+            ">" to GreaterThan,
+            ">=" to GreaterThanOrEqualTo,
+            "<" to LessThan,
+            "<=" to LessThanOrEqualTo,
+            "min" to Min,
+            "max" to Max,
+            "+" to Addition,
+            "-" to Subtraction,
+            "*" to Multiplication,
+            "/" to Division,
+            "%" to Modulo,
 
             // logic
-            Equals.operation,
-            NotEquals.operation,
-            StrictEquals.operation,
-            NotStrictEquals.operation,
-            Negation.operation,
-            DoubleNegation.operation,
-            And.operation,
-            Or.operation,
-            If.operation,
+            "=" to Equals,
+            "!=" to NotEquals,
+            "===" to StrictEquals,
+            "!==" to NotStrictEquals,
+            "!" to Negation,
+            "!!" to DoubleNegation,
+            "and" to And,
+            "or" to Or,
+            "if" to If,
 
             // string
-            Cat.operation,
-            Substr.operation,
+            "cat" to Cat,
+            "substr" to Substr,
 
             // array
-            Merge.operation,
+            "merge" to Merge,
 
             // string & array
-            In.operation,
+            "in" to In,
         )
-        private val functionalOperations: MutableMap<String, LogicOperation> = mutableMapOf()
+        private val functionalOperations: MutableMap<String, FunctionalLogicOperation> = mutableMapOf(
+            // array
+            "map" to LogicMap,
+            "filter" to Filter,
+            "reduce" to Reduce,
+            "all" to All,
+            "none" to None,
+            "some" to Some
+        )
 
-        private fun initializeFunctionalOperations(operations: LogicOperations) {
-            val functionalOnes = mapOf(
-                // array
-                LogicMap(operations).operation,
-                Filter(operations).operation,
-                Reduce(operations).operation,
-                All(operations).operation,
-                None(operations).operation,
-                Some(operations).operation
-            )
-            functionalOperations.putAll(functionalOnes)
+        fun addStandardOperation(operationName: String, operation: StandardLogicOperation) = apply {
+            if (standardOperations.contains(operationName).not()) {
+                standardOperations[operationName] = operation
+            }
         }
 
-        fun addStandardOperation(operation: LogicOperation) = apply {
-            standardOperations.putNew(operation)
+        fun addStandardOperations(vararg operations: Pair<String, StandardLogicOperation>) = apply {
+            operations.forEach { (name, lambda) -> addStandardOperation(name, lambda) }
         }
 
-        fun addStandardOperations(vararg operations: LogicOperation) = apply {
-            operations.forEach { addStandardOperation(it) }
+        fun addStandardOperations(operations: List<Pair<String, StandardLogicOperation>>) = apply {
+            operations.forEach { (name, lambda) -> addStandardOperation(name, lambda) }
         }
 
-        fun addStandardOperations(operations: List<LogicOperation>) = apply {
-            operations.forEach { addStandardOperation(it) }
+        fun addFunctionalOperation(operationName: String, operation: FunctionalLogicOperation) = apply {
+            if (functionalOperations.contains(operationName).not()) {
+                functionalOperations[operationName] = operation
+            }
+        }
+
+        fun addFunctionalOperations(vararg operations: Pair<String, FunctionalLogicOperation>) = apply {
+            operations.forEach { (name, lambda) -> addFunctionalOperation(name, lambda) }
+        }
+
+        fun addFunctionalOperations(operations: List<Pair<String, FunctionalLogicOperation>>) = apply {
+            operations.forEach { (name, lambda) -> addFunctionalOperation(name, lambda) }
         }
 
         fun addLogger(loggingCallback: ((Any?) -> Unit)) {
             logger = loggingCallback
         }
 
-        // podczas budowanai selfEvaluating functions beda potrzebowac dostepnych operacji i dodatkowo samych siebie nawzajem tez
         fun build(): JsonLogicEngine {
-            Log(logger).let { standardOperations.put(it.key, it) }
-            val operations = LogicOperations(standardOperations, functionalOperations)
-            initializeFunctionalOperations(operations)
-            return CommonJsonLogicEngine(operations)
-        }
-
-        private fun MutableMap<String, LogicOperation>.putNew(operation: LogicOperation) {
-            if (contains(operation.key).not()) {
-                put(operation.key, operation)
-            }
+            Log(logger).let { standardOperations.put("log", it) }
+            val evaluator = CommonLogicEvaluator(LogicOperations(standardOperations, functionalOperations))
+            return CommonJsonLogicEngine(evaluator)
         }
     }
 }
 
-internal abstract class FunctionalLogicOperation(protected val operations: LogicOperations) : LogicOperation
-
-object CustomOperation : LogicOperation {
-    override val key: String = "custom"
-    override fun invoke(p1: Any?, p2: Any?): Any? {
-        return "custom result"
+object CustomOperation : operations.FunctionalLogicOperation {
+    override fun invoke(p1: Any?, p2: Any?, p3: LogicEvaluator): Any? {
+        return "string"
     }
 }
 
-internal data class LogicOperations(
-    val standardOperations: Map<String, LogicOperation> = emptyMap(),
-    val functionalOperations: Map<String, LogicOperation> = emptyMap() // testing purpose
-)
+

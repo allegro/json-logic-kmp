@@ -1,24 +1,23 @@
 package operations.array
 
-import FunctionalLogicOperation
-import LogicOperations
-import operations.LogicOperation
+import LogicEvaluator
+import operations.FunctionalLogicOperation
 import kotlin.collections.Map
 
-internal class None(operations: LogicOperations) : FunctionalLogicOperation(operations), OccurrenceCheckOperation {
-    override val key: String = "none"
-
-    override fun invoke(expression: Any?, data: Any?): Any? = checkOccurrence(expression, data, operations)
+internal object None : FunctionalLogicOperation, OccurrenceCheckOperation {
+    override fun invoke(expression: Any?, data: Any?, evaluator: LogicEvaluator): Any? =
+        checkOccurrence(expression, data, evaluator)
 
     override fun getOperationDefault(mappingOperation: Map<String, Any>?, expressionValues: List<Any?>) = true
 
     override fun check(
         operationData: List<Any?>,
         mappingOperation: Map<String, Any>,
-        operationDefault: Any?
+        operationDefault: Any?,
+        evaluator: LogicEvaluator
     ): Any? {
         operationData.forEach { dataValue ->
-            if (unwrapValueAsBoolean(evaluateLogic(mappingOperation, dataValue, operations))) {
+            if (unwrapValueAsBoolean(evaluator.evaluateLogic(mappingOperation, dataValue))) {
                 return@check false
             }
         }

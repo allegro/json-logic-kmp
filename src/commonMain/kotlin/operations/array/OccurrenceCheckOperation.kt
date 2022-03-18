@@ -1,6 +1,6 @@
 package operations.array
 
-import LogicOperations
+import LogicEvaluator
 import operations.logic.unwrap.TruthyUnwrapStrategy
 import kotlin.collections.Map
 
@@ -8,22 +8,25 @@ internal interface OccurrenceCheckOperation : NoInitialValueOperation, TruthyUnw
     fun check(
         operationData: List<Any?>,
         mappingOperation: Map<String, Any>,
-        operationDefault: Any?
+        operationDefault: Any?,
+        evaluator: LogicEvaluator
     ): Any?
 
-    fun checkOccurrence(expression: Any?, data: Any?, operations: LogicOperations) =
-        invokeArrayOperation(expression, data, operations) { operationData, operation, default ->
-            evaluateOrDefault(operationData, operation, default, ::check)
+    fun checkOccurrence(expression: Any?, data: Any?, evaluator: LogicEvaluator) =
+        invokeArrayOperation(expression, data, evaluator) { operationData, operation, default, evaluator ->
+            evaluateOrDefault(operationData, operation, default, evaluator, ::check)
         }
 
+    // TODO too long parameters list
     private fun evaluateOrDefault(
         operationData: List<Any?>,
         mappingOperation: Map<String, Any>?,
         operationDefault: Any?,
-        arrayOperation: (List<Any?>, Map<String, Any>, Any?) -> Any?
+        evaluator: LogicEvaluator,
+        arrayOperation: (List<Any?>, Map<String, Any>, Any?, LogicEvaluator) -> Any?
     ): Any? {
         return if (mappingOperation != null && operationData.isNotEmpty()) {
-            arrayOperation(operationData, mappingOperation, operationDefault)
+            arrayOperation(operationData, mappingOperation, operationDefault, evaluator)
         } else operationDefault
     }
 

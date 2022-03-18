@@ -1,11 +1,9 @@
 package operations.numeric
 
-import operations.LogicOperation
+import operations.StandardLogicOperation
 import operations.numeric.unwrap.LenientUnwrapStrategy
 
-internal object Modulo : LogicOperation, LenientUnwrapStrategy {
-    override val key: String = "%"
-
+internal object Modulo : StandardLogicOperation, LenientUnwrapStrategy {
     override fun invoke(expression: Any?, data: Any?) =
         unwrapValueAsDouble(expression).takeIf { it.size >= 2 }?.let {
             val second = it[1]

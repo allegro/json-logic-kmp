@@ -1,20 +1,19 @@
 package operations.array
 
-import FunctionalLogicOperation
-import LogicOperations
-import operations.LogicOperation
+import LogicEvaluator
+import operations.FunctionalLogicOperation
 import kotlin.collections.Map
 
-internal class Map(operations: LogicOperations) : FunctionalLogicOperation(operations), NoInitialValueOperation {
-    override val key: String = "map"
-
-    override fun invoke(expression: Any?, data: Any?): Any? = invokeArrayOperation(expression, data, operations, ::mapOrEmptyList)
+internal object Map : FunctionalLogicOperation, NoInitialValueOperation {
+    override fun invoke(expression: Any?, data: Any?, evaluator: LogicEvaluator): Any? =
+        invokeArrayOperation(expression, data, evaluator, ::mapOrEmptyList)
 
     private fun mapOrEmptyList(
         operationData: List<Any?>,
         mappingOperation: Map<String, Any>?,
-        operationDefault: Any?
+        operationDefault: Any?,
+        evaluator: LogicEvaluator
     ) = operationData.map { evaluatedValue ->
-        mappingOperation?.let { operation -> evaluateLogic(operation, evaluatedValue, operations) } ?: operationDefault
+        mappingOperation?.let { operation -> evaluator.evaluateLogic(operation, evaluatedValue) } ?: operationDefault
     }
 }

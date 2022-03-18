@@ -1,10 +1,9 @@
 package operations.numeric
 
-import operations.LogicOperation
+import operations.StandardLogicOperation
 import operations.numeric.unwrap.StrictUnwrapStrategy
 
-internal object Addition : LogicOperation, DoubleTypeSensitiveOperation, StrictUnwrapStrategy {
-    override val key: String = "+"
+internal object Addition : StandardLogicOperation, DoubleTypeSensitiveOperation, StrictUnwrapStrategy {
 
     override fun invoke(expression: Any?, data: Any?): Any? = doubleResultOrNull(unwrapValue(expression)) { it.sum() }
 }

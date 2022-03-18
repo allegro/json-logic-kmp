@@ -1,11 +1,9 @@
 package operations.numeric
 
-import operations.LogicOperation
+import operations.StandardLogicOperation
 import operations.numeric.unwrap.LenientUnwrapStrategy
 
-internal object Subtraction : LogicOperation, LenientUnwrapStrategy {
-    override val key: String = "-"
-
+internal object Subtraction : StandardLogicOperation, LenientUnwrapStrategy {
     override fun invoke(expression: Any?, data: Any?) = with(unwrapValueAsDouble(expression)) {
         when (size) {
             0 -> null

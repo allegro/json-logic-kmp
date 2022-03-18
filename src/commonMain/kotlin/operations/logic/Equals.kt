@@ -1,10 +1,8 @@
 package operations.logic
 
-import operations.LogicOperation
+import operations.StandardLogicOperation
 
-internal object Equals : LogicOperation, EqualsOperation {
-    override val key: String = "=="
-
+internal object Equals : StandardLogicOperation, EqualsOperation {
     override fun invoke(
         expression: Any?,
         data: Any?

@@ -1,10 +1,8 @@
 package operations.data
 
-import operations.LogicOperation
+import operations.StandardLogicOperation
 
-internal object Missing : LogicOperation {
-    override val key: String = "missing"
-
+internal object Missing : StandardLogicOperation {
     override fun invoke(expression: Any?, data: Any?): List<Any?> {
         return (expression as? List<Any?>)?.mapNotNull {
             it.takeIf { Var(it, data).isNullOrEmptyString() }

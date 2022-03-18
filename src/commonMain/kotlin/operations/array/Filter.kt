@@ -1,24 +1,22 @@
 package operations.array
 
-import FunctionalLogicOperation
-import LogicOperations
+import LogicEvaluator
+import operations.FunctionalLogicOperation
 import operations.logic.unwrap.TruthyUnwrapStrategy
 import kotlin.collections.Map as MapCollection
 
-internal class Filter(operations: LogicOperations) : FunctionalLogicOperation(operations), NoInitialValueOperation,
-    TruthyUnwrapStrategy {
-    override val key: String = "filter"
-
-    override fun invoke(expression: Any?, data: Any?): Any? =
-        invokeArrayOperation(expression, data, operations, ::filterOrEmptyList)
+internal object Filter : FunctionalLogicOperation, NoInitialValueOperation, TruthyUnwrapStrategy {
+    override fun invoke(expression: Any?, data: Any?, evaluator: LogicEvaluator): Any? =
+        invokeArrayOperation(expression, data, evaluator, ::filterOrEmptyList)
 
     private fun filterOrEmptyList(
         operationData: List<Any?>,
         mappingOperation: MapCollection<String, Any>?,
-        operationDefault: Any?
+        operationDefault: Any?,
+        evaluator: LogicEvaluator
     ) = operationData.filter { evaluatedValue ->
         unwrapValueAsBoolean((mappingOperation?.let { operation ->
-            evaluateLogic(operation, evaluatedValue, operations)
+            evaluator.evaluateLogic(operation, evaluatedValue)
         } ?: operationDefault))
     }
 }
