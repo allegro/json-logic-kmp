@@ -5,8 +5,11 @@ import io.kotest.core.spec.style.FunSpec
 import testWithSuccessResultData
 
 class SubstrTest : FunSpec({
+    val logicEngine = JsonLogicEngine.Builder().build()
+
     context("JsonLogic evaluation with Substr operation") {
         testWithSuccessResultData(
+            logicEngine,
             listOf(
                 Successful(
                     expression = mapOf("substr" to listOf("jsonlogic", 4)),

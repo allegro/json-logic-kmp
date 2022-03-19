@@ -7,8 +7,11 @@ import testWithFailureResultData
 import testWithSuccessResultData
 
 class VarTest : FunSpec({
+    val logicEngine = JsonLogicEngine.Builder().build()
+
     context("JsonLogic evaluation with Var operation") {
-        testWithSuccessResultData(
+       testWithSuccessResultData(
+            logicEngine,
             listOf(
                 Successful(
                     expression = mapOf(
@@ -136,6 +139,7 @@ class VarTest : FunSpec({
             )
         )
         testWithFailureResultData(
+            logicEngine,
             listOf(
                 Unsuccessful(expression = mapOf("var" to "b"), data = mapOf("a" to 1)),
                 Unsuccessful(expression = mapOf("var" to "a")),

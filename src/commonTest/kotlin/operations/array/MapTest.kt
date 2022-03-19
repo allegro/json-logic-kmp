@@ -5,8 +5,11 @@ import io.kotest.core.spec.style.FunSpec
 import testWithSuccessResultData
 
 class MapTest : FunSpec({
+    val logicEngine = JsonLogicEngine.Builder().build()
+
     context("JsonLogic evaluation with Map operation") {
-        testWithSuccessResultData(
+       testWithSuccessResultData(
+            logicEngine,
             listOf(
                 Successful(
                     expression = mapOf(

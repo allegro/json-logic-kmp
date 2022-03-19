@@ -5,8 +5,11 @@ import io.kotest.core.spec.style.FunSpec
 import testWithSuccessResultData
 
 class FilterTest : FunSpec({
+    val logicEngine = JsonLogicEngine.Builder().build()
+
     context("JsonLogic evaluation with Filter operation") {
-        testWithSuccessResultData(
+       testWithSuccessResultData(
+            logicEngine,
             listOf(
                 Successful(
                     expression = mapOf(

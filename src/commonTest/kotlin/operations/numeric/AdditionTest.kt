@@ -7,8 +7,11 @@ import testWithFailureResultData
 import testWithSuccessResultData
 
 class AdditionTest : FunSpec({
+    val logicEngine = JsonLogicEngine.Builder().build()
+
     context("JsonLogic evaluation with Addition operation") {
-        testWithSuccessResultData(
+       testWithSuccessResultData(
+            logicEngine,
             listOf(
                 Successful(
                     expression = mapOf("+" to listOf(1, 2)),
@@ -81,6 +84,7 @@ class AdditionTest : FunSpec({
             )
         )
         testWithFailureResultData(
+            logicEngine,
             listOf(
                 Unsuccessful(expression = mapOf("+" to listOf(2, 2, null))),
                 Unsuccessful(expression = mapOf("+" to listOf("1", 1.5, "banana"))),

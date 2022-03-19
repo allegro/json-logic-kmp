@@ -5,8 +5,11 @@ import io.kotest.core.spec.style.FunSpec
 import testWithSuccessResultData
 
 class LessThanTest : FunSpec({
+    val logicEngine = JsonLogicEngine.Builder().build()
+
     context("JsonLogic evaluation with LessThan operation") {
-        testWithSuccessResultData(
+       testWithSuccessResultData(
+            logicEngine,
             listOf(
                 Successful(
                     expression = mapOf("<" to listOf(2, 1)),

@@ -5,8 +5,11 @@ import io.kotest.core.spec.style.FunSpec
 import testWithSuccessResultData
 
 class DoubleNegationTest : FunSpec({
+    val logicEngine = JsonLogicEngine.Builder().build()
+
     context("JsonLogic evaluation with DoubleNegation operation") {
-        testWithSuccessResultData(
+       testWithSuccessResultData(
+            logicEngine,
             listOf(
                 Successful(expression = mapOf("!!" to listOf(false)), resultValue = false),
                 Successful(expression = mapOf("!!" to listOf(true)), resultValue = true),

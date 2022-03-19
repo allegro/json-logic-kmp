@@ -7,8 +7,11 @@ import testWithFailureResultData
 import testWithSuccessResultData
 
 class ReduceTest : FunSpec({
+    val logicEngine = JsonLogicEngine.Builder().build()
+
     context("JsonLogic evaluation with Reduce operation") {
-        testWithSuccessResultData(
+       testWithSuccessResultData(
+            logicEngine,
             nameFunction = { "Should apply ${it.data} on ${it.expression.keys} result in ${it.resultValue}" },
             data = listOf(
                 Successful(
@@ -91,6 +94,7 @@ class ReduceTest : FunSpec({
             )
         )
         testWithFailureResultData(
+            logicEngine,
             listOf(
                 Unsuccessful(
                     expression = mapOf(
