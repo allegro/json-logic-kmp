@@ -92,7 +92,7 @@ interface JsonLogicEngine {
         )
 
         fun addStandardOperation(operationName: String, operation: StandardLogicOperation) = apply {
-            if (standardOperations.contains(operationName).not()) {
+            if (isNotOperationDuplicate(operationName)) {
                 standardOperations[operationName] = operation
             }
         }
@@ -106,7 +106,7 @@ interface JsonLogicEngine {
         }
 
         fun addFunctionalOperation(operationName: String, operation: FunctionalLogicOperation) = apply {
-            if (functionalOperations.contains(operationName).not()) {
+            if (isNotOperationDuplicate(operationName)) {
                 functionalOperations[operationName] = operation
             }
         }
@@ -122,6 +122,8 @@ interface JsonLogicEngine {
         fun addLogger(loggingCallback: ((Any?) -> Unit)) = apply {
             logger = loggingCallback
         }
+
+        private fun isNotOperationDuplicate(operationName: String) = functionalOperations.contains(operationName).not() && standardOperations.contains(operationName).not()
 
         fun build(): JsonLogicEngine {
             Log(logger).let { standardOperations.put("log", it) }
