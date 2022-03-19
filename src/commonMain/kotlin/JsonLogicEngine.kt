@@ -36,11 +36,6 @@ import operations.string.Substr
 import kotlin.collections.Map
 import operations.array.Map as LogicMap
 
-//operacje nie moga przechowywac zbioru akcji w swoim stanie, bo musialby byc modyfikowalny, uzytkownik tworzac instancje operacji nie moze zapewnic setu operacji, co najwyzej moze przekazac konstruktor/przepis na stworzneie operacji
-// stad operacje raczej beda przesylane jako parametr, wtedy trzeba zmienic typy operations, tak, zeby te drugie przyjmowaly mape z operacjami dodatkowo
-// TODO sprawdzic czy js impl pozwala na dodawanie akcji unkcyjncyh
-// jezeli nie to przegadac w teamie czy chcemy tak zrobic
-
 interface JsonLogicEngine {
     fun evaluate(expression: Map<String, Any?>, data: Any?): JsonLogicResult
 
@@ -66,7 +61,7 @@ interface JsonLogicEngine {
             "%" to Modulo,
 
             // logic
-            "=" to Equals,
+            "==" to Equals,
             "!=" to NotEquals,
             "===" to StrictEquals,
             "!==" to NotStrictEquals,
@@ -124,7 +119,7 @@ interface JsonLogicEngine {
             operations.forEach { (name, lambda) -> addFunctionalOperation(name, lambda) }
         }
 
-        fun addLogger(loggingCallback: ((Any?) -> Unit)) {
+        fun addLogger(loggingCallback: ((Any?) -> Unit)) = apply {
             logger = loggingCallback
         }
 
@@ -135,11 +130,3 @@ interface JsonLogicEngine {
         }
     }
 }
-
-object CustomOperation : operations.FunctionalLogicOperation {
-    override fun invoke(p1: Any?, p2: Any?, p3: LogicEvaluator): Any? {
-        return "string"
-    }
-}
-
-
