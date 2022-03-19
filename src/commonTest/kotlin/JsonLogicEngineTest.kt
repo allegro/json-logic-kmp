@@ -11,7 +11,6 @@ class JsonLogicEngineTest : BehaviorSpec({
         val logicEngine = JsonLogicEngine.Builder().addFunctionalOperation("newOne", newFunctionalOperation).build()
         val expression = mapOf("newOne" to listOf("argument"))
 
-
         `when`("added to the operations set") {
             val result = logicEngine.evaluate(expression, null)
 
@@ -61,6 +60,7 @@ class JsonLogicEngineTest : BehaviorSpec({
                 mapOf(">=" to listOf(mapOf("var" to ""), 2))
             )
         )
+
         `when`("added to the functional operations set") {
             val result = logicEngine.evaluate(expression, null)
 
@@ -80,6 +80,7 @@ class JsonLogicEngineTest : BehaviorSpec({
                 mapOf(">=" to listOf(mapOf("var" to ""), 2))
             )
         )
+
         `when`("added to the standard operations set") {
             val result = logicEngine.evaluate(expression, null)
 

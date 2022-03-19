@@ -17,8 +17,3 @@ internal class CommonJsonLogicEngine(private val evaluator: LogicEvaluator) : Js
         JsonLogicResult.Success(notNullResult)
     } ?: JsonLogicResult.Failure("Evaluated expression has returned null.")
 }
-
-// pierwszy pomysl to podczas buildowania wrzucic wszystko do common enginea i niech on przy kazdym evaluateLogic przekazuje dostepne operacje
-
-// TODO
-// wymyslec sposob, zeby do raz zainicjalizowanego zestawu operacji kazdy impl of LogicEvaluator mial do nich dostep
