@@ -11,16 +11,14 @@ internal object None : FunctionalLogicOperation, OccurrenceCheckOperation {
     override fun getOperationDefault(mappingOperation: Map<String, Any>?, expressionValues: List<Any?>) = true
 
     override fun check(
-        operationData: List<Any?>,
-        mappingOperation: Map<String, Any>,
-        operationDefault: Any?,
+        data: OccurenceCheckData,
         evaluator: LogicEvaluator
-    ): Any? {
+    ) = with(data) {
         operationData.forEach { dataValue ->
             if (unwrapValueAsBoolean(evaluator.evaluateLogic(mappingOperation, dataValue))) {
-                return@check false
+                return@with false
             }
         }
-        return operationDefault
+        return@with operationDefault
     }
 }
