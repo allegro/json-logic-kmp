@@ -17,14 +17,15 @@ suspend fun FunSpecContainerScope.testWithSuccessResultData(
     test = successResultTestBody(logicEngine)
 )
 
-private fun successResultTestBody(logicEngine: JsonLogicEngine): ContainerScope.(TestInput.Successful) -> Unit = { (expression, data, result) ->
-    // when
-    val evaluationResult = logicEngine.evaluate(expression, data)
+private fun successResultTestBody(logicEngine: JsonLogicEngine): ContainerScope.(TestInput.Successful) -> Unit =
+    { (expression, data, result) ->
+        // when
+        val evaluationResult = logicEngine.evaluate(expression, data)
 
-    // then
-    evaluationResult.shouldBeTypeOf<JsonLogicResult.Success>()
-    evaluationResult.value shouldBe result
-}
+        // then
+        evaluationResult.shouldBeTypeOf<JsonLogicResult.Success>()
+        evaluationResult.value shouldBe result
+    }
 
 suspend fun FunSpecContainerScope.testWithFailureResultData(
     logicEngine: JsonLogicEngine,
@@ -39,10 +40,11 @@ suspend fun FunSpecContainerScope.testWithFailureResultData(
     test = failureResultTestBody(logicEngine)
 )
 
-private fun failureResultTestBody(logicEngine: JsonLogicEngine): ContainerScope.(TestInput.Unsuccessful) -> Unit = { (expression, data) ->
-    // when
-    val evaluationResult = logicEngine.evaluate(expression, data)
+private fun failureResultTestBody(logicEngine: JsonLogicEngine): ContainerScope.(TestInput.Unsuccessful) -> Unit =
+    { (expression, data) ->
+        // when
+        val evaluationResult = logicEngine.evaluate(expression, data)
 
-    // then
-    evaluationResult.shouldBeTypeOf<JsonLogicResult.Failure>()
-}
+        // then
+        evaluationResult.shouldBeTypeOf<JsonLogicResult.Failure>()
+    }

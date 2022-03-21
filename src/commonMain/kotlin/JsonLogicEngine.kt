@@ -4,11 +4,11 @@ import operations.FunctionalLogicOperation
 import operations.In
 import operations.Log
 import operations.StandardLogicOperation
-import operations.array.occurence.All
 import operations.array.Filter
 import operations.array.Merge
-import operations.array.occurence.None
 import operations.array.Reduce
+import operations.array.occurence.All
+import operations.array.occurence.None
 import operations.array.occurence.Some
 import operations.data.Missing
 import operations.data.MissingSome
@@ -125,7 +125,8 @@ interface JsonLogicEngine {
             logger = loggingCallback
         }
 
-        private fun isNotOperationDuplicate(operationName: String) = functionalOperations.contains(operationName).not() && standardOperations.contains(operationName).not()
+        private fun isNotOperationDuplicate(operationName: String) =
+            functionalOperations.contains(operationName).not() && standardOperations.contains(operationName).not()
 
         fun build(): JsonLogicEngine {
             Log(logger).let { standardOperations.put("log", it) }
