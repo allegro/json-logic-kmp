@@ -36,6 +36,9 @@ interface JsonLogicEngine {
 
     companion object {
         val instance: JsonLogicEngine by lazy { CommonJsonLogicEngine() }
+
+        fun create(): JsonLogicEngine = CommonJsonLogicEngine()
+
         internal val standardOperations: Map<String, (Any?, Any?) -> Any?> = mapOf(
             // data
             Var.operation,
