@@ -1,3 +1,5 @@
+package evaluation
+
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
 import utils.JsonLogicException

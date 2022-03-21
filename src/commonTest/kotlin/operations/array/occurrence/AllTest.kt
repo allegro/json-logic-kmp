@@ -1,4 +1,4 @@
-package operations.array
+package operations.array.occurrence
 
 import TestInput.Successful
 import io.kotest.core.spec.style.FunSpec

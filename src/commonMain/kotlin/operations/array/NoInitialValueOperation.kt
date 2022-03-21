@@ -1,6 +1,6 @@
 package operations.array
 
-import LogicEvaluator
+import evaluation.LogicEvaluator
 import utils.asList
 
 internal interface NoInitialValueOperation : ArrayOperation {

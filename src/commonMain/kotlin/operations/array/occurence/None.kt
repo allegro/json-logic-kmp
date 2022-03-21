@@ -1,6 +1,6 @@
 package operations.array.occurence
 
-import LogicEvaluator
+import evaluation.LogicEvaluator
 import operations.FunctionalLogicOperation
 import kotlin.collections.Map
 

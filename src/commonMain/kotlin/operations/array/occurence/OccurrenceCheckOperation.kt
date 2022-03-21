@@ -1,6 +1,6 @@
 package operations.array.occurence
 
-import LogicEvaluator
+import evaluation.LogicEvaluator
 import operations.array.NoInitialValueOperation
 import operations.array.ArrayOperationInputData
 import operations.logic.unwrap.TruthyUnwrapStrategy

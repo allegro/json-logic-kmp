@@ -1,8 +1,8 @@
 package operations.array.unwrap
 
-import CommonLogicEvaluator
-import LogicEvaluator
-import LogicOperations
+import evaluation.CommonLogicEvaluator
+import evaluation.LogicEvaluator
+import evaluation.LogicOperations
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import operations.data.Var

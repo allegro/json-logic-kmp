@@ -1,3 +1,5 @@
+package evaluation
+
 import utils.JsonLogicException
 import utils.asList
 

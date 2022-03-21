@@ -1,6 +1,6 @@
 package operations.array.unwrap
 
-import LogicEvaluator
+import evaluation.LogicEvaluator
 
 internal interface EvaluatingUnwrapStrategy {
     fun unwrapDataByEvaluation(expression: List<Any?>, data: Any?, evaluator: LogicEvaluator) =

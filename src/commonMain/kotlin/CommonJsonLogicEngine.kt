@@ -1,3 +1,5 @@
+import evaluation.LogicEvaluator
+
 internal class CommonJsonLogicEngine(private val evaluator: LogicEvaluator) : JsonLogicEngine {
     override fun evaluate(expression: Map<String, Any?>, data: Any?): JsonLogicResult =
         expression.takeIf {

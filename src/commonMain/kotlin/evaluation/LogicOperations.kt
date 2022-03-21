@@ -1,3 +1,5 @@
+package evaluation
+
 import operations.FunctionalLogicOperation
 import operations.StandardLogicOperation
 

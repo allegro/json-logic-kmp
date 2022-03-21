@@ -1,3 +1,5 @@
+import evaluation.CommonLogicEvaluator
+import evaluation.LogicOperations
 import operations.FunctionalLogicOperation
 import operations.In
 import operations.Log
