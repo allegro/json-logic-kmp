@@ -12,34 +12,29 @@ internal object Reduce : FunctionalLogicOperation, ArrayOperation {
 
     override fun invoke(expression: Any?, data: Any?, evaluator: LogicEvaluator): Any? =
         expression.asList.let { expressionValues ->
-            val evaluatedOperationData = unwrapOperationData(expressionValues, data, evaluator)
-            val mappingOperation = getMappingOperationOrNull(expressionValues)
-            val operationDefault = getOperationDefault(mappingOperation, expressionValues)
+            val input = createOperationInput(expressionValues, data, evaluator)
             val initialValue = expressionValues.thirdOrNull()
 
-            reduceOrInitial(evaluatedOperationData, mappingOperation, operationDefault, initialValue, evaluator)
+            reduceOrInitial(input, initialValue, evaluator)
         }
 
-    // TODO too many params
     private fun reduceOrInitial(
-        operationData: List<Any?>?,
-        mappingOperation: Map<String, Any>?,
-        operationDefault: Any?,
+        operationInput: ArrayOperationInputData,
         initialValue: Any?,
         evaluator: LogicEvaluator
-    ) = operationData?.fold(initialValue) { accumulator, evaluatedValue ->
-        reduceValue(mappingOperation, accumulator, evaluatedValue, evaluator) ?: return operationDefault
-    } ?: initialValue
+    ) = with(operationInput) {
+        operationData?.fold(initialValue) { accumulator, evaluatedValue ->
+            evaluator.reduceValue(accumulator, evaluatedValue, mappingOperation) ?: return operationDefault
+        } ?: initialValue
+    }
 
-    // TODO too many params
-    private fun reduceValue(
-        mappingOperation: Map<String, Any>?,
+    private fun LogicEvaluator.reduceValue(
         accumulator: Any?,
         evaluatedValue: Any?,
-        evaluator: LogicEvaluator
+        mappingOperation: Map<String, Any>?,
     ) = mappingOperation?.let { operation ->
-            evaluator.evaluateLogic(operation, toReduceIterationData(accumulator, evaluatedValue))
-        }
+        evaluateLogic(operation, toReduceIterationData(accumulator, evaluatedValue))
+    }
 
     private fun toReduceIterationData(accumulator: Any?, current: Any?) =
         mapOf(ACCUMULATOR_DATA_KEY to accumulator, CURRENT_DATA_KEY to current)

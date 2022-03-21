@@ -2,12 +2,12 @@ import operations.FunctionalLogicOperation
 import operations.In
 import operations.Log
 import operations.StandardLogicOperation
-import operations.array.All
+import operations.array.occurence.All
 import operations.array.Filter
 import operations.array.Merge
-import operations.array.None
+import operations.array.occurence.None
 import operations.array.Reduce
-import operations.array.Some
+import operations.array.occurence.Some
 import operations.data.Missing
 import operations.data.MissingSome
 import operations.data.Var

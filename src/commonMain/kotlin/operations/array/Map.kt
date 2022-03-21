@@ -9,11 +9,20 @@ internal object Map : FunctionalLogicOperation, NoInitialValueOperation {
         invokeArrayOperation(expression, data, evaluator, ::mapOrEmptyList)
 
     private fun mapOrEmptyList(
-        operationData: List<Any?>,
-        mappingOperation: Map<String, Any>?,
-        operationDefault: Any?,
+        operationInput: ArrayOperationInputData,
         evaluator: LogicEvaluator
-    ) = operationData.map { evaluatedValue ->
-        mappingOperation?.let { operation -> evaluator.evaluateLogic(operation, evaluatedValue) } ?: operationDefault
+    ) = with(operationInput) {
+        operationData.orEmpty().map { evaluatedValue ->
+            evaluator.mapValue(evaluatedValue, mappingOperation, operationDefault)
+        }
     }
+
+    private fun LogicEvaluator.mapValue(
+        evaluatedValue: Any?,
+        mappingOperation: Map<String, Any>?,
+        operationDefault: Any?
+    ) = mappingOperation?.let { operation ->
+        evaluateLogic(operation, evaluatedValue)
+    } ?: operationDefault
 }
+

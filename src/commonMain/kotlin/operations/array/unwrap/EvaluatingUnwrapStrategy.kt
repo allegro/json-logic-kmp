@@ -3,8 +3,8 @@ package operations.array.unwrap
 import LogicEvaluator
 
 internal interface EvaluatingUnwrapStrategy {
-    fun unwrapOperationData(expression: List<Any?>, data: Any?, evaluator: LogicEvaluator) =
-        (expression.firstOrNull().unwrapOperationData(data, evaluator) as? List<*>)
+    fun unwrapDataByEvaluation(expression: List<Any?>, data: Any?, evaluator: LogicEvaluator) =
+        (expression.firstOrNull().unwrapOperationData(data, evaluator) as? List<Any?>)
 
     @Suppress("UNCHECKED_CAST")
     private fun Any?.unwrapOperationData(data: Any?, evaluator: LogicEvaluator): Any? = when {

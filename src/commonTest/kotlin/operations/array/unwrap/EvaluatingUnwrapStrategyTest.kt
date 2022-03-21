@@ -65,7 +65,7 @@ class EvaluatingUnwrapStrategyTest : BehaviorSpec({
     given("A simple values input") {
         val wrappedValue = listOf(listOf(1, 2, 3))
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapOperationData(wrappedValue, null, logicEvaluator)
+            val unwrapResult = strategyImplementation.unwrapDataByEvaluation(wrappedValue, null, logicEvaluator)
             then("should be extracted") {
                 unwrapResult shouldBe listOf(1, 2, 3)
             }
@@ -75,7 +75,7 @@ class EvaluatingUnwrapStrategyTest : BehaviorSpec({
     given("A nested values input") {
         val wrappedValue = listOf(listOf(1, 2, 3, listOf(listOf("banana"))))
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapOperationData(wrappedValue, null, logicEvaluator)
+            val unwrapResult = strategyImplementation.unwrapDataByEvaluation(wrappedValue, null, logicEvaluator)
             then("should be extracted") {
                 unwrapResult shouldBe listOf(1, 2, 3, listOf(listOf("banana")))
             }
@@ -86,7 +86,7 @@ class EvaluatingUnwrapStrategyTest : BehaviorSpec({
         val wrappedValue = listOf(listOf(1, 2, 3, mapOf("var" to "integers")))
         val operationData = mapOf("integers" to listOf(4, 5))
         `when`("unwrapped") {
-            val unwrapResult = strategyImplementation.unwrapOperationData(wrappedValue, operationData, logicEvaluator)
+            val unwrapResult = strategyImplementation.unwrapDataByEvaluation(wrappedValue, operationData, logicEvaluator)
             then("should be evaluated and extracted") {
                 unwrapResult shouldBe listOf(1, 2, 3, listOf(4, 5))
             }
