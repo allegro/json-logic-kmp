@@ -7,8 +7,11 @@ import testWithFailureResultData
 import testWithSuccessResultData
 
 class IfTest : FunSpec({
+    val logicEngine = JsonLogicEngine.Builder().build()
+
     context("JsonLogic evaluation with If operation") {
-        testWithSuccessResultData(
+       testWithSuccessResultData(
+            logicEngine,
             listOf(
                 Successful(
                     expression = mapOf(
@@ -208,6 +211,7 @@ class IfTest : FunSpec({
             )
         )
         testWithFailureResultData(
+            logicEngine,
             listOf(
                 Unsuccessful(expression = mapOf("if" to listOf(false, "apple"))),
                 Unsuccessful(expression = mapOf("if" to listOf<Any>())),

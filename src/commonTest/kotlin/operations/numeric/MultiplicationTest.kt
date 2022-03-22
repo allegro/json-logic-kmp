@@ -7,8 +7,11 @@ import testWithFailureResultData
 import testWithSuccessResultData
 
 class MultiplicationTest : FunSpec({
+    val logicEngine = JsonLogicEngine.Builder().build()
+
     context("JsonLogic evaluation with Multiplication operation") {
-        testWithSuccessResultData(
+       testWithSuccessResultData(
+            logicEngine,
             listOf(
                 Successful(
                     expression = mapOf("*" to listOf(3, 2)),
@@ -93,6 +96,7 @@ class MultiplicationTest : FunSpec({
             )
         )
         testWithFailureResultData(
+            logicEngine,
             listOf(
                 Unsuccessful(expression = mapOf("*" to listOf(emptyList<String>(), 2))),
                 Unsuccessful(expression = mapOf("*" to listOf("2", 1.5, "banana"))),

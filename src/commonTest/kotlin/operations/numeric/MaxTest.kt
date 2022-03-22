@@ -7,8 +7,11 @@ import testWithFailureResultData
 import testWithSuccessResultData
 
 class MaxTest : FunSpec({
+    val logicEngine = JsonLogicEngine.Builder().build()
+
     context("JsonLogic evaluation with Max operation") {
-        testWithSuccessResultData(
+       testWithSuccessResultData(
+            logicEngine,
             listOf(
                 Successful(
                     expression = mapOf("max" to listOf(1, 2, 3)),
@@ -37,6 +40,7 @@ class MaxTest : FunSpec({
             )
         )
         testWithFailureResultData(
+            logicEngine,
             listOf(
                 Unsuccessful(expression = mapOf("max" to listOf(1, "banana"))),
                 Unsuccessful(expression = mapOf("max" to listOf(1, "banana", listOf(1, 2)))),

@@ -5,6 +5,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeTypeOf
 
 suspend fun FunSpecContainerScope.testWithSuccessResultData(
+    logicEngine: JsonLogicEngine,
     data: List<TestInput.Successful>,
     nameFunction: (TestInput.Successful) -> String = {
         "Should apply ${it.data} on ${it.expression} result in ${it.resultValue}"
@@ -13,19 +14,21 @@ suspend fun FunSpecContainerScope.testWithSuccessResultData(
     nameFn = nameFunction,
     // given
     ts = data,
-    test = successResultTestBody()
+    test = successResultTestBody(logicEngine)
 )
 
-private fun successResultTestBody(): ContainerScope.(TestInput.Successful) -> Unit = { (expression, data, result) ->
-    // when
-    val evaluationResult = JsonLogicEngine.instance.evaluate(expression, data)
+private fun successResultTestBody(logicEngine: JsonLogicEngine): ContainerScope.(TestInput.Successful) -> Unit =
+    { (expression, data, result) ->
+        // when
+        val evaluationResult = logicEngine.evaluate(expression, data)
 
-    // then
-    evaluationResult.shouldBeTypeOf<JsonLogicResult.Success>()
-    evaluationResult.value shouldBe result
-}
+        // then
+        evaluationResult.shouldBeTypeOf<JsonLogicResult.Success>()
+        evaluationResult.value shouldBe result
+    }
 
 suspend fun FunSpecContainerScope.testWithFailureResultData(
+    logicEngine: JsonLogicEngine,
     data: List<TestInput.Unsuccessful>,
     nameFunction: (TestInput.Unsuccessful) -> String = {
         "Should apply ${it.data} on ${it.expression} result in failure"
@@ -34,13 +37,14 @@ suspend fun FunSpecContainerScope.testWithFailureResultData(
     nameFn = nameFunction,
     // given
     ts = data,
-    test = failureResultTestBody()
+    test = failureResultTestBody(logicEngine)
 )
 
-private fun failureResultTestBody(): ContainerScope.(TestInput.Unsuccessful) -> Unit = { (expression, data) ->
-    // when
-    val evaluationResult = JsonLogicEngine.instance.evaluate(expression, data)
+private fun failureResultTestBody(logicEngine: JsonLogicEngine): ContainerScope.(TestInput.Unsuccessful) -> Unit =
+    { (expression, data) ->
+        // when
+        val evaluationResult = logicEngine.evaluate(expression, data)
 
-    // then
-    evaluationResult.shouldBeTypeOf<JsonLogicResult.Failure>()
-}
+        // then
+        evaluationResult.shouldBeTypeOf<JsonLogicResult.Failure>()
+    }

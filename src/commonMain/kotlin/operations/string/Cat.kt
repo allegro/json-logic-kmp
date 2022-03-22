@@ -1,9 +1,7 @@
 package operations.string
 
-import operations.LogicOperation
+import operations.StandardLogicOperation
 
-object Cat : LogicOperation, StringUnwrapStrategy {
-    override val key: String = "cat"
-
+object Cat : StandardLogicOperation, StringUnwrapStrategy {
     override fun invoke(expression: Any?, data: Any?) = unwrapValueAsString(expression).joinToString("")
 }

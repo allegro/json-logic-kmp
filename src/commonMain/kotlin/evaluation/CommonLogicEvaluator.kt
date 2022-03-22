@@ -1,10 +1,11 @@
-import JsonLogicEngine.Companion.selfEvaluatingOperations
-import JsonLogicEngine.Companion.standardOperations
+package evaluation
+
 import utils.JsonLogicException
 import utils.asList
 
-internal interface LogicEvaluator {
-    fun evaluateLogic(expression: Map<String, Any?>, data: Any?): Any? = executeExpression(expression, data)
+internal class CommonLogicEvaluator(private val operations: LogicOperations) : LogicEvaluator {
+    override fun evaluateLogic(expression: Map<String, Any?>, data: Any?): Any? =
+        executeExpression(expression, data)
 
     private fun executeExpression(logic: Any?, data: Any?): Any? {
         return when {
@@ -18,10 +19,10 @@ internal interface LogicEvaluator {
     private fun executeOperation(logic: Map<*, *>, data: Any?): Any? {
         val operator = logic.keys.firstOrNull()
         val values = logic[operator]
-        return if (selfEvaluatingOperations.keys.contains(operator)) {
-            selfEvaluatingOperations[operator]?.invoke(values.asList, data)
+        return if (operations.functionalOperations.keys.contains(operator)) {
+            operations.functionalOperations[operator]?.invoke(values.asList, data, this)
         } else {
-            standardOperations.getOperation(operator).invoke(when (values) {
+            operations.standardOperations.getOperation(operator).invoke(when (values) {
                 is List<*> -> values.map { executeExpression(it, data) }
                 is Map<*, *> -> executeExpression(values, data)
                 else -> executeExpression(listOf(values), data)

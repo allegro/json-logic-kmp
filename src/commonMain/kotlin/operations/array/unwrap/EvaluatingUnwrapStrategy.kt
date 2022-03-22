@@ -1,15 +1,15 @@
 package operations.array.unwrap
 
-import LogicEvaluator
+import evaluation.LogicEvaluator
 
-internal interface EvaluatingUnwrapStrategy : LogicEvaluator {
-    fun unwrapOperationData(expression: List<Any?>, data: Any?) =
-        (expression.firstOrNull().unwrapOperationData(data) as? List<*>)
+internal interface EvaluatingUnwrapStrategy {
+    fun unwrapDataByEvaluation(expression: List<Any?>, data: Any?, evaluator: LogicEvaluator) =
+        (expression.firstOrNull().unwrapOperationData(data, evaluator) as? List<Any?>)
 
     @Suppress("UNCHECKED_CAST")
-    private fun Any?.unwrapOperationData(data: Any?): Any? = when {
-        this is List<*> -> map { it.unwrapOperationData(data) }
-        isExpression(this) -> evaluateLogic(this as Map<String, Any?>, data)
+    private fun Any?.unwrapOperationData(data: Any?, evaluator: LogicEvaluator): Any? = when {
+        this is List<*> -> map { it.unwrapOperationData(data, evaluator) }
+        isExpression(this) -> evaluator.evaluateLogic(this as Map<String, Any?>, data)
         else -> this
     }
 

@@ -1,9 +1,7 @@
 package operations.numeric
 
-import operations.LogicOperation
+import operations.StandardLogicOperation
 
-internal object Min : LogicOperation, DoubleTypeSensitiveOperation {
-    override val key: String = "min"
-
+internal object Min : StandardLogicOperation, DoubleTypeSensitiveOperation {
     override fun invoke(expression: Any?, data: Any?): Any? = doubleResultOrNull(expression) { it.minOrNull() }
 }

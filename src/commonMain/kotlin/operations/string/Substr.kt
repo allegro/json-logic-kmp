@@ -1,14 +1,12 @@
 package operations.string
 
-import operations.LogicOperation
+import operations.StandardLogicOperation
 import utils.asList
 import utils.intOrZero
 import utils.secondOrNull
 import utils.thirdOrNull
 
-object Substr : LogicOperation, StringUnwrapStrategy {
-    override val key: String = "substr"
-
+object Substr : StandardLogicOperation, StringUnwrapStrategy {
     override fun invoke(expression: Any?, data: Any?): String {
         return with(expression.asList) {
             val startIndex = secondOrNull().toString().intOrZero

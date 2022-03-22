@@ -7,8 +7,11 @@ import testWithFailureResultData
 import testWithSuccessResultData
 
 class ModuloTest : FunSpec({
+    val logicEngine = JsonLogicEngine.Builder().build()
+
     context("JsonLogic evaluation with Modulo operation") {
-        testWithSuccessResultData(
+       testWithSuccessResultData(
+            logicEngine,
             listOf(
                 Successful(
                     expression = mapOf("%" to listOf(1, 2)),
@@ -82,6 +85,7 @@ class ModuloTest : FunSpec({
             )
         )
         testWithFailureResultData(
+            logicEngine,
             listOf(
                 Unsuccessful(expression = mapOf("%" to listOf(listOf(listOf("5"), listOf(6))))),
                 Unsuccessful(expression = mapOf("%" to listOf(listOf("5", listOf("5")), listOf("5"), listOf("5")))),

@@ -1,9 +1,6 @@
 package operations
 
-internal interface LogicOperation : (Any?, Any?) -> Any? {
-    val key: String
-    val operation
-        get() = key to this
+import evaluation.LogicEvaluator
 
-    override fun invoke(expression: Any?, data: Any?): Any?
-}
+typealias StandardLogicOperation = (expression: Any?, data: Any?) -> Any?
+typealias FunctionalLogicOperation = (expression: Any?, data: Any?, evaluator: LogicEvaluator) -> Any?

@@ -1,9 +1,11 @@
+package evaluation
+
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
 import utils.JsonLogicException
 
-class LogicEvaluatorTest : BehaviorSpec({
-    val evaluator = object : LogicEvaluator {}
+class CommonLogicEvaluatorTest : BehaviorSpec({
+    val evaluator = CommonLogicEvaluator(LogicOperations())
 
     given("An unknown operation") {
         val logicExpression = mapOf("+" to listOf(2, mapOf("unknown" to "3")))

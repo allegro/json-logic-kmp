@@ -5,8 +5,11 @@ import io.kotest.core.spec.style.FunSpec
 import testWithSuccessResultData
 
 class NotStrictEqualsTest : FunSpec({
+    val logicEngine = JsonLogicEngine.Builder().build()
+
     context("JsonLogic evaluation with NotStrictEquals operation") {
-        testWithSuccessResultData(
+       testWithSuccessResultData(
+            logicEngine,
             listOf(
                 Successful(expression = mapOf("!==" to listOf(1, 1)), resultValue = false),
                 Successful(expression = mapOf("!==" to listOf(1, "1")), resultValue = true),

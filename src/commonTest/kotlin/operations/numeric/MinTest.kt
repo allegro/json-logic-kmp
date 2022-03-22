@@ -7,8 +7,11 @@ import testWithFailureResultData
 import testWithSuccessResultData
 
 class MinTest : FunSpec({
+    val logicEngine = JsonLogicEngine.Builder().build()
+
     context("JsonLogic evaluation with Min operation") {
-        testWithSuccessResultData(
+       testWithSuccessResultData(
+            logicEngine,
             listOf(
                 Successful(
                     expression = mapOf("min" to listOf(1, 2, 3)),
@@ -41,6 +44,7 @@ class MinTest : FunSpec({
             )
         )
         testWithFailureResultData(
+            logicEngine,
             listOf(
                 Unsuccessful(expression = mapOf("min" to listOf(1, "banana"))),
                 Unsuccessful(expression = mapOf("min" to listOf(1, "banana", listOf(1, 2)))),

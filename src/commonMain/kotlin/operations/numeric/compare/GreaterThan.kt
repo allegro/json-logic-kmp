@@ -1,12 +1,10 @@
 package operations.numeric.compare
 
 import operations.ComparingOperation
-import operations.LogicOperation
+import operations.StandardLogicOperation
 import utils.asList
 
-internal object GreaterThan : LogicOperation, ComparingOperation {
-    override val key: String = ">"
-
+internal object GreaterThan : StandardLogicOperation, ComparingOperation {
     override fun invoke(expression: Any?, data: Any?): Any =
         compareListOfTwo(expression.asList) { first, second -> first > second }
 }

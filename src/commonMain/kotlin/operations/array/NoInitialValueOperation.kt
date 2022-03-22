@@ -1,21 +1,16 @@
 package operations.array
 
+import evaluation.LogicEvaluator
 import utils.asList
-import kotlin.collections.Map
 
 internal interface NoInitialValueOperation : ArrayOperation {
     fun invokeArrayOperation(
         expression: Any?,
         operationData: Any?,
-        arrayOperation: (List<Any?>, Map<String, Any>?, Any?) -> Any?
+        evaluator: LogicEvaluator,
+        arrayOperation: (ArrayOperationInputData, LogicEvaluator) -> Any?
     ) = expression.asList.let { expressionValues ->
-        val evaluatedOperationData = unwrapOperationData(expressionValues, operationData)
-        val mappingOperation = getMappingOperationOrNull(expressionValues)
-        val operationDefault = getOperationDefault(mappingOperation, expressionValues)
-
-        arrayOperation(evaluatedOperationData, mappingOperation, operationDefault)
+        val input = createOperationInput(expressionValues, operationData, evaluator)
+        arrayOperation(input, evaluator)
     }
-
-    override fun unwrapOperationData(expression: List<Any?>, data: Any?) =
-        super.unwrapOperationData(expression, data).orEmpty()
 }

@@ -1,4 +1,6 @@
-internal class CommonJsonLogicEngine : JsonLogicEngine, LogicEvaluator {
+import evaluation.LogicEvaluator
+
+internal class CommonJsonLogicEngine(private val evaluator: LogicEvaluator) : JsonLogicEngine {
     override fun evaluate(expression: Map<String, Any?>, data: Any?): JsonLogicResult =
         expression.takeIf {
             it.isNotEmpty()
@@ -7,7 +9,7 @@ internal class CommonJsonLogicEngine : JsonLogicEngine, LogicEvaluator {
         } ?: JsonLogicResult.Failure("JsonLogic expression mustn't be empty.")
 
     private fun safeEvaluate(expression: Map<String, Any?>, data: Any?) = runCatching {
-        evaluateLogic(expression, data)
+        evaluator.evaluateLogic(expression, data)
     }.fold(
         onSuccess = ::toJsonLogicResult,
         onFailure = { JsonLogicResult.Failure(it.message) }

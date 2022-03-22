@@ -5,8 +5,11 @@ import io.kotest.core.spec.style.FunSpec
 import testWithSuccessResultData
 
 class CatTest : FunSpec({
+    val logicEngine = JsonLogicEngine.Builder().build()
+
     context("JsonLogic evaluation with Cat operation") {
-        testWithSuccessResultData(listOf(
+       testWithSuccessResultData(
+            logicEngine,listOf(
                 Successful(
                     expression = mapOf("cat" to "ice"),
                     resultValue = "ice"
