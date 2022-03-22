@@ -1,11 +1,12 @@
 package operations.string
 
+import JsonLogicEngineBuilder
 import TestInput.Successful
 import io.kotest.core.spec.style.FunSpec
 import testWithSuccessResultData
 
 class CatTest : FunSpec({
-    val logicEngine = JsonLogicEngine.Builder().build()
+    val logicEngine = JsonLogicEngineBuilder().build()
 
     context("JsonLogic evaluation with Cat operation") {
        testWithSuccessResultData(

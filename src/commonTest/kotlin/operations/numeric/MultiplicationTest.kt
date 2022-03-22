@@ -1,5 +1,6 @@
 package operations.numeric
 
+import JsonLogicEngineBuilder
 import TestInput.Successful
 import TestInput.Unsuccessful
 import io.kotest.core.spec.style.FunSpec
@@ -7,7 +8,7 @@ import testWithFailureResultData
 import testWithSuccessResultData
 
 class MultiplicationTest : FunSpec({
-    val logicEngine = JsonLogicEngine.Builder().build()
+    val logicEngine = JsonLogicEngineBuilder().build()
 
     context("JsonLogic evaluation with Multiplication operation") {
        testWithSuccessResultData(

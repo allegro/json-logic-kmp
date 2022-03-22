@@ -1,11 +1,12 @@
 package operations.numeric.compare
 
+import JsonLogicEngineBuilder
 import TestInput.Successful
 import io.kotest.core.spec.style.FunSpec
 import testWithSuccessResultData
 
 class LessThanOrEqualToTest : FunSpec({
-    val logicEngine = JsonLogicEngine.Builder().build()
+    val logicEngine = JsonLogicEngineBuilder().build()
 
     context("JsonLogic evaluation with LessThanOrEqualTo operation") {
        testWithSuccessResultData(

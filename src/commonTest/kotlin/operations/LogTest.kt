@@ -1,6 +1,6 @@
 package operations
 
-import JsonLogicEngine
+import JsonLogicEngineBuilder
 import JsonLogicResult
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
@@ -8,7 +8,7 @@ import io.kotest.matchers.types.shouldBeInstanceOf
 
 class LogTest : BehaviorSpec({
     given("Log operation") {
-        val logicEngine = JsonLogicEngine.Builder().build()
+        val logicEngine = JsonLogicEngineBuilder().build()
 
         `when`("invoked") {
             val logResult = logicEngine.evaluate(mapOf("log" to listOf(1)), null)
@@ -23,7 +23,7 @@ class LogTest : BehaviorSpec({
     given("Log operation") {
         var loggedValue: Any? = null
         val loggingCallback: (Any?) -> Unit = { loggedValue = it }
-        val logicEngine = JsonLogicEngine.Builder().addLogger(loggingCallback).build()
+        val logicEngine = JsonLogicEngineBuilder().addLogger(loggingCallback).build()
 
         `when`("invoked") {
             logicEngine.evaluate(mapOf("log" to listOf(1)), null)

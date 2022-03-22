@@ -1,11 +1,12 @@
 package operations.logic
 
+import JsonLogicEngineBuilder
 import TestInput.Successful
 import io.kotest.core.spec.style.FunSpec
 import testWithSuccessResultData
 
 class EqualsTest : FunSpec({
-    val logicEngine = JsonLogicEngine.Builder().build()
+    val logicEngine = JsonLogicEngineBuilder().build()
 
     context("JsonLogic evaluation with Equals operation") {
        testWithSuccessResultData(
