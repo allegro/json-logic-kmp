@@ -13,6 +13,7 @@ object Versions {
     const val nexus = "1.0.0"
     const val kotlinxSerialization = "1.3.2"
     const val kotest = "5.0.2"
+    const val crashkios = "0.4.0"
 }
 
 object Libs {
@@ -25,5 +26,9 @@ object Libs {
         const val frameworkEngine = "io.kotest:kotest-framework-engine:${Versions.kotest}"
         const val frameworkDataset = "io.kotest:kotest-framework-datatest:${Versions.kotest}"
         const val jvmJunit5Runner = "io.kotest:kotest-runner-junit5-jvm:${Versions.kotest}"
+    }
+
+    object TouchLab {
+        const val crashkios = "co.touchlab:crashkios:${Versions.crashkios}"
     }
 }
