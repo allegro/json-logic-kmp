@@ -14,9 +14,11 @@ apply(from = "versionConfig.gradle")
 group = LibConfig.group
 version = scmVersion.version
 
-repositories {
-    google()
-    mavenCentral()
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
 
 tasks.withType<Test> {

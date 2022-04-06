@@ -16,15 +16,6 @@ apply(from = "../versionConfig.gradle")
 group = LibConfig.group
 version = scmVersion.version
 
-repositories {
-    google()
-    mavenCentral()
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
 val javadocJar = tasks.register("javadocJar", Jar::class.java) {
     archiveClassifier.set("javadoc")
 }
