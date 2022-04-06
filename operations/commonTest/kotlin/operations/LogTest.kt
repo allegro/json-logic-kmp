@@ -33,5 +33,4 @@ class LogTest : BehaviorSpec({
             }
         }
     }
-
 })

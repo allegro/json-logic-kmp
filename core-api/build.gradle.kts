@@ -1,4 +1,3 @@
-//import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
@@ -12,7 +11,6 @@ plugins {
     kotlin("plugin.serialization") version Versions.kotlin
     id("io.kotest.multiplatform") version Versions.kotest
 }
-
 apply(from = "../versionConfig.gradle")
 
 group = LibConfig.group
@@ -23,9 +21,9 @@ repositories {
     mavenCentral()
 }
 
-//tasks.withType<Test> {
-//    useJUnitPlatform()
-//}
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
 
 val javadocJar = tasks.register("javadocJar", Jar::class.java) {
     archiveClassifier.set("javadoc")
@@ -33,6 +31,7 @@ val javadocJar = tasks.register("javadocJar", Jar::class.java) {
 
 kotlin {
     // TODO might be extracted across modules
+    // extracted code
     jvm {
         compilations.all {
             kotlinOptions.jvmTarget = JavaVersion.VERSION_11.majorVersion
@@ -147,3 +146,4 @@ Currently we are using only Release XCFramework.
 It could be fixed also by `isStatic = false` but we want to get static lib.
  */
 tasks.getByName("assembleJsonLogicKMPDebugXCFramework").enabled = false
+
