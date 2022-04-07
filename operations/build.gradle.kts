@@ -2,9 +2,9 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     kotlin("multiplatform") version Versions.kotlin
-    id("maven-publish")
-    id("java-library")
-    id("signing")
+//    id("maven-publish")
+//    id("java-library")
+//    id("signing")
     id("pl.allegro.tech.build.axion-release")/* version Versions.axion*/
 //    id("io.gitlab.arturbosch.detekt") version Versions.detekt
 //    id("io.github.gradle-nexus.publish-plugin") /*version Versions.nexus*/
@@ -16,9 +16,9 @@ apply(from = "../versionConfig.gradle")
 group = LibConfig.group
 version = scmVersion.version
 
-val javadocJar = tasks.register("javadocJar", Jar::class.java) {
-    archiveClassifier.set("javadoc")
-}
+//val javadocJar = tasks.register("javadocJar", Jar::class.java) {
+//    archiveClassifier.set("javadoc")
+//}
 
 kotlin {
     // TODO might be extracted across modules
@@ -79,35 +79,35 @@ kotlin {
     }
 }
 
-publishing {
-    publications.withType<MavenPublication> {
-        artifact(javadocJar)
-
-        pom {
-            name.set(LibConfig.name)
-            description.set("Kotlin multiplatform JsonLogic expressions evaluation engine")
-            url.set(LibConfig.repositoryUrl)
-            inceptionYear.set("2022")
-            licenses {
-                license {
-                    name.set("The Apache License, Version 2.0")
-                    url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
-                }
-            }
-            developers {
-                developer {
-                    name.set("Marek Krogulski")
-                    email.set("marek.krogulski@allegro.pl")
-                }
-            }
-            scm {
-                connection.set("scm:svn:${LibConfig.repositoryUrl}")
-                developerConnection.set("scm:git@github.com:allegro/json-logic-kmp.git")
-                url.set(LibConfig.repositoryUrl)
-            }
-        }
-    }
-}
+//publishing {
+//    publications.withType<MavenPublication> {
+//        artifact(javadocJar)
+//
+//        pom {
+//            name.set(LibConfig.name)
+//            description.set("Kotlin multiplatform JsonLogic expressions evaluation engine")
+//            url.set(LibConfig.repositoryUrl)
+//            inceptionYear.set("2022")
+//            licenses {
+//                license {
+//                    name.set("The Apache License, Version 2.0")
+//                    url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+//                }
+//            }
+//            developers {
+//                developer {
+//                    name.set("Marek Krogulski")
+//                    email.set("marek.krogulski@allegro.pl")
+//                }
+//            }
+//            scm {
+//                connection.set("scm:svn:${LibConfig.repositoryUrl}")
+//                developerConnection.set("scm:git@github.com:allegro/json-logic-kmp.git")
+//                url.set(LibConfig.repositoryUrl)
+//            }
+//        }
+//    }
+//}
 
 //nexusPublishing {
 //    repositories {
@@ -136,4 +136,3 @@ Currently we are using only Release XCFramework.
 It could be fixed also by `isStatic = false` but we want to get static lib.
  */
 tasks.getByName("assembleJsonLogicKMPDebugXCFramework").enabled = false
-

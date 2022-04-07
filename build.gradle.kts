@@ -19,11 +19,12 @@ allprojects {
         google()
         mavenCentral()
     }
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
 
 //val javadocJar = tasks.register("javadocJar", Jar::class.java) {
 //    archiveClassifier.set("javadoc")
@@ -32,8 +33,7 @@ tasks.withType<Test> {
 detekt {
     buildUponDefaultConfig = true
     autoCorrect = true
-    // TODO project paths here or consts
-    source = files("core/")
+    source = files("core/", "core-api/", "operations/")
     ignoreFailures = false
     config = files("$projectDir/config/detekt/detekt.yml")
 }

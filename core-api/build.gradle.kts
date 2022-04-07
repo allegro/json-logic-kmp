@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("multiplatform") version Versions.kotlin
@@ -138,3 +139,6 @@ It could be fixed also by `isStatic = false` but we want to get static lib.
  */
 tasks.getByName("assembleJsonLogicKMPDebugXCFramework").enabled = false
 
+dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+}
