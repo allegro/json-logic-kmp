@@ -5,6 +5,10 @@ plugins {
     id("io.kotest.multiplatform") version Versions.kotest
 }
 
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
 kotlin {
     jvm {
         compilations.all {

@@ -19,10 +19,6 @@ allprojects {
         google()
         mavenCentral()
     }
-
-    tasks.withType<Test> {
-        useJUnitPlatform()
-    }
 }
 
 val javadocJar = tasks.register("javadocJar", Jar::class.java) {
