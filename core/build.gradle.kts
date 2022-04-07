@@ -6,7 +6,6 @@ plugins {
 }
 
 kotlin {
-    // TODO might be extracted across modules
     jvm {
         compilations.all {
             kotlinOptions.jvmTarget = JavaVersion.VERSION_11.majorVersion
@@ -16,7 +15,6 @@ kotlin {
         }
     }
 
-    // same as above
     val xcFramework = XCFramework(LibConfig.name)
     listOf(
         iosX64(),
@@ -31,7 +29,11 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation(project(":operations-api"))
+            }
+        }
 
         val commonTest by getting {
             dependencies {
