@@ -2,7 +2,6 @@ package utils
 
 import type.JsonLogicList
 
-// used in engine
 internal val Any?.asList: List<Any?>
     get() = (this as? List<*>)?.let {
         JsonLogicList(it)

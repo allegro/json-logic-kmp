@@ -40,7 +40,6 @@ interface JsonLogicEngine {
     fun evaluate(expression: Map<String, Any?>, data: Any?): JsonLogicResult
 
     class Builder {
-        // TODO to automatically init operations set core modules needs an access to basic contract operations
         private var logger: ((Any?) -> Unit)? = null
         private val standardOperations: MutableMap<String, StandardLogicOperation> = mutableMapOf(
             // data
