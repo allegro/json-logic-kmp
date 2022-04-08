@@ -25,15 +25,17 @@ val javadocJar = tasks.register("javadocJar", Jar::class.java) {
     archiveClassifier.set("javadoc")
 }
 
-detekt {
+val detektAll by tasks.registering(Detekt::class) {
+    description = "Runs over whole code base without the starting overhead for each module."
+    parallel = true
     buildUponDefaultConfig = true
-    autoCorrect = true
-    source = files("core/", "core-api/", "operations/")
-    ignoreFailures = true // temporarily true
-    config = files("$projectDir/config/detekt/detekt.yml")
-}
-
-tasks.withType<Detekt>().configureEach {
+    setSource(files(projectDir))
+    config.setFrom(files("$projectDir/config/detekt/detekt.yml"))
+    include("**/*.kt")
+    exclude("**/*.kts")
+    exclude("resources/")
+    exclude("build/")
+    exclude("buildSrc/")
     reports {
         html.required.set(true)
         xml.required.set(true)
