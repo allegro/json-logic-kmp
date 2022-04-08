@@ -6,6 +6,10 @@ object LibConfig {
     const val name = "JsonLogicKMP"
 }
 
+object Modules {
+    const val operationsApi = ":operations-api"
+}
+
 object Versions {
     const val kotlin = "1.6.10"
     const val axion = "1.13.6"
@@ -14,11 +18,13 @@ object Versions {
     const val kotlinxSerialization = "1.3.2"
     const val kotest = "5.0.2"
     const val crashkios = "0.4.0"
+    const val kotlinxDatetime = "0.3.2"
 }
 
 object Libs {
     object KotlinX {
         const val serializationJson = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerialization}"
+        const val datetime = "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.kotlinxDatetime}"
     }
 
     object Kotest {

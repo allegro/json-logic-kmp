@@ -7,4 +7,4 @@ pluginManagement {
 }
 rootProject.name = "json-logic-kmp"
 
-include("core", "operations-api")
+include("core", "operations-api", "operations-stdlib")
