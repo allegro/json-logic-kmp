@@ -3,6 +3,10 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 plugins {
     kotlin("multiplatform") version Versions.kotlin
     id("io.kotest.multiplatform") version Versions.kotest
+    // common code for publishing
+    id("maven-publish")
+    id("signing")
+    id("pl.allegro.tech.build.axion-release")
 }
 
 kotlin {
@@ -52,3 +56,63 @@ Currently we are using only Release XCFramework.
 It could be fixed also by `isStatic = false` but we want to get static lib.
  */
 tasks.getByName("assembleJsonLogicKMPDebugXCFramework").enabled = false
+
+// common code for publication
+apply(from = "../versionConfig.gradle")
+
+group = LibConfig.group
+version = scmVersion.version
+
+val javadocJar = tasks.register("javadocJar", Jar::class.java) {
+    archiveClassifier.set("javadoc")
+}
+
+publishing {
+    publications.withType<MavenPublication> {
+        artifact(javadocJar)
+
+        pom {
+            name.set(LibConfig.name)
+            description.set("Kotlin multiplatform JsonLogic expressions evaluation engine")
+            url.set(LibConfig.repositoryUrl)
+            inceptionYear.set("2022")
+            licenses {
+                license {
+                    name.set("The Apache License, Version 2.0")
+                    url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                }
+            }
+            developers {
+                developer {
+                    name.set("Marek Krogulski")
+                    email.set("marek.krogulski@allegro.pl")
+                }
+            }
+            scm {
+                connection.set("scm:svn:${LibConfig.repositoryUrl}")
+                developerConnection.set("scm:git@github.com:allegro/json-logic-kmp.git")
+                url.set(LibConfig.repositoryUrl)
+            }
+        }
+    }
+}
+
+//nexusPublishing {
+//    repositories {
+//        sonatype {
+//            username.set(System.getenv("SONATYPE_USERNAME"))
+//            password.set(System.getenv("SONATYPE_PASSWORD"))
+//        }
+//    }
+//}
+
+System.getenv("GPG_KEY_ID")?.let { gpgKeyId ->
+    signing {
+        useInMemoryPgpKeys(
+            gpgKeyId,
+            System.getenv("GPG_PRIVATE_KEY"),
+            System.getenv("GPG_PRIVATE_KEY_PASSWORD")
+        )
+        sign(publishing.publications)
+    }
+}
