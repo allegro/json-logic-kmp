@@ -3,8 +3,12 @@ plugins {
 }
 
 repositories {
-    mavenCentral()
     // TODO remove before first public release
     mavenLocal()
-    google()
+    gradlePluginPortal()
+}
+
+dependencies {
+    //TODO etract version and notation
+    api("pl.allegro.tech.build:axion-release-plugin:1.13.6")
 }
