@@ -28,6 +28,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(project(Modules.operationsApi))
+                implementation(project(Modules.utils))
                 implementation(Libs.KotlinX.datetime)
             }
         }

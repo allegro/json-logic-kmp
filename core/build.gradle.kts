@@ -36,7 +36,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(project(Modules.operationsApi))
-                implementation(project(":utils"))
+                implementation(project(Modules.utils))
             }
         }
 
@@ -47,7 +47,7 @@ kotlin {
                 implementation(Libs.Kotest.assertionsCore)
                 implementation(Libs.Kotest.frameworkEngine)
                 implementation(Libs.Kotest.frameworkDataset)
-                implementation(project(":utils"))
+                implementation(project(Modules.utils))
             }
         }
         val jvmTest by getting {
