@@ -1,7 +1,7 @@
 package evaluation
 
 import LogicEvaluator
-import utils.JsonLogicException
+import JsonLogicException
 import utils.asList
 
 internal class CommonLogicEvaluator(private val operations: LogicOperations) : LogicEvaluator {

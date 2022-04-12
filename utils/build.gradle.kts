@@ -2,20 +2,13 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     kotlin("multiplatform") version Versions.kotlin
-    id("io.kotest.multiplatform") version Versions.kotest
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
+    id("io.kotest.multiplatform") version Versions.kotest apply false
 }
 
 kotlin {
     jvm {
         compilations.all {
             kotlinOptions.jvmTarget = JavaVersion.VERSION_11.majorVersion
-        }
-        testRuns["test"].executionTask.configure {
-            useJUnitPlatform()
         }
     }
 
@@ -31,31 +24,10 @@ kotlin {
             xcFramework.add(this)
         }
     }
-
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(project(":operations-api"))
-                implementation(project(":utils"))
-            }
-        }
-
-        val commonTest by getting {
-            dependencies {
-                implementation(Libs.KotlinX.serializationJson)
-                implementation(kotlin("test"))
-                implementation(Libs.Kotest.assertionsCore)
-                implementation(Libs.Kotest.frameworkEngine)
-                implementation(Libs.Kotest.frameworkDataset)
-                implementation(project(":utils"))
-            }
-        }
-        val jvmTest by getting {
-            dependencies {
-                implementation(Libs.Kotest.jvmJunit5Runner)
-            }
-        }
-
+        val commonMain by getting
+        val commonTest by getting
+        val jvmTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -64,10 +36,6 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
-
-            dependencies {
-                api(Libs.TouchLab.crashkios)
-            }
         }
     }
 }

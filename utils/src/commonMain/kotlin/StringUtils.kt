@@ -1,11 +1,11 @@
 package utils
 
-internal val String.intOrZero: Int
+val String.intOrZero: Int
     get() = doubleOrZero.toInt()
 
-internal val String.longOrZero: Long
+val String.longOrZero: Long
     get() = doubleOrZero.toLong()
 
-internal val String.doubleOrZero: Double
+val String.doubleOrZero: Double
     get() = toDoubleOrNull() ?: 0.0
 
