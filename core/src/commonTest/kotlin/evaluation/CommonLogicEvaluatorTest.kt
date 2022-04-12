@@ -2,7 +2,7 @@ package evaluation
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
-import utils.JsonLogicException
+import JsonLogicException
 
 class CommonLogicEvaluatorTest : BehaviorSpec({
     val evaluator = CommonLogicEvaluator(LogicOperations())
