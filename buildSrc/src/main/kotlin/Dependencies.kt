@@ -27,6 +27,10 @@ object Libs {
         const val datetime = "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.kotlinxDatetime}"
     }
 
+    object Axion {
+        const val plugin = "pl.allegro.tech.build:axion-release-plugin:${Versions.axion}"
+    }
+
     object Kotest {
         const val assertionsCore = "io.kotest:kotest-assertions-core:${Versions.kotest}"
         const val frameworkEngine = "io.kotest:kotest-framework-engine:${Versions.kotest}"
@@ -37,4 +41,10 @@ object Libs {
     object TouchLab {
         const val crashkios = "co.touchlab:crashkios:${Versions.crashkios}"
     }
+}
+
+object Conventions {
+    const val junit = "junit-convention"
+    const val publishing = "publishing-convention"
+    const val xcframeworkAssemble = "xcframework-assemble-convention"
 }

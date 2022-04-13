@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 plugins {
     kotlin("multiplatform") version Versions.kotlin
     id("io.kotest.multiplatform") version Versions.kotest apply false
-    id("publishing-convention")
-    id("junit-convention")
+    id(Conventions.junit)
+    id(Conventions.publishing)
 }
 
 kotlin {
@@ -41,3 +41,4 @@ kotlin {
         }
     }
 }
+apply(plugin = Conventions.xcframeworkAssemble)
