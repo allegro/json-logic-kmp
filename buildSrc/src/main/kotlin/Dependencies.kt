@@ -28,7 +28,7 @@ object Libs {
     }
 
     object Axion {
-        const val plugin = "pl.allegro.tech.build:axion-release-plugin:${Versions.axion}"
+        const val releasePlugin = "pl.allegro.tech.build:axion-release-plugin:${Versions.axion}"
     }
 
     object Kotest {
