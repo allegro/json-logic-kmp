@@ -3,17 +3,14 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 plugins {
     kotlin("multiplatform") version Versions.kotlin
     id("io.kotest.multiplatform") version Versions.kotest
-    id("publish-common")
-    id("test-common")
+    id("publishing-convention")
+    id("junit-convention")
 }
 
 kotlin {
     jvm {
         compilations.all {
             kotlinOptions.jvmTarget = JavaVersion.VERSION_11.majorVersion
-        }
-        testRuns["test"].executionTask.configure {
-            useJUnitPlatform()
         }
     }
 

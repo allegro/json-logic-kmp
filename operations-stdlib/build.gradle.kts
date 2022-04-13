@@ -3,7 +3,8 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 plugins {
     kotlin("multiplatform") version Versions.kotlin
     id("io.kotest.multiplatform") version Versions.kotest
-    id("publish-common")
+    id("publishing-convention")
+    id("junit-convention")
 }
 
 kotlin {
