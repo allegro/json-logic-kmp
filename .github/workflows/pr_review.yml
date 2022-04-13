@@ -23,7 +23,7 @@ jobs:
         uses: reviewdog/action-setup@v1
 
       - name: Run check
-        run: ./gradlew detekt -i
+        run: ./gradlew detektAll -i
 
       - name: "Upload report"
         uses: actions/upload-artifact@v2
