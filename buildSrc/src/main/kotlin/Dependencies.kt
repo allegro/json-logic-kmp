@@ -27,10 +27,6 @@ object Libs {
         const val datetime = "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.kotlinxDatetime}"
     }
 
-    object Axion {
-        const val releasePlugin = "pl.allegro.tech.build:axion-release-plugin:${Versions.axion}"
-    }
-
     object Kotest {
         const val assertionsCore = "io.kotest:kotest-assertions-core:${Versions.kotest}"
         const val frameworkEngine = "io.kotest:kotest-framework-engine:${Versions.kotest}"
