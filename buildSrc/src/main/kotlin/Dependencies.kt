@@ -8,6 +8,7 @@ object LibConfig {
 
 object Modules {
     const val operationsApi = ":operations-api"
+    const val utils = ":utils"
 }
 
 object Versions {

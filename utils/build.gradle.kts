@@ -2,9 +2,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     kotlin("multiplatform") version Versions.kotlin
-    id("io.kotest.multiplatform") version Versions.kotest
-    id(Conventions.junit)
-    id(Conventions.publishing)
+    id("io.kotest.multiplatform") version Versions.kotest apply false
 }
 
 kotlin {
@@ -27,13 +25,7 @@ kotlin {
         }
     }
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(project(Modules.operationsApi))
-                implementation(project(Modules.utils))
-                implementation(Libs.KotlinX.datetime)
-            }
-        }
+        val commonMain by getting
         val commonTest by getting
         val jvmTest by getting
         val iosX64Main by getting
@@ -47,4 +39,11 @@ kotlin {
         }
     }
 }
-apply(plugin = Conventions.xcframeworkAssemble)
+
+/*
+We need to disable this task, because it fails with following error:
+`the path does not point to a valid debug symbols file`.
+Currently we are using only Release XCFramework.
+It could be fixed also by `isStatic = false` but we want to get static lib.
+ */
+tasks.getByName("assembleJsonLogicKMPDebugXCFramework").enabled = false

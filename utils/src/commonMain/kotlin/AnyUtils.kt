@@ -2,12 +2,12 @@ package utils
 
 import type.JsonLogicList
 
-internal val Any?.asList: List<Any?>
+val Any?.asList: List<Any?>
     get() = (this as? List<*>)?.let {
         JsonLogicList(it)
     } ?: JsonLogicList(listOf(this))
 
-internal val List<Any?>.comparableList: List<Comparable<*>?>
+val List<Any?>.comparableList: List<Comparable<*>?>
     get() = asList.map { it.asComparable }
 
 private val Any?.asComparable: Comparable<*>?
@@ -17,7 +17,7 @@ private val Any?.asComparable: Comparable<*>?
         else -> null
     }
 
-internal val Any?.asDoubleList: List<Double?>
+val Any?.asDoubleList: List<Double?>
     get() = asList.doubleList
 
 private val List<Any?>.doubleList: List<Double?>
@@ -29,6 +29,6 @@ private val List<Any?>.doubleList: List<Double?>
         }
     }
 
-internal fun Any?.toStringOrEmpty() = this?.let { toString() }.orEmpty()
+fun Any?.toStringOrEmpty() = this?.let { toString() }.orEmpty()
 
-internal fun Any?.isSingleNullList() = this is List<*> && size == 1 && first() == null
+fun Any?.isSingleNullList() = this is List<*> && size == 1 && first() == null
