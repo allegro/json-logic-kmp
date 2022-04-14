@@ -111,6 +111,26 @@ class SubstrTest : FunSpec({
                     expression = mapOf("substr" to listOf("2.0")),
                     resultValue = "2.0"
                 ),
+                Successful(
+                    expression = mapOf("substr" to listOf(mapOf("var" to "A"),0)),
+                    data = mapOf("A" to "x"),
+                    resultValue = "x"
+                ),
+                Successful(
+                    expression = mapOf("substr" to listOf(mapOf("var" to "A"),0)),
+                    data = mapOf("A" to ""),
+                    resultValue = ""
+                ),
+                Successful(
+                    expression = mapOf("substr" to listOf(mapOf("var" to "A"),0)),
+                    data = mapOf("A" to "xx"),
+                    resultValue = "xx"
+                ),
+                Successful(
+                    expression = mapOf("substr" to listOf(mapOf("var" to "A"), 0, 0)),
+                    data = mapOf("A" to "x"),
+                    resultValue = ""
+                ),
             )
         )
     }

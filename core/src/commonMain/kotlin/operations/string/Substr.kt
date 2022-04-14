@@ -26,7 +26,7 @@ object Substr : StandardLogicOperation, StringUnwrapStrategy {
         }.getOrNull().orEmpty()
     }
 
-    private fun String.fromStartIndexToEnd(startIndex: Int) = if (startIndex > 0) {
+    private fun String.fromStartIndexToEnd(startIndex: Int) = if (startIndex >= 0) {
         substring(startIndex)
     } else {
         substring(length + startIndex)
