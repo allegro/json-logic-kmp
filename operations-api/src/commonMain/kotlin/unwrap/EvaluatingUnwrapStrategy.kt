@@ -1,8 +1,8 @@
-package operations.array.unwrap
+package unwrap
 
 import LogicEvaluator
 
-internal interface EvaluatingUnwrapStrategy {
+interface EvaluatingUnwrapStrategy {
     fun unwrapDataByEvaluation(expression: List<Any?>, data: Any?, evaluator: LogicEvaluator) =
         (expression.firstOrNull().unwrapOperationData(data, evaluator) as? List<Any?>)
 

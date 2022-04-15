@@ -5,6 +5,10 @@ plugins {
     id("io.kotest.multiplatform") version Versions.kotest
 }
 
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
 kotlin {
     jvm {
         compilations.all {
@@ -32,7 +36,11 @@ kotlin {
                 implementation(Libs.KotlinX.datetime)
             }
         }
-        val commonTest by getting
+        val commonTest by getting {
+            dependencies {
+                implementation(project(Modules.core))
+            }
+        }
         val jvmTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting

@@ -7,6 +7,7 @@ object LibConfig {
 }
 
 object Modules {
+    const val core = ":core"
     const val operationsApi = ":operations-api"
     const val utils = ":utils"
 }
