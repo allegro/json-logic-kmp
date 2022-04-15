@@ -14,6 +14,9 @@ kotlin {
         compilations.all {
             kotlinOptions.jvmTarget = JavaVersion.VERSION_11.majorVersion
         }
+        testRuns["test"].executionTask.configure {
+            useJUnitPlatform()
+        }
     }
 
     val xcFramework = XCFramework(LibConfig.name)
@@ -38,10 +41,18 @@ kotlin {
         }
         val commonTest by getting {
             dependencies {
-                implementation(project(Modules.core))
+                implementation(kotlin("test"))
+                implementation(Libs.Kotest.assertionsCore)
+                implementation(Libs.Kotest.frameworkEngine)
+                implementation(Libs.Kotest.frameworkDataset)
+//                implementation(project(Modules.core))
             }
         }
-        val jvmTest by getting
+        val jvmTest by getting {
+            dependencies {
+                implementation(Libs.Kotest.jvmJunit5Runner)
+            }
+        }
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
