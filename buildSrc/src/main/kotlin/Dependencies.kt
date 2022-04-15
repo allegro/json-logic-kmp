@@ -40,3 +40,9 @@ object Libs {
         const val crashkios = "co.touchlab:crashkios:${Versions.crashkios}"
     }
 }
+
+object Conventions {
+    const val junit = "junit-convention"
+    const val publishing = "publishing-convention"
+    const val xcframeworkAssemble = "xcframework-assemble-convention"
+}
