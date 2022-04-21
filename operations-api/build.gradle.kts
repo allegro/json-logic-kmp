@@ -14,14 +14,14 @@ kotlin {
         }
     }
 
-    val xcFramework = XCFramework(LibConfig.name)
+    val xcFramework = XCFramework(Modules.XCFrameworkNames.operationsApi)
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = LibConfig.name
+            baseName = Modules.XCFrameworkNames.operationsApi
             isStatic = true
             xcFramework.add(this)
         }
@@ -41,4 +41,3 @@ kotlin {
         }
     }
 }
-apply(plugin = Conventions.xcframeworkAssemble)
