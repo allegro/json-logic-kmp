@@ -68,7 +68,7 @@ jobs:
       - name: Calculate checksum
         id: calculate_checksum
         run: |
-          XCFRAMEWORK_SHA256=$(shasum -a 256 JsonLogicKMP.xcframework.zip | awk '{ print $1 }')
+          XCFRAMEWORK_SHA256=$(shasum -a 256 ${{ env.xcframework_zip_name }} | awk '{ print $1 }')
           echo "::set-output name=sha256::$XCFRAMEWORK_SHA256"
 
       - uses: actions/upload-artifact@v2
