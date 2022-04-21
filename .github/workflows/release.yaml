@@ -187,7 +187,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Publish to maven central
-        run: ./gradlew publishJvmPublicationToSonatypeRepository publishKotlinMultiplatformPublicationToSonatypeRepository closeAndReleaseSonatypeStagingRepository
+        run: ./gradlew publishJvmPublicationToSonatypeRepository publishKotlinMultiplatformPublicationToSonatypeRepository closeAndReleaseSonatypeStagingRepository --scan
         env:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
