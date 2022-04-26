@@ -7,10 +7,6 @@ plugins {
     id(Conventions.publishing)
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
 kotlin {
     jvm {
         compilations.all {
@@ -47,7 +43,7 @@ kotlin {
                 implementation(Libs.Kotest.assertionsCore)
                 implementation(Libs.Kotest.frameworkEngine)
                 implementation(Libs.Kotest.frameworkDataset)
-//                implementation(project(Modules.core))
+                implementation(project(Modules.core))
             }
         }
         val jvmTest by getting {
