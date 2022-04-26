@@ -9,6 +9,7 @@ plugins {
 
 kotlin {
     jvm {
+        mavenPublication{ setFullModuleArtifactId() }
         compilations.all {
             kotlinOptions.jvmTarget = JavaVersion.VERSION_11.majorVersion
         }
