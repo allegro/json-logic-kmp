@@ -2,6 +2,9 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 
+// TODO Refactor failure results to use case specific ones
+private val nullResultFailure = JsonLogicResult.Failure("Evaluated expression has returned null.")
+
 class FindTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().addFunctionalOperation("find", Find).build()
     withData(
@@ -128,12 +131,3 @@ class FindTest : FunSpec({
         evaluationResult shouldBe testInput.result
     }
 })
-
-// TODO Refactor failure results to use case specific ones
-private val nullResultFailure = JsonLogicResult.Failure("Evaluated expression has returned null.")
-
-private class TestInput(
-    val expression: Map<String, Any?>,
-    val data: Any? = emptyMap<String, Any>(),
-    val result: JsonLogicResult
-)
