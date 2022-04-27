@@ -22,7 +22,6 @@ configure<PublishingExtension> {
             artifact(javadocJar)
 
             pom {
-
                 name.set(LibConfig.name)
                 description.set("Kotlin multiplatform JsonLogic expressions evaluation engine")
                 url.set(LibConfig.repositoryUrl)
