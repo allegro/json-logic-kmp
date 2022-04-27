@@ -16,7 +16,6 @@ object Modules {
 
     const val operationsApi = ":operations-api"
     const val utils = ":utils"
-    const val core = ":core"
 }
 
 object Versions {
