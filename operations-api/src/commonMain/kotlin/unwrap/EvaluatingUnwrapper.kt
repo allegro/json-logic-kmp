@@ -17,3 +17,7 @@ interface EvaluatingUnwrapper {
         it.isNotEmpty() && it.keys.all { key -> key is String }
     } ?: false
 }
+
+@Suppress("UNCHECKED_CAST")
+fun EvaluatingUnwrapper.getMappingOperationOrNull(expression: List<Any?>) =
+    expression.getOrNull(1).takeIf { isExpression(it) } as? Map<String, Any>

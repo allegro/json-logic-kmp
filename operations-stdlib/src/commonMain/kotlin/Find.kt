@@ -1,8 +1,7 @@
 import unwrap.EvaluatingUnwrapper
+import unwrap.getMappingOperationOrNull
 import utils.asList
-import utils.secondOrNull
 
-// TODO think about moving evaluating strategy to utils module
 object Find : FunctionalLogicOperation, EvaluatingUnwrapper {
     override fun invoke(expression: Any?, data: Any?, evaluator: LogicEvaluator): Any? {
         return expression.asList.let { expressionValues ->
@@ -14,8 +13,4 @@ object Find : FunctionalLogicOperation, EvaluatingUnwrapper {
             }
         }
     }
-
-    @Suppress("UNCHECKED_CAST")
-    private fun getMappingOperationOrNull(expression: List<Any?>) =
-        expression.secondOrNull().takeIf { isExpression(it) } as? Map<String, Any>
 }

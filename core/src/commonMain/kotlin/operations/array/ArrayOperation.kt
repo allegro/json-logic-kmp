@@ -2,6 +2,7 @@ package operations.array
 
 import LogicEvaluator
 import unwrap.EvaluatingUnwrapper
+import unwrap.getMappingOperationOrNull
 import utils.secondOrNull
 import kotlin.collections.Map
 
@@ -17,10 +18,6 @@ internal interface ArrayOperation : EvaluatingUnwrapper {
 
         return ArrayOperationInputData(evaluatedOperationData, mappingOperation, operationDefault)
     }
-
-    @Suppress("UNCHECKED_CAST")
-    private fun getMappingOperationOrNull(expression: List<Any?>) =
-        expression.secondOrNull().takeIf { isExpression(it) } as? Map<String, Any>
 
     fun getOperationDefault(mappingOperation: Map<String, Any>?, expressionValues: List<Any?>) =
         if (mappingOperation == null) {
