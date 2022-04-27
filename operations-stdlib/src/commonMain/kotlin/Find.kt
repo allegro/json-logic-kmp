@@ -1,11 +1,10 @@
-import unwrap.EvaluatingUnwrapStrategy
+import unwrap.EvaluatingUnwrapper
 import utils.asList
 import utils.secondOrNull
 
 // TODO think about moving evaluating strategy to utils module
-object Find : FunctionalLogicOperation, EvaluatingUnwrapStrategy {
+object Find : FunctionalLogicOperation, EvaluatingUnwrapper {
     override fun invoke(expression: Any?, data: Any?, evaluator: LogicEvaluator): Any? {
-//        unwrapDataByEvaluation(expressionValues, operationData, evaluator)
         return expression.asList.let { expressionValues ->
             val inputData = unwrapDataByEvaluation(expressionValues, data, evaluator)
             val predicateOperation = getMappingOperationOrNull(expressionValues)

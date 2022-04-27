@@ -4,8 +4,8 @@ import LogicEvaluator
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 
-class EvaluatingUnwrapStrategyTest : BehaviorSpec({
-    val strategy: EvaluatingUnwrapStrategy = object : EvaluatingUnwrapStrategy {}
+class EvaluatingUnwrapperTest : BehaviorSpec({
+    val strategy: EvaluatingUnwrapper = object : EvaluatingUnwrapper {}
     var logicEvaluator: LogicEvaluator = object : LogicEvaluator {
         override fun evaluateLogic(expression: Map<String, Any?>, data: Any?): Any? {
             return data

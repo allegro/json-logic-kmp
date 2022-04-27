@@ -2,7 +2,7 @@ package unwrap
 
 import LogicEvaluator
 
-interface EvaluatingUnwrapStrategy {
+interface EvaluatingUnwrapper {
     fun unwrapDataByEvaluation(expression: List<Any?>, data: Any?, evaluator: LogicEvaluator) =
         (expression.firstOrNull().unwrapOperationData(data, evaluator) as? List<Any?>)
 

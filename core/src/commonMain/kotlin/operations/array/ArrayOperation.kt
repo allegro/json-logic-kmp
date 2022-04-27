@@ -1,11 +1,11 @@
 package operations.array
 
 import LogicEvaluator
-import unwrap.EvaluatingUnwrapStrategy
+import unwrap.EvaluatingUnwrapper
 import utils.secondOrNull
 import kotlin.collections.Map
 
-internal interface ArrayOperation : EvaluatingUnwrapStrategy {
+internal interface ArrayOperation : EvaluatingUnwrapper {
     fun createOperationInput(
         expressionValues: List<Any?>,
         operationData: Any?,
