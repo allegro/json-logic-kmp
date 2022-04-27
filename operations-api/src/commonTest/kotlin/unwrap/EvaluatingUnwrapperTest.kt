@@ -12,56 +12,6 @@ class EvaluatingUnwrapperTest : BehaviorSpec({
         }
     }
 
-    given("A list") {
-        val wrappedValue = listOf("banana", 1)
-        `when`("checked") {
-            val unwrapResult = strategy.isExpression(wrappedValue)
-            then("should not be treated as an expression") {
-                unwrapResult shouldBe false
-            }
-        }
-    }
-
-    given("A single value") {
-        val wrappedValue = "fake map"
-        `when`("checked") {
-            val unwrapResult = strategy.isExpression(wrappedValue)
-            then("should not be treated as an expression") {
-                unwrapResult shouldBe false
-            }
-        }
-    }
-
-    given("An empty map") {
-        val wrappedValue = emptyMap<String, Any>()
-        `when`("checked") {
-            val unwrapResult = strategy.isExpression(wrappedValue)
-            then("should not be treated as an expression") {
-                unwrapResult shouldBe false
-            }
-        }
-    }
-
-    given("A map with keys other than strings") {
-        val wrappedValue = mapOf(1 to "var")
-        `when`("checked") {
-            val unwrapResult = strategy.isExpression(wrappedValue)
-            then("should not be treated as an expression") {
-                unwrapResult shouldBe false
-            }
-        }
-    }
-
-    given("A map with string keys") {
-        val wrappedValue = mapOf("var" to "a.b")
-        `when`("checked") {
-            val unwrapResult = strategy.isExpression(wrappedValue)
-            then("should be treated as an expression") {
-                unwrapResult shouldBe true
-            }
-        }
-    }
-
     given("A simple values input") {
         val wrappedValue = listOf(listOf(1, 2, 3))
         `when`("unwrapped") {

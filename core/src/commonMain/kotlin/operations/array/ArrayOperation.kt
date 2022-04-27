@@ -2,7 +2,7 @@ package operations.array
 
 import LogicEvaluator
 import unwrap.EvaluatingUnwrapper
-import unwrap.getMappingOperationOrNull
+import utils.getMappingOperationOrNull
 import utils.secondOrNull
 import kotlin.collections.Map
 
@@ -13,7 +13,7 @@ internal interface ArrayOperation : EvaluatingUnwrapper {
         evaluator: LogicEvaluator
     ): ArrayOperationInputData {
         val evaluatedOperationData = unwrapDataByEvaluation(expressionValues, operationData, evaluator)
-        val mappingOperation = getMappingOperationOrNull(expressionValues)
+        val mappingOperation = expressionValues.getMappingOperationOrNull()
         val operationDefault = getOperationDefault(mappingOperation, expressionValues)
 
         return ArrayOperationInputData(evaluatedOperationData, mappingOperation, operationDefault)
