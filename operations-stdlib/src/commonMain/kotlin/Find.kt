@@ -8,7 +8,7 @@ object Find : FunctionalLogicOperation, EvaluatingUnwrapStrategy {
 //        unwrapDataByEvaluation(expressionValues, operationData, evaluator)
         return expression.asList.let { expressionValues ->
             val inputData = unwrapDataByEvaluation(expressionValues, data, evaluator)
-            val predicateOperation = expressionValues.secondOrNull().takeIf { isExpression(it) } as? Map<String, Any>
+            val predicateOperation = getMappingOperationOrNull(expressionValues)
 
             predicateOperation?.let {
                 inputData?.find { evaluator.evaluateLogic(predicateOperation, it) == true }

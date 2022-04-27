@@ -12,9 +12,6 @@ kotlin {
         compilations.all {
             kotlinOptions.jvmTarget = JavaVersion.VERSION_11.majorVersion
         }
-        testRuns["test"].executionTask.configure {
-            useJUnitPlatform()
-        }
     }
 
     val xcFramework = XCFramework(LibConfig.name)
@@ -44,6 +41,7 @@ kotlin {
                 implementation(Libs.Kotest.frameworkEngine)
                 implementation(Libs.Kotest.frameworkDataset)
                 implementation(project(Modules.core))
+                implementation(project(Modules.utils))
             }
         }
         val jvmTest by getting {

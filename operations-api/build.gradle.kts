@@ -7,10 +7,6 @@ plugins {
     id(Conventions.publishing)
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
 kotlin {
     jvm {
         compilations.all {
