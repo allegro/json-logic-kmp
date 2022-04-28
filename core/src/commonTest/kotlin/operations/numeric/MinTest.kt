@@ -4,13 +4,13 @@ import TestInput.Successful
 import TestInput.Unsuccessful
 import io.kotest.core.spec.style.FunSpec
 import testWithFailureResultData
-import testWithSuccessResultData
+import testWithInputData
 
 class MinTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
     context("JsonLogic evaluation with Min operation") {
-       testWithSuccessResultData(
+       testWithInputData(
             logicEngine,
             listOf(
                 Successful(

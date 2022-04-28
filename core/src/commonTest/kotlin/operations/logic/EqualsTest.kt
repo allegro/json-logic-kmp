@@ -2,13 +2,13 @@ package operations.logic
 
 import TestInput.Successful
 import io.kotest.core.spec.style.FunSpec
-import testWithSuccessResultData
+import testWithInputData
 
 class EqualsTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
     context("JsonLogic evaluation with Equals operation") {
-       testWithSuccessResultData(
+       testWithInputData(
             logicEngine,
             listOf(
                 Successful(expression = mapOf("==" to listOf(1, 1)), resultValue = true),

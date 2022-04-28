@@ -1,71 +1,73 @@
 package operations.array
 
-import TestInput.Successful
+import JsonLogicEngine
+import JsonLogicResult
+import TestInput
 import io.kotest.core.spec.style.FunSpec
-import testWithSuccessResultData
+import testWithInputData
 
 class MergeTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
     context("JsonLogic evaluation with Merge operation") {
-       testWithSuccessResultData(
-            logicEngine,
-            listOf(
-                Successful(
+        testWithInputData(
+            logicEngine = logicEngine,
+            data = listOf(
+                TestInput(
                     expression = mapOf("merge" to null),
-                    resultValue = listOf(null)
+                    resultValue = JsonLogicResult.Success(listOf(null))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("merge" to listOf(1, listOf(2, listOf(3, 4)))),
-                    resultValue = listOf(1, 2, listOf(3, 4))
+                    resultValue = JsonLogicResult.Success(listOf(1, 2, listOf(3, 4)))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("merge" to listOf(1, listOf(2))),
-                    resultValue = listOf(1, 2)
+                    resultValue = JsonLogicResult.Success(listOf(1, 2))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("merge" to listOf(1, 2)),
-                    resultValue = listOf(1, 2)
+                    resultValue = JsonLogicResult.Success(listOf(1, 2))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("merge" to 1),
-                    resultValue = listOf(1)
+                    resultValue = JsonLogicResult.Success(listOf(1))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("merge" to listOf(listOf(1), listOf(2, 3))),
-                    resultValue = listOf(1, 2, 3)
+                    resultValue = JsonLogicResult.Success(listOf(1, 2, 3))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("merge" to listOf(listOf(1, 2), listOf(3))),
-                    resultValue = listOf(1, 2, 3)
+                    resultValue = JsonLogicResult.Success(listOf(1, 2, 3))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("merge" to listOf(listOf(1), listOf(2), listOf(3))),
-                    resultValue = listOf(1, 2, 3)
+                    resultValue = JsonLogicResult.Success(listOf(1, 2, 3))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("merge" to listOf(listOf(1), listOf(2))),
-                    resultValue = listOf(1, 2)
+                    resultValue = JsonLogicResult.Success(listOf(1, 2))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("merge" to listOf(listOf(1), emptyList())),
-                    resultValue = listOf(1)
+                    resultValue = JsonLogicResult.Success(listOf(1))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("merge" to listOf(listOf(1))),
-                    resultValue = listOf(1)
+                    resultValue = JsonLogicResult.Success(listOf(1))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("merge" to emptyList<Any>()),
-                    resultValue = emptyList<Any>()
+                    resultValue = JsonLogicResult.Success(emptyList<Any>())
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("merge" to listOf(1, 2, listOf(3, 4))),
-                    resultValue = listOf(1, 2, 3, 4)
+                    resultValue = JsonLogicResult.Success(listOf(1, 2, 3, 4))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("merge" to listOf(listOf(1, 2), listOf(3, 4))),
-                    resultValue = listOf(1, 2, 3, 4)
+                    resultValue = JsonLogicResult.Success(listOf(1, 2, 3, 4))
                 )
             )
         )

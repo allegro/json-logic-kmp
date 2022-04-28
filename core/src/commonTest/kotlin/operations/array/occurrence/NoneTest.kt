@@ -1,84 +1,84 @@
 package operations.array.occurrence
 
-import TestInput.Successful
+import TestInput
 import io.kotest.core.spec.style.FunSpec
-import testWithSuccessResultData
+import testWithInputData
 
 class NoneTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
     context("JsonLogic evaluation with None operation") {
-       testWithSuccessResultData(
-            logicEngine,
-            listOf(
-                Successful(
+       testWithInputData(
+            logicEngine = logicEngine,
+            data = listOf(
+                TestInput(
                     expression = mapOf(
                         "none" to emptyList<Any>()
                     ),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "none" to listOf(null)
                     ),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "none" to null
                     ),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "none" to listOf(mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                     ),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                     ),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "none" to listOf(
                             mapOf(">=" to listOf(mapOf("var" to ""), 1)),
                             mapOf(">=" to listOf(mapOf("var" to ""), 1))
                         )
                     ),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3)),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "integers"), mapOf("==" to listOf(mapOf("var" to ""), 1)))
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3)),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "integers"), mapOf("<" to listOf(mapOf("var" to ""), 1)))
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3)),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "integers"), mapOf("<" to listOf(mapOf("var" to ""), 1)))
                     ),
                     data = mapOf("integers" to emptyList<Any>()),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "items"), mapOf(">=" to listOf(mapOf("var" to "qty"), 1)))
                     ),
@@ -88,9 +88,9 @@ class NoneTest : FunSpec({
                             mapOf("qty" to 2, "sku" to "banana")
                         )
                     ),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "items"), mapOf(">" to listOf(mapOf("var" to "qty"), 1)))
                     ),
@@ -100,9 +100,9 @@ class NoneTest : FunSpec({
                             mapOf("qty" to 2, "sku" to "banana")
                         )
                     ),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "items"), mapOf("<" to listOf(mapOf("var" to "qty"), 1)))
                     ),
@@ -112,14 +112,14 @@ class NoneTest : FunSpec({
                             mapOf("qty" to 2, "sku" to "banana")
                         )
                     ),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "none" to listOf(mapOf("var" to "items"), mapOf(">=" to listOf(mapOf("var" to "qty"), 1)))
                     ),
                     data = mapOf("items" to emptyList<Any>()),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 )
             )
         )

@@ -1,84 +1,85 @@
 package operations.array.occurrence
 
-import TestInput.Successful
+import JsonLogicEngine
+import TestInput
 import io.kotest.core.spec.style.FunSpec
-import testWithSuccessResultData
+import testWithInputData
 
 class AllTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
     context("JsonLogic evaluation with All operation") {
-        testWithSuccessResultData(
+        testWithInputData(
             logicEngine,
             listOf(
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "all" to listOf(mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                     ),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "all" to emptyList<Any>()
                     ),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "all" to listOf(null)
                     ),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "all" to null
                     ),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "all" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                     ),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "all" to listOf(
                             mapOf(">=" to listOf(mapOf("var" to ""), 1)),
                             mapOf(">=" to listOf(mapOf("var" to ""), 1))
                         )
                     ),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "all" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3)),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "all" to listOf(mapOf("var" to "integers"), mapOf("==" to listOf(mapOf("var" to ""), 1)))
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3)),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "all" to listOf(mapOf("var" to "integers"), mapOf("<" to listOf(mapOf("var" to ""), 1)))
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3)),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "all" to listOf(mapOf("var" to "integers"), mapOf("<" to listOf(mapOf("var" to ""), 1)))
                     ),
                     data = mapOf("integers" to emptyList<Any>()),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "all" to listOf(mapOf("var" to "items"), mapOf(">=" to listOf(mapOf("var" to "qty"), 1)))
                     ),
@@ -88,9 +89,9 @@ class AllTest : FunSpec({
                             mapOf("qty" to 2, "sku" to "banana")
                         )
                     ),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "all" to listOf(mapOf("var" to "items"), mapOf(">" to listOf(mapOf("var" to "qty"), 1)))
                     ),
@@ -100,9 +101,9 @@ class AllTest : FunSpec({
                             mapOf("qty" to 2, "sku" to "banana")
                         )
                     ),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "all" to listOf(mapOf("var" to "items"), mapOf("<" to listOf(mapOf("var" to "qty"), 1)))
                     ),
@@ -112,14 +113,14 @@ class AllTest : FunSpec({
                             mapOf("qty" to 2, "sku" to "banana")
                         )
                     ),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "all" to listOf(mapOf("var" to "items"), mapOf(">=" to listOf(mapOf("var" to "qty"), 1)))
                     ),
                     data = mapOf("items" to emptyList<Any>()),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 )
             )
         )

@@ -1,7 +1,7 @@
 package operations.array.unwrap
 
-import evaluation.CommonLogicEvaluator
 import LogicEvaluator
+import evaluation.CommonLogicEvaluator
 import evaluation.LogicOperations
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe

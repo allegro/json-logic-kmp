@@ -2,13 +2,13 @@ package operations.string
 
 import TestInput.Successful
 import io.kotest.core.spec.style.FunSpec
-import testWithSuccessResultData
+import testWithInputData
 
 class CatTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
     context("JsonLogic evaluation with Cat operation") {
-       testWithSuccessResultData(
+       testWithInputData(
             logicEngine,listOf(
                 Successful(
                     expression = mapOf("cat" to "ice"),

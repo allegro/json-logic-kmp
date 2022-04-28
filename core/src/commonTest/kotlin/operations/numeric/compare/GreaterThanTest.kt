@@ -2,13 +2,13 @@ package operations.numeric.compare
 
 import TestInput.Successful
 import io.kotest.core.spec.style.FunSpec
-import testWithSuccessResultData
+import testWithInputData
 
 class GreaterThanTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
     context("JsonLogic evaluation with GreaterThan operation") {
-       testWithSuccessResultData(
+       testWithInputData(
             logicEngine,
             listOf(
                 Successful(

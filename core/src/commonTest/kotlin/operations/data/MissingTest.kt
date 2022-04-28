@@ -2,13 +2,13 @@ package operations.data
 
 import TestInput.Successful
 import io.kotest.core.spec.style.FunSpec
-import testWithSuccessResultData
+import testWithInputData
 
 class MissingTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
     context("JsonLogic evaluation with Missing operation") {
-       testWithSuccessResultData(
+       testWithInputData(
             logicEngine,
             listOf(
                 Successful(

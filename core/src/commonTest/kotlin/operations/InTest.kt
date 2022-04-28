@@ -1,17 +1,19 @@
 package operations
 
-import TestInput.Successful
+import JsonLogicEngine
+import JsonLogicResult
+import TestInput
 import io.kotest.core.spec.style.FunSpec
-import testWithSuccessResultData
+import testWithInputData
 
 class InTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
     context("JsonLogic evaluation with In operation") {
-       testWithSuccessResultData(
-            logicEngine,
-            listOf(
-                Successful(
+        testWithInputData(
+            logicEngine = logicEngine,
+            data = listOf(
+                TestInput(
                     expression = mapOf(
                         "in" to listOf(
                             mapOf("var" to "filling"),
@@ -19,79 +21,79 @@ class InTest : FunSpec({
                         )
                     ),
                     data = mapOf("filling" to "apple"),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf("Bart", listOf("Bart", "Homer", "Lisa", "Marge", "Maggie"))),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf("Milhouse", listOf("Bart", "Homer", "Lisa", "Marge", "Maggie"))),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf("Spring", "Springfield")),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf("i", "team")),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf("t", listOf("team"))),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf("1", 133)),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf(1, "133")),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf(1, 133)),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf("t", true)),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf(true, "true gold")),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf(null, "banana")),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf("n", null)),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf(null, listOf(null, null))),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf(null, listOf(listOf(null), "banana"))),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf(null, listOf("", ""))),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf("t", "true")),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf("j", "apple", "juice")),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("in" to listOf("Spring", "Springfield")),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
             )
         )

@@ -2,13 +2,13 @@ package operations.logic
 
 import TestInput.Successful
 import io.kotest.core.spec.style.FunSpec
-import testWithSuccessResultData
+import testWithInputData
 
 class OrTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
     context("JsonLogic evaluation with Or operation") {
-       testWithSuccessResultData(
+       testWithInputData(
             logicEngine,
             listOf(
                 Successful(expression = mapOf("or" to listOf(true, true)), resultValue = true),
