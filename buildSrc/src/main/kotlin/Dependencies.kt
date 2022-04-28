@@ -13,7 +13,8 @@ object Modules {
         const val operationsApi = "JsonLogicOperationsApi"
         const val core = "JsonLogicCore"
     }
-
+    
+    const val core = ":core"
     const val operationsApi = ":operations-api"
     const val utils = ":utils"
 }
