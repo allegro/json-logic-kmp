@@ -7,13 +7,9 @@ import org.gradle.kotlin.dsl.withType
 plugins {
     `maven-publish`
     signing
-    id("pl.allegro.tech.build.axion-release")
+    id("versioning-convention")
 }
 
-apply(from = "../versionConfig.gradle")
-
-group = LibConfig.group
-version = scmVersion.version
 
 val javadocJar: TaskProvider<Jar> = tasks.register("javadocJar", Jar::class.java) {
     archiveClassifier.set("javadoc")
@@ -22,6 +18,7 @@ val javadocJar: TaskProvider<Jar> = tasks.register("javadocJar", Jar::class.java
 configure<PublishingExtension> {
     publishing {
         publications.withType<MavenPublication> {
+            setFullModuleArtifactId()
             artifact(javadocJar)
 
             pom {

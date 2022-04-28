@@ -6,6 +6,7 @@ plugins {
     id("signing")
     id("io.gitlab.arturbosch.detekt") version Versions.detekt
     id("io.github.gradle-nexus.publish-plugin") version Versions.nexus
+    id(Conventions.versioning)
 }
 
 allprojects {
