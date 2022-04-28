@@ -1,6 +1,8 @@
 package operations.string
 
-import TestInput.Successful
+import JsonLogicEngine
+import JsonLogicResult
+import TestInput
 import io.kotest.core.spec.style.FunSpec
 import testWithInputData
 
@@ -8,85 +10,87 @@ class CatTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
     context("JsonLogic evaluation with Cat operation") {
-       testWithInputData(
-            logicEngine,listOf(
-                Successful(
+        testWithInputData(
+            logicEngine = logicEngine,
+            data = listOf(
+                TestInput(
                     expression = mapOf("cat" to "ice"),
-                    resultValue = "ice"
+                    resultValue = JsonLogicResult.Success("ice")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to emptyList<String>()),
-                    resultValue = ""
+                    resultValue = JsonLogicResult.Success("")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to listOf("ice")),
-                    resultValue = "ice"
+                    resultValue = JsonLogicResult.Success("ice")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to listOf("ice", "cream")),
-                    resultValue = "icecream"
+                    resultValue = JsonLogicResult.Success("icecream")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to listOf(1, 2)),
-                    resultValue = "12"
+                    resultValue = JsonLogicResult.Success("12")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to listOf("Robocop", 2)),
-                    resultValue = "Robocop2"
+                    resultValue = JsonLogicResult.Success("Robocop2")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to listOf("Robocop", 2.0)),
-                    resultValue = "Robocop2"
+                    resultValue = JsonLogicResult.Success("Robocop2")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to listOf(true, "Robocop")),
-                    resultValue = "trueRobocop"
+                    resultValue = JsonLogicResult.Success("trueRobocop")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to listOf("false", "Robocop")),
-                    resultValue = "falseRobocop"
+                    resultValue = JsonLogicResult.Success("falseRobocop")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to listOf("we all scream for ", "ice", "cream")),
-                    resultValue = "we all scream for icecream"
+                    resultValue = JsonLogicResult.Success("we all scream for icecream")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to listOf("we all scream for ", listOf("ice", "cream"))),
-                    resultValue = "we all scream for ice,cream"
+                    resultValue = JsonLogicResult.Success("we all scream for ice,cream")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to listOf("easy as ", listOf(1, 2.0, "3"))),
-                    resultValue = "easy as 1,2,3"
+                    resultValue = JsonLogicResult.Success("easy as 1,2,3")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to listOf(listOf(2.0))),
-                    resultValue = "2"
+                    resultValue = JsonLogicResult.Success("2")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to listOf(2.5, 1)),
-                    resultValue = "2.51"
+                    resultValue = JsonLogicResult.Success("2.51")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to listOf("2.0")),
-                    resultValue = "2.0"
+                    resultValue = JsonLogicResult.Success("2.0")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to listOf("easy as ", listOf(1, 2, "3"))),
-                    resultValue = "easy as 1,2,3"
+                    resultValue = JsonLogicResult.Success("easy as 1,2,3")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to listOf("easy as ", listOf(null, listOf(true), "3"))),
-                    resultValue = "easy as ,true,3"
+                    resultValue = JsonLogicResult.Success("easy as ,true,3")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to listOf(emptyList(), listOf(emptyList(), listOf(emptyList<String>())))),
-                    resultValue = ""
+                    resultValue = JsonLogicResult.Success("")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("cat" to listOf("I love ", mapOf("var" to "filling"), " pie")),
                     data = mapOf("filling" to "apple", "temp" to 110),
-                    resultValue = "I love apple pie"
+                    resultValue = JsonLogicResult.Success("I love apple pie")
                 ),
-            ))
+            )
+        )
     }
 })

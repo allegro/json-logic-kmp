@@ -1,6 +1,8 @@
 package operations.string
 
-import TestInput.Successful
+import JsonLogicEngine
+import JsonLogicResult
+import TestInput
 import io.kotest.core.spec.style.FunSpec
 import testWithInputData
 
@@ -9,127 +11,127 @@ class SubstrTest : FunSpec({
 
     context("JsonLogic evaluation with Substr operation") {
         testWithInputData(
-            logicEngine,
-            listOf(
-                Successful(
+            logicEngine = logicEngine,
+            data = listOf(
+                TestInput(
                     expression = mapOf("substr" to listOf("jsonlogic", 4)),
-                    resultValue = "logic"
+                    resultValue = JsonLogicResult.Success("logic")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf("jsonlogic", -5)),
-                    resultValue = "logic"
+                    resultValue = JsonLogicResult.Success("logic")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf("jsonlogic", 0, 1)),
-                    resultValue = "j"
+                    resultValue = JsonLogicResult.Success("j")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf("jsonlogic", -1, 1)),
-                    resultValue = "c"
+                    resultValue = JsonLogicResult.Success("c")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf("jsonlogic", 4, 5)),
-                    resultValue = "logic"
+                    resultValue = JsonLogicResult.Success("logic")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf("jsonlogic", -5, 5)),
-                    resultValue = "logic"
+                    resultValue = JsonLogicResult.Success("logic")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf("jsonlogic", -5, -2)),
-                    resultValue = "log"
+                    resultValue = JsonLogicResult.Success("log")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf("jsonlogic", 1, -5)),
-                    resultValue = "son"
+                    resultValue = JsonLogicResult.Success("son")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf("jsonlogic", 1, -5, 8)),
-                    resultValue = "son"
+                    resultValue = JsonLogicResult.Success("son")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf(true, 1, -5)),
-                    resultValue = ""
+                    resultValue = JsonLogicResult.Success("")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf(true, 1, 2)),
-                    resultValue = "ru"
+                    resultValue = JsonLogicResult.Success("ru")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf(true)),
-                    resultValue = "true"
+                    resultValue = JsonLogicResult.Success("true")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf(listOf("apple", listOf("banana")))),
-                    resultValue = "apple,banana"
+                    resultValue = JsonLogicResult.Success("apple,banana")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf(listOf("apple", listOf("banana", true)))),
-                    resultValue = "apple,banana,true"
+                    resultValue = JsonLogicResult.Success("apple,banana,true")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf(listOf("apple", listOf("banana", true, listOf(null))))),
-                    resultValue = "apple,banana,true,"
+                    resultValue = JsonLogicResult.Success("apple,banana,true,")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf(listOf("apple", listOf(null, "banana", listOf(null))))),
-                    resultValue = "apple,,banana,"
+                    resultValue = JsonLogicResult.Success("apple,,banana,")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf(133, 1)),
-                    resultValue = "33"
+                    resultValue = JsonLogicResult.Success("33")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf(listOf("apple", "banana"), 1)),
-                    resultValue = "pple,banana"
+                    resultValue = JsonLogicResult.Success("pple,banana")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf(emptyList<String>())),
-                    resultValue = ""
+                    resultValue = JsonLogicResult.Success("")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf("", -3, 15)),
-                    resultValue = ""
+                    resultValue = JsonLogicResult.Success("")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf(2.0, 1)),
-                    resultValue = ""
+                    resultValue = JsonLogicResult.Success("")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf(2.5, 1)),
-                    resultValue = ".5"
+                    resultValue = JsonLogicResult.Success(".5")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf(2.5)),
-                    resultValue = "2.5"
+                    resultValue = JsonLogicResult.Success("2.5")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf(2.0)),
-                    resultValue = "2"
+                    resultValue = JsonLogicResult.Success("2")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf("2.0")),
-                    resultValue = "2.0"
+                    resultValue = JsonLogicResult.Success("2.0")
                 ),
-                Successful(
-                    expression = mapOf("substr" to listOf(mapOf("var" to "A"),0)),
+                TestInput(
+                    expression = mapOf("substr" to listOf(mapOf("var" to "A"), 0)),
                     data = mapOf("A" to "x"),
-                    resultValue = "x"
+                    resultValue = JsonLogicResult.Success("x")
                 ),
-                Successful(
-                    expression = mapOf("substr" to listOf(mapOf("var" to "A"),0)),
+                TestInput(
+                    expression = mapOf("substr" to listOf(mapOf("var" to "A"), 0)),
                     data = mapOf("A" to ""),
-                    resultValue = ""
+                    resultValue = JsonLogicResult.Success("")
                 ),
-                Successful(
-                    expression = mapOf("substr" to listOf(mapOf("var" to "A"),0)),
+                TestInput(
+                    expression = mapOf("substr" to listOf(mapOf("var" to "A"), 0)),
                     data = mapOf("A" to "xx"),
-                    resultValue = "xx"
+                    resultValue = JsonLogicResult.Success("xx")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("substr" to listOf(mapOf("var" to "A"), 0, 0)),
                     data = mapOf("A" to "x"),
-                    resultValue = ""
+                    resultValue = JsonLogicResult.Success("")
                 ),
             )
         )

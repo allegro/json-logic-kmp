@@ -1,119 +1,144 @@
 package operations.numeric
 
-import TestInput.Successful
-import TestInput.Unsuccessful
+import JsonLogicEngine
+import JsonLogicResult
+import TestInput
 import io.kotest.core.spec.style.FunSpec
-import testWithFailureResultData
 import testWithInputData
 
 class MultiplicationTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
     context("JsonLogic evaluation with Multiplication operation") {
-       testWithInputData(
-            logicEngine,
-            listOf(
-                Successful(
+        testWithInputData(
+            logicEngine = logicEngine,
+            data = listOf(
+                TestInput(
                     expression = mapOf("*" to listOf(3, 2)),
-                    resultValue = 6
+                    resultValue = JsonLogicResult.Success(6)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf(2, 2, 2)),
-                    resultValue = 8
+                    resultValue = JsonLogicResult.Success(8)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf(1)),
-                    resultValue = 1
+                    resultValue = JsonLogicResult.Success(1)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf("1", 1)),
-                    resultValue = 1
+                    resultValue = JsonLogicResult.Success(1)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf("1.7", 3)),
-                    resultValue = 5.1
+                    resultValue = JsonLogicResult.Success(5.1)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf(2, 0)),
-                    resultValue = 0
+                    resultValue = JsonLogicResult.Success(0)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf(0, 2)),
-                    resultValue = 0
+                    resultValue = JsonLogicResult.Success(0)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf("banana")),
-                    resultValue = "banana"
+                    resultValue = JsonLogicResult.Success("banana")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf(true)),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf(1)),
-                    resultValue = 1
+                    resultValue = JsonLogicResult.Success(1)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf(true)),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf(false)),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf(listOf(2, "a"), 2)),
-                    resultValue = 4
+                    resultValue = JsonLogicResult.Success(4)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf(listOf(2, 2), 2)),
-                    resultValue = 4
+                    resultValue = JsonLogicResult.Success(4)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf(listOf("5"), listOf("5"), listOf("5"))),
-                    resultValue = 125
+                    resultValue = JsonLogicResult.Success(125)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf(listOf("5", listOf("5")), listOf("5"), listOf("5"))),
-                    resultValue = 125
+                    resultValue = JsonLogicResult.Success(125)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf(listOf("5"), 6)),
-                    resultValue = 30
+                    resultValue = JsonLogicResult.Success(30)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf(listOf(listOf("5")), 6)),
-                    resultValue = 30
+                    resultValue = JsonLogicResult.Success(30)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf(listOf(listOf("5")), listOf(6))),
-                    resultValue = 30
+                    resultValue = JsonLogicResult.Success(30)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("*" to listOf(listOf(listOf("5"), listOf(6)))),
-                    resultValue = listOf(listOf("5"), listOf(6))
+                    resultValue = JsonLogicResult.Success(listOf(listOf("5"), listOf(6)))
                 ),
-            )
-        )
-        testWithFailureResultData(
-            logicEngine,
-            listOf(
-                Unsuccessful(expression = mapOf("*" to listOf(emptyList<String>(), 2))),
-                Unsuccessful(expression = mapOf("*" to listOf("2", 1.5, "banana"))),
-                Unsuccessful(expression = mapOf("*" to listOf("2", 1.5, listOf("banana")))),
-                Unsuccessful(expression = mapOf("*" to listOf(null, 5))),
-                Unsuccessful(expression = mapOf("*" to listOf(2, null))),
-                Unsuccessful(expression = mapOf("*" to listOf(null, null))),
-                Unsuccessful(expression = mapOf("*" to listOf(null))),
-                Unsuccessful(expression = mapOf("*" to listOf(listOf("a", 2), 2))),
-                Unsuccessful(expression = mapOf("*" to listOf(listOf(2, "a"), listOf("a", 2)))),
-                Unsuccessful(expression = mapOf("*" to listOf(true, null))),
-                Unsuccessful(expression = mapOf("*" to listOf(false, null))),
-                Unsuccessful(expression = mapOf("*" to listOf(false, true))),
-                Unsuccessful(expression = mapOf("*" to listOf(0, true))),
-                Unsuccessful(expression = mapOf("*" to listOf(1, true))),
-                Unsuccessful(expression = mapOf("*" to listOf("a", 2))),
-                Unsuccessful(expression = mapOf("*" to listOf(true, false))),
+                TestInput(
+                    expression = mapOf("*" to listOf(emptyList<String>(), 2)),
+                    resultValue = JsonLogicResult.NullResultFailure
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf("2", 1.5, "banana")),
+                    resultValue = JsonLogicResult.NullResultFailure
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf("2", 1.5, listOf("banana"))),
+                    resultValue = JsonLogicResult.NullResultFailure
+                ),
+                TestInput(expression = mapOf("*" to listOf(null, 5)), resultValue = JsonLogicResult.NullResultFailure),
+                TestInput(expression = mapOf("*" to listOf(2, null)), resultValue = JsonLogicResult.NullResultFailure),
+                TestInput(
+                    expression = mapOf("*" to listOf(null, null)),
+                    resultValue = JsonLogicResult.NullResultFailure
+                ),
+                TestInput(expression = mapOf("*" to listOf(null)), resultValue = JsonLogicResult.NullResultFailure),
+                TestInput(
+                    expression = mapOf("*" to listOf(listOf("a", 2), 2)),
+                    resultValue = JsonLogicResult.NullResultFailure
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf(listOf(2, "a"), listOf("a", 2))),
+                    resultValue = JsonLogicResult.NullResultFailure
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf(true, null)),
+                    resultValue = JsonLogicResult.NullResultFailure
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf(false, null)),
+                    resultValue = JsonLogicResult.NullResultFailure
+                ),
+                TestInput(
+                    expression = mapOf("*" to listOf(false, true)),
+                    resultValue = JsonLogicResult.NullResultFailure
+                ),
+                TestInput(expression = mapOf("*" to listOf(0, true)), resultValue = JsonLogicResult.NullResultFailure),
+                TestInput(expression = mapOf("*" to listOf(1, true)), resultValue = JsonLogicResult.NullResultFailure),
+                TestInput(expression = mapOf("*" to listOf("a", 2)), resultValue = JsonLogicResult.NullResultFailure),
+                TestInput(
+                    expression = mapOf("*" to listOf(true, false)),
+                    resultValue = JsonLogicResult.NullResultFailure
+                ),
             )
         )
     }
@@ -121,8 +146,8 @@ class MultiplicationTest : FunSpec({
 
 @Suppress("unused")
 private val defectiveTestCases = listOf(
-    Successful(
+    TestInput(
         expression = mapOf("*" to listOf("1.3", "3.7")),
-        resultValue = 4.81
+        resultValue = JsonLogicResult.Success(4.81)
     ),
 )

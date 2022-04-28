@@ -1,19 +1,19 @@
 package operations.logic
 
-import TestInput.Successful
-import TestInput.Unsuccessful
+import JsonLogicEngine
+import JsonLogicResult
+import TestInput
 import io.kotest.core.spec.style.FunSpec
-import testWithFailureResultData
 import testWithInputData
 
 class IfTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
     context("JsonLogic evaluation with If operation") {
-       testWithInputData(
-            logicEngine,
-            listOf(
-                Successful(
+        testWithInputData(
+            logicEngine = logicEngine,
+            data = listOf(
+                TestInput(
                     expression = mapOf(
                         "if" to listOf(
                             mapOf("missing" to listOf("a", "b")),
@@ -22,182 +22,182 @@ class IfTest : FunSpec({
                         )
                     ),
                     data = mapOf("a" to "apple", "b" to "banana"),
-                    resultValue = "OK to proceed"
+                    resultValue = JsonLogicResult.Success("OK to proceed")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(false, "apple", false, "banana", false, "carrot", "date")),
-                    resultValue = "date"
+                    resultValue = JsonLogicResult.Success("date")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(false, "apple", false, "banana", true, "carrot", "date")),
-                    resultValue = "carrot"
+                    resultValue = JsonLogicResult.Success("carrot")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(false, "apple", true, "banana", false, "carrot", "date")),
-                    resultValue = "banana"
+                    resultValue = JsonLogicResult.Success("banana")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(false, "apple", true, "banana", true, "carrot", "date")),
-                    resultValue = "banana"
+                    resultValue = JsonLogicResult.Success("banana")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(true, "apple", false, "banana", false, "carrot", "date")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(true, "apple", false, "banana", true, "carrot", "date")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(true, "apple", true, "banana", false, "carrot", "date")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(true, "apple", true, "banana", true, "carrot", "date")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(mapOf("var" to "x"), listOf(mapOf("var" to "y")), 99)),
                     data = mapOf("x" to true, "y" to 42),
-                    resultValue = listOf(42)
+                    resultValue = JsonLogicResult.Success(listOf(42))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(true, "apple", true, "banana", "carrot")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(true, "apple", false, "banana", "carrot")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(false, "apple", true, "banana", "carrot")),
-                    resultValue = "banana"
+                    resultValue = JsonLogicResult.Success("banana")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(false, "apple", false, "banana", "carrot")),
-                    resultValue = "carrot"
+                    resultValue = JsonLogicResult.Success("carrot")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(true, "apple", true, "banana")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(true, "apple", false, "banana")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(false, "apple", true, "banana")),
-                    resultValue = "banana"
+                    resultValue = JsonLogicResult.Success("banana")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(mapOf("missing" to "a"), "missed it", "found it")),
                     data = mapOf("a" to "apple"),
-                    resultValue = "found it"
+                    resultValue = JsonLogicResult.Success("found it")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(mapOf("missing" to "a"), "missed it", "found it")),
                     data = mapOf("b" to "banana"),
-                    resultValue = "missed it"
+                    resultValue = JsonLogicResult.Success("missed it")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "if" to listOf(
                             true,
                             mapOf("cat" to listOf("ap", "ple")),
                             mapOf("cat" to listOf("ba", "na", "na"))
                         )
-                    ), resultValue = "apple"
+                    ), resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "if" to listOf(
                             false,
                             mapOf("cat" to listOf("ap", "ple")),
                             mapOf("cat" to listOf("ba", "na", "na"))
                         )
-                    ), resultValue = "banana"
+                    ), resultValue = JsonLogicResult.Success("banana")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(mapOf(">" to listOf(2, 1)), "apple", "banana")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(mapOf(">" to listOf(1, 2)), "apple", "banana")),
-                    resultValue = "banana"
+                    resultValue = JsonLogicResult.Success("banana")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(true)),
-                    resultValue = true
+                    resultValue = JsonLogicResult.Success(true)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(false)),
-                    resultValue = false
+                    resultValue = JsonLogicResult.Success(false)
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf("apple")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(true, "apple")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(emptyList<Any>(), "apple", "banana")),
-                    resultValue = "banana"
+                    resultValue = JsonLogicResult.Success("banana")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(listOf(1), "apple", "banana")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(listOf(1, 2, 3, 4), "apple", "banana")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf("", "apple", "banana")),
-                    resultValue = "banana"
+                    resultValue = JsonLogicResult.Success("banana")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf("zucchini", "apple", "banana")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf("0", "apple", "banana")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(mapOf("+" to "0"), "apple", "banana")),
-                    resultValue = "banana"
+                    resultValue = JsonLogicResult.Success("banana")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(mapOf("+" to "1"), "apple", "banana")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(0, "apple", "banana")),
-                    resultValue = "banana"
+                    resultValue = JsonLogicResult.Success("banana")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(1, "apple", "banana")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(3.1416, "apple", "banana")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(-1, "apple", "banana")),
-                    resultValue = "apple"
+                    resultValue = JsonLogicResult.Success("apple")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(true, "yes", "no")),
-                    resultValue = "yes"
+                    resultValue = JsonLogicResult.Success("yes")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("if" to listOf(false, "yes", "no")),
-                    resultValue = "no"
+                    resultValue = JsonLogicResult.Success("no")
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "if" to listOf(
                             mapOf("<" to listOf(mapOf("var" to "temp"), 0)), "freezing",
@@ -206,17 +206,21 @@ class IfTest : FunSpec({
                         )
                     ),
                     data = mapOf("temp" to 55),
-                    resultValue = "liquid"
+                    resultValue = JsonLogicResult.Success("liquid")
                 ),
-            )
-        )
-        testWithFailureResultData(
-            logicEngine,
-            listOf(
-                Unsuccessful(expression = mapOf("if" to listOf(false, "apple"))),
-                Unsuccessful(expression = mapOf("if" to listOf<Any>())),
-                Unsuccessful(expression = mapOf("if" to listOf(false, "apple", false, "banana"))),
-                Unsuccessful(expression = mapOf("if" to listOf(false, "apple", false, "banana", false, "carrot")))
+                TestInput(
+                    expression = mapOf("if" to listOf(false, "apple")),
+                    resultValue = JsonLogicResult.NullResultFailure
+                ),
+                TestInput(expression = mapOf("if" to listOf<Any>()), resultValue = JsonLogicResult.NullResultFailure),
+                TestInput(
+                    expression = mapOf("if" to listOf(false, "apple", false, "banana")),
+                    resultValue = JsonLogicResult.NullResultFailure
+                ),
+                TestInput(
+                    expression = mapOf("if" to listOf(false, "apple", false, "banana", false, "carrot")),
+                    resultValue = JsonLogicResult.NullResultFailure
+                )
             )
         )
     }

@@ -16,11 +16,18 @@ suspend fun FunSpecContainerScope.testWithInputData(
     test = testBody(logicEngine)
 )
 
-private fun testBody(logicEngine: JsonLogicEngine): ContainerScope.(TestInput) -> Unit =
-    { (expression, data, result) ->
-        // when
-        val evaluationResult = logicEngine.evaluate(expression, data)
+private fun testBody(logicEngine: JsonLogicEngine): ContainerScope.(TestInput) -> Unit = { (expression, data, result) ->
+    // when
+    val evaluationResult = logicEngine.evaluate(expression, data)
 
-        // then
-        evaluationResult shouldBe result
+    // then
+    evaluationResult valueShouldBe result
+}
+
+private infix fun JsonLogicResult.valueShouldBe(other: JsonLogicResult) {
+    if(this is JsonLogicResult.Success && other is JsonLogicResult.Success) {
+        value shouldBe other.value
+    } else {
+        this shouldBe other
     }
+}

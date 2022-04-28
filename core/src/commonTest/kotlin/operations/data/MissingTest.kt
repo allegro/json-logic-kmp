@@ -1,6 +1,8 @@
 package operations.data
 
-import TestInput.Successful
+import JsonLogicEngine
+import JsonLogicResult
+import TestInput
 import io.kotest.core.spec.style.FunSpec
 import testWithInputData
 
@@ -8,105 +10,105 @@ class MissingTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
     context("JsonLogic evaluation with Missing operation") {
-       testWithInputData(
+        testWithInputData(
             logicEngine,
             listOf(
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a")),
                     data = mapOf("a" to ""),
-                    resultValue = listOf("a")
+                    resultValue = JsonLogicResult.Success(listOf("a"))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a")),
                     data = mapOf("a" to emptyList<Any>()),
-                    resultValue = emptyList<Any>()
+                    resultValue = JsonLogicResult.Success(emptyList<Any>())
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a")),
                     data = mapOf("a" to null),
-                    resultValue = listOf("a")
+                    resultValue = JsonLogicResult.Success(listOf("a"))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a")),
                     data = mapOf("a" to 0),
-                    resultValue = emptyList<Any>()
+                    resultValue = JsonLogicResult.Success(emptyList<Any>())
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a")),
                     data = mapOf("a" to "0"),
-                    resultValue = emptyList<Any>()
+                    resultValue = JsonLogicResult.Success(emptyList<Any>())
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a")),
                     data = mapOf("a" to listOf(null)),
-                    resultValue = emptyList<Any>()
+                    resultValue = JsonLogicResult.Success(emptyList<Any>())
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a")),
                     data = mapOf("a" to listOf("")),
-                    resultValue = emptyList<Any>()
+                    resultValue = JsonLogicResult.Success(emptyList<Any>())
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to emptyList<Any>()),
-                    resultValue = emptyList<Any>()
+                    resultValue = JsonLogicResult.Success(emptyList<Any>())
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a")),
-                    resultValue = listOf("a")
+                    resultValue = JsonLogicResult.Success(listOf("a"))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to "a"),
                     data = mapOf("a" to "apple"),
-                    resultValue = emptyList<Any>()
+                    resultValue = JsonLogicResult.Success(emptyList<Any>())
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a")),
                     data = mapOf("a" to "apple"),
-                    resultValue = emptyList<Any>()
+                    resultValue = JsonLogicResult.Success(emptyList<Any>())
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a", "b")),
                     data = mapOf("a" to "apple"),
-                    resultValue = listOf("b")
+                    resultValue = JsonLogicResult.Success(listOf("b"))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a", "b")),
                     data = mapOf("a" to "apple", "b" to "banana"),
-                    resultValue = emptyList<Any>()
+                    resultValue = JsonLogicResult.Success(emptyList<Any>())
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a", "b")),
-                    resultValue = listOf("a", "b")
+                    resultValue = JsonLogicResult.Success(listOf("a", "b"))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a", "b")),
-                    resultValue = listOf("a", "b")
+                    resultValue = JsonLogicResult.Success(listOf("a", "b"))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a.b")),
-                    resultValue = listOf("a.b")
+                    resultValue = JsonLogicResult.Success(listOf("a.b"))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a.b")),
                     data = mapOf("a" to "apple"),
-                    resultValue = listOf("a.b")
+                    resultValue = JsonLogicResult.Success(listOf("a.b"))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a.b")),
                     data = mapOf("a" to mapOf("c" to "apple cake")),
-                    resultValue = listOf("a.b")
+                    resultValue = JsonLogicResult.Success(listOf("a.b"))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a.b")),
                     data = mapOf("a" to mapOf("b" to "apple brownie")),
-                    resultValue = emptyList<Any>()
+                    resultValue = JsonLogicResult.Success(emptyList<Any>())
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf("missing" to listOf("a.b", "a.c")),
                     data = mapOf("a" to mapOf("b" to "apple brownie")),
-                    resultValue = listOf("a.c")
+                    resultValue = JsonLogicResult.Success(listOf("a.c"))
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "missing" to mapOf(
                             "merge" to listOf(
@@ -119,12 +121,14 @@ class MissingTest : FunSpec({
                         )
                     ),
                     data = mapOf("financing" to true),
-                    resultValue = listOf(
-                        "vin",
-                        "apr"
+                    resultValue = JsonLogicResult.Success(
+                        listOf(
+                            "vin",
+                            "apr"
+                        )
                     )
                 ),
-                Successful(
+                TestInput(
                     expression = mapOf(
                         "missing" to mapOf(
                             "merge" to listOf(
@@ -137,7 +141,7 @@ class MissingTest : FunSpec({
                         )
                     ),
                     data = mapOf("financing" to false),
-                    resultValue = listOf("vin")
+                    resultValue = JsonLogicResult.Success(listOf("vin"))
                 )
             )
         )
