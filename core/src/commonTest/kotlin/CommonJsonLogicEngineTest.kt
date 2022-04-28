@@ -1,4 +1,5 @@
 import io.kotest.core.spec.style.BehaviorSpec
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeTypeOf
 
 class CommonJsonLogicEngineTest : BehaviorSpec({
@@ -10,8 +11,8 @@ class CommonJsonLogicEngineTest : BehaviorSpec({
         `when`("on evaluation") {
             val result = logicEngine.evaluate(logicExpression, null)
 
-            then("returns failure result") {
-                result.shouldBeTypeOf<JsonLogicResult.MissingOperationFailure>()
+            then("returns missing operation failure result") {
+                result shouldBe JsonLogicResult.MissingOperationFailure
             }
         }
     }
@@ -22,8 +23,8 @@ class CommonJsonLogicEngineTest : BehaviorSpec({
         `when`("on evaluation") {
             val result = logicEngine.evaluate(logicExpression, null)
 
-            then("returns failure result") {
-                result.shouldBeTypeOf<JsonLogicResult.EmptyExpressionFailure>()
+            then("returns empty expression failure result") {
+                result shouldBe JsonLogicResult.EmptyExpressionFailure
             }
         }
     }
@@ -34,8 +35,8 @@ class CommonJsonLogicEngineTest : BehaviorSpec({
         `when`("on evaluation") {
             val result = logicEngine.evaluate(logicExpression, null)
 
-            then("returns failure result") {
-                result.shouldBeTypeOf<JsonLogicResult.NullResultFailure>()
+            then("returns null failure result") {
+                result shouldBe JsonLogicResult.NullResultFailure
             }
         }
     }
