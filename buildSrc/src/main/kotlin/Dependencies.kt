@@ -7,13 +7,19 @@ object LibConfig {
 }
 
 object Modules {
+    object XCFrameworkNames {
+        const val operationsStdlib = "JsonLogicOperationsStdlib"
+        const val operationsApi = "JsonLogicOperationsApi"
+        const val core = "JsonLogicCore"
+    }
+    
     const val core = ":core"
     const val operationsApi = ":operations-api"
     const val utils = ":utils"
 }
 
 object Versions {
-    const val kotlin = "1.6.10"
+    const val kotlin = "1.6.20"
     const val axion = "1.13.6"
     const val detekt = "1.19.0"
     const val nexus = "1.0.0"
@@ -44,5 +50,4 @@ object Libs {
 object Conventions {
     const val junit = "junit-convention"
     const val publishing = "publishing-convention"
-    const val xcframeworkAssemble = "xcframework-assemble-convention"
 }
