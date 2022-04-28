@@ -20,7 +20,7 @@ class MapTest : FunSpec({
                             mapOf("+" to listOf(mapOf("var" to ""), 2))
                         )
                     ),
-                    resultValue = JsonLogicResult.Success(listOf(3, 7, null))
+                    result = JsonLogicResult.Success(listOf(3, 7, null))
                 ),
                 TestInput(
                     expression = mapOf(
@@ -36,7 +36,7 @@ class MapTest : FunSpec({
                             mapOf("name" to "cupcake", "qty" to 3)
                         )
                     ),
-                    resultValue = JsonLogicResult.Success(listOf(1, 2, 3))
+                    result = JsonLogicResult.Success(listOf(1, 2, 3))
                 ),
                 TestInput(
                     expression = mapOf(
@@ -45,7 +45,7 @@ class MapTest : FunSpec({
                             mapOf("*" to listOf(mapOf("var" to ""), 2))
                         )
                     ),
-                    resultValue = JsonLogicResult.Success(emptyList<Any>())
+                    result = JsonLogicResult.Success(emptyList<Any>())
                 ),
                 TestInput(
                     expression = mapOf(
@@ -55,7 +55,7 @@ class MapTest : FunSpec({
                         )
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
-                    resultValue = JsonLogicResult.Success(listOf(2, 4, 6, 8, 10))
+                    result = JsonLogicResult.Success(listOf(2, 4, 6, 8, 10))
                 ),
                 TestInput(
                     expression = mapOf(
@@ -66,7 +66,7 @@ class MapTest : FunSpec({
                         )
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
-                    resultValue = JsonLogicResult.Success(emptyList<Any>())
+                    result = JsonLogicResult.Success(emptyList<Any>())
                 ),
                 TestInput(
                     expression = mapOf(
@@ -78,7 +78,7 @@ class MapTest : FunSpec({
                         )
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
-                    resultValue = JsonLogicResult.Success(listOf(1))
+                    result = JsonLogicResult.Success(listOf(1))
                 ),
                 TestInput(
                     expression = mapOf(
@@ -87,7 +87,7 @@ class MapTest : FunSpec({
                             mapOf("*" to listOf(mapOf("var" to ""), 2))
                         )
                     ),
-                    resultValue = JsonLogicResult.Success(listOf(4, null))
+                    result = JsonLogicResult.Success(listOf(4, null))
                 ),
                 TestInput(
                     expression = mapOf(
@@ -97,19 +97,19 @@ class MapTest : FunSpec({
                             mapOf("*" to listOf(mapOf("var" to ""), 2))
                         )
                     ),
-                    resultValue = JsonLogicResult.Success(emptyList<Any>())
+                    result = JsonLogicResult.Success(emptyList<Any>())
                 ),
                 TestInput(
                     expression = mapOf("map" to listOf(1, 2, 3, 4, 5)),
-                    resultValue = JsonLogicResult.Success(emptyList<Any>())
+                    result = JsonLogicResult.Success(emptyList<Any>())
                 ),
                 TestInput(
                     expression = mapOf("map" to listOf(listOf(1, 2, 3, 4, 5))),
-                    resultValue = JsonLogicResult.Success(listOf(null, null, null, null, null))
+                    result = JsonLogicResult.Success(listOf(null, null, null, null, null))
                 ),
                 TestInput(
                     expression = mapOf("map" to listOf(listOf(1, 2, 3), listOf(1, 2))),
-                    resultValue = JsonLogicResult.Success(listOf(listOf(1, 2), listOf(1, 2), listOf(1, 2)))
+                    result = JsonLogicResult.Success(listOf(listOf(1, 2), listOf(1, 2), listOf(1, 2)))
                 ),
                 TestInput(
                     expression = mapOf(
@@ -119,7 +119,7 @@ class MapTest : FunSpec({
                         )
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
-                    resultValue = JsonLogicResult.Success(listOf(2, 2))
+                    result = JsonLogicResult.Success(listOf(2, 2))
                 ),
                 TestInput(
                     expression = mapOf(
@@ -129,7 +129,7 @@ class MapTest : FunSpec({
                         )
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
-                    resultValue = JsonLogicResult.Success(listOf(1, 0, 1, 0, 1))
+                    result = JsonLogicResult.Success(listOf(1, 0, 1, 0, 1))
                 ),
                 TestInput(
                     expression = mapOf(
@@ -139,7 +139,7 @@ class MapTest : FunSpec({
                         )
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
-                    resultValue = JsonLogicResult.Success(listOf(1, 0, 1, 0, 1))
+                    result = JsonLogicResult.Success(listOf(1, 0, 1, 0, 1))
                 ),
                 TestInput(
                     expression = mapOf(
@@ -148,19 +148,19 @@ class MapTest : FunSpec({
                         )
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
-                    resultValue = JsonLogicResult.Success(emptyList<Any>())
+                    result = JsonLogicResult.Success(emptyList<Any>())
                 ),
                 TestInput(
                     expression = mapOf("map" to emptyList<Any>()),
-                    resultValue = JsonLogicResult.Success(emptyList<Any>())
+                    result = JsonLogicResult.Success(emptyList<Any>())
                 ),
                 TestInput(
                     expression = mapOf("map" to null),
-                    resultValue = JsonLogicResult.Success(emptyList<Any>())
+                    result = JsonLogicResult.Success(emptyList<Any>())
                 ),
                 TestInput(
                     expression = mapOf("map" to "banana"),
-                    resultValue = JsonLogicResult.Success(emptyList<Any>())
+                    result = JsonLogicResult.Success(emptyList<Any>())
                 ),
                 TestInput(
                     expression = mapOf(
@@ -171,7 +171,7 @@ class MapTest : FunSpec({
                         )
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
-                    resultValue = JsonLogicResult.Success(listOf(1, 0, 1, 0, 1))
+                    result = JsonLogicResult.Success(listOf(1, 0, 1, 0, 1))
                 ),
             )
         )

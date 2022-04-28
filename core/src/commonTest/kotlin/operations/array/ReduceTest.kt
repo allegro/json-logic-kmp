@@ -12,7 +12,7 @@ class ReduceTest : FunSpec({
     context("JsonLogic evaluation with Reduce operation") {
         testWithInputData(
             logicEngine = logicEngine,
-            nameFunction = { "Should apply ${it.data} on ${it.expression.keys} result in ${it.resultValue}" },
+            nameFunction = { "Should apply ${it.data} on ${it.expression.keys} result in ${it.result}" },
             data = listOf(
                 TestInput(
                     expression = mapOf(
@@ -22,7 +22,7 @@ class ReduceTest : FunSpec({
                             9
                         )
                     ),
-                    resultValue = JsonLogicResult.NullResultFailure
+                    result = JsonLogicResult.NullResultFailure
                 ),
                 TestInput(
                     expression = mapOf(
@@ -33,14 +33,14 @@ class ReduceTest : FunSpec({
                         )
                     ),
                     data = mapOf("b" to "banana"),
-                    resultValue = JsonLogicResult.NullResultFailure
+                    result = JsonLogicResult.NullResultFailure
                 ),
                 TestInput(
                     expression = mapOf(
                         "reduce" to listOf(mapOf("var" to "integers"))
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4)),
-                    resultValue = JsonLogicResult.NullResultFailure
+                    result = JsonLogicResult.NullResultFailure
                 ),
                 TestInput(
                     expression = mapOf(
@@ -49,42 +49,42 @@ class ReduceTest : FunSpec({
                             0
                         )
                     ),
-                    resultValue = JsonLogicResult.NullResultFailure
+                    result = JsonLogicResult.NullResultFailure
                 ),
                 TestInput(
                     expression = mapOf("reduce" to listOf(0)),
-                    resultValue = JsonLogicResult.NullResultFailure
+                    result = JsonLogicResult.NullResultFailure
                 ),
                 TestInput(
                     expression = mapOf("reduce" to emptyList<Any>()),
-                    resultValue = JsonLogicResult.NullResultFailure
+                    result = JsonLogicResult.NullResultFailure
                 ),
                 TestInput(
                     expression = mapOf("reduce" to null),
-                    resultValue = JsonLogicResult.NullResultFailure
+                    result = JsonLogicResult.NullResultFailure
                 ),
                 TestInput(
                     expression = mapOf(
                         "reduce" to listOf(listOf(1, 2), null, 4)
                     ),
-                    resultValue = JsonLogicResult.NullResultFailure
+                    result = JsonLogicResult.NullResultFailure
                 ),
                 TestInput(
                     expression = mapOf("reduce" to listOf(mapOf("var" to "integers"), 0)),
                     data = mapOf("integers" to listOf(1, 2, 3, 4)),
-                    resultValue = JsonLogicResult.Success(0)
+                    result = JsonLogicResult.Success(0)
                 ),
                 TestInput(
                     expression = mapOf(
                         "reduce" to listOf(1, 2, 3)
                     ),
-                    resultValue = JsonLogicResult.Success(3)
+                    result = JsonLogicResult.Success(3)
                 ),
                 TestInput(
                     expression = mapOf(
                         "reduce" to listOf(listOf(1, 2), 3, 4)
                     ),
-                    resultValue = JsonLogicResult.Success(3)
+                    result = JsonLogicResult.Success(3)
                 ),
                 TestInput(
                     expression = mapOf(
@@ -101,7 +101,7 @@ class ReduceTest : FunSpec({
                             mapOf("name" to "cupcake", "qty" to 3)
                         )
                     ),
-                    resultValue = JsonLogicResult.Success(6)
+                    result = JsonLogicResult.Success(6)
                 ),
                 TestInput(
                     expression = mapOf(
@@ -112,7 +112,7 @@ class ReduceTest : FunSpec({
                         )
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4)),
-                    resultValue = JsonLogicResult.Success(0)
+                    result = JsonLogicResult.Success(0)
                 ),
                 TestInput(
                     expression = mapOf(
@@ -123,7 +123,7 @@ class ReduceTest : FunSpec({
                         )
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4)),
-                    resultValue = JsonLogicResult.Success(24)
+                    result = JsonLogicResult.Success(24)
                 ),
                 TestInput(
                     expression = mapOf(
@@ -133,7 +133,7 @@ class ReduceTest : FunSpec({
                             0
                         )
                     ),
-                    resultValue = JsonLogicResult.Success(0)
+                    result = JsonLogicResult.Success(0)
                 ),
                 TestInput(
                     expression = mapOf(
@@ -144,7 +144,7 @@ class ReduceTest : FunSpec({
                         )
                     ),
                     data = mapOf("integers" to listOf(1, 2, 3, 4)),
-                    resultValue = JsonLogicResult.Success(10)
+                    result = JsonLogicResult.Success(10)
                 ),
             )
         )

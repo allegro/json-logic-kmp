@@ -7,7 +7,7 @@ suspend fun FunSpecContainerScope.testWithInputData(
     logicEngine: JsonLogicEngine,
     data: List<TestInput>,
     nameFunction: (TestInput) -> String = {
-        "Should apply ${it.data} on ${it.expression} result in ${it.resultValue}"
+        "Should apply ${it.data} on ${it.expression} result in ${it.result}"
     }
 ) = withData(
     nameFn = nameFunction,

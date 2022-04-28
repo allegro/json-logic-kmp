@@ -15,133 +15,133 @@ class SubtractionTest : FunSpec({
             data = listOf(
                 TestInput(
                     expression = mapOf("-" to listOf(2, 3)),
-                    resultValue = JsonLogicResult.Success(-1)
+                    result = JsonLogicResult.Success(-1)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(3, 2)),
-                    resultValue = JsonLogicResult.Success(1)
+                    result = JsonLogicResult.Success(1)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(3)),
-                    resultValue = JsonLogicResult.Success(-3)
+                    result = JsonLogicResult.Success(-3)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf("1", 1)),
-                    resultValue = JsonLogicResult.Success(0)
+                    result = JsonLogicResult.Success(0)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(0, 1)),
-                    resultValue = JsonLogicResult.Success(-1)
+                    result = JsonLogicResult.Success(-1)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf("1.3", 0)),
-                    resultValue = JsonLogicResult.Success(1.3)
+                    result = JsonLogicResult.Success(1.3)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf("1", 1.5, "banana")),
-                    resultValue = JsonLogicResult.Success(-0.5)
+                    result = JsonLogicResult.Success(-0.5)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf("1", 1, listOf("banana"))),
-                    resultValue = JsonLogicResult.Success(0.0)
+                    result = JsonLogicResult.Success(0.0)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(listOf("5"), listOf("5"), listOf("5"))),
-                    resultValue = JsonLogicResult.Success(0)
+                    result = JsonLogicResult.Success(0)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(listOf("5"), 6)),
-                    resultValue = JsonLogicResult.Success(-1)
+                    result = JsonLogicResult.Success(-1)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(listOf(listOf("5")), 6)),
-                    resultValue = JsonLogicResult.Success(-1)
+                    result = JsonLogicResult.Success(-1)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(listOf(listOf("5")), listOf(6))),
-                    resultValue = JsonLogicResult.Success(-1)
+                    result = JsonLogicResult.Success(-1)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(null, 5)),
-                    resultValue = JsonLogicResult.Success(-5)
+                    result = JsonLogicResult.Success(-5)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(2, null)),
-                    resultValue = JsonLogicResult.Success(2)
+                    result = JsonLogicResult.Success(2)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(null, null)),
-                    resultValue = JsonLogicResult.Success(0)
+                    result = JsonLogicResult.Success(0)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(null)),
-                    resultValue = JsonLogicResult.Success(0)
+                    result = JsonLogicResult.Success(0)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(true, false)),
-                    resultValue = JsonLogicResult.Success(1)
+                    result = JsonLogicResult.Success(1)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(true)),
-                    resultValue = JsonLogicResult.Success(-1)
+                    result = JsonLogicResult.Success(-1)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(false)),
-                    resultValue = JsonLogicResult.Success(0)
+                    result = JsonLogicResult.Success(0)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(true, null)),
-                    resultValue = JsonLogicResult.Success(1)
+                    result = JsonLogicResult.Success(1)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(false, null)),
-                    resultValue = JsonLogicResult.Success(0)
+                    result = JsonLogicResult.Success(0)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(false, true)),
-                    resultValue = JsonLogicResult.Success(-1)
+                    result = JsonLogicResult.Success(-1)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(0, true)),
-                    resultValue = JsonLogicResult.Success(-1)
+                    result = JsonLogicResult.Success(-1)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(1, true)),
-                    resultValue = JsonLogicResult.Success(0)
+                    result = JsonLogicResult.Success(0)
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(emptyList<String>(), 2)),
-                    resultValue = JsonLogicResult.Success(-2)
+                    result = JsonLogicResult.Success(-2)
                 ),
                 TestInput(
                     expression = mapOf("-" to emptyList<Double>()),
-                    resultValue = JsonLogicResult.NullResultFailure
+                    result = JsonLogicResult.NullResultFailure
                 ),
-                TestInput(expression = mapOf("-" to listOf("a", 2)), resultValue = JsonLogicResult.NullResultFailure),
+                TestInput(expression = mapOf("-" to listOf("a", 2)), result = JsonLogicResult.NullResultFailure),
                 TestInput(
                     expression = mapOf("-" to listOf(listOf(2, "a"), 2)),
-                    resultValue = JsonLogicResult.NullResultFailure
+                    result = JsonLogicResult.NullResultFailure
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(listOf("a", 2), 2)),
-                    resultValue = JsonLogicResult.NullResultFailure
+                    result = JsonLogicResult.NullResultFailure
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(listOf(2, 2), 2)),
-                    resultValue = JsonLogicResult.NullResultFailure
+                    result = JsonLogicResult.NullResultFailure
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(listOf(2, "a"), listOf("a", 2))),
-                    resultValue = JsonLogicResult.NullResultFailure
+                    result = JsonLogicResult.NullResultFailure
                 ),
                 TestInput(
                     expression = mapOf("-" to listOf(listOf("5", listOf("5")), listOf("5"), listOf("5"))),
-                    resultValue = JsonLogicResult.NullResultFailure
+                    result = JsonLogicResult.NullResultFailure
                 ),
-                TestInput(expression = mapOf("-" to listOf("banana")), resultValue = JsonLogicResult.NullResultFailure),
+                TestInput(expression = mapOf("-" to listOf("banana")), result = JsonLogicResult.NullResultFailure),
                 TestInput(
                     expression = mapOf("-" to listOf(listOf(listOf("5"), listOf(6)))),
-                    resultValue = JsonLogicResult.NullResultFailure
+                    result = JsonLogicResult.NullResultFailure
                 ),
             )
         )
@@ -152,6 +152,6 @@ class SubtractionTest : FunSpec({
 private val defectiveTestCases = listOf(
     TestInput(
         expression = mapOf("-" to listOf("2.3", 3.2)),
-        resultValue = JsonLogicResult.Success(-0.9)
+        result = JsonLogicResult.Success(-0.9)
     ),
 )
