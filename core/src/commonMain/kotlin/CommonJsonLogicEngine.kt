@@ -4,16 +4,16 @@ internal class CommonJsonLogicEngine(private val evaluator: LogicEvaluator) : Js
             it.isNotEmpty()
         }?.let {
             safeEvaluate(expression, data)
-        } ?: JsonLogicResult.Failure("JsonLogic expression mustn't be empty.")
+        } ?: JsonLogicResult.EmptyExpressionFailure
 
     private fun safeEvaluate(expression: Map<String, Any?>, data: Any?) = runCatching {
         evaluator.evaluateLogic(expression, data)
     }.fold(
         onSuccess = ::toJsonLogicResult,
-        onFailure = { JsonLogicResult.Failure(it.message) }
+        onFailure = { JsonLogicResult.MissingOperationFailure }
     )
 
     private fun toJsonLogicResult(evaluatedValue: Any?) = evaluatedValue?.let { notNullResult ->
         JsonLogicResult.Success(notNullResult)
-    } ?: JsonLogicResult.Failure("Evaluated expression has returned null.")
+    } ?: JsonLogicResult.NullResultFailure
 }
