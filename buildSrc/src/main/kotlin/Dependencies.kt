@@ -17,6 +17,7 @@ object Modules {
     const val core = ":core"
     const val operationsApi = ":operations-api"
     const val utils = ":utils"
+    const val kotlinTest = "test"
 }
 
 object Versions {

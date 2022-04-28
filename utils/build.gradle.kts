@@ -19,7 +19,7 @@ kotlin {
         val commonMain by getting
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test"))
+                implementation(kotlin(Modules.kotlinTest))
                 implementation(Libs.Kotest.assertionsCore)
                 implementation(Libs.Kotest.frameworkEngine)
                 implementation(Libs.Kotest.frameworkDataset)
