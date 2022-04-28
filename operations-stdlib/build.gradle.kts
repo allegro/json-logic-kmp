@@ -9,6 +9,7 @@ plugins {
 
 kotlin {
     jvm {
+        mavenPublication{ setFullModuleArtifactId() }
         compilations.all {
             kotlinOptions.jvmTarget = JavaVersion.VERSION_11.majorVersion
         }
@@ -34,8 +35,21 @@ kotlin {
                 implementation(Libs.KotlinX.datetime)
             }
         }
-        val commonTest by getting
-        val jvmTest by getting
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(Libs.Kotest.assertionsCore)
+                implementation(Libs.Kotest.frameworkEngine)
+                implementation(Libs.Kotest.frameworkDataset)
+                implementation(project(Modules.core))
+                implementation(project(Modules.utils))
+            }
+        }
+        val jvmTest by getting {
+            dependencies {
+                implementation(Libs.Kotest.jvmJunit5Runner)
+            }
+        }
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting

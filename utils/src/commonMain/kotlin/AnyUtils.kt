@@ -32,3 +32,7 @@ private val List<Any?>.doubleList: List<Double?>
 fun Any?.toStringOrEmpty() = this?.let { toString() }.orEmpty()
 
 fun Any?.isSingleNullList() = this is List<*> && size == 1 && first() == null
+
+fun Any?.isExpression() = (this as? Map<*, *>)?.let {
+    it.isNotEmpty() && it.keys.all { key -> key is String }
+} ?: false

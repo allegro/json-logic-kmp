@@ -4,6 +4,7 @@ object LibConfig {
     const val group = "pl.allegro.mobile"
     const val repositoryUrl = "https://github.com/allegro/json-logic-kmp"
     const val name = "JsonLogicKMP"
+    const val artifactName = "json-logic"
 }
 
 object Modules {
@@ -12,7 +13,8 @@ object Modules {
         const val operationsApi = "JsonLogicOperationsApi"
         const val core = "JsonLogicCore"
     }
-
+    
+    const val core = ":core"
     const val operationsApi = ":operations-api"
     const val utils = ":utils"
 }
@@ -47,6 +49,7 @@ object Libs {
 }
 
 object Conventions {
+    const val versioning = "versioning-convention"
     const val junit = "junit-convention"
     const val publishing = "publishing-convention"
 }
