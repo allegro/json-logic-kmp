@@ -5,7 +5,7 @@ import JsonLogicResult.Success
 import TestInput
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
-import io.kotest.matchers.shouldBe
+import valueShouldBe
 
 class EqualsTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
@@ -233,6 +233,6 @@ class EqualsTest : FunSpec({
         val evaluationResult = logicEngine.evaluate(testInput.expression, testInput.data)
 
         // then
-        evaluationResult shouldBe testInput.result
+        evaluationResult valueShouldBe testInput.result
     }
 })
