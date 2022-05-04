@@ -1,11 +1,11 @@
 package operations.array
 
 import LogicEvaluator
-import FunctionalLogicOperation
+import operation.FunctionalLogicOperation
 import kotlin.collections.Map
 
 internal object Map : FunctionalLogicOperation, NoInitialValueOperation {
-    override fun invoke(expression: Any?, data: Any?, evaluator: LogicEvaluator): Any? =
+    override fun evaluateLogic(expression: Any?, data: Any?, evaluator: LogicEvaluator): Any? =
         invokeArrayOperation(expression, data, evaluator, ::mapOrEmptyList)
 
     private fun mapOrEmptyList(

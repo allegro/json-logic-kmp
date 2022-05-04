@@ -1,9 +1,9 @@
 package operations.logic
 
-import StandardLogicOperation
+import operation.StandardLogicOperation
 
 internal object Equals : StandardLogicOperation, EqualsOperation {
-    override fun invoke(
+    override fun evaluateLogic(
         expression: Any?,
         data: Any?
     ): Boolean = compare(expression) { first, second -> first == second }

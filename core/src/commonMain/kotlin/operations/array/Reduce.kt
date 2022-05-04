@@ -1,7 +1,7 @@
 package operations.array
 
 import LogicEvaluator
-import FunctionalLogicOperation
+import operation.FunctionalLogicOperation
 import utils.asList
 import utils.thirdOrNull
 import kotlin.collections.Map
@@ -10,7 +10,7 @@ internal object Reduce : FunctionalLogicOperation, ArrayOperation {
     private const val CURRENT_DATA_KEY = "current"
     private const val ACCUMULATOR_DATA_KEY = "accumulator"
 
-    override fun invoke(expression: Any?, data: Any?, evaluator: LogicEvaluator): Any? =
+    override fun evaluateLogic(expression: Any?, data: Any?, evaluator: LogicEvaluator): Any? =
         expression.asList.let { expressionValues ->
             val input = createOperationInput(expressionValues, data, evaluator)
             val initialValue = expressionValues.thirdOrNull()

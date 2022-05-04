@@ -1,11 +1,10 @@
 package operations.array.occurence
 
 import LogicEvaluator
-import FunctionalLogicOperation
-import kotlin.collections.Map
+import operation.FunctionalLogicOperation
 
 internal object None : FunctionalLogicOperation, OccurrenceCheckOperation {
-    override fun invoke(expression: Any?, data: Any?, evaluator: LogicEvaluator): Any? =
+    override fun evaluateLogic(expression: Any?, data: Any?, evaluator: LogicEvaluator): Any? =
         checkOccurrence(expression, data, evaluator)
 
     override fun getOperationDefault(mappingOperation: Map<String, Any>?, expressionValues: List<Any?>) = true

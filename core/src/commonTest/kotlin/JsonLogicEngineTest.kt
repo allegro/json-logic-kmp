@@ -1,11 +1,13 @@
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeTypeOf
+import operation.FunctionalLogicOperation
+import operation.StandardLogicOperation
 
 class JsonLogicEngineTest : BehaviorSpec({
 
     given("A functional operation") {
-        val newFunctionalOperation: FunctionalLogicOperation = { _, _, _ -> "new operation result" }
+        val newFunctionalOperation = MockFunctionalOperation("new operation result")
         val logicEngine = JsonLogicEngine.Builder().addFunctionalOperation("newOne", newFunctionalOperation).build()
         val expression = mapOf("newOne" to listOf("argument"))
 
@@ -20,8 +22,9 @@ class JsonLogicEngineTest : BehaviorSpec({
     }
 
     given("A standard operation") {
-        val newStandardOperation: FunctionalLogicOperation = { _, _, _ -> "new operation result" }
+        val newStandardOperation = MockFunctionalOperation("new operation result")
         val logicEngine = JsonLogicEngine.Builder().addFunctionalOperation("newOne", newStandardOperation).build()
+
         val expression = mapOf("newOne" to listOf("argument"))
 
         `when`("added to the operations set") {
@@ -35,7 +38,7 @@ class JsonLogicEngineTest : BehaviorSpec({
     }
 
     given("An overriding log operation") {
-        val overridingOperation: StandardLogicOperation = { _, _ -> "new operation result" }
+        val overridingOperation = MockStandardOperation("new operation result")
         val logicEngine = JsonLogicEngine.Builder().addStandardOperation("log", overridingOperation).build()
         val expression = mapOf("log" to listOf("argument"))
 
@@ -50,7 +53,7 @@ class JsonLogicEngineTest : BehaviorSpec({
     }
 
     given("An overriding functional operation") {
-        val overridingOperation: FunctionalLogicOperation = { _, _, _ -> "new operation result" }
+        val overridingOperation = MockFunctionalOperation("new operation result")
         val logicEngine = JsonLogicEngine.Builder().addFunctionalOperation("filter", overridingOperation).build()
         val expression = mapOf(
             "filter" to listOf(
@@ -70,7 +73,7 @@ class JsonLogicEngineTest : BehaviorSpec({
     }
 
     given("An overriding functional operation") {
-        val overridingOperation: StandardLogicOperation = { _, _ -> "new operation result" }
+        val overridingOperation = MockStandardOperation("new operation result")
         val logicEngine = JsonLogicEngine.Builder().addStandardOperation("filter", overridingOperation).build()
         val expression = mapOf(
             "filter" to listOf(
@@ -90,7 +93,7 @@ class JsonLogicEngineTest : BehaviorSpec({
     }
 
     given("An overriding standard operation") {
-        val overridingOperation: StandardLogicOperation = { _, _ -> "new operation result" }
+        val overridingOperation = MockStandardOperation("new operation result")
         val logicEngine = JsonLogicEngine.Builder().addStandardOperation("var", overridingOperation).build()
         val expression = mapOf("var" to listOf("argument"))
         val data = mapOf("argument" to "common operation result")
@@ -106,7 +109,7 @@ class JsonLogicEngineTest : BehaviorSpec({
     }
 
     given("An overriding standard operation") {
-        val overridingOperation: FunctionalLogicOperation = { _, _, _ -> "new operation result" }
+        val overridingOperation = MockFunctionalOperation("new operation result")
         val logicEngine = JsonLogicEngine.Builder().addFunctionalOperation("var", overridingOperation).build()
         val expression = mapOf("var" to listOf("argument"))
         val data = mapOf("argument" to "common operation result")
@@ -121,3 +124,11 @@ class JsonLogicEngineTest : BehaviorSpec({
         }
     }
 })
+
+internal class MockStandardOperation(private val result: Any?) : StandardLogicOperation {
+    override fun evaluateLogic(expression: Any?, data: Any?): Any? = result
+}
+
+internal class MockFunctionalOperation(private val result: Any?) : FunctionalLogicOperation {
+    override fun evaluateLogic(expression: Any?, data: Any?, evaluator: LogicEvaluator): Any? = result
+}

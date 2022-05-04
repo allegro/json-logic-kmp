@@ -1,11 +1,11 @@
 package operations.data
 
-import StandardLogicOperation
+import operation.StandardLogicOperation
 
 internal object Missing : StandardLogicOperation {
-    override fun invoke(expression: Any?, data: Any?): List<Any?> {
+    override fun evaluateLogic(expression: Any?, data: Any?): List<Any?> {
         return (expression as? List<Any?>)?.mapNotNull {
-            it.takeIf { Var(it, data).isNullOrEmptyString() }
+            it.takeIf { Var.evaluateLogic(it, data).isNullOrEmptyString() }
         }.orEmpty()
     }
 
