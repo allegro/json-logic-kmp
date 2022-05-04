@@ -1,98 +1,238 @@
 package operations.logic
 
-import TestInput.Successful
+import JsonLogicEngine
+import JsonLogicResult.Success
+import TestInput
 import io.kotest.core.spec.style.FunSpec
-import testWithSuccessResultData
+import io.kotest.datatest.withData
+import valueShouldBe
 
 class EqualsTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
-    context("JsonLogic evaluation with Equals operation") {
-       testWithSuccessResultData(
-            logicEngine,
-            listOf(
-                Successful(expression = mapOf("==" to listOf(1, 1)), resultValue = true),
-                Successful(expression = mapOf("==" to listOf(1, "1")), resultValue = true),
-                Successful(expression = mapOf("==" to listOf(1, 2)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(null, 2)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(null, true)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(null, false)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(null, "false")), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(null, "true")), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(false, "false")), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(false, listOf("false"))), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(false, listOf(false))), resultValue = false),
-                Successful(
-                    expression = mapOf("==" to listOf(emptyList<Any>(), listOf(emptyList<Any>()))),
-                    resultValue = false
-                ),
-                Successful(expression = mapOf("==" to listOf(emptyList<Any>(), null)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(emptyList(), emptyList<Any>())), resultValue = false),
-                Successful(expression = mapOf("==" to listOf("null", null)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(true, "true")), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(1, null)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(listOf("banana"), null)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(listOf("banana"), true)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(listOf("banana"), false)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(true, false)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(false, true)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(true, true)), resultValue = true),
-                Successful(expression = mapOf("==" to listOf(1, listOf("1"))), resultValue = true),
-                Successful(expression = mapOf("==" to listOf(1, listOf(listOf("1")))), resultValue = true),
-                Successful(expression = mapOf("==" to listOf("banana", listOf(listOf("banana")))), resultValue = true),
-                Successful(
-                    expression = mapOf("==" to listOf("banana", listOf("banana", "banana"))),
-                    resultValue = false
-                ),
-                Successful(expression = mapOf("==" to listOf(1, listOf(1))), resultValue = true),
-                Successful(expression = mapOf("==" to listOf(1, false)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(-1, false)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(0, false)), resultValue = true),
-                Successful(expression = mapOf("==" to listOf(0, true)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(1, true)), resultValue = true),
-                Successful(expression = mapOf("==" to listOf(-1, true)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(true, true, false)), resultValue = true),
-                Successful(expression = mapOf("==" to listOf(1, 0, 1)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(1)), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(true)), resultValue = false),
-                Successful(expression = mapOf("==" to true), resultValue = false),
-                Successful(expression = mapOf("==" to false), resultValue = false),
-                Successful(expression = mapOf("==" to listOf("true")), resultValue = false),
-                Successful(expression = mapOf("==" to listOf("banana")), resultValue = false),
-                Successful(expression = mapOf("==" to "banana"), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(null)), resultValue = true),
-                Successful(expression = mapOf("==" to null), resultValue = true),
-                Successful(expression = mapOf("==" to ""), resultValue = false),
-                Successful(expression = mapOf("==" to "     "), resultValue = false),
-                Successful(expression = mapOf("==" to emptyList<Any>()), resultValue = true),
-                Successful(expression = mapOf("==" to listOf(emptyList<Any>())), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(null, null)), resultValue = true),
-                Successful(expression = mapOf("==" to listOf(listOf(null), listOf(null))), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(null, listOf(null))), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(1, listOf(null))), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(0, listOf(null))), resultValue = true),
-                Successful(expression = mapOf("==" to listOf(true, listOf(null))), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(false, listOf(null))), resultValue = true),
-                Successful(expression = mapOf("==" to listOf(listOf(false), listOf(false))), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(-1, listOf(null))), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(0.5, listOf(null))), resultValue = false),
-                Successful(expression = mapOf("==" to listOf("", "")), resultValue = true),
-                Successful(expression = mapOf("==" to listOf("", "    ")), resultValue = false),
-                Successful(expression = mapOf("==" to listOf("", listOf(""))), resultValue = true),
-                Successful(expression = mapOf("==" to listOf(listOf(""), listOf(""))), resultValue = false),
-                Successful(expression = mapOf("==" to listOf("", listOf(listOf("")))), resultValue = true),
-                Successful(expression = mapOf("==" to listOf("", emptyList<String>())), resultValue = true),
-                Successful(expression = mapOf("==" to listOf(false, emptyList<String>())), resultValue = true),
-                Successful(expression = mapOf("==" to listOf(0, emptyList<String>())), resultValue = true),
-                Successful(expression = mapOf("==" to listOf("0", emptyList<String>())), resultValue = false),
-                Successful(expression = mapOf("==" to listOf("0.0", emptyList<String>())), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(1, emptyList<String>())), resultValue = false),
-                Successful(expression = mapOf("==" to listOf("1", emptyList<String>())), resultValue = false),
-                Successful(expression = mapOf("==" to listOf("1.0", emptyList<String>())), resultValue = false),
-                Successful(expression = mapOf("==" to listOf(-1, emptyList<String>())), resultValue = false),
-                Successful(expression = mapOf("==" to listOf("-1", emptyList<String>())), resultValue = false),
-                Successful(expression = mapOf("==" to listOf("-1.0", emptyList<String>())), resultValue = false),
-            )
+    withData(
+        nameFn = { input -> "Should evaluated ${input.expression} with given ${input.data} result in ${input.result}" },
+        ts = listOf(
+            TestInput(expression = mapOf("==" to listOf(1, 1)), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf(1, "1")), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf(1, 2)), result = Success(false)),
+            TestInput(expression = mapOf("==" to listOf(null, 2)), result = Success(false)),
+            TestInput(expression = mapOf("==" to listOf(null, true)), result = Success(false)),
+            TestInput(
+                expression = mapOf("==" to listOf(null, false)),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(null, "false")),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(null, "true")),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(false, "false")),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(false, listOf("false"))),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(false, listOf(false))),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(emptyList<Any>(), listOf(emptyList<Any>()))),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(emptyList<Any>(), null)),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(emptyList(), emptyList<Any>())),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf("null", null)),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(true, "true")),
+                result = Success(false)
+            ),
+            TestInput(expression = mapOf("==" to listOf(1, null)), result = Success(false)),
+            TestInput(
+                expression = mapOf("==" to listOf(listOf("banana"), null)),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(listOf("banana"), true)),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(listOf("banana"), false)),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(true, false)),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(false, true)),
+                result = Success(false)
+            ),
+            TestInput(expression = mapOf("==" to listOf(true, true)), result = Success(true)),
+            TestInput(
+                expression = mapOf("==" to listOf(1, listOf("1"))),
+                result = Success(true)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(1, listOf(listOf("1")))),
+                result = Success(true)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf("banana", listOf(listOf("banana")))),
+                result = Success(true)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf("banana", listOf("banana", "banana"))),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(1, listOf(1))),
+                result = Success(true)
+            ),
+            TestInput(expression = mapOf("==" to listOf(1, false)), result = Success(false)),
+            TestInput(expression = mapOf("==" to listOf(-1, false)), result = Success(false)),
+            TestInput(expression = mapOf("==" to listOf(0, false)), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf(0, true)), result = Success(false)),
+            TestInput(expression = mapOf("==" to listOf(1, true)), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf(-1, true)), result = Success(false)),
+            TestInput(
+                expression = mapOf("==" to listOf(true, true, false)),
+                result = Success(true)
+            ),
+            TestInput(expression = mapOf("==" to listOf(1, 0, 1)), result = Success(false)),
+            TestInput(expression = mapOf("==" to listOf(1)), result = Success(false)),
+            TestInput(expression = mapOf("==" to listOf(true)), result = Success(false)),
+            TestInput(expression = mapOf("==" to true), result = Success(false)),
+            TestInput(expression = mapOf("==" to false), result = Success(false)),
+            TestInput(expression = mapOf("==" to listOf("true")), result = Success(false)),
+            TestInput(expression = mapOf("==" to listOf("banana")), result = Success(false)),
+            TestInput(expression = mapOf("==" to "banana"), result = Success(false)),
+            TestInput(expression = mapOf("==" to listOf(null)), result = Success(true)),
+            TestInput(expression = mapOf("==" to null), result = Success(true)),
+            TestInput(expression = mapOf("==" to ""), result = Success(false)),
+            TestInput(expression = mapOf("==" to "     "), result = Success(false)),
+            TestInput(expression = mapOf("==" to emptyList<Any>()), result = Success(true)),
+            TestInput(
+                expression = mapOf("==" to listOf(emptyList<Any>())),
+                result = Success(false)
+            ),
+            TestInput(expression = mapOf("==" to listOf(null, null)), result = Success(true)),
+            TestInput(
+                expression = mapOf("==" to listOf(listOf(null), listOf(null))),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(null, listOf(null))),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(1, listOf(null))),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(0, listOf(null))),
+                result = Success(true)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(true, listOf(null))),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(false, listOf(null))),
+                result = Success(true)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(listOf(false), listOf(false))),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(-1, listOf(null))),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(0.5, listOf(null))),
+                result = Success(false)
+            ),
+            TestInput(expression = mapOf("==" to listOf("", "")), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf("", "    ")), result = Success(false)),
+            TestInput(
+                expression = mapOf("==" to listOf("", listOf(""))),
+                result = Success(true)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(listOf(""), listOf(""))),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf("", listOf(listOf("")))),
+                result = Success(true)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf("", emptyList<String>())),
+                result = Success(true)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(false, emptyList<String>())),
+                result = Success(true)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(0, emptyList<String>())),
+                result = Success(true)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf("0", emptyList<String>())),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf("0.0", emptyList<String>())),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(1, emptyList<String>())),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf("1", emptyList<String>())),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf("1.0", emptyList<String>())),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf(-1, emptyList<String>())),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf("-1", emptyList<String>())),
+                result = Success(false)
+            ),
+            TestInput(
+                expression = mapOf("==" to listOf("-1.0", emptyList<String>())),
+                result = Success(false)
+            ),
         )
+        // given
+    ) { testInput: TestInput ->
+        // when
+        val evaluationResult = logicEngine.evaluate(testInput.expression, testInput.data)
+
+        // then
+        evaluationResult valueShouldBe testInput.result
     }
 })

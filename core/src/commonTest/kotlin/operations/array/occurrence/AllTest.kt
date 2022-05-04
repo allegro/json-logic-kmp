@@ -1,127 +1,135 @@
 package operations.array.occurrence
 
-import TestInput.Successful
+import JsonLogicEngine
+import JsonLogicResult
+import TestInput
 import io.kotest.core.spec.style.FunSpec
-import testWithSuccessResultData
+import io.kotest.datatest.withData
+import valueShouldBe
 
 class AllTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
-    context("JsonLogic evaluation with All operation") {
-        testWithSuccessResultData(
-            logicEngine,
-            listOf(
-                Successful(
-                    expression = mapOf(
-                        "all" to listOf(mapOf(">=" to listOf(mapOf("var" to ""), 1)))
-                    ),
-                    resultValue = false
+    withData(
+        nameFn = { input -> "Should evaluated ${input.expression} with given ${input.data} result in ${input.result}" },
+        ts = listOf(
+            TestInput(
+                expression = mapOf(
+                    "all" to listOf(mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                 ),
-                Successful(
-                    expression = mapOf(
-                        "all" to emptyList<Any>()
-                    ),
-                    resultValue = false
+                result = JsonLogicResult.Success(false)
+            ),
+            TestInput(
+                expression = mapOf(
+                    "all" to emptyList<Any>()
                 ),
-                Successful(
-                    expression = mapOf(
-                        "all" to listOf(null)
-                    ),
-                    resultValue = false
+                result = JsonLogicResult.Success(false)
+            ),
+            TestInput(
+                expression = mapOf(
+                    "all" to listOf(null)
                 ),
-                Successful(
-                    expression = mapOf(
-                        "all" to null
-                    ),
-                    resultValue = false
+                result = JsonLogicResult.Success(false)
+            ),
+            TestInput(
+                expression = mapOf(
+                    "all" to null
                 ),
-                Successful(
-                    expression = mapOf(
-                        "all" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
-                    ),
-                    resultValue = false
+                result = JsonLogicResult.Success(false)
+            ),
+            TestInput(
+                expression = mapOf(
+                    "all" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                 ),
-                Successful(
-                    expression = mapOf(
-                        "all" to listOf(
-                            mapOf(">=" to listOf(mapOf("var" to ""), 1)),
-                            mapOf(">=" to listOf(mapOf("var" to ""), 1))
-                        )
-                    ),
-                    resultValue = false
+                result = JsonLogicResult.Success(false)
+            ),
+            TestInput(
+                expression = mapOf(
+                    "all" to listOf(
+                        mapOf(">=" to listOf(mapOf("var" to ""), 1)),
+                        mapOf(">=" to listOf(mapOf("var" to ""), 1))
+                    )
                 ),
-                Successful(
-                    expression = mapOf(
-                        "all" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
-                    ),
-                    data = mapOf("integers" to listOf(1, 2, 3)),
-                    resultValue = true
+                result = JsonLogicResult.Success(false)
+            ),
+            TestInput(
+                expression = mapOf(
+                    "all" to listOf(mapOf("var" to "integers"), mapOf(">=" to listOf(mapOf("var" to ""), 1)))
                 ),
-                Successful(
-                    expression = mapOf(
-                        "all" to listOf(mapOf("var" to "integers"), mapOf("==" to listOf(mapOf("var" to ""), 1)))
-                    ),
-                    data = mapOf("integers" to listOf(1, 2, 3)),
-                    resultValue = false
+                data = mapOf("integers" to listOf(1, 2, 3)),
+                result = JsonLogicResult.Success(true)
+            ),
+            TestInput(
+                expression = mapOf(
+                    "all" to listOf(mapOf("var" to "integers"), mapOf("==" to listOf(mapOf("var" to ""), 1)))
                 ),
-                Successful(
-                    expression = mapOf(
-                        "all" to listOf(mapOf("var" to "integers"), mapOf("<" to listOf(mapOf("var" to ""), 1)))
-                    ),
-                    data = mapOf("integers" to listOf(1, 2, 3)),
-                    resultValue = false
+                data = mapOf("integers" to listOf(1, 2, 3)),
+                result = JsonLogicResult.Success(false)
+            ),
+            TestInput(
+                expression = mapOf(
+                    "all" to listOf(mapOf("var" to "integers"), mapOf("<" to listOf(mapOf("var" to ""), 1)))
                 ),
-                Successful(
-                    expression = mapOf(
-                        "all" to listOf(mapOf("var" to "integers"), mapOf("<" to listOf(mapOf("var" to ""), 1)))
-                    ),
-                    data = mapOf("integers" to emptyList<Any>()),
-                    resultValue = false
+                data = mapOf("integers" to listOf(1, 2, 3)),
+                result = JsonLogicResult.Success(false)
+            ),
+            TestInput(
+                expression = mapOf(
+                    "all" to listOf(mapOf("var" to "integers"), mapOf("<" to listOf(mapOf("var" to ""), 1)))
                 ),
-                Successful(
-                    expression = mapOf(
-                        "all" to listOf(mapOf("var" to "items"), mapOf(">=" to listOf(mapOf("var" to "qty"), 1)))
-                    ),
-                    data = mapOf(
-                        "items" to listOf(
-                            mapOf("qty" to 1, "sku" to "apple"),
-                            mapOf("qty" to 2, "sku" to "banana")
-                        )
-                    ),
-                    resultValue = true
+                data = mapOf("integers" to emptyList<Any>()),
+                result = JsonLogicResult.Success(false)
+            ),
+            TestInput(
+                expression = mapOf(
+                    "all" to listOf(mapOf("var" to "items"), mapOf(">=" to listOf(mapOf("var" to "qty"), 1)))
                 ),
-                Successful(
-                    expression = mapOf(
-                        "all" to listOf(mapOf("var" to "items"), mapOf(">" to listOf(mapOf("var" to "qty"), 1)))
-                    ),
-                    data = mapOf(
-                        "items" to listOf(
-                            mapOf("qty" to 1, "sku" to "apple"),
-                            mapOf("qty" to 2, "sku" to "banana")
-                        )
-                    ),
-                    resultValue = false
+                data = mapOf(
+                    "items" to listOf(
+                        mapOf("qty" to 1, "sku" to "apple"),
+                        mapOf("qty" to 2, "sku" to "banana")
+                    )
                 ),
-                Successful(
-                    expression = mapOf(
-                        "all" to listOf(mapOf("var" to "items"), mapOf("<" to listOf(mapOf("var" to "qty"), 1)))
-                    ),
-                    data = mapOf(
-                        "items" to listOf(
-                            mapOf("qty" to 1, "sku" to "apple"),
-                            mapOf("qty" to 2, "sku" to "banana")
-                        )
-                    ),
-                    resultValue = false
+                result = JsonLogicResult.Success(true)
+            ),
+            TestInput(
+                expression = mapOf(
+                    "all" to listOf(mapOf("var" to "items"), mapOf(">" to listOf(mapOf("var" to "qty"), 1)))
                 ),
-                Successful(
-                    expression = mapOf(
-                        "all" to listOf(mapOf("var" to "items"), mapOf(">=" to listOf(mapOf("var" to "qty"), 1)))
-                    ),
-                    data = mapOf("items" to emptyList<Any>()),
-                    resultValue = false
-                )
+                data = mapOf(
+                    "items" to listOf(
+                        mapOf("qty" to 1, "sku" to "apple"),
+                        mapOf("qty" to 2, "sku" to "banana")
+                    )
+                ),
+                result = JsonLogicResult.Success(false)
+            ),
+            TestInput(
+                expression = mapOf(
+                    "all" to listOf(mapOf("var" to "items"), mapOf("<" to listOf(mapOf("var" to "qty"), 1)))
+                ),
+                data = mapOf(
+                    "items" to listOf(
+                        mapOf("qty" to 1, "sku" to "apple"),
+                        mapOf("qty" to 2, "sku" to "banana")
+                    )
+                ),
+                result = JsonLogicResult.Success(false)
+            ),
+            TestInput(
+                expression = mapOf(
+                    "all" to listOf(mapOf("var" to "items"), mapOf(">=" to listOf(mapOf("var" to "qty"), 1)))
+                ),
+                data = mapOf("items" to emptyList<Any>()),
+                result = JsonLogicResult.Success(false)
             )
         )
+        // given
+    ) { testInput: TestInput ->
+        // when
+        val evaluationResult = logicEngine.evaluate(testInput.expression, testInput.data)
+
+        // then
+        evaluationResult valueShouldBe testInput.result
     }
 })

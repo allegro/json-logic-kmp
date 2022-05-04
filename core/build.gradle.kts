@@ -38,8 +38,7 @@ kotlin {
 
         val commonTest by getting {
             dependencies {
-                implementation(Libs.KotlinX.serializationJson)
-                implementation(kotlin("test"))
+                implementation(kotlin(Modules.kotlinTest))
                 implementation(Libs.Kotest.assertionsCore)
                 implementation(Libs.Kotest.frameworkEngine)
                 implementation(Libs.Kotest.frameworkDataset)

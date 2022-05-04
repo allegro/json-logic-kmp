@@ -1,111 +1,145 @@
 package operations.numeric
 
-import TestInput.Successful
-import TestInput.Unsuccessful
+import JsonLogicEngine
+import JsonLogicResult
+import TestInput
 import io.kotest.core.spec.style.FunSpec
-import testWithFailureResultData
-import testWithSuccessResultData
+import io.kotest.datatest.withData
+import valueShouldBe
 
 class AdditionTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
-    context("JsonLogic evaluation with Addition operation") {
-       testWithSuccessResultData(
-            logicEngine,
-            listOf(
-                Successful(
-                    expression = mapOf("+" to listOf(1, 2)),
-                    resultValue = 3
-                ),
-                Successful(
-                    expression = mapOf("+" to listOf(listOf("5"), listOf("5"), listOf("5"))),
-                    resultValue = 15
-                ),
-                Successful(
-                    expression = mapOf("+" to listOf(listOf("5", listOf("5")), listOf("5"), listOf("5"))),
-                    resultValue = 15
-                ),
-                Successful(
-                    expression = mapOf("+" to listOf(listOf("5"), 6)),
-                    resultValue = 11
-                ),
-                Successful(
-                    expression = mapOf("+" to listOf(listOf(listOf("5")), 6)),
-                    resultValue = 11
-                ),
-                Successful(
-                    expression = mapOf("+" to listOf(listOf(listOf("5")), listOf(6))),
-                    resultValue = 11
-                ),
-                Successful(
-                    expression = mapOf("+" to listOf(listOf(listOf("5"), listOf(6)))),
-                    resultValue = 5
-                ),
-                Successful(
-                    expression = mapOf("+" to listOf(listOf("5"), listOf("6"))),
-                    resultValue = 11
-                ),
-                Successful(
-                    expression = mapOf("+" to listOf(2, 2, 2)),
-                    resultValue = 6
-                ),
-                Successful(
-                    expression = mapOf("+" to listOf(1)),
-                    resultValue = 1
-                ),
-                Successful(
-                    expression = mapOf("+" to emptyList<Double>()),
-                    resultValue = 0
-                ),
-                Successful(
-                    expression = mapOf("+" to listOf("1", 1)),
-                    resultValue = 2
-                ),
-                Successful(
-                    expression = mapOf("+" to listOf("1", 1.5)),
-                    resultValue = 2.5
-                ),
-                Successful(
-                    expression = mapOf("+" to listOf(12.6543534, 1.1)),
-                    resultValue = 13.7543534
-                ),
-                Successful(
-                    expression = mapOf("+" to listOf(9, .9, .09, .009, .0009, .00009)),
-                    resultValue = 9.99999
-                ),
-                Successful(
-                    expression = mapOf("+" to listOf(listOf(2, 2), 2)),
-                    resultValue = 4
-                ),
-                Successful(
-                    expression = mapOf("+" to listOf(listOf(2, "a"), 2)),
-                    resultValue = 4
-                ),
-            )
+    withData(
+        nameFn = { input -> "Should evaluated ${input.expression} with given ${input.data} result in ${input.result}" },
+        ts = listOf(
+            TestInput(
+                expression = mapOf("+" to listOf(1, 2)),
+                result = JsonLogicResult.Success(3)
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(listOf("5"), listOf("5"), listOf("5"))),
+                result = JsonLogicResult.Success(15)
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(listOf("5", listOf("5")), listOf("5"), listOf("5"))),
+                result = JsonLogicResult.Success(15)
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(listOf("5"), 6)),
+                result = JsonLogicResult.Success(11)
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(listOf(listOf("5")), 6)),
+                result = JsonLogicResult.Success(11)
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(listOf(listOf("5")), listOf(6))),
+                result = JsonLogicResult.Success(11)
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(listOf(listOf("5"), listOf(6)))),
+                result = JsonLogicResult.Success(5)
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(listOf("5"), listOf("6"))),
+                result = JsonLogicResult.Success(11)
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(2, 2, 2)),
+                result = JsonLogicResult.Success(6)
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(1)),
+                result = JsonLogicResult.Success(1)
+            ),
+            TestInput(
+                expression = mapOf("+" to emptyList<Double>()),
+                result = JsonLogicResult.Success(0)
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf("1", 1)),
+                result = JsonLogicResult.Success(2)
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf("1", 1.5)),
+                result = JsonLogicResult.Success(2.5)
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(12.6543534, 1.1)),
+                result = JsonLogicResult.Success(13.7543534)
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(9, .9, .09, .009, .0009, .00009)),
+                result = JsonLogicResult.Success(9.99999)
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(listOf(2, 2), 2)),
+                result = JsonLogicResult.Success(4)
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(listOf(2, "a"), 2)),
+                result = JsonLogicResult.Success(4)
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(2, 2, null)),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf("1", 1.5, "banana")),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf("1", 1, listOf("banana"))),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(expression = mapOf("+" to listOf("a", 2)), result = JsonLogicResult.NullResultFailure),
+            TestInput(
+                expression = mapOf("+" to listOf(listOf("a", 2), 2)),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(listOf(2, "a"), listOf("a", 2))),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(expression = mapOf("+" to listOf(null, 5)), result = JsonLogicResult.NullResultFailure),
+            TestInput(expression = mapOf("+" to listOf(5, null)), result = JsonLogicResult.NullResultFailure),
+            TestInput(
+                expression = mapOf("+" to listOf(null, null)),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(expression = mapOf("+" to listOf(null)), result = JsonLogicResult.NullResultFailure),
+            TestInput(
+                expression = mapOf("+" to listOf(true, false)),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(expression = mapOf("+" to listOf(true)), result = JsonLogicResult.NullResultFailure),
+            TestInput(expression = mapOf("+" to listOf(false)), result = JsonLogicResult.NullResultFailure),
+            TestInput(
+                expression = mapOf("+" to listOf(true, null)),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(false, null)),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(false, true)),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(expression = mapOf("+" to listOf(0, true)), result = JsonLogicResult.NullResultFailure),
+            TestInput(expression = mapOf("+" to listOf(1, true)), result = JsonLogicResult.NullResultFailure),
+            TestInput(
+                expression = mapOf("+" to listOf(emptyList<String>(), 2)),
+                result = JsonLogicResult.NullResultFailure
+            ),
         )
-        testWithFailureResultData(
-            logicEngine,
-            listOf(
-                Unsuccessful(expression = mapOf("+" to listOf(2, 2, null))),
-                Unsuccessful(expression = mapOf("+" to listOf("1", 1.5, "banana"))),
-                Unsuccessful(expression = mapOf("+" to listOf("1", 1, listOf("banana")))),
-                Unsuccessful(expression = mapOf("+" to listOf("a", 2))),
-                Unsuccessful(expression = mapOf("+" to listOf(listOf("a", 2), 2))),
-                Unsuccessful(expression = mapOf("+" to listOf(listOf(2, "a"), listOf("a", 2)))),
-                Unsuccessful(expression = mapOf("+" to listOf(null, 5))),
-                Unsuccessful(expression = mapOf("+" to listOf(5, null))),
-                Unsuccessful(expression = mapOf("+" to listOf(null, null))),
-                Unsuccessful(expression = mapOf("+" to listOf(null))),
-                Unsuccessful(expression = mapOf("+" to listOf(true, false))),
-                Unsuccessful(expression = mapOf("+" to listOf(true))),
-                Unsuccessful(expression = mapOf("+" to listOf(false))),
-                Unsuccessful(expression = mapOf("+" to listOf(true, null))),
-                Unsuccessful(expression = mapOf("+" to listOf(false, null))),
-                Unsuccessful(expression = mapOf("+" to listOf(false, true))),
-                Unsuccessful(expression = mapOf("+" to listOf(0, true))),
-                Unsuccessful(expression = mapOf("+" to listOf(1, true))),
-                Unsuccessful(expression = mapOf("+" to listOf(emptyList<String>(), 2))),
-            )
-        )
+        // given
+    ) { testInput: TestInput ->
+        // when
+        val evaluationResult = logicEngine.evaluate(testInput.expression, testInput.data)
+
+        // then
+        evaluationResult valueShouldBe testInput.result
     }
 })

@@ -1,35 +1,49 @@
 package operations.logic
 
-import TestInput.Successful
+import JsonLogicEngine
+import JsonLogicResult
+import TestInput
 import io.kotest.core.spec.style.FunSpec
-import testWithSuccessResultData
+import io.kotest.datatest.withData
+import valueShouldBe
 
 class NegationTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
-    context("JsonLogic evaluation with Negation operation") {
-       testWithSuccessResultData(
-            logicEngine,
-            listOf(
-                Successful(expression = mapOf("!" to listOf(false)), resultValue = true),
-                Successful(expression = mapOf("!" to listOf(true)), resultValue = false),
-                Successful(expression = mapOf("!" to "false"), resultValue = false),
-                Successful(expression = mapOf("!" to false), resultValue = true),
-                Successful(expression = mapOf("!" to true), resultValue = false),
-                Successful(expression = mapOf("!" to 0), resultValue = true),
-                Successful(expression = mapOf("!" to 1), resultValue = false),
-                Successful(expression = mapOf("!" to listOf(emptyList<Boolean>())), resultValue = true),
-                Successful(expression = mapOf("!" to listOf(0)), resultValue = true),
-                Successful(expression = mapOf("!" to listOf("")), resultValue = true),
-                Successful(expression = mapOf("!" to listOf("0")), resultValue = false),
-                Successful(expression = mapOf("!" to listOf(null)), resultValue = true),
-                Successful(expression = mapOf("!" to listOf("banana", null)), resultValue = false),
-                Successful(expression = mapOf("!" to listOf(13)), resultValue = false),
-                Successful(expression = mapOf("!" to listOf(false, false)), resultValue = true),
-                Successful(expression = mapOf("!" to listOf(true, true)), resultValue = false),
-                Successful(expression = mapOf("!" to listOf(true, null)), resultValue = false),
-                Successful(expression = mapOf("!" to listOf(null, null)), resultValue = true),
-            )
+    withData(
+        nameFn = { input -> "Should evaluated ${input.expression} with given ${input.data} result in ${input.result}" },
+        ts = listOf(
+            TestInput(expression = mapOf("!" to listOf(false)), result = JsonLogicResult.Success(true)),
+            TestInput(expression = mapOf("!" to listOf(true)), result = JsonLogicResult.Success(false)),
+            TestInput(expression = mapOf("!" to "false"), result = JsonLogicResult.Success(false)),
+            TestInput(expression = mapOf("!" to false), result = JsonLogicResult.Success(true)),
+            TestInput(expression = mapOf("!" to true), result = JsonLogicResult.Success(false)),
+            TestInput(expression = mapOf("!" to 0), result = JsonLogicResult.Success(true)),
+            TestInput(expression = mapOf("!" to 1), result = JsonLogicResult.Success(false)),
+            TestInput(
+                expression = mapOf("!" to listOf(emptyList<Boolean>())),
+                result = JsonLogicResult.Success(true)
+            ),
+            TestInput(expression = mapOf("!" to listOf(0)), result = JsonLogicResult.Success(true)),
+            TestInput(expression = mapOf("!" to listOf("")), result = JsonLogicResult.Success(true)),
+            TestInput(expression = mapOf("!" to listOf("0")), result = JsonLogicResult.Success(false)),
+            TestInput(expression = mapOf("!" to listOf(null)), result = JsonLogicResult.Success(true)),
+            TestInput(
+                expression = mapOf("!" to listOf("banana", null)),
+                result = JsonLogicResult.Success(false)
+            ),
+            TestInput(expression = mapOf("!" to listOf(13)), result = JsonLogicResult.Success(false)),
+            TestInput(expression = mapOf("!" to listOf(false, false)), result = JsonLogicResult.Success(true)),
+            TestInput(expression = mapOf("!" to listOf(true, true)), result = JsonLogicResult.Success(false)),
+            TestInput(expression = mapOf("!" to listOf(true, null)), result = JsonLogicResult.Success(false)),
+            TestInput(expression = mapOf("!" to listOf(null, null)), result = JsonLogicResult.Success(true)),
         )
+        // given
+    ) { testInput: TestInput ->
+        // when
+        val evaluationResult = logicEngine.evaluate(testInput.expression, testInput.data)
+
+        // then
+        evaluationResult valueShouldBe testInput.result
     }
 })

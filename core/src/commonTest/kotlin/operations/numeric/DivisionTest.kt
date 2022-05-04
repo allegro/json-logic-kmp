@@ -1,107 +1,141 @@
 package operations.numeric
 
-import TestInput.Successful
-import TestInput.Unsuccessful
+import JsonLogicEngine
+import JsonLogicResult
+import TestInput
 import io.kotest.core.spec.style.FunSpec
-import testWithFailureResultData
-import testWithSuccessResultData
+import io.kotest.datatest.withData
+import valueShouldBe
 
 class DivisionTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().build()
 
-    context("JsonLogic evaluation with Division operation") {
-       testWithSuccessResultData(
-            logicEngine,
-            listOf(
-                Successful(
-                    expression = mapOf("/" to listOf(4, 2)),
-                    resultValue = 2
-                ),
-                Successful(
-                    expression = mapOf("/" to listOf(2, 4)),
-                    resultValue = 0.5
-                ),
-                Successful(
-                    expression = mapOf("/" to listOf("1", 1)),
-                    resultValue = 1
-                ),
-                Successful(
-                    expression = mapOf("/" to listOf(0, 1)),
-                    resultValue = 0
-                ),
-                Successful(
-                    expression = mapOf("/" to listOf("2.5", "2")),
-                    resultValue = 1.25
-                ),
-                Successful(
-                    expression = mapOf("/" to listOf("2.5", "2", "3", 5)),
-                    resultValue = 1.25
-                ),
-                Successful(
-                    expression = mapOf("/" to listOf(listOf("2.5"), 2)),
-                    resultValue = 1.25
-                ),
-                Successful(
-                    expression = mapOf("/" to listOf(null, 5)),
-                    resultValue = 0
-                ),
-                Successful(
-                    expression = mapOf("/" to listOf(false, true)),
-                    resultValue = 0
-                ),
-                Successful(
-                    expression = mapOf("/" to listOf(0, true)),
-                    resultValue = 0
-                ),
-                Successful(
-                    expression = mapOf("/" to listOf(1, true)),
-                    resultValue = 1
-                ),
-                Successful(
-                    expression = mapOf("/" to listOf(listOf("5"), listOf("5"), listOf("5"))),
-                    resultValue = 1
-                ),
-                Successful(
-                    expression = mapOf("/" to listOf(listOf("5"), 5)),
-                    resultValue = 1
-                ),
-                Successful(
-                    expression = mapOf("/" to listOf(listOf(listOf("5")), 5)),
-                    resultValue = 1
-                ),
-                Successful(
-                    expression = mapOf("/" to listOf(listOf(listOf("5")), listOf(5))),
-                    resultValue = 1
-                ),
-                Successful(
-                    expression = mapOf("/" to listOf(emptyList<String>(), 2)),
-                    resultValue = 0
-                )
-            )
+    withData(
+        nameFn = { input -> "Should evaluated ${input.expression} with given ${input.data} result in ${input.result}" },
+        ts = listOf(
+            TestInput(
+                expression = mapOf("/" to listOf(4, 2)),
+                result = JsonLogicResult.Success(2)
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(2, 4)),
+                result = JsonLogicResult.Success(0.5)
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf("1", 1)),
+                result = JsonLogicResult.Success(1)
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(0, 1)),
+                result = JsonLogicResult.Success(0)
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf("2.5", "2")),
+                result = JsonLogicResult.Success(1.25)
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf("2.5", "2", "3", 5)),
+                result = JsonLogicResult.Success(1.25)
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(listOf("2.5"), 2)),
+                result = JsonLogicResult.Success(1.25)
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(null, 5)),
+                result = JsonLogicResult.Success(0)
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(false, true)),
+                result = JsonLogicResult.Success(0)
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(0, true)),
+                result = JsonLogicResult.Success(0)
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(1, true)),
+                result = JsonLogicResult.Success(1)
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(listOf("5"), listOf("5"), listOf("5"))),
+                result = JsonLogicResult.Success(1)
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(listOf("5"), 5)),
+                result = JsonLogicResult.Success(1)
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(listOf(listOf("5")), 5)),
+                result = JsonLogicResult.Success(1)
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(listOf(listOf("5")), listOf(5))),
+                result = JsonLogicResult.Success(1)
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(emptyList<String>(), 2)),
+                result = JsonLogicResult.Success(0)
+            ),
+            TestInput(expression = mapOf("/" to listOf("1", "0")), result = JsonLogicResult.NullResultFailure),
+            TestInput(expression = mapOf("/" to listOf("1", 0)), result = JsonLogicResult.NullResultFailure),
+            TestInput(
+                expression = mapOf("/" to listOf("2.5", listOf("2", "3", 5))),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(expression = mapOf("/" to listOf(2, null)), result = JsonLogicResult.NullResultFailure),
+            TestInput(
+                expression = mapOf("/" to listOf(null, null)),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(expression = mapOf("/" to listOf(null)), result = JsonLogicResult.NullResultFailure),
+            TestInput(expression = mapOf("/" to listOf("banana")), result = JsonLogicResult.NullResultFailure),
+            TestInput(
+                expression = mapOf("/" to listOf(true, false)),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(expression = mapOf("/" to listOf(true)), result = JsonLogicResult.NullResultFailure),
+            TestInput(expression = mapOf("/" to listOf(false)), result = JsonLogicResult.NullResultFailure),
+            TestInput(
+                expression = mapOf("/" to listOf(true, null)),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(false, null)),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(expression = mapOf("/" to listOf("a", 2)), result = JsonLogicResult.NullResultFailure),
+            TestInput(
+                expression = mapOf("/" to listOf(listOf(2, "a"), 2)),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(listOf("a", 2), 2)),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(listOf(2, 2), 2)),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(listOf(2, "a"), listOf("a", 2))),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(listOf("5", listOf("5")), listOf("5"), listOf("5"))),
+                result = JsonLogicResult.NullResultFailure
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(listOf(listOf("5"), listOf(6)))),
+                result = JsonLogicResult.NullResultFailure
+            ),
         )
-        testWithFailureResultData(
-            logicEngine,
-            listOf(
-                Unsuccessful(expression = mapOf("/" to listOf("1", "0"))),
-                Unsuccessful(expression = mapOf("/" to listOf("1", 0))),
-                Unsuccessful(expression = mapOf("/" to listOf("2.5", listOf("2", "3", 5)))),
-                Unsuccessful(expression = mapOf("/" to listOf(2, null))),
-                Unsuccessful(expression = mapOf("/" to listOf(null, null))),
-                Unsuccessful(expression = mapOf("/" to listOf(null))),
-                Unsuccessful(expression = mapOf("/" to listOf("banana"))),
-                Unsuccessful(expression = mapOf("/" to listOf(true, false))),
-                Unsuccessful(expression = mapOf("/" to listOf(true))),
-                Unsuccessful(expression = mapOf("/" to listOf(false))),
-                Unsuccessful(expression = mapOf("/" to listOf(true, null))),
-                Unsuccessful(expression = mapOf("/" to listOf(false, null))),
-                Unsuccessful(expression = mapOf("/" to listOf("a", 2))),
-                Unsuccessful(expression = mapOf("/" to listOf(listOf(2, "a"), 2))),
-                Unsuccessful(expression = mapOf("/" to listOf(listOf("a", 2), 2))),
-                Unsuccessful(expression = mapOf("/" to listOf(listOf(2, 2), 2))),
-                Unsuccessful(expression = mapOf("/" to listOf(listOf(2, "a"), listOf("a", 2)))),
-                Unsuccessful(expression = mapOf("/" to listOf(listOf("5", listOf("5")), listOf("5"), listOf("5")))),
-                Unsuccessful(expression = mapOf("/" to listOf(listOf(listOf("5"), listOf(6))))),
-            )
-        )
+        // given
+    ) { testInput: TestInput ->
+        // when
+        val evaluationResult = logicEngine.evaluate(testInput.expression, testInput.data)
+
+        // then
+        evaluationResult valueShouldBe testInput.result
     }
 })
