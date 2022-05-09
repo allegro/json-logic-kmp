@@ -1,10 +1,10 @@
 package operations.array.occurence
 
 import LogicEvaluator
-import FunctionalLogicOperation
+import operation.FunctionalLogicOperation
 
 internal object All : FunctionalLogicOperation, OccurrenceCheckOperation {
-    override fun invoke(expression: Any?, data: Any?, evaluator: LogicEvaluator): Any? =
+    override fun evaluateLogic(expression: Any?, data: Any?, evaluator: LogicEvaluator): Any? =
         checkOccurrence(expression, data, evaluator)
 
     override fun check(

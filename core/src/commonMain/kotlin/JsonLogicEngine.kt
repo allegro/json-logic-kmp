@@ -1,5 +1,7 @@
 import evaluation.CommonLogicEvaluator
 import evaluation.LogicOperations
+import operation.FunctionalLogicOperation
+import operation.StandardLogicOperation
 import operations.In
 import operations.Log
 import operations.array.Filter

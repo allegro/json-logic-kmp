@@ -1,7 +1,7 @@
 package evaluation
 
-import FunctionalLogicOperation
-import StandardLogicOperation
+import operation.FunctionalLogicOperation
+import operation.StandardLogicOperation
 
 internal data class LogicOperations(
     val standardOperations: Map<String, StandardLogicOperation> = emptyMap(),

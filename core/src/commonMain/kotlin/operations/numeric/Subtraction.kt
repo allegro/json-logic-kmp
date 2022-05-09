@@ -1,10 +1,10 @@
 package operations.numeric
 
-import StandardLogicOperation
+import operation.StandardLogicOperation
 import operations.numeric.unwrap.LenientUnwrapStrategy
 
 internal object Subtraction : StandardLogicOperation, LenientUnwrapStrategy {
-    override fun invoke(expression: Any?, data: Any?) = with(unwrapValueAsDouble(expression)) {
+    override fun evaluateLogic(expression: Any?, data: Any?) = with(unwrapValueAsDouble(expression)) {
         when (size) {
             0 -> null
             1 -> first()?.unaryMinus()

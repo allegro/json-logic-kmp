@@ -1,6 +1,6 @@
 package operations.logic
 
-import StandardLogicOperation
+import operation.StandardLogicOperation
 import operations.logic.unwrap.TruthyUnwrapStrategy
 import utils.asList
 import utils.secondOrNull
@@ -8,7 +8,7 @@ import utils.thirdOrNull
 
 @Suppress("MagicNumber")
 internal object If : StandardLogicOperation, TruthyUnwrapStrategy {
-    override fun invoke(expression: Any?, data: Any?): Any? = expression.asList.recursiveIf()
+    override fun evaluateLogic(expression: Any?, data: Any?): Any? = expression.asList.recursiveIf()
 
     private fun List<Any?>.recursiveIf(): Any? = when (size) {
         0 -> null
