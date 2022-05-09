@@ -15,18 +15,9 @@ kotlin {
         }
     }
 
-    val xcFramework = XCFramework(Modules.XCFrameworkNames.core)
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = Modules.XCFrameworkNames.core
-            isStatic = true
-            xcFramework.add(this)
-        }
-    }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
         val commonMain by getting {
@@ -59,10 +50,6 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
-
-            dependencies {
-                api(Libs.TouchLab.crashkios)
-            }
         }
     }
 }

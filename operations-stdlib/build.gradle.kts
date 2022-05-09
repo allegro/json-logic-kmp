@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
-
 plugins {
     kotlin("multiplatform") version Versions.kotlin
     id("io.kotest.multiplatform") version Versions.kotest
@@ -15,18 +13,10 @@ kotlin {
         }
     }
 
-    val xcFramework = XCFramework(Modules.XCFrameworkNames.operationsStdlib)
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = Modules.XCFrameworkNames.operationsStdlib
-            isStatic = true
-            xcFramework.add(this)
-        }
-    }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
     sourceSets {
         val commonMain by getting {
             dependencies {

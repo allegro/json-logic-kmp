@@ -6,7 +6,7 @@ import utils.intOrZero
 import utils.secondOrNull
 import utils.thirdOrNull
 
-object Substr : StandardLogicOperation, StringUnwrapStrategy {
+internal object Substr : StandardLogicOperation, StringUnwrapStrategy {
     override fun evaluateLogic(expression: Any?, data: Any?): String {
         return with(expression.asList) {
             val startIndex = secondOrNull().toString().intOrZero
