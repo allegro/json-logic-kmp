@@ -115,33 +115,33 @@ class SubtractionTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf("-" to emptyList<Double>()),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
-            TestInput(expression = mapOf("-" to listOf("a", 2)), result = JsonLogicResult.NullResultFailure),
+            TestInput(expression = mapOf("-" to listOf("a", 2)), result = JsonLogicResult.Failure.NullResult),
             TestInput(
                 expression = mapOf("-" to listOf(listOf(2, "a"), 2)),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("-" to listOf(listOf("a", 2), 2)),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("-" to listOf(listOf(2, 2), 2)),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("-" to listOf(listOf(2, "a"), listOf("a", 2))),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("-" to listOf(listOf("5", listOf("5")), listOf("5"), listOf("5"))),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
-            TestInput(expression = mapOf("-" to listOf("banana")), result = JsonLogicResult.NullResultFailure),
+            TestInput(expression = mapOf("-" to listOf("banana")), result = JsonLogicResult.Failure.NullResult),
             TestInput(
                 expression = mapOf("-" to listOf(listOf(listOf("5"), listOf(6)))),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
         )
         // given

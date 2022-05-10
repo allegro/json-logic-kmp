@@ -43,11 +43,11 @@ class MinTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf("min" to listOf(1, "banana")),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("min" to listOf(1, "banana", listOf(1, 2))),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
         )
         // given
