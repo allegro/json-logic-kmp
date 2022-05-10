@@ -1,4 +1,4 @@
-import JsonLogicResult.NullResultFailure
+import JsonLogicResult.Failure
 import JsonLogicResult.Success
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
@@ -12,35 +12,35 @@ class FindTest : FunSpec({
         ts = listOf(
             TestInput(
                 expression = mapOf("find" to 1.3),
-                result = NullResultFailure
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("find" to "banana"),
-                result = NullResultFailure
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("find" to null),
-                result = NullResultFailure
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("find" to true),
-                result = NullResultFailure
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("find" to emptyList<Any>()),
-                result = NullResultFailure
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("find" to listOf(null, mapOf("var" to ""))),
-                result = NullResultFailure
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("find" to listOf(emptyList<String>(), mapOf("var" to ""))),
-                result = NullResultFailure
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("find" to listOf(listOf(false, false), mapOf("var" to ""))),
-                result = NullResultFailure
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("find" to listOf(listOf(true, false), mapOf("var" to ""))),
@@ -48,7 +48,7 @@ class FindTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf("find" to listOf(listOf(true, false))),
-                result = NullResultFailure
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
@@ -78,7 +78,7 @@ class FindTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf("find" to listOf(listOf(0, 0, 0, 0), mapOf("!=" to listOf(mapOf("var" to ""), 0)))),
-                result = NullResultFailure
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
@@ -119,7 +119,7 @@ class FindTest : FunSpec({
                         mapOf("<" to listOf(mapOf("var" to ""), 0))
                     )
                 ),
-                result = NullResultFailure
+                result = Failure.NullResult
             ),
         )
         // given

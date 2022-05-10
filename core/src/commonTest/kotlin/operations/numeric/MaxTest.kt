@@ -35,11 +35,11 @@ class MaxTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf("max" to listOf(1, "banana")),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("max" to listOf(1, "banana", listOf(1, 2))),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("max" to listOf(1, "2")),

@@ -12,7 +12,7 @@ class CommonJsonLogicEngineTest : BehaviorSpec({
             val result = logicEngine.evaluate(logicExpression, null)
 
             then("returns missing operation failure result") {
-                result shouldBe JsonLogicResult.MissingOperationFailure
+                result shouldBe JsonLogicResult.Failure.MissingOperation
             }
         }
     }
@@ -24,7 +24,7 @@ class CommonJsonLogicEngineTest : BehaviorSpec({
             val result = logicEngine.evaluate(logicExpression, null)
 
             then("returns empty expression failure result") {
-                result shouldBe JsonLogicResult.EmptyExpressionFailure
+                result shouldBe JsonLogicResult.Failure.EmptyExpression
             }
         }
     }
@@ -36,7 +36,7 @@ class CommonJsonLogicEngineTest : BehaviorSpec({
             val result = logicEngine.evaluate(logicExpression, null)
 
             then("returns null failure result") {
-                result shouldBe JsonLogicResult.NullResultFailure
+                result shouldBe JsonLogicResult.Failure.NullResult
             }
         }
     }
