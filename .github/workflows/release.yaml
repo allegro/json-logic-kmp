@@ -9,7 +9,7 @@ on:
 
 env:
   podspec_name: "JsonLogicKMP.podspec"
-  xcframework_zip_name: "JsonLogicKMP_xcframework.zip"
+  xcframework_zip_name: "JsonLogicKMP.xcframework.zip"
   xcframework_artifact_key: "xcframeworks"
 
 jobs:
@@ -210,4 +210,4 @@ jobs:
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
         run: |
-          pod trunk push "${{ env.podspec_name }}"
+          pod trunk push "${{ env.podspec_name }}" --verbose
