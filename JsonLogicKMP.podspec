@@ -12,20 +12,9 @@ Pod::Spec.new do |spec|
   spec.platform = :ios
   spec.ios.deployment_target = "13.0"
 
-  spec.source       = { :http => "#{spec.homepage}/releases/download/#{spec.version}/#{spec.name}_xcframeworks.zip",
+  spec.source       = { :http => "#{spec.homepage}/releases/download/#{spec.version}/#{spec.name}.xcframework.zip",
                         :sha256 => "d91e44efe3208eb072515922bf0dd1a168a261d72320228ae60292335dd8a8b4"
                       }
 
-  spec.subspec 'OperationsApi' do |operationsApi|
-    operationsApi.vendored_frameworks = "JsonLogicOperationsApi.xcframework"
-  end
-
-  spec.subspec 'OperationsStdlib' do |operationsStdlib|
-    operationsStdlib.vendored_frameworks = "JsonLogicOperationsStdlib.xcframework"
-  end
-
-  spec.subspec 'Core' do |core|
-    core.vendored_frameworks = "JsonLogicCore.xcframework"
-  end
-
+  spec.vendored_frameworks = "#{spec.name}.xcframework"
 end
