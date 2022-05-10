@@ -1,16 +1,12 @@
-import unwrap.EvaluatingUnwrapper
 import utils.asList
 
-object Length : FunctionalLogicOperation, EvaluatingUnwrapper, StringUnwrapStrategy2 {
-    override fun invoke(expression: Any?, data: Any?, evaluator: LogicEvaluator): Int? {
-        val x = unwrapValueAsString(expression)
+object Length : StandardLogicOperation {
 
-        val first = expression.asList
-        val inputData = first.firstOrNull()
-
-        return when (first.size) {
-            1 -> inputData?.toString()?.length
-            else -> first.size
+    override fun invoke(expression: Any?, data: Any?) =
+        if (expression.asList.size > 1) null
+        else {
+            val element = expression.asList.firstOrNull()
+            if (element is String) element.toString().length
+            else null
         }
-    }
 }
