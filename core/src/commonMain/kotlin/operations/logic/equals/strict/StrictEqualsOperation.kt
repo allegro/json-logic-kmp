@@ -11,6 +11,7 @@ internal interface StrictEqualsOperation : EqualsOperation {
             } else false
         }
     }
+
     override fun unwrapValue(wrappedValue: Any?): Any? =
         when (wrappedValue) {
             is Number -> wrappedValue.toDouble()
