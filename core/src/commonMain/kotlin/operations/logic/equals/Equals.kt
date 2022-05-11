@@ -1,4 +1,4 @@
-package operations.logic
+package operations.logic.equals
 
 import operation.StandardLogicOperation
 

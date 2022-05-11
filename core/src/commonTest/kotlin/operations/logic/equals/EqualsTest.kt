@@ -1,4 +1,4 @@
-package operations.logic
+package operations.logic.equals
 
 import JsonLogicEngine
 import JsonLogicResult.Success
@@ -13,6 +13,23 @@ class EqualsTest : FunSpec({
     withData(
         nameFn = { input -> "Should evaluated ${input.expression} with given ${input.data} result in ${input.result}" },
         ts = listOf(
+            TestInput(expression = mapOf("==" to listOf("0.0000", "0.0000")), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf("1", listOf("1.0000"))), result = Success(false)),
+            TestInput(expression = mapOf("==" to listOf(1, "1.0000")), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf(0, "0.0000")), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf(0, listOf("0.0000"))), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf(listOf("0.0000"), listOf("0.0000"))), result = Success(false)),
+            TestInput(expression = mapOf("==" to listOf(0, listOf(0.0000))), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf(1, listOf(1.0000))), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf("1", listOf(1.0000))), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf(listOf("1"), 1.0000)), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf("1", 1.0000)), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf(1, 1.0000)), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf("0", listOf(0.0000))), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf(0, 0.0000)), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf(-1, listOf(-1.0000))), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf(-2.5, listOf(-2.5000))), result = Success(true)),
+            TestInput(expression = mapOf("==" to listOf(-2.5, listOf("-2.5000"))), result = Success(true)),
             TestInput(expression = mapOf("==" to listOf(1, 1)), result = Success(true)),
             TestInput(expression = mapOf("==" to listOf(1, "1")), result = Success(true)),
             TestInput(expression = mapOf("==" to listOf(1, 2)), result = Success(false)),
