@@ -52,6 +52,10 @@ class SizeTest : FunSpec({
                 result = Success(4)
             ),
             TestInput(
+                expression = mapOf("size" to listOf<Any>(listOf<Any>())),
+                result = Success(0)
+            ),
+            TestInput(
                 expression = mapOf(
                     "size" to mapOf(
                         "if" to listOf(
