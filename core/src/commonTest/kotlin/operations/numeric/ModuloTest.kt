@@ -83,50 +83,50 @@ class ModuloTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf("%" to listOf(listOf(listOf("5"), listOf(6)))),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("%" to listOf(listOf("5", listOf("5")), listOf("5"), listOf("5"))),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
-            TestInput(expression = mapOf("%" to listOf(2)), result = JsonLogicResult.NullResultFailure),
-            TestInput(expression = mapOf("%" to listOf("a", 2)), result = JsonLogicResult.NullResultFailure),
+            TestInput(expression = mapOf("%" to listOf(2)), result = JsonLogicResult.Failure.NullResult),
+            TestInput(expression = mapOf("%" to listOf("a", 2)), result = JsonLogicResult.Failure.NullResult),
             TestInput(
                 expression = mapOf("%" to listOf(listOf(2, "a"), 2)),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("%" to listOf(listOf("a", 2), 2)),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("%" to listOf(listOf(2, 2), 2)),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("%" to listOf(listOf(2, "a"), listOf("a", 2))),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
-            TestInput(expression = mapOf("%" to listOf(2, null)), result = JsonLogicResult.NullResultFailure),
+            TestInput(expression = mapOf("%" to listOf(2, null)), result = JsonLogicResult.Failure.NullResult),
             TestInput(
                 expression = mapOf("%" to listOf(null, null)),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
-            TestInput(expression = mapOf("%" to listOf(null)), result = JsonLogicResult.NullResultFailure),
-            TestInput(expression = mapOf("%" to listOf("banana")), result = JsonLogicResult.NullResultFailure),
+            TestInput(expression = mapOf("%" to listOf(null)), result = JsonLogicResult.Failure.NullResult),
+            TestInput(expression = mapOf("%" to listOf("banana")), result = JsonLogicResult.Failure.NullResult),
             TestInput(
                 expression = mapOf("%" to listOf(true, false)),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
-            TestInput(expression = mapOf("%" to listOf(true)), result = JsonLogicResult.NullResultFailure),
-            TestInput(expression = mapOf("%" to listOf(false)), result = JsonLogicResult.NullResultFailure),
+            TestInput(expression = mapOf("%" to listOf(true)), result = JsonLogicResult.Failure.NullResult),
+            TestInput(expression = mapOf("%" to listOf(false)), result = JsonLogicResult.Failure.NullResult),
             TestInput(
                 expression = mapOf("%" to listOf(true, null)),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("%" to listOf(false, null)),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
         )
         // given

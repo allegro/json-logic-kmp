@@ -1,10 +1,10 @@
 package operations.numeric
 
-import StandardLogicOperation
+import operation.StandardLogicOperation
 import operations.numeric.unwrap.LenientUnwrapStrategy
 
 internal object Division : StandardLogicOperation, LenientUnwrapStrategy {
-    override fun invoke(expression: Any?, data: Any?) =
+    override fun evaluateLogic(expression: Any?, data: Any?) =
         unwrapValueAsDouble(expression).takeIf { it.size >= 2 }?.let {
             val second = it[1]
             val first = it.first()

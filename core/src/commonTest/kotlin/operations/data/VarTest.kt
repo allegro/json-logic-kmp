@@ -16,45 +16,45 @@ class VarTest : FunSpec({
             TestInput(
                 expression = mapOf("var" to "b"),
                 data = mapOf("a" to 1),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
-            TestInput(expression = mapOf("var" to "a"), result = JsonLogicResult.NullResultFailure),
+            TestInput(expression = mapOf("var" to "a"), result = JsonLogicResult.Failure.NullResult),
             TestInput(
                 expression = mapOf("var" to listOf(listOf(""))),
                 data = listOf(1, 2, 3, 4),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("var" to listOf(listOf(null))),
                 data = listOf(1, 2, 3, 4),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("var" to listOf("b")),
                 data = mapOf("a" to 1),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
-            TestInput(expression = mapOf("var" to listOf("b")), result = JsonLogicResult.NullResultFailure),
+            TestInput(expression = mapOf("var" to listOf("b")), result = JsonLogicResult.Failure.NullResult),
             TestInput(
                 expression = mapOf("var" to listOf(emptyList<Any>())),
                 data = listOf(1, 2, 3, 4),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
-            TestInput(expression = mapOf("var" to "a.b.c"), result = JsonLogicResult.NullResultFailure),
+            TestInput(expression = mapOf("var" to "a.b.c"), result = JsonLogicResult.Failure.NullResult),
             TestInput(
                 expression = mapOf("var" to "a.b.c"),
                 data = mapOf("a" to null),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("var" to "a.q"),
                 data = mapOf("a" to mapOf("b" to "c")),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("var" to "a.b.c"),
                 data = mapOf("a" to mapOf("b" to null)),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(

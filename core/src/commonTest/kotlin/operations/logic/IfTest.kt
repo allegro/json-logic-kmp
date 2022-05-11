@@ -210,16 +210,16 @@ class IfTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf("if" to listOf(false, "apple")),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
-            TestInput(expression = mapOf("if" to listOf<Any>()), result = JsonLogicResult.NullResultFailure),
+            TestInput(expression = mapOf("if" to listOf<Any>()), result = JsonLogicResult.Failure.NullResult),
             TestInput(
                 expression = mapOf("if" to listOf(false, "apple", false, "banana")),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("if" to listOf(false, "apple", false, "banana", false, "carrot")),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             )
         )
         // given

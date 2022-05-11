@@ -1,7 +1,7 @@
 package operations.string
 
-import StandardLogicOperation
+import operation.StandardLogicOperation
 
-object Cat : StandardLogicOperation, StringUnwrapStrategy {
-    override fun invoke(expression: Any?, data: Any?) = unwrapValueAsString(expression).joinToString("")
+internal object Cat : StandardLogicOperation, StringUnwrapStrategy {
+    override fun evaluateLogic(expression: Any?, data: Any?): Any? = unwrapValueAsString(expression).joinToString("")
 }

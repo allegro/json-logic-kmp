@@ -1,7 +1,7 @@
 package operations.numeric
 
-import StandardLogicOperation
+import operation.StandardLogicOperation
 
 internal object Max : StandardLogicOperation, DoubleTypeSensitiveOperation {
-    override fun invoke(expression: Any?, data: Any?): Any? = doubleResultOrNull(expression) { it.maxOrNull() }
+    override fun evaluateLogic(expression: Any?, data: Any?): Any? = doubleResultOrNull(expression) { it.maxOrNull() }
 }

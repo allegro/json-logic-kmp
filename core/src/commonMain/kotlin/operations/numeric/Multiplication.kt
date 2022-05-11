@@ -1,11 +1,11 @@
 package operations.numeric
 
-import StandardLogicOperation
+import operation.StandardLogicOperation
 import operations.numeric.unwrap.StrictUnwrapStrategy
 import utils.asList
 
 internal object Multiplication : StandardLogicOperation, DoubleTypeSensitiveOperation, StrictUnwrapStrategy {
-    override fun invoke(expression: Any?, data: Any?): Any? {
+    override fun evaluateLogic(expression: Any?, data: Any?): Any? {
         val values = expression.asList
         return when (values.size) {
             0 -> null

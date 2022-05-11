@@ -1,7 +1,7 @@
 package operations.numeric
 
-import StandardLogicOperation
+import operation.StandardLogicOperation
 
 internal object Min : StandardLogicOperation, DoubleTypeSensitiveOperation {
-    override fun invoke(expression: Any?, data: Any?): Any? = doubleResultOrNull(expression) { it.minOrNull() }
+    override fun evaluateLogic(expression: Any?, data: Any?): Any? = doubleResultOrNull(expression) { it.minOrNull() }
 }

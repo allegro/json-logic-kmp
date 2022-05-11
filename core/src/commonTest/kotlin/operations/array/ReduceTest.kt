@@ -21,7 +21,7 @@ class ReduceTest : FunSpec({
                         9
                     )
                 ),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
@@ -32,14 +32,14 @@ class ReduceTest : FunSpec({
                     )
                 ),
                 data = mapOf("b" to "banana"),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     "reduce" to listOf(mapOf("var" to "integers"))
                 ),
                 data = mapOf("integers" to listOf(1, 2, 3, 4)),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
@@ -48,25 +48,25 @@ class ReduceTest : FunSpec({
                         0
                     )
                 ),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("reduce" to listOf(0)),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("reduce" to emptyList<Any>()),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("reduce" to null),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     "reduce" to listOf(listOf(1, 2), null, 4)
                 ),
-                result = JsonLogicResult.NullResultFailure
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("reduce" to listOf(mapOf("var" to "integers"), 0)),

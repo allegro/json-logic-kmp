@@ -1,13 +1,13 @@
 package operations.string
 
-import StandardLogicOperation
+import operation.StandardLogicOperation
 import utils.asList
 import utils.intOrZero
 import utils.secondOrNull
 import utils.thirdOrNull
 
-object Substr : StandardLogicOperation, StringUnwrapStrategy {
-    override fun invoke(expression: Any?, data: Any?): String {
+internal object Substr : StandardLogicOperation, StringUnwrapStrategy {
+    override fun evaluateLogic(expression: Any?, data: Any?): String {
         return with(expression.asList) {
             val startIndex = secondOrNull().toString().intOrZero
             val charsCount = thirdOrNull().toString().intOrZero

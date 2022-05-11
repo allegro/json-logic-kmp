@@ -1,7 +1,8 @@
 package evaluation
 
-import LogicEvaluator
 import JsonLogicException
+import LogicEvaluator
+import operation.StandardLogicOperation
 import utils.asList
 
 internal class CommonLogicEvaluator(private val operations: LogicOperations) : LogicEvaluator {
@@ -21,16 +22,16 @@ internal class CommonLogicEvaluator(private val operations: LogicOperations) : L
         val operator = logic.keys.firstOrNull()
         val values = logic[operator]
         return if (operations.functionalOperations.keys.contains(operator)) {
-            operations.functionalOperations[operator]?.invoke(values.asList, data, this)
+            operations.functionalOperations[operator]?.evaluateLogic(values.asList, data, this)
         } else {
-            operations.standardOperations.getOperation(operator).invoke(when (values) {
+            operations.standardOperations.getOperation(operator).evaluateLogic(when (values) {
                 is List<*> -> values.map { executeExpression(it, data) }
                 is Map<*, *> -> executeExpression(values, data)
                 else -> executeExpression(listOf(values), data)
-            }.asList, data)
+            }.asList,data)
         }
     }
 
-    private fun Map<String, (Any?, Any?) -> Any?>.getOperation(operator: Any?) =
+    private fun Map<String, StandardLogicOperation>.getOperation(operator: Any?) =
         get(operator) ?: throw JsonLogicException("Operation $operator not found.")
 }
