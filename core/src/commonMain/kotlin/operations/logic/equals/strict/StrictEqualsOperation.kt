@@ -12,11 +12,7 @@ internal interface StrictEqualsOperation : EqualsOperation {
         }
     }
 
-    override fun unwrapValue(wrappedValue: Any?): Any? =
-        when (wrappedValue) {
-            is Number -> wrappedValue.toDouble()
-            else -> wrappedValue
-        }
+    override fun unwrapValue(wrappedValue: Any?): Any? = (wrappedValue as? Number)?.toDouble() ?: wrappedValue
 
     override fun unwrapAsComparable(first: Comparable<*>?, second: Comparable<*>?): List<Comparable<*>?>? =
         unwrapAsComparableWithTypeSensitivity(first, second)
