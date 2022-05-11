@@ -2,6 +2,7 @@ package operations.logic.equals
 
 import operations.logic.unwrap.SingleNestedValue
 
+@Suppress("SpreadOperator")
 internal object EqualsTableOfTruth{
     private val tableOfTruth = mapOf(
         true to listOf(true, *getAllVariantsOf(1)),

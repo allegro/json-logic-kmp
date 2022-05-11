@@ -13,6 +13,7 @@ class EqualsTest : FunSpec({
     withData(
         nameFn = { input -> "Should evaluated ${input.expression} with given ${input.data} result in ${input.result}" },
         ts = listOf(
+            TestInput(expression = mapOf("==" to listOf(null, "banana")), result = Success(false)),
             TestInput(expression = mapOf("==" to listOf("0.0000", "0.0000")), result = Success(true)),
             TestInput(expression = mapOf("==" to listOf("1", listOf("1.0000"))), result = Success(false)),
             TestInput(expression = mapOf("==" to listOf(1, "1.0000")), result = Success(true)),
