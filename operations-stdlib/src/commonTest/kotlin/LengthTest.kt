@@ -28,8 +28,11 @@ class LengthTest : FunSpec({
                 result = Success(0)
             ),
             TestInput(
-                expression = mapOf("length" to "this is very very very  very very very  very very very  very very very  very very very  very very very  very very very  very very very  very very very  very very very  very very very  very very very  very very very  very very very  very very very  very very very  very very very  very very very  very very very  very very very  long text"),
-                result = Success(337)
+                expression = mapOf("length" to "this is very very very  very very very  very very very  very very " +
+                    " very very very  very very very  very very very  very very very  very very very  very very " +
+                    " very very  very very very  very very very  very very very  very very very  very very very " +
+                    " very very very  very very very  very very very  very very very  very very very  long text"),
+                result = Success(338)
             ),
             TestInput(
                 expression = mapOf(
