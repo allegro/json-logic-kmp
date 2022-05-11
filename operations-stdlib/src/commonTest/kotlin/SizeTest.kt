@@ -1,3 +1,4 @@
+import JsonLogicResult.Failure
 import JsonLogicResult.Success
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.core.test.TestResult
@@ -61,31 +62,31 @@ class SizeTest : FunSpec({
                     )
                 ),
                 data = mapOf("temp" to 55),
-                result = JsonLogicResult.NullResultFailure
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     "size" to 1
                 ),
-                result = JsonLogicResult.NullResultFailure
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     "size" to 1521414312
                 ),
-                result = JsonLogicResult.NullResultFailure
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     "size" to null
                 ),
-                result = JsonLogicResult.NullResultFailure
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     "size" to "aa"
                 ),
-                result = JsonLogicResult.NullResultFailure
+                result = Failure.NullResult
             ),
         )
         // given
