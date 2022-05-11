@@ -1,3 +1,5 @@
+package array
+
 import operation.StandardLogicOperation
 import utils.asList
 import utils.isSingleNullList

@@ -3,6 +3,7 @@ import JsonLogicResult.Success
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
+import array.Find
 
 class FindTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().addFunctionalOperation("find", Find).build()

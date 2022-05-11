@@ -1,7 +1,7 @@
 import JsonLogicResult.Failure
 import JsonLogicResult.Success
+import array.Size
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.core.test.TestResult
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 
