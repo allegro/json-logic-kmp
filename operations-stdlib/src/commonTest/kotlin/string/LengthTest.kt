@@ -1,9 +1,10 @@
-import JsonLogicResult.Failure
-import JsonLogicResult.Success
+package string
+
+import JsonLogicEngine
+import TestInput
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
-import string.Length
 
 class LengthTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder()
@@ -14,25 +15,27 @@ class LengthTest : FunSpec({
         ts = listOf(
             TestInput(
                 expression = mapOf("length" to "test"),
-                result = Success(4)
+                result = JsonLogicResult.Success(4)
             ),
             TestInput(
                 expression = mapOf(
                     "length" to mapOf("var" to "fruits")
                 ),
                 data = mapOf("fruits" to listOf("apple")),
-                result = Success(5)
+                result = JsonLogicResult.Success(5)
             ),
             TestInput(
                 expression = mapOf("length" to ""),
-                result = Success(0)
+                result = JsonLogicResult.Success(0)
             ),
             TestInput(
-                expression = mapOf("length" to "this is very very very  very very very  very very very  very very " +
-                    " very very very  very very very  very very very  very very very  very very very  very very " +
-                    " very very  very very very  very very very  very very very  very very very  very very very " +
-                    " very very very  very very very  very very very  very very very  very very very  long text"),
-                result = Success(338)
+                expression = mapOf(
+                    "length" to "this is very very very  very very very  very very very  very very " +
+                            " very very very  very very very  very very very  very very very  very very very  very very " +
+                            " very very  very very very  very very very  very very very  very very very  very very very " +
+                            " very very very  very very very  very very very  very very very  very very very  long text"
+                ),
+                result = JsonLogicResult.Success(338)
             ),
             TestInput(
                 expression = mapOf(
@@ -43,7 +46,7 @@ class LengthTest : FunSpec({
                     )
                 ),
                 data = mapOf("temp" to -20),
-                result = Success(8)
+                result = JsonLogicResult.Success(8)
             ),
             TestInput(
                 expression = mapOf(
@@ -56,32 +59,32 @@ class LengthTest : FunSpec({
                     )
                 ),
                 data = mapOf("temp" to 55),
-                result = Success(6)
+                result = JsonLogicResult.Success(6)
             ),
             TestInput(
                 expression = mapOf("length" to 123455),
-                result = Failure.NullResult
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("length" to -123455),
-                result = Failure.NullResult
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("length" to 0),
-                result = Failure.NullResult
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("length" to 10.0),
-                result = Failure.NullResult
+                result = JsonLogicResult.Failure.NullResult
             ),
 
             TestInput(
                 expression = mapOf("length" to listOf("test", "test2")),
-                result = Failure.NullResult
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf("length" to mapOf("test" to "test2")),
-                result = Failure.MissingOperation
+                result = JsonLogicResult.Failure.MissingOperation
             ),
         )
     ) { testInput: TestInput ->

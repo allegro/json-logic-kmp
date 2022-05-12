@@ -1,6 +1,7 @@
-import JsonLogicResult.Failure
-import JsonLogicResult.Success
-import array.Size
+package array
+
+import JsonLogicEngine
+import TestInput
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
@@ -13,11 +14,11 @@ class SizeTest : FunSpec({
         ts = listOf(
             TestInput(
                 expression = mapOf("size" to listOf(listOf("test"))),
-                result = Success(1)
+                result = JsonLogicResult.Success(1)
             ),
             TestInput(
                 expression = mapOf("size" to listOf(listOf("test", "test2"), "a")),
-                result = Success(2)
+                result = JsonLogicResult.Success(2)
             ),
             TestInput(
                 expression = mapOf(
@@ -27,14 +28,14 @@ class SizeTest : FunSpec({
                     )
                 ),
                 data = mapOf("fruits" to listOf(listOf("apple"), "banana", "pineapple"), "fruits2" to "testFruit"),
-                result = Success(3)
+                result = JsonLogicResult.Success(3)
             ),
             TestInput(
                 expression = mapOf(
                     "size" to mapOf("var" to "fruits")
                 ),
                 data = mapOf("fruits" to listOf(listOf(listOf("apple"), "banana", "pineapple"))),
-                result = Success(3)
+                result = JsonLogicResult.Success(3)
             ),
             TestInput(
                 expression = mapOf(
@@ -49,11 +50,11 @@ class SizeTest : FunSpec({
                     )
                 ),
                 data = mapOf("temp" to 55),
-                result = Success(4)
+                result = JsonLogicResult.Success(4)
             ),
             TestInput(
                 expression = mapOf("size" to listOf<Any>(listOf<Any>())),
-                result = Success(0)
+                result = JsonLogicResult.Success(0)
             ),
             TestInput(
                 expression = mapOf(
@@ -66,31 +67,31 @@ class SizeTest : FunSpec({
                     )
                 ),
                 data = mapOf("temp" to 55),
-                result = Failure.NullResult
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     "size" to 1
                 ),
-                result = Failure.NullResult
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     "size" to 1521414312
                 ),
-                result = Failure.NullResult
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     "size" to null
                 ),
-                result = Failure.NullResult
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     "size" to "aa"
                 ),
-                result = Failure.NullResult
+                result = JsonLogicResult.Failure.NullResult
             ),
         )
         // given

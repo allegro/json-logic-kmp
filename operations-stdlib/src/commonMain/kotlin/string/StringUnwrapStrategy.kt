@@ -2,7 +2,6 @@ package string
 
 import utils.asList
 
-
 internal interface StringUnwrapStrategy {
     fun unwrapValueAsString(wrappedValue: Any?): String? =
         with(wrappedValue.asList) {
