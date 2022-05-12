@@ -1,4 +1,4 @@
-package operations.logic
+package operations.logic.equals.strict
 
 import JsonLogicEngine
 import JsonLogicResult
@@ -14,6 +14,15 @@ class NotStrictEqualsTest : FunSpec({
         nameFn = { input -> "Should evaluated ${input.expression} with given ${input.data} result in ${input.result}" },
         ts = listOf(
             TestInput(expression = mapOf("!==" to listOf(1, 1)), result = JsonLogicResult.Success(false)),
+            TestInput(expression = mapOf("!==" to listOf(1, 1.0000)), result = JsonLogicResult.Success(false)),
+            TestInput(expression = mapOf("!==" to listOf(0, 0.0000)), result = JsonLogicResult.Success(false)),
+            TestInput(expression = mapOf("!==" to listOf(1, "1.0000")), result = JsonLogicResult.Success(true)),
+            TestInput(expression = mapOf("!==" to listOf("1.0000", "1.0000")), result = JsonLogicResult.Success(false)),
+            TestInput(expression = mapOf("!==" to listOf(-1, -1.0000)), result = JsonLogicResult.Success(false)),
+            TestInput(expression = mapOf("!==" to listOf(-1, -1)), result = JsonLogicResult.Success(false)),
+            TestInput(expression = mapOf("!==" to listOf("-1", "-1")), result = JsonLogicResult.Success(false)),
+            TestInput(expression = mapOf("!==" to listOf(-1, "-1")), result = JsonLogicResult.Success(true)),
+            TestInput(expression = mapOf("!==" to listOf(-2, "-2")), result = JsonLogicResult.Success(true)),
             TestInput(expression = mapOf("!==" to listOf(1, "1")), result = JsonLogicResult.Success(true)),
             TestInput(expression = mapOf("!==" to listOf(1, 2)), result = JsonLogicResult.Success(true)),
             TestInput(expression = mapOf("!==" to listOf(null, 2)), result = JsonLogicResult.Success(true)),

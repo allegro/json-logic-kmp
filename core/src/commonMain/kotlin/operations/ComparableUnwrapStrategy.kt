@@ -6,10 +6,10 @@ internal interface ComparableUnwrapStrategy: BooleanUnwrapStrategy {
         first is String && second is Number -> listOf(first.toDoubleOrNull(), second.toDouble())
         first is Number && second is String -> listOf(first.toDouble(), second.toDoubleOrNull())
         first is Boolean || second is Boolean -> listOf(unwrapValueAsBoolean(first), unwrapValueAsBoolean(second))
-        else -> unwrapValuesAsNonPrimitives(first, second)
+        else -> unwrapAsComparableWithTypeSensitivity(first, second)
     }
 
-    private fun unwrapValuesAsNonPrimitives(
+    fun unwrapAsComparableWithTypeSensitivity(
         first: Comparable<*>?,
         second: Comparable<*>?
     ): List<Comparable<*>?>? = when {
