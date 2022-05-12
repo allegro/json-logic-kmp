@@ -15,13 +15,13 @@ import operations.data.MissingSome
 import operations.data.Var
 import operations.logic.And
 import operations.logic.DoubleNegation
-import operations.logic.Equals
 import operations.logic.If
 import operations.logic.Negation
-import operations.logic.NotEquals
-import operations.logic.NotStrictEquals
 import operations.logic.Or
-import operations.logic.StrictEquals
+import operations.logic.equals.Equals
+import operations.logic.equals.NotEquals
+import operations.logic.equals.strict.NotStrictEquals
+import operations.logic.equals.strict.StrictEquals
 import operations.numeric.Addition
 import operations.numeric.Division
 import operations.numeric.Max
