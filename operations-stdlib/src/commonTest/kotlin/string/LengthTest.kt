@@ -35,7 +35,7 @@ class LengthTest : FunSpec({
                         " very very  very very very  very very very  very very very  very very very  very very very" +
                         " very very very  very very very  very very very  very very very  very very very  long text"
                 ),
-                result = JsonLogicResult.Success(338)
+                result = JsonLogicResult.Success(336)
             ),
             TestInput(
                 expression = mapOf(
