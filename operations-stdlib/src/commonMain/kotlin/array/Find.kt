@@ -1,3 +1,6 @@
+package array
+
+import LogicEvaluator
 import operation.FunctionalLogicOperation
 import unwrap.EvaluatingUnwrapper
 import utils.asList
