@@ -99,11 +99,7 @@ interface JsonLogicEngine {
             }
         }
 
-        fun addStandardOperations(vararg operations: Pair<String, StandardLogicOperation>) = apply {
-            operations.forEach { (name, lambda) -> addStandardOperation(name, lambda) }
-        }
-
-        fun addStandardOperations(operations: List<Pair<String, StandardLogicOperation>>) = apply {
+        fun addStandardOperations(operations: Map<String, StandardLogicOperation>) = apply {
             operations.forEach { (name, lambda) -> addStandardOperation(name, lambda) }
         }
 
@@ -113,11 +109,7 @@ interface JsonLogicEngine {
             }
         }
 
-        fun addFunctionalOperations(vararg operations: Pair<String, FunctionalLogicOperation>) = apply {
-            operations.forEach { (name, lambda) -> addFunctionalOperation(name, lambda) }
-        }
-
-        fun addFunctionalOperations(operations: List<Pair<String, FunctionalLogicOperation>>) = apply {
+        fun addFunctionalOperations(operations: Map<String, FunctionalLogicOperation>) = apply {
             operations.forEach { (name, lambda) -> addFunctionalOperation(name, lambda) }
         }
 
