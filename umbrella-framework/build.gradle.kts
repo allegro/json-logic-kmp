@@ -27,6 +27,7 @@ kotlin {
             export(project(Modules.core))
             export(project(Modules.operationsApi))
             export(project(Modules.operationsStdlib))
+            export(project(Modules.utils))
             xcFramework.add(this)
         }
     }
