@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform") version Versions.kotlin
     id("io.kotest.multiplatform") version Versions.kotest
     id(Conventions.junit)
+    id(Conventions.publishing)
 }
 
 kotlin {
