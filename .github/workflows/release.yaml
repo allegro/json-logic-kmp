@@ -15,6 +15,7 @@ env:
 jobs:
   run_tests:
     name: Run tests
+    if: github.ref == 'refs/heads/main'
     runs-on: macos-latest
     steps:
       - name: Checkout repository

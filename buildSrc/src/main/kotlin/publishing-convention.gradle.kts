@@ -1,5 +1,4 @@
 import org.gradle.kotlin.dsl.`maven-publish`
-import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.signing
 import org.gradle.kotlin.dsl.withType
@@ -9,7 +8,6 @@ plugins {
     signing
     id("versioning-convention")
 }
-
 
 val javadocJar: TaskProvider<Jar> = tasks.register("javadocJar", Jar::class.java) {
     archiveClassifier.set("javadoc")
