@@ -21,7 +21,9 @@ object OperationsProvider {
         "currentTime" to CurrentTimeMillis,
 
         // array
-        "size" to Size
+        "size" to Size,
+
+        "reverse" to Reverse
     )
 
     val functionalOperations: Map<String, FunctionalLogicOperation> = mutableMapOf(
