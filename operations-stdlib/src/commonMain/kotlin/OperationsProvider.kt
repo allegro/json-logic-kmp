@@ -7,6 +7,7 @@ import string.Capitalize
 import string.IsBlank
 import string.Length
 import string.Lowercase
+import string.ToArray
 import string.Uppercase
 
 object OperationsProvider {
@@ -23,8 +24,10 @@ object OperationsProvider {
 
         // array
         "size" to Size,
-        "reverse" to Reverse,
-        "distinct" to Distinct
+        "distinct" to Distinct,
+        "toArray" to ToArray,
+      
+        "reverse" to Reverse
     )
 
     val functionalOperations: Map<String, FunctionalLogicOperation> = mutableMapOf(
