@@ -1,3 +1,4 @@
+import array.Distinct
 import array.Find
 import array.Size
 import operation.FunctionalLogicOperation
@@ -23,8 +24,10 @@ object OperationsProvider {
 
         // array
         "size" to Size,
-        "reverse" to Reverse,
-        "toArray" to ToArray
+        "distinct" to Distinct,
+        "toArray" to ToArray,
+      
+        "reverse" to Reverse
     )
 
     val functionalOperations: Map<String, FunctionalLogicOperation> = mutableMapOf(
