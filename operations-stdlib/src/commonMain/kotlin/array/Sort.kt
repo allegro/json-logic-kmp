@@ -6,9 +6,6 @@ import utils.asList
 import utils.secondOrNull
 
 object Sort : StandardLogicOperation {
-    private const val DESC_ORDER = "desc"
-    private const val ASC_ORDER = "asc"
-
     override fun evaluateLogic(expression: Any?, data: Any?): Any? =
         with(expression.asList) {
             val elementsToSort = firstOrNull()
@@ -23,9 +20,14 @@ object Sort : StandardLogicOperation {
 
     private fun List<Number>.sortWithMode(sortingMode: Any?) = asDoubleList.filterNotNull().let {
         when (sortingMode) {
-            DESC_ORDER -> it.sortedDescending()
-            ASC_ORDER -> it.sorted()
+            SortOrder.DESC.order -> it.sortedDescending()
+            SortOrder.ASC.order -> it.sorted()
             else -> null
         }
     }
+}
+
+private enum class SortOrder(val order: String) {
+    DESC("desc"),
+    ASC("asc")
 }
