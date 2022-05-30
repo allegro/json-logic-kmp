@@ -14,23 +14,26 @@ object Drop : StandardLogicOperation {
             val mode = thirdOrNull()
 
             when(dropCandidate) {
-                is String ->
-                is List<*> ->
+                is String -> drop(count, mode)
+                is List<*> -> drop(count, mode)
                 else -> null
             }
         }
     }
 
     private fun String.drop(count: Int, mode: String) {
-
     }
 
     private fun List<*>.drop(count: Int, mode: String) {
+        modeBasedDrop(first = {drop(count)}, last = {})
+    }
+
+    private fun modeBasedDrop(mode: first: (() -> Any?), last: (() -> Any?)) {
 
     }
 }
 
-private enum class DropMode(private val mode: String) {
+private enum class DropMode(val mode: String) {
     FIRST("first"),
     LAST("last")
 }
