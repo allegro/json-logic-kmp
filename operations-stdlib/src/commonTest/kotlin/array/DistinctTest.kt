@@ -1,12 +1,12 @@
 package array
 
 import JsonLogicEngine
+import JsonLogicResult.Failure
+import JsonLogicResult.Success
 import TestInput
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
-import JsonLogicResult.Success
-import JsonLogicResult.Failure
 
 class DistinctTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().addStandardOperation("distinct", Distinct).build()
@@ -39,7 +39,15 @@ class DistinctTest : FunSpec({
                 result = Success(listOf(null))
             ),
             TestInput(
-                expression = mapOf("distinct" to listOf(listOf(mapOf("var" to "fruit"), mapOf("var" to "vegetable"), mapOf("var" to "mushroom")))),
+                expression = mapOf(
+                    "distinct" to listOf(
+                        listOf(
+                            mapOf("var" to "fruit"),
+                            mapOf("var" to "vegetable"),
+                            mapOf("var" to "mushroom")
+                        )
+                    )
+                ),
                 data = mapOf("fruit" to null, "vegetable" to null, "mushroom" to true),
                 result = Success(listOf(null, true))
             ),
@@ -98,7 +106,12 @@ class DistinctTest : FunSpec({
                 result = Success(listOf(1, 3, 5))
             ),
             TestInput(
-                expression = mapOf("distinct" to listOf(listOf(-1, 1, 2, 3), mapOf(">" to listOf(mapOf("var" to ""), 0)))),
+                expression = mapOf(
+                    "distinct" to listOf(
+                        listOf(-1, 1, 2, 3),
+                        mapOf(">" to listOf(mapOf("var" to ""), 0))
+                    )
+                ),
                 result = Success(listOf(-1, 1, 2, 3))
             ),
             TestInput(
@@ -123,7 +136,12 @@ class DistinctTest : FunSpec({
                 result = Success(listOf(-1, "b", "a", true))
             ),
             TestInput(
-                expression = mapOf("distinct" to listOf(listOf("strawberry", true, 2, 3), mapOf("<" to listOf(mapOf("var" to ""), 0)))),
+                expression = mapOf(
+                    "distinct" to listOf(
+                        listOf("strawberry", true, 2, 3),
+                        mapOf("<" to listOf(mapOf("var" to ""), 0))
+                    )
+                ),
                 result = Success(listOf("strawberry", true, 2, 3))
             ),
             TestInput(
