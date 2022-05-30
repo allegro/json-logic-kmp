@@ -31,9 +31,9 @@ object Sort : StandardLogicOperation {
             else -> null
         }
     }
+}
 
-    private enum class SortOrder(val order: String) {
-        DESC("desc"),
-        ASC("asc")
-    }
+private enum class SortOrder(val order: String) {
+    DESC("desc"),
+    ASC("asc")
 }
