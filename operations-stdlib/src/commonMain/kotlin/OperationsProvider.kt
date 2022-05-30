@@ -1,5 +1,6 @@
 import array.Find
 import array.Size
+import array.Sort
 import operation.FunctionalLogicOperation
 import operation.StandardLogicOperation
 import string.Capitalize
@@ -22,8 +23,8 @@ object OperationsProvider {
 
         // array
         "size" to Size,
-
-        "reverse" to Reverse
+        "reverse" to Reverse,
+        "sort" to Sort
     )
 
     val functionalOperations: Map<String, FunctionalLogicOperation> = mutableMapOf(
