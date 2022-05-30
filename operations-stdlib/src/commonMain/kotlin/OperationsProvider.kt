@@ -23,7 +23,8 @@ object OperationsProvider {
         // array
         "size" to Size,
 
-        "reverse" to Reverse
+        "reverse" to Reverse,
+        "drop" to Drop
     )
 
     val functionalOperations: Map<String, FunctionalLogicOperation> = mutableMapOf(

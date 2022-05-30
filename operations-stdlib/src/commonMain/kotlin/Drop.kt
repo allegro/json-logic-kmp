@@ -4,33 +4,34 @@ import utils.secondOrNull
 import utils.thirdOrNull
 
 object Drop : StandardLogicOperation {
-    private const val MODE_FIRST = "first"
-    private const val MODE_LAST = "last"
-
-    override fun evaluateLogic(expression: Any?, data: Any?): Any? {
+    override fun evaluateLogic(expression: Any?, data: Any?): Any? =
         with(expression.asList) {
             val dropCandidate = firstOrNull()
             val count = secondOrNull()
-            val mode = thirdOrNull()
+            val mode = (thirdOrNull() as? String).toDropMode()
 
-            when(dropCandidate) {
-                is String -> drop(count, mode)
-                is List<*> -> drop(count, mode)
-                else -> null
-            }
+            (count as? Int)?.let { dropCandidate.drop(it, mode) }
         }
+
+    private fun String?.toDropMode() = when (this) {
+        DropMode.FIRST.mode -> DropMode.FIRST
+        DropMode.LAST.mode -> DropMode.LAST
+        else -> null
     }
 
-    private fun String.drop(count: Int, mode: String) {
-    }
+    private fun Any?.drop(count: Int, mode: DropMode?) =
+        when (this) {
+            is String -> modeBasedDrop(mode = mode, first = { drop(count) }, last = { dropLast(count) })
+            is List<*> -> modeBasedDrop(mode = mode, first = { drop(count) }, last = { dropLast(count) })
+            else -> null
+        }
 
-    private fun List<*>.drop(count: Int, mode: String) {
-        modeBasedDrop(first = {drop(count)}, last = {})
-    }
-
-    private fun modeBasedDrop(mode: first: (() -> Any?), last: (() -> Any?)) {
-
-    }
+    private fun modeBasedDrop(mode: DropMode?, first: (() -> Any?), last: (() -> Any?)) =
+        when (mode) {
+            DropMode.FIRST -> first()
+            DropMode.LAST -> last()
+            else -> null
+        }
 }
 
 private enum class DropMode(val mode: String) {
