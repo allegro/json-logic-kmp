@@ -2,6 +2,7 @@ package array
 
 import JsonLogicEngine
 import JsonLogicResult.Success
+import JsonLogicResult.Failure
 import TestInput
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
@@ -16,7 +17,7 @@ class SortTest : FunSpec({
         ts = listOf(
             TestInput(
                 expression = mapOf(operatorName to listOf(listOf(1, 2, 3))),
-                result = Success(listOf(1.0, 2.0, 3.0))
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(operatorName to listOf(listOf(1, 2, 3), "asc")),
@@ -26,38 +27,38 @@ class SortTest : FunSpec({
                 expression = mapOf(operatorName to listOf(listOf(1, 2, 3), "desc")),
                 result = Success(listOf(3.0, 2.0, 1.0))
             ),
-//            TestInput(
-//                expression = mapOf(operatorName to "banana"),
-//                result = JsonLogicResult.Failure.NullResult
-//            ),
-//            TestInput(
-//                expression = mapOf(operatorName to null),
-//                result = JsonLogicResult.Failure.NullResult
-//            ),
-//            TestInput(
-//                expression = mapOf(operatorName to true),
-//                result = JsonLogicResult.Failure.NullResult
-//            ),
-//            TestInput(
-//                expression = mapOf(operatorName to emptyList<Any>()),
-//                result = JsonLogicResult.Failure.NullResult
-//            ),
-//            TestInput(
-//                expression = mapOf(operatorName to listOf(null, mapOf("var" to ""))),
-//                result = JsonLogicResult.Failure.NullResult
-//            ),
-//            TestInput(
-//                expression = mapOf(operatorName to listOf(emptyList<String>(), mapOf("var" to ""))),
-//                result = JsonLogicResult.Failure.NullResult
-//            ),
-//            TestInput(
-//                expression = mapOf(operatorName to listOf(listOf(false, false), mapOf("var" to ""))),
-//                result = JsonLogicResult.Failure.NullResult
-//            ),
-//            TestInput(
-//                expression = mapOf(operatorName to listOf(listOf(true, false), mapOf("var" to ""))),
-//                result = JsonLogicResult.Success(true)
-//            ),
+            TestInput(
+                expression = mapOf(operatorName to "banana"),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(operatorName to null),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(operatorName to true),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(operatorName to emptyList<Any>()),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(operatorName to listOf(null, mapOf("var" to ""))),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(operatorName to listOf(emptyList<String>(), mapOf("var" to ""))),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(operatorName to listOf(listOf(false, false), mapOf("var" to ""))),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(operatorName to listOf(listOf(true, false), "asc")),
+                result = Failure.NullResult
+            ),
 //            TestInput(
 //                expression = mapOf(operatorName to listOf(listOf(true, false))),
 //                result = JsonLogicResult.Failure.NullResult
