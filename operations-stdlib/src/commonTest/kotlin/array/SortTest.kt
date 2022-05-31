@@ -93,6 +93,10 @@ class SortTest : FunSpec({
                 result = Failure.NullResult
             ),
             TestInput(
+                expression = mapOf(operatorName to listOf(listOf("banana", null, "strawberry"), "asc")),
+                result = Failure.NullResult
+            ),
+            TestInput(
                 expression = mapOf(operatorName to null),
                 result = Failure.NullResult
             ),
@@ -118,7 +122,31 @@ class SortTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(operatorName to listOf(listOf(true, false), "asc")),
+                result = Success(listOf(false, true))
+            ),
+            TestInput(
+                expression = mapOf(operatorName to listOf(listOf(true), "asc")),
+                result = Success(listOf(true))
+            ),
+            TestInput(
+                expression = mapOf(operatorName to listOf(listOf(false), "asc")),
+                result = Success(listOf(false))
+            ),
+            TestInput(
+                expression = mapOf(operatorName to listOf(listOf(true, null), "asc")),
                 result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(operatorName to listOf(listOf(true, "1"), "asc")),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(operatorName to listOf(listOf(true, "true"), "asc")),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(operatorName to listOf(listOf(true, false), "desc")),
+                result = Success(listOf(true, false))
             ),
             TestInput(
                 expression = mapOf(

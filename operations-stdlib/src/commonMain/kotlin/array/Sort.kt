@@ -11,11 +11,7 @@ object Sort : StandardLogicOperation {
             val elementsToSort = firstOrNull()?.asList
             val sortingMode = (secondOrNull() as? String).toSortOrder()
 
-            when  {
-                elementsToSort.containsOnlyElementsOfType<String>() -> elementsToSort?.sortAsListOfStrings(sortingMode)
-                elementsToSort.containsOnlyElementsOfType<Number>() -> elementsToSort?.sortAsListOfDoubles(sortingMode)
-                else -> null
-            }
+            elementsToSort?.sortByMode(sortingMode)
         }
 
     private fun String?.toSortOrder() = when (this) {
@@ -24,15 +20,21 @@ object Sort : StandardLogicOperation {
         else -> SortOrder.Unknown
     }
 
-    private inline fun <reified T> List<Any?>?.containsOnlyElementsOfType() = this?.filterIsInstance<T>()?.size == this?.size
-
-    private fun List<Any?>.sortAsListOfStrings(sortingMode: SortOrder) = (this as? List<String>)?.let {
-        modeBasedSort(sortingMode = sortingMode, ascSort = { it.sorted() }, descSort = { it.sortedDescending() })
+    private fun List<Any?>.sortByMode(sortingMode: SortOrder) = when {
+        containsOnlyElementsOfType<String>() -> this.checkedCastCompare<String>(sortingMode)
+        containsOnlyElementsOfType<Boolean>() -> this.checkedCastCompare<Boolean>(sortingMode)
+        containsOnlyElementsOfType<Number>() -> asDoubleList.filterNotNull().sortComparable(sortingMode)
+        else -> null
     }
 
-    private fun List<Any?>.sortAsListOfDoubles(sortingMode: SortOrder) = asDoubleList.filterNotNull().let {
-        modeBasedSort(sortingMode = sortingMode, ascSort = { it.sorted() }, descSort = { it.sortedDescending() })
-    }
+    private inline fun <reified T> List<Any?>?.containsOnlyElementsOfType() =
+        this?.filterIsInstance<T>()?.size == this?.size
+
+    private inline fun <reified T : Comparable<T>> List<*>.checkedCastCompare(sortingMode: SortOrder) =
+        (this as? List<T>)?.sortComparable(sortingMode)
+
+    private inline fun <reified T : Comparable<T>> List<T>.sortComparable(sortingMode: SortOrder) =
+        modeBasedSort(sortingMode = sortingMode, ascSort = { sorted() }, descSort = { sortedDescending() })
 
     private fun modeBasedSort(sortingMode: SortOrder, ascSort: (() -> Any?), descSort: (() -> Any?)) =
         when (sortingMode) {
