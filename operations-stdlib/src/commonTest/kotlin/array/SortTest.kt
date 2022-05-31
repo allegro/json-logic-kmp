@@ -82,7 +82,7 @@ class SortTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(operatorName to listOf(listOf("banana", "apple", "strawberry"), "asc")),
-                result = Failure.NullResult
+                result = Success(listOf("apple", "banana", "strawberry"))
             ),
             TestInput(
                 expression = mapOf(operatorName to null),
