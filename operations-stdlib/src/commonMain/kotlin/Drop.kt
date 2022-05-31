@@ -10,7 +10,7 @@ object Drop : StandardLogicOperation {
             val count = secondOrNull()
             val mode = (thirdOrNull() as? String).toDropMode()
 
-            (count as? Int)?.let { dropCandidate.drop(it, mode) }
+            (count as? Int)?.let { dropCandidate.dropElements(it, mode) }
         }
 
     private fun String?.toDropMode() = when (this) {
@@ -19,7 +19,7 @@ object Drop : StandardLogicOperation {
         else -> DropMode.Unknown
     }
 
-    private fun Any?.drop(count: Int, mode: DropMode) =
+    private fun Any?.dropElements(count: Int, mode: DropMode) =
         when (this) {
             is String -> modeBasedDrop(mode = mode, first = { drop(count) }, last = { dropLast(count) })
             is List<*> -> modeBasedDrop(mode = mode, first = { drop(count) }, last = { dropLast(count) })
