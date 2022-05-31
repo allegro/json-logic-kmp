@@ -14,27 +14,28 @@ object Drop : StandardLogicOperation {
         }
 
     private fun String?.toDropMode() = when (this) {
-        DropMode.FIRST.mode -> DropMode.FIRST
-        DropMode.LAST.mode -> DropMode.LAST
-        else -> null
+        "first" -> DropMode.First
+        "last" -> DropMode.Last
+        else -> DropMode.Unknown
     }
 
-    private fun Any?.drop(count: Int, mode: DropMode?) =
+    private fun Any?.drop(count: Int, mode: DropMode) =
         when (this) {
             is String -> modeBasedDrop(mode = mode, first = { drop(count) }, last = { dropLast(count) })
             is List<*> -> modeBasedDrop(mode = mode, first = { drop(count) }, last = { dropLast(count) })
             else -> null
         }
 
-    private fun modeBasedDrop(mode: DropMode?, first: (() -> Any?), last: (() -> Any?)) =
+    private fun modeBasedDrop(mode: DropMode, first: (() -> Any?), last: (() -> Any?)) =
         when (mode) {
-            DropMode.FIRST -> first()
-            DropMode.LAST -> last()
-            else -> null
+            DropMode.First -> first()
+            DropMode.Last -> last()
+            DropMode.Unknown -> null
         }
 }
 
-private enum class DropMode(val mode: String) {
-    FIRST("first"),
-    LAST("last")
+private sealed class DropMode {
+    object First : DropMode()
+    object Last : DropMode()
+    object Unknown : DropMode()
 }
