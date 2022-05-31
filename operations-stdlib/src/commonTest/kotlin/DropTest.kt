@@ -3,17 +3,43 @@ import JsonLogicResult.Success
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
+import string.Lowercase
 
 class DropTest : FunSpec({
     val operatorName = "drop"
     val logicEngine = JsonLogicEngine.Builder()
-        .addStandardOperation(operatorName, Drop)
-        .build()
+        .addStandardOperations(
+            mapOf(
+                operatorName to Drop,
+                "lowercase" to Lowercase,
+                "reverse" to Reverse
+            )
+        ).build()
 
     withData(
         nameFn = { input -> "Should evaluated ${input.expression} with given ${input.data} result in ${input.result}" },
         ts = listOf(
-            // TODO add some more complex cases
+            TestInput(
+                expression = mapOf(
+                    operatorName to listOf(
+                        mapOf(
+                            "reverse" to listOf(
+                                listOf(
+                                    "element1",
+                                    "element2",
+                                    "element3"
+                                )
+                            )
+                        ), 2, "first"
+                    )
+                ),
+                result = Success(listOf("element1"))
+            ),
+            TestInput(
+                expression = mapOf(operatorName to listOf(mapOf("lowercase" to mapOf("var" to "key")), 4, "last")),
+                data = mapOf("key" to "APPLE"),
+                result = Success("a")
+            ),
             TestInput(
                 expression = mapOf(operatorName to listOf(listOf(1, 2, 3, 4), 2, "last")),
                 result = Success(listOf(1, 2))
