@@ -15,6 +15,7 @@ class SortTest : FunSpec({
     withData(
         nameFn = { input -> "Should evaluated ${input.expression} with given ${input.data} result in ${input.result}" },
         ts = listOf(
+            // TODO add more cases with string list
             TestInput(
                 expression = mapOf(operatorName to listOf(mapOf(
                     "map" to listOf(
