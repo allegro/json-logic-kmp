@@ -1,3 +1,4 @@
+import array.Distinct
 import array.Find
 import array.Size
 import operation.FunctionalLogicOperation
@@ -6,6 +7,7 @@ import string.Capitalize
 import string.IsBlank
 import string.Length
 import string.Lowercase
+import string.ToArray
 import string.Uppercase
 
 object OperationsProvider {
@@ -16,15 +18,17 @@ object OperationsProvider {
         "length" to Length,
         "lowercase" to Lowercase,
         "uppercase" to Uppercase,
+        "toArray" to ToArray,
 
         // time
         "currentTime" to CurrentTimeMillis,
 
         // array
         "size" to Size,
-
-        "reverse" to Reverse,
-        "drop" to Drop
+        "distinct" to Distinct,
+      
+        "drop" to Drop,
+        "reverse" to Reverse
     )
 
     val functionalOperations: Map<String, FunctionalLogicOperation> = mutableMapOf(
