@@ -15,7 +15,6 @@ class SortTest : FunSpec({
     withData(
         nameFn = { input -> "Should evaluated ${input.expression} with given ${input.data} result in ${input.result}" },
         ts = listOf(
-            // TODO add more cases with string list
             TestInput(
                 expression = mapOf(operatorName to listOf(mapOf(
                     "map" to listOf(
@@ -54,6 +53,10 @@ class SortTest : FunSpec({
                 result = Success(listOf(0.01, 0.01, 0.001))
             ),
             TestInput(
+                expression = mapOf(operatorName to listOf(listOf("0.1", "0.01", "0.001"), "desc")),
+                result = Success(listOf("0.1", "0.01", "0.001"))
+            ),
+            TestInput(
                 expression = mapOf(operatorName to listOf(listOf(1, "true", 3), "asc")),
                 result = Failure.NullResult
             ),
@@ -84,6 +87,10 @@ class SortTest : FunSpec({
             TestInput(
                 expression = mapOf(operatorName to listOf(listOf("banana", "apple", "strawberry"), "asc")),
                 result = Success(listOf("apple", "banana", "strawberry"))
+            ),
+            TestInput(
+                expression = mapOf(operatorName to listOf(listOf("banana", 2, "strawberry"), "asc")),
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(operatorName to null),
