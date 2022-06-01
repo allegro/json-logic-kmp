@@ -26,7 +26,7 @@ object OperationsProvider {
 
         // array
         "size" to Size,
-        "sort" to Sort
+        "sort" to Sort,
         "distinct" to Distinct,
       
         "reverse" to Reverse
