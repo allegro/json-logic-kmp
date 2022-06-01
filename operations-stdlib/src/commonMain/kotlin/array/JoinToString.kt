@@ -10,18 +10,24 @@ object JoinToString : StandardLogicOperation {
         elementsToJoin.joinToString(separator, prefix, postfix, limit, truncated)
 
     private fun List<Any?>.toOperationArguments(): JoinToStringArguments? = kotlin.runCatching {
-        JoinToStringArguments(
-            elementsToJoin = get(0).asList,
-            separator = get(1) as String,
-            prefix = get(2) as String,
-            postfix = get(3) as String,
-            limit = get(4) as Int,
-            truncated = get(5) as String
-        )
+        checkLimitArg()?.let { limit ->
+            JoinToStringArguments(
+                elementsToJoin = get(0).asList,
+                separator = get(1) as String,
+                prefix = get(2) as String,
+                postfix = get(3) as String,
+                limit = limit,
+                truncated = get(5) as String
+            )
+        }
     }.fold(
         onSuccess = { it },
         onFailure = { null }
     )
+
+    private fun List<Any?>.checkLimitArg() = (get(4) as Number).takeIf {
+        it.toDouble() == it.toInt().toDouble()
+    }?.toInt()
 }
 
 private data class JoinToStringArguments(
