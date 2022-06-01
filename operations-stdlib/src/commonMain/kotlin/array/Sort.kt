@@ -30,6 +30,7 @@ object Sort : StandardLogicOperation {
     private inline fun <reified T> List<Any?>?.containsOnlyElementsOfType() =
         this?.filterIsInstance<T>()?.size == this?.size
 
+    @Suppress("UNCHECKED_CAST")
     private inline fun <reified T : Comparable<T>> List<*>.checkedCastCompare(sortingMode: SortOrder) =
         (this as? List<T>)?.sortComparable(sortingMode)
 
