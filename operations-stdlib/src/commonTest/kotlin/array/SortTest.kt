@@ -13,7 +13,7 @@ class SortTest : FunSpec({
     val logicEngine = JsonLogicEngine.Builder().addStandardOperation(operatorName, Sort).build()
 
     withData(
-        nameFn = { input -> "Should evaluated ${input.expression} with given ${input.data} result in ${input.result}" },
+        nameFn = { input -> "Should evaluated $operatorName expression with given ${input.data} result in ${input.result}" },
         ts = listOf(
             TestInput(
                 expression = mapOf(operatorName to listOf(mapOf(
