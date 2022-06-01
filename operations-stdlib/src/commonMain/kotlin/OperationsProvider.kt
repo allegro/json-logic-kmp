@@ -1,4 +1,5 @@
 import array.Find
+import array.JoinToString
 import array.Size
 import operation.FunctionalLogicOperation
 import operation.StandardLogicOperation
@@ -22,6 +23,7 @@ object OperationsProvider {
 
         // array
         "size" to Size,
+        "joinToString" to JoinToString,
 
         "reverse" to Reverse
     )
