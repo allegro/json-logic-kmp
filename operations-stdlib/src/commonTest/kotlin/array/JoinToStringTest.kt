@@ -2,20 +2,70 @@ package array
 
 import JsonLogicEngine
 import JsonLogicResult.Success
+import JsonLogicResult.Failure
 import TestInput
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 
 class JoinToStringTest : FunSpec({
+    val operationName = "joinToString"
     val logicEngine = JsonLogicEngine.Builder().addStandardOperation("joinToString", JoinToString).build()
 
     withData(
         nameFn = { input -> "Should evaluated ${input.expression} with given ${input.data} result in ${input.result}" },
         ts = listOf(
             TestInput(
-                expression = mapOf("joinToString" to listOf(listOf("test", "test", 1), ",", "", "", 30, "...")),
+                expression = mapOf(operationName to listOf(listOf("test", "test", 1), ",", "", "", 30, "...")),
                 result = Success("test,test,1")
+            ),
+            TestInput(
+                expression = mapOf(operationName to listOf(listOf(null, true, 1), ",", "", "", 30, "...")),
+                result = Success("null,true,1")
+            ),
+            TestInput(
+                expression = mapOf(operationName to listOf(listOf("13", ".", 11, ".", 1990), "", "date:", "", 4, "19**")),
+                result = Success("date:13.11.19**")
+            ),
+            TestInput(
+                expression = mapOf(operationName to listOf(listOf("sp", "ace"), "   ", "  ", " ", 30, "...")),
+                result = Success("  sp   ace ")
+            ),
+            TestInput(
+                expression = mapOf(operationName to listOf(listOf("fruit", "salad"), " ", "", "", 1, "*****")),
+                result = Success("fruit *****")
+            ),
+            TestInput(
+                expression = mapOf(operationName to listOf(listOf("test", "test", 1), ",", "", "", "30", "...")),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(operationName to null),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(operationName to true),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(operationName to false),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(operationName to 1.3),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(operationName to listOf(listOf("test", "test", 1))),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(operationName to listOf(listOf("test", "test", 1), ",", "", "", 30)),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(operationName to listOf(listOf("test", "test", 1), ",", "", null, null, null)),
+                result = Failure.NullResult
             ),
 //            TestInput(
 //                expression = mapOf("size" to listOf(listOf("test", "test2"), "a")),
