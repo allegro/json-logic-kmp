@@ -18,6 +18,7 @@ object OperationsProvider {
         "length" to Length,
         "lowercase" to Lowercase,
         "uppercase" to Uppercase,
+        "toArray" to ToArray,
 
         // time
         "currentTime" to CurrentTimeMillis,
@@ -25,8 +26,8 @@ object OperationsProvider {
         // array
         "size" to Size,
         "distinct" to Distinct,
-        "toArray" to ToArray,
       
+        "drop" to Drop,
         "reverse" to Reverse
     )
 
