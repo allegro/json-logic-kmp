@@ -1,8 +1,8 @@
 package array
 
 import JsonLogicEngine
-import JsonLogicResult.Success
 import JsonLogicResult.Failure
+import JsonLogicResult.Success
 import TestInput
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
@@ -60,7 +60,12 @@ class JoinToStringTest : FunSpec({
             TestInput(
                 expression = mapOf(
                     operationName to listOf(
-                        mapOf("distinct" to listOf(mapOf("var" to "fruits"))), " + ", "add some: ", " and mix!", 3, "random fruits"
+                        mapOf("distinct" to listOf(mapOf("var" to "fruits"))),
+                        " + ",
+                        "add some: ",
+                        " and mix!",
+                        3,
+                        "random fruits"
                     )
                 ),
                 data = mapOf(
@@ -141,7 +146,16 @@ class JoinToStringTest : FunSpec({
                 result = Success("")
             ),
             TestInput(
-                expression = mapOf(operationName to listOf(emptyList<String>(), " ", "no elements ", "to join", 0, "*****")),
+                expression = mapOf(
+                    operationName to listOf(
+                        emptyList<String>(),
+                        " ",
+                        "no elements ",
+                        "to join",
+                        0,
+                        "*****"
+                    )
+                ),
                 result = Success("no elements to join")
             ),
             TestInput(
@@ -149,7 +163,16 @@ class JoinToStringTest : FunSpec({
                 result = Success("*****")
             ),
             TestInput(
-                expression = mapOf(operationName to listOf(listOf(0.00000, 0.000000, 0.00000000), ".", "", "", 3, "*****")),
+                expression = mapOf(
+                    operationName to listOf(
+                        listOf(0.00000, 0.000000, 0.00000000),
+                        ".",
+                        "",
+                        "",
+                        3,
+                        "*****"
+                    )
+                ),
                 result = Success("0.0.0.0.0.0")
             ),
             TestInput(
