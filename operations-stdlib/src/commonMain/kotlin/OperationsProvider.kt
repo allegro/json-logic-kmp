@@ -1,3 +1,4 @@
+import array.Distinct
 import array.Find
 import array.JoinToString
 import array.Size
@@ -7,6 +8,7 @@ import string.Capitalize
 import string.IsBlank
 import string.Length
 import string.Lowercase
+import string.ToArray
 import string.Uppercase
 
 object OperationsProvider {
@@ -17,14 +19,17 @@ object OperationsProvider {
         "length" to Length,
         "lowercase" to Lowercase,
         "uppercase" to Uppercase,
+        "toArray" to ToArray,
 
         // time
         "currentTime" to CurrentTimeMillis,
 
         // array
         "size" to Size,
+        "distinct" to Distinct,
         "joinToString" to JoinToString,
 
+        "drop" to Drop,
         "reverse" to Reverse
     )
 

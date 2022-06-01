@@ -3,8 +3,6 @@ plugins {
 }
 
 repositories {
-    // TODO remove before first public release
-    mavenLocal()
     mavenCentral()
 }
 
