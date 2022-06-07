@@ -11,12 +11,12 @@ object JoinToString : StandardLogicOperation {
     private const val LIMIT_ARG_INDEX = 4
     private const val TRUNCATED_ARG_INDEX = 5
 
-    override fun evaluateLogic(expression: Any?, data: Any?): Any? = expression.asList.toOperationArguments()?.invoke()
+    override fun evaluateLogic(expression: Any?, data: Any?): Any? = expression.asList.toOperationArguments()?.join()
 
-    private fun JoinToStringArguments.invoke() =
+    private fun JoinToStringArguments.join() =
         elementsToJoin.joinToString(separator, prefix, postfix, limit, truncated)
 
-    private fun List<Any?>.toOperationArguments(): JoinToStringArguments? = kotlin.runCatching {
+    private fun List<Any?>.toOperationArguments(): JoinToStringArguments? = runCatching {
         checkLimitArg()?.let { limit ->
             JoinToStringArguments(
                 elementsToJoin = get(ELEMENTS_ARG_INDEX).asList,
