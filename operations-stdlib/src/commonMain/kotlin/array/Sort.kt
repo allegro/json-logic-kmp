@@ -21,8 +21,8 @@ object Sort : StandardLogicOperation {
     }
 
     private fun List<Any?>.sortByMode(sortingMode: SortOrder) = when {
-        containsOnlyElementsOfType<String>() -> this.checkedCastCompare<String>(sortingMode)
-        containsOnlyElementsOfType<Boolean>() -> this.checkedCastCompare<Boolean>(sortingMode)
+        containsOnlyElementsOfType<String>() -> this.castAndSortComparable<String>(sortingMode)
+        containsOnlyElementsOfType<Boolean>() -> this.castAndSortComparable<Boolean>(sortingMode)
         containsOnlyElementsOfType<Number>() -> asDoubleList.filterNotNull().sortComparable(sortingMode)
         else -> null
     }
@@ -31,7 +31,7 @@ object Sort : StandardLogicOperation {
         this?.filterIsInstance<T>()?.size == this?.size
 
     @Suppress("UNCHECKED_CAST")
-    private inline fun <reified T : Comparable<T>> List<*>.checkedCastCompare(sortingMode: SortOrder) =
+    private inline fun <reified T : Comparable<T>> List<*>.castAndSortComparable(sortingMode: SortOrder) =
         (this as? List<T>)?.sortComparable(sortingMode)
 
     private inline fun <reified T : Comparable<T>> List<T>.sortComparable(sortingMode: SortOrder) =
