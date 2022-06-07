@@ -1,8 +1,8 @@
 package array
 
 import JsonLogicEngine
-import JsonLogicResult.Success
 import JsonLogicResult.Failure
+import JsonLogicResult.Success
 import TestInput
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
@@ -16,23 +16,31 @@ class SortTest : FunSpec({
         nameFn = { input -> "Should evaluated $operatorName expression with given ${input.data} result in ${input.result}" },
         ts = listOf(
             TestInput(
-                expression = mapOf(operatorName to listOf(mapOf(
-                    "map" to listOf(
-                        mapOf("var" to "integers", "var" to "integers"),
-                        mapOf("%" to listOf(mapOf("var" to ""), 3)),
-                        mapOf("var" to "integers", "var" to "integers"),
+                expression = mapOf(
+                    operatorName to listOf(
+                        mapOf(
+                            "map" to listOf(
+                                mapOf("var" to "integers", "var" to "integers"),
+                                mapOf("%" to listOf(mapOf("var" to ""), 3)),
+                                mapOf("var" to "integers", "var" to "integers"),
+                            )
+                        ), "desc"
                     )
-                ), "desc")),
+                ),
                 data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
                 result = Success(listOf(2.0, 2.0, 1.0, 1.0, 0.0))
             ),
             TestInput(
-                expression = mapOf(operatorName to listOf(mapOf(
-                    "map" to listOf(
-                        mapOf("var" to "integers"),
-                        mapOf("%" to listOf(mapOf("var" to ""), 2))
+                expression = mapOf(
+                    operatorName to listOf(
+                        mapOf(
+                            "map" to listOf(
+                                mapOf("var" to "integers"),
+                                mapOf("%" to listOf(mapOf("var" to ""), 2))
+                            )
+                        ), "asc"
                     )
-                ), "asc")),
+                ),
                 data = mapOf("integers" to listOf(1, 2, 3, 4, 5)),
                 result = Success(listOf(0.0, 0.0, 1.0, 1.0, 1.0))
             ),
