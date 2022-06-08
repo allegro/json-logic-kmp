@@ -28,7 +28,7 @@ jobs:
         run: ./gradlew detektAll
 
       - name: Build project
-        run: ./gradlew build --info
+        run: ./gradlew build
 
       - name: Build XCFramework
         run: ./gradlew assembleJsonLogicKMPXCFramework
