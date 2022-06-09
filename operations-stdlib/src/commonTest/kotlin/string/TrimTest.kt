@@ -38,6 +38,10 @@ class TrimTest : FunSpec({
                 result = Success("some A")
             ),
             TestInput(
+                expression = mapOf(operatorName to ""),
+                result = Success("")
+            ),
+            TestInput(
                 expression = mapOf(
                     operatorName to listOf(listOf("_cat_", "_", "start"))
                 ),
@@ -57,57 +61,53 @@ class TrimTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
-                    operatorName to listOf(listOf(" cat ", " ", "bothEnds"))
+                    operatorName to listOf(listOf(listOf("_cat_"), "_", "bothEnds"))
                 ),
-                result = Success("cat")
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    operatorName to listOf(listOf("_cat_"), "_____", "bothEnds")
+                ),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    operatorName to listOf(listOf("_cat_"), "", "bothEnds")
+                ),
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     operatorName to listOf(listOf("_cat_", "_"))
                 ),
-                result = Success("cat")
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     operatorName to listOf(listOf("_cat_"))
                 ),
-                result = Success("_cat_")
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
-                    operatorName to listOf(listOf(" cat "))
+                    operatorName to listOf(listOf(""))
                 ),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    operatorName to listOf(listOf(mapOf("var" to "key"), "_", "bothEnds"))
+                ),
+                data = mapOf("key" to "_cat_"),
                 result = Success("cat")
             ),
             TestInput(
                 expression = mapOf(
-                    operatorName to listOf(listOf("cat "))
+                    operatorName to listOf(listOf(mapOf("var" to "key"), "_", "bothEnds"))
                 ),
-                result = Success("cat")
-            ),
-            TestInput(
-                expression = mapOf(
-                    operatorName to listOf(listOf(" cat"))
-                ),
-                result = Success("cat")
-            ),
-            TestInput(
-                expression = mapOf(
-                    operatorName to listOf(listOf("    cat       "))
-                ),
-                result = Success("cat")
-            ),
-            TestInput(
-                expression = mapOf(
-                    operatorName to listOf(listOf("_cat_", "______"))
-                ),
-                result = Failure.MissingOperation
-            ),
-            TestInput(
-                expression = mapOf(
-                    operatorName to listOf(listOf("_cat_", ""))
-                ),
-                result = Failure.MissingOperation
+                data = mapOf("key" to listOf("_cat_", "_cat_")),
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(operatorName to 1.3),

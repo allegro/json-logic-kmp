@@ -4,6 +4,7 @@ import operation.StandardLogicOperation
 import utils.asList
 import utils.secondOrNull
 import utils.thirdOrNull
+import utils.toStringOrEmpty
 
 object Trim : StandardLogicOperation, StringUnwrapStrategy {
     override fun evaluateLogic(expression: Any?, data: Any?): Any?  {
@@ -11,8 +12,8 @@ object Trim : StandardLogicOperation, StringUnwrapStrategy {
             is String -> firstItem.trimElements(' ', TrimMode.BothEnds)
             is List<*> -> {
                 val text = firstItem.firstOrNull()
-                val sign = firstItem.secondOrNull() ?: " "
-                val mode = (firstItem.thirdOrNull() as? String).toTrimMode() ?: TrimMode.BothEnds
+                val sign = firstItem.secondOrNull()
+                val mode = (firstItem.thirdOrNull() as? String).toTrimMode() ?: return null
                 (sign as? String)?.let {
                     val char: Char = it.single()
                     text.trimElements(char, mode)
@@ -29,28 +30,13 @@ object Trim : StandardLogicOperation, StringUnwrapStrategy {
         else -> null
     }
 
-    private fun Any?.trimElements(char: Char, mode: TrimMode) =
-        when (this) {
-            is String -> {
-                modeBasedTrim(
-                    mode = mode,
-                    start = { trimStart(char) },
-                    end = { trimEnd(char) },
-                    bothEnds = { trim(char) }
-                )
-            }
-            else -> null
-        }
+    private fun Any?.trimElements(char: Char, mode: TrimMode) = (this as? String)?.modeBasedTrim(mode, char)
 
-    private fun modeBasedTrim(mode: TrimMode,
-                              start: (() -> Any?),
-                              end: (() -> Any?),
-                              bothEnds: (() -> Any?)
-    ) =
+    private fun String.modeBasedTrim(mode: TrimMode, char: Char) =
         when (mode) {
-            TrimMode.Start -> start()
-            TrimMode.End -> end()
-            TrimMode.BothEnds -> bothEnds()
+            TrimMode.Start -> trimStart(char)
+            TrimMode.End -> trimEnd(char)
+            TrimMode.BothEnds -> trim(char)
         }
 }
 
