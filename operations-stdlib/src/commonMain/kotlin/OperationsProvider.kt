@@ -1,5 +1,6 @@
 import array.Distinct
 import array.Find
+import array.JoinToString
 import array.Size
 import array.Sort
 import operation.FunctionalLogicOperation
@@ -28,7 +29,8 @@ object OperationsProvider {
         "size" to Size,
         "sort" to Sort,
         "distinct" to Distinct,
-      
+        "joinToString" to JoinToString,
+
         "drop" to Drop,
         "reverse" to Reverse
     )
