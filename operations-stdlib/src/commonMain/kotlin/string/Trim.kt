@@ -9,9 +9,10 @@ object Trim : StandardLogicOperation, StringUnwrapStrategy {
     private const val CHAR_ARG_INDEX = 1
     private const val MODE_ARG_INDEX = 2
 
-    override fun evaluateLogic(expression: Any?, data: Any?): Any? = expression.asList.toOperationArguments()?.trim()
+    override fun evaluateLogic(expression: Any?, data: Any?): Any? =
+        expression.asList.toOperationArguments()?.invokeTrim()
 
-    private fun TrimArguments.trim() = (this as? TrimArguments)?.modeBasedTrim(mode, char)
+    private fun TrimArguments.invokeTrim() = (this as? TrimArguments)?.modeBasedTrim(mode, char)
 
     private fun List<Any?>.toOperationArguments(): TrimArguments? = runCatching {
         val arguments = get(ARGUMENTS_ARG_INDEX).asList
