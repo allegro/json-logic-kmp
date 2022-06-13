@@ -2,43 +2,49 @@ package string
 
 import operation.StandardLogicOperation
 import utils.asList
-import utils.secondOrNull
-import utils.thirdOrNull
-import utils.toStringOrEmpty
 
 object Trim : StandardLogicOperation, StringUnwrapStrategy {
-    override fun evaluateLogic(expression: Any?, data: Any?): Any?  {
-        return when (val firstItem = expression.asList.firstOrNull()) {
-            is String -> firstItem.trimElements(' ', TrimMode.BothEnds)
-            is List<*> -> {
-                val text = firstItem.firstOrNull()
-                val sign = firstItem.secondOrNull()
-                val mode = (firstItem.thirdOrNull() as? String).toTrimMode() ?: return null
-                (sign as? String)?.let {
-                    val char: Char = it.single()
-                    text.trimElements(char, mode)
-                }
-            }
-            else -> null
+    private const val ARGUMENTS_ARG_INDEX = 0
+    private const val TEXT_ARG_INDEX = 0
+    private const val CHAR_ARG_INDEX = 1
+    private const val MODE_ARG_INDEX = 2
+
+    override fun evaluateLogic(expression: Any?, data: Any?): Any? = expression.asList.toOperationArguments()?.trim()
+
+    private fun TrimArguments.trim() = (this as? TrimArguments)?.modeBasedTrim(mode, char)
+
+    private fun List<Any?>.toOperationArguments(): TrimArguments? = runCatching {
+        val arguments = get(ARGUMENTS_ARG_INDEX).asList
+        TrimArguments(
+            text = arguments[TEXT_ARG_INDEX] as String,
+            char = (arguments[CHAR_ARG_INDEX] as String).single(),
+            mode = (arguments[MODE_ARG_INDEX] as String).toTrimMode()
+        )
+    }.fold(
+        onSuccess = { it },
+        onFailure = { null }
+    )
+
+    private fun TrimArguments.modeBasedTrim(mode: TrimMode, char: Char) =
+        when (mode) {
+            TrimMode.Start -> this.text.trimStart(char)
+            TrimMode.End -> this.text.trimEnd(char)
+            TrimMode.BothEnds -> this.text.trim(char)
         }
-    }
 
     private fun String?.toTrimMode() = when (this) {
         "start" -> TrimMode.Start
         "end" -> TrimMode.End
         "bothEnds" -> TrimMode.BothEnds
-        else -> null
+        else -> throw IllegalStateException("Invalid TrimMode value")
     }
-
-    private fun Any?.trimElements(char: Char, mode: TrimMode) = (this as? String)?.modeBasedTrim(mode, char)
-
-    private fun String.modeBasedTrim(mode: TrimMode, char: Char) =
-        when (mode) {
-            TrimMode.Start -> trimStart(char)
-            TrimMode.End -> trimEnd(char)
-            TrimMode.BothEnds -> trim(char)
-        }
 }
+
+private data class TrimArguments(
+    val text: String,
+    val char: Char,
+    val mode: TrimMode
+)
 
 private sealed class TrimMode {
     object Start : TrimMode()

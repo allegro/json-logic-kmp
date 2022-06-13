@@ -18,32 +18,14 @@ class TrimTest : FunSpec({
         nameFn = { input -> "Should evaluated ${input.expression} with given ${input.data} result in ${input.result}" },
         ts = listOf(
             TestInput(
-                expression = mapOf(operatorName to " some A "),
-                result = Success("some A")
-            ),
-            TestInput(
-                expression = mapOf(operatorName to " some A"),
-                result = Success("some A")
-            ),
-            TestInput(
-                expression = mapOf(operatorName to "some A"),
-                result = Success("some A")
-            ),
-            TestInput(
-                expression = mapOf(operatorName to "some A"),
-                result = Success("some A")
-            ),
-            TestInput(
-                expression = mapOf(operatorName to "     some A   "),
-                result = Success("some A")
-            ),
-            TestInput(
-                expression = mapOf(operatorName to ""),
-                result = Success("")
+                expression = mapOf(
+                    operatorName to listOf(listOf("_cat_", "_", "start"))
+                ),
+                result = Success("cat_")
             ),
             TestInput(
                 expression = mapOf(
-                    operatorName to listOf(listOf("_cat_", "_", "start"))
+                    operatorName to listOf(listOf("_____cat_", "_", "start"))
                 ),
                 result = Success("cat_")
             ),
@@ -55,7 +37,19 @@ class TrimTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
+                    operatorName to listOf(listOf("_cat_____", "_", "end"))
+                ),
+                result = Success("_cat")
+            ),
+            TestInput(
+                expression = mapOf(
                     operatorName to listOf(listOf("_cat_", "_", "bothEnds"))
+                ),
+                result = Success("cat")
+            ),
+            TestInput(
+                expression = mapOf(
+                    operatorName to listOf(listOf("____cat____", "_", "bothEnds"))
                 ),
                 result = Success("cat")
             ),
@@ -74,6 +68,12 @@ class TrimTest : FunSpec({
             TestInput(
                 expression = mapOf(
                     operatorName to listOf(listOf("_cat_"), "", "bothEnds")
+                ),
+                result = Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    operatorName to listOf(listOf("_cat_"), "_", "unknown")
                 ),
                 result = Failure.NullResult
             ),
