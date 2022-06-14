@@ -13,9 +13,6 @@ object JoinToString : StandardLogicOperation {
 
     override fun evaluateLogic(expression: Any?, data: Any?): Any? = expression.asList.toOperationArguments()?.join()
 
-    private fun JoinToStringArguments.join() =
-        elementsToJoin.joinToString(separator, prefix, postfix, limit, truncated)
-
     private fun List<Any?>.toOperationArguments(): JoinToStringArguments? = runCatching {
         checkLimitArg()?.let { limit ->
             JoinToStringArguments(
@@ -35,6 +32,9 @@ object JoinToString : StandardLogicOperation {
     private fun List<Any?>.checkLimitArg() = (get(LIMIT_ARG_INDEX) as Number).takeIf {
         it.toDouble() == it.toInt().toDouble()
     }?.toInt()
+
+    private fun JoinToStringArguments.join() =
+        elementsToJoin.joinToString(separator, prefix, postfix, limit, truncated)
 }
 
 private data class JoinToStringArguments(
