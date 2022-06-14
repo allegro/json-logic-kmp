@@ -29,14 +29,11 @@ object Trim : StandardLogicOperation, StringUnwrapStrategy {
         else -> throw IllegalStateException("Invalid TrimMode value")
     }
 
-    private fun TrimArguments.invokeTrim() = (this as? TrimArguments)?.modeBasedTrim(mode, char)
-
-    private fun TrimArguments.modeBasedTrim(mode: TrimMode, char: Char) =
-        when (mode) {
-            TrimMode.Start -> this.text.trimStart(char)
-            TrimMode.End -> this.text.trimEnd(char)
-            TrimMode.BothEnds -> this.text.trim(char)
-        }
+    private fun TrimArguments.invokeTrim() = when (mode) {
+        TrimMode.Start -> this.text.trimStart(char)
+        TrimMode.End -> this.text.trimEnd(char)
+        TrimMode.BothEnds -> this.text.trim(char)
+    }
 }
 
 private data class TrimArguments(
