@@ -9,6 +9,7 @@ import string.Capitalize
 import string.IsBlank
 import string.Length
 import string.Lowercase
+import string.Replace
 import string.ToArray
 import string.Trim
 import string.Uppercase
@@ -20,6 +21,7 @@ object OperationsProvider {
         "isBlank" to IsBlank,
         "length" to Length,
         "lowercase" to Lowercase,
+        "replace" to Replace,
         "uppercase" to Uppercase,
         "toArray" to ToArray,
 
