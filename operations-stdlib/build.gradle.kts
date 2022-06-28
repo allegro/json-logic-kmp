@@ -22,7 +22,6 @@ kotlin {
             dependencies {
                 implementation(project(Modules.operationsApi))
                 implementation(project(Modules.utils))
-                implementation(Libs.KotlinX.datetime)
             }
         }
         val commonTest by getting {
@@ -35,9 +34,15 @@ kotlin {
                 implementation(project(Modules.utils))
             }
         }
+        val jvmMain by getting
         val jvmTest by getting {
             dependencies {
-                implementation(Libs.Kotest.jvmJunit5Runner)
+                implementation(kotlin(Modules.kotlinTest))
+                implementation(Libs.Kotest.assertionsCore)
+                implementation(Libs.Kotest.frameworkEngine)
+                implementation(Libs.Kotest.frameworkDataset)
+                implementation(project(Modules.core))
+                implementation(project(Modules.utils))
             }
         }
         val iosX64Main by getting
@@ -48,6 +53,16 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+        }
+        val iosTest by creating {
+            dependencies {
+                implementation(kotlin(Modules.kotlinTest))
+                implementation(Libs.Kotest.assertionsCore)
+                implementation(Libs.Kotest.frameworkEngine)
+                implementation(Libs.Kotest.frameworkDataset)
+                implementation(project(Modules.core))
+                implementation(project(Modules.utils))
+            }
         }
     }
 }
