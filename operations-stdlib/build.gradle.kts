@@ -36,14 +36,7 @@ kotlin {
         }
         val jvmMain by getting
         val jvmTest by getting {
-            dependencies {
-                implementation(kotlin(Modules.kotlinTest))
-                implementation(Libs.Kotest.assertionsCore)
-                implementation(Libs.Kotest.frameworkEngine)
-                implementation(Libs.Kotest.frameworkDataset)
-                implementation(project(Modules.core))
-                implementation(project(Modules.utils))
-            }
+            dependsOn(commonTest)
         }
         val iosX64Main by getting
         val iosArm64Main by getting
@@ -55,14 +48,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
         }
         val iosTest by creating {
-            dependencies {
-                implementation(kotlin(Modules.kotlinTest))
-                implementation(Libs.Kotest.assertionsCore)
-                implementation(Libs.Kotest.frameworkEngine)
-                implementation(Libs.Kotest.frameworkDataset)
-                implementation(project(Modules.core))
-                implementation(project(Modules.utils))
-            }
+            dependsOn(commonTest)
         }
     }
 }
