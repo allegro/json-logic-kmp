@@ -10,8 +10,8 @@ class CurrentTimeMillisTests : FunSpec() {
             .build()
 
         test("CurrentTimeMillis.evaluateLogic should be Long type") {
-            val result = logicEngine.evaluate(emptyMap(), null)
-            result should beInstanceOf<String>()
+            val result = logicEngine.evaluate(mapOf(operatorName to ""), null)
+            result should beInstanceOf<Long>()
         }
     }
 }
