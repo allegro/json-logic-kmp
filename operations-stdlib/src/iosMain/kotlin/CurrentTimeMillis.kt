@@ -2,7 +2,7 @@ import operation.StandardLogicOperation
 import platform.Foundation.NSDate
 import platform.Foundation.timeIntervalSince1970
 
-actual object CurrentTimeMillis: StandardLogicOperation {
+actual object CurrentTimeMillis : StandardLogicOperation {
     actual override fun evaluateLogic(expression: Any?, data: Any?): Any {
         /*
             `timeIntervalSince1970()` return Double value in seconds with fraction part.
