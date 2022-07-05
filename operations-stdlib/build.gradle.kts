@@ -42,10 +42,10 @@ kotlin {
             }
         }
         val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
         val iosX64Test by getting
+        val iosArm64Main by getting
         val iosArm64Test by getting
+        val iosSimulatorArm64Main by getting
         val iosSimulatorArm64Test by getting
         val iosMain by creating {
             dependsOn(commonMain)
