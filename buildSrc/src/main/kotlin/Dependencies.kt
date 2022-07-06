@@ -27,10 +27,6 @@ object Versions {
 }
 
 object Libs {
-    object KotlinX {
-        const val datetime = "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.kotlinxDatetime}"
-    }
-
     object Kotest {
         const val assertionsCore = "io.kotest:kotest-assertions-core:${Versions.kotest}"
         const val frameworkEngine = "io.kotest:kotest-framework-engine:${Versions.kotest}"
