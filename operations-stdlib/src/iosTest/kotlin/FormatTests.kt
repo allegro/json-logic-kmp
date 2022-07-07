@@ -8,7 +8,7 @@ class FormatTests : FunSpec({
         .build()
 
     withData(
-        nameFn = { input -> "Should evaluated ${input.expression} with given ${input.data} result in ${input.result}" },
+        nameFn = { input -> "Should evaluated ${input.expression} result in ${input.result}" },
         ts = listOf(
             TestInput(
                 expression = mapOf(
