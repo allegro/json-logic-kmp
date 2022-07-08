@@ -9,9 +9,7 @@ actual object Format : StandardLogicOperation {
             val args = secondOrNull().asList
 
             return runCatching { String.format(format, *args.toTypedArray()) }
-                .fold( {
-                    it }, {
-                    null } )
+                .fold( { it }, { null } )
         }
     }
 }
