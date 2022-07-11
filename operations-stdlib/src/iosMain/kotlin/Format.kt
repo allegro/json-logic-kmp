@@ -9,44 +9,36 @@ actual object Format : StandardLogicOperation {
     actual override fun evaluateLogic(expression: Any?, data: Any?): Any? {
         return with(expression.asList) {
             val format = firstOrNull().toString()
-            val args = arrayOf(secondOrNull()).map {
-                it.toString()
-//                when (it) {
-//                    is String -> "my".cstr//it.cstr
-//                    else -> it
-//                }
-            }
-            val d = runCatching { format.formatFun(*args.toTypedArray()) }
+            val args = secondOrNull().asList
+
+            return runCatching { format.formatFun(args) }
                 .fold( { it }, { null } )
-                return d
-            }
+        }
     }
 
-    private fun String.formatFun(vararg args: String) =
-//        this + args.joinToString("+") + "my" + "dupa".cstr
-        // https://stackoverflow.com/questions/62113545/how-to-pass-vararg-parameters-from-kotlin-common-code-to-ios-functions
-        // This work around is because varargs can't be passed to Objective-C
-        NSString.stringWithFormat("Kmp is %s love %d, trust me %.2f", args)
-//        NSString.stringWithFormat("Kmp is %s love %d, trust me %.2f", "my".cstr, 100, 3.14159)
-//        when (args.size) {
-//            0 -> NSString.stringWithFormat(this)
-//            1 -> NSString.stringWithFormat(this, args[0])
-//            2 -> NSString.stringWithFormat(this, args[0], args[1])
-////            3 -> this + args[0] + args[1] + args[2]
-//            3 -> NSString.stringWithFormat(this, args[0], args[1], args[2])
-////            4 -> NSString.stringWithFormat("Kmp is %d love %d%, trust me %.2f", 77, 100, 3.14159)
-//            4 -> NSString.stringWithFormat(this, args[0], args[1], args[2], args[3])
-//            5 -> NSString.stringWithFormat(this, args[0], args[1], args[2], args[3], args[4])
-//            6 -> NSString.stringWithFormat(this, args[0], args[1], args[2], args[3], args[4], args[5])
-//            7 -> NSString.stringWithFormat(this, args[0], args[1], args[2], args[3], args[4], args[5], args[6])
-//            8 -> NSString.stringWithFormat(this, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7])
-//            9 -> NSString.stringWithFormat(this, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8])
-//            10 -> NSString.stringWithFormat(this, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9])
-//            11 -> NSString.stringWithFormat(this, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10])
-//            12 -> NSString.stringWithFormat(this, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10], args[11])
-//            13 -> NSString.stringWithFormat(this, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10], args[11], args[12])
-//            14 -> NSString.stringWithFormat(this, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10], args[11], args[12], args[13])
-//            15 -> NSString.stringWithFormat(this, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10], args[11], args[12], args[13], args[14])
-//            else -> throw IllegalStateException("ios String.format() can only accept up to 15 arguments")
-//        }
+    private fun String.formatFun(args: List<Any?>): String? {
+        if (args.isEmpty()) { return null }
+        var formattedText = ""
+        val regEx = "%[\\d|.]*[sdf]|[%]".toRegex()
+        val singleFormats: List<String> = regEx.findAll(this).map {
+            it.groupValues.first()
+        }.asSequence().toList()
+        val newStrings = this.split(regEx)
+        for (i in 0 until args.count()) {
+            val singleFormat = singleFormats[i]
+            var arg = args[i].toString().removeSuffix(".0")
+            val formattedPart = if (arg.isInt()) {
+                NSString.stringWithFormat(newStrings[i] + singleFormat, arg.toInt())
+            } else if(arg.isDouble()) {
+                NSString.stringWithFormat(newStrings[i] + singleFormat, arg.toDouble())
+            } else {
+                NSString.stringWithFormat(newStrings[i] + "%@", arg.cstr)
+            }
+            formattedText += formattedPart
+        }
+        return  formattedText
+    }
+
+    private fun String.isInt() = toIntOrNull() != null
+    private fun String.isDouble() = toDoubleOrNull() != null
 }
