@@ -17,25 +17,31 @@ actual object Format : StandardLogicOperation {
     }
 
     private fun String.formatFun(args: List<Any?>): String? {
-        if (args.isEmpty()) { return null }
         var formattedText = ""
         val regEx = "%[\\d|.]*[sdf]|[%]".toRegex()
-        val singleFormats: List<String> = regEx.findAll(this).map {
+        val singleFormats: MutableList<String> = regEx.findAll(this).map {
             it.groupValues.first()
-        }.asSequence().toList()
-        val newStrings = this.split(regEx)
+        }.asSequence().toMutableList()
+        val rawStrings = this.split(regEx).toMutableList()
+
+        if (args.isEmpty() || singleFormats.isEmpty()) { return this }
+
         for (i in 0 until args.count()) {
-            val singleFormat = singleFormats[i]
-            var arg = args[i].toString().removeSuffix(".0")
-            val formattedPart = if (arg.isInt()) {
-                NSString.stringWithFormat(newStrings[i] + singleFormat, arg.toInt())
-            } else if(arg.isDouble()) {
-                NSString.stringWithFormat(newStrings[i] + singleFormat, arg.toDouble())
+            val singleFormat = singleFormats.removeFirst()
+            val rawString = rawStrings.removeFirst()
+            var arg = args[i].toString()
+            val formattedPart = if (singleFormat.contains("d")) {
+                NSString.stringWithFormat(rawString + singleFormat, arg.removeSuffix(".0").toInt())
+            } else if(singleFormat.contains("f")) {
+                NSString.stringWithFormat(rawString + singleFormat, arg.toDouble())
             } else {
-                NSString.stringWithFormat(newStrings[i] + "%@", arg.cstr)
+                NSString.stringWithFormat(rawString + singleFormat, arg.cstr)
             }
             formattedText += formattedPart
         }
+        // Add the rest of text if left
+        formattedText += rawStrings.joinToString("")
+
         return  formattedText
     }
 
