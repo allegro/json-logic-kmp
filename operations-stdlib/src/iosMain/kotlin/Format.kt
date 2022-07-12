@@ -11,40 +11,48 @@ actual object Format : StandardLogicOperation {
             val format = firstOrNull().toString()
             val args = secondOrNull().asList
 
-            return runCatching { format.formatFun(args) }
-                .fold( { it }, { null } )
+            runCatching { format.formatString(args) }
+                .fold({ it }, { null })
         }
     }
 
-    private fun String.formatFun(args: List<Any?>): String {
-        var formattedText = ""
+    private fun String.formatString(args: List<Any?>): String {
         val regEx = "%[\\d|.]*[sdf]|[%]".toRegex()
-        val singleFormats: MutableList<String> = regEx.findAll(this).map {
-            it.groupValues.first()
-        }.asSequence().toMutableList()
+        val formats = regEx.getFormats(this)
         val rawStrings = this.split(regEx).toMutableList()
 
-        if (args.isEmpty() || singleFormats.isEmpty()) { return this }
-
-        for (i in 0 until args.count()) {
-            val singleFormat = singleFormats.removeFirst()
-            val rawString = rawStrings.removeFirst()
-            val arg = args[i].toString()
-            val formattedPart = if (singleFormat.contains("d")) {
-                NSString.stringWithFormat(rawString + singleFormat, arg.removeSuffix(".0").toInt())
-            } else if(singleFormat.contains("f")) {
-                NSString.stringWithFormat(rawString + singleFormat, arg.toDouble())
-            } else {
-                NSString.stringWithFormat(rawString + singleFormat, arg.cstr)
-            }
-            formattedText += formattedPart
+        if (args.isEmpty() || formats.isEmpty()) {
+            return this
         }
+
+        var formattedText = args.formatText(rawStrings, formats)
+
         // Add the rest of text if left
         formattedText += rawStrings.joinToString("")
 
-        return  formattedText
+        return formattedText
     }
 
-    private fun String.isInt() = toIntOrNull() != null
-    private fun String.isDouble() = toDoubleOrNull() != null
+    private fun Regex.getFormats(text: String) = findAll(text)
+        .map {
+            it.groupValues.first()
+        }.toMutableList()
+
+    private fun List<Any?>.formatText(rawStrings: MutableList<String>, formats: MutableList<String>): String {
+        var formattedText = ""
+        forEach {
+            val singleFormat = formats.removeFirst()
+            val rawString = rawStrings.removeFirst()
+            val arg = it.toString()
+            val formattedPart = when {
+                singleFormat.contains("d") ->
+                    NSString.stringWithFormat(rawString + singleFormat, arg.removeSuffix(".0").toInt())
+                singleFormat.contains("f") ->
+                    NSString.stringWithFormat(rawString + singleFormat, arg.toDouble())
+                else -> NSString.stringWithFormat(rawString + singleFormat, arg.cstr)
+            }
+            formattedText += formattedPart
+        }
+        return formattedText
+    }
 }
