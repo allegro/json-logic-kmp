@@ -12,7 +12,10 @@ actual object Format : StandardLogicOperation {
             val args = secondOrNull().asList
 
             runCatching { format.formatString(args) }
-                .fold({ it }, { null })
+                .fold(
+                    onSuccess = { it },
+                    onFailure = { null }
+                )
         }
     }
 

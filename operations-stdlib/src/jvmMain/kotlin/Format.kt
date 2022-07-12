@@ -8,8 +8,11 @@ actual object Format : StandardLogicOperation {
             val format = firstOrNull().toString()
             val args = secondOrNull().asList
 
-            return runCatching { String.format(format, *args.toTypedArray()) }
-                .fold( { it }, { null } )
+            runCatching { String.format(format, *args.toTypedArray()) }
+                .fold(
+                    onSuccess = { it },
+                    onFailure = { null }
+                )
         }
     }
 }
