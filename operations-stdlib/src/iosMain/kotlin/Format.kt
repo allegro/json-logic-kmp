@@ -16,7 +16,7 @@ actual object Format : StandardLogicOperation {
         }
     }
 
-    private fun String.formatFun(args: List<Any?>): String? {
+    private fun String.formatFun(args: List<Any?>): String {
         var formattedText = ""
         val regEx = "%[\\d|.]*[sdf]|[%]".toRegex()
         val singleFormats: MutableList<String> = regEx.findAll(this).map {
@@ -29,7 +29,7 @@ actual object Format : StandardLogicOperation {
         for (i in 0 until args.count()) {
             val singleFormat = singleFormats.removeFirst()
             val rawString = rawStrings.removeFirst()
-            var arg = args[i].toString()
+            val arg = args[i].toString()
             val formattedPart = if (singleFormat.contains("d")) {
                 NSString.stringWithFormat(rawString + singleFormat, arg.removeSuffix(".0").toInt())
             } else if(singleFormat.contains("f")) {
