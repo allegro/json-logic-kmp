@@ -3,6 +3,7 @@ import utils.asList
 import utils.secondOrNull
 
 actual object Format : StandardLogicOperation {
+    @Suppress("SpreadOperator")
     actual override fun evaluateLogic(expression: Any?, data: Any?): Any? {
         return with(expression.asList) {
             val format = firstOrNull().toString()
