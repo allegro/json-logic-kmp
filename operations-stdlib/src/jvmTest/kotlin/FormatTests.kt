@@ -17,7 +17,7 @@ class FormatTests : FunSpec({
                         listOf("my", 100, 3.14159)
                     )
                 ),
-                result = JsonLogicResult.Success("Kmp is my love 100, trust me 3,14")
+                result = JsonLogicResult.Success("Kmp is my love 100, trust me 3.14")
             ),
             TestInput(
                 expression = mapOf(
