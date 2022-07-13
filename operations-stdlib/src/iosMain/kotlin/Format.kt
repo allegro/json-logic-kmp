@@ -41,12 +41,11 @@ actual object Format : StandardLogicOperation {
             it.groupValues.first()
         }.toMutableList()
 
-    private fun List<Any?>.formatText(rawStrings: MutableList<String>, formats: MutableList<String>): String {
-        var formattedText = ""
-        forEach {
+    private fun List<Any?>.formatText(rawStrings: MutableList<String>, formats: MutableList<String>): String =
+        fold("") { acc: String, argument ->
             val singleFormat = formats.removeFirst()
             val rawString = rawStrings.removeFirst()
-            val arg = it.toString()
+            val arg = argument.toString()
             val formattedPart = when {
                 singleFormat.contains("d") ->
                     NSString.stringWithFormat(rawString + singleFormat, arg.removeSuffix(".0").toInt())
@@ -54,8 +53,6 @@ actual object Format : StandardLogicOperation {
                     NSString.stringWithFormat(rawString + singleFormat, arg.toDouble())
                 else -> NSString.stringWithFormat(rawString + singleFormat, arg.cstr)
             }
-            formattedText += formattedPart
+            return acc + formattedPart
         }
-        return formattedText
-    }
 }
