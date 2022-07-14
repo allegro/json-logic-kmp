@@ -53,6 +53,6 @@ actual object Format : StandardLogicOperation {
                     NSString.stringWithFormat(rawString + singleFormat, arg.toDouble())
                 else -> NSString.stringWithFormat(rawString + singleFormat, arg.cstr)
             }
-            return acc + formattedPart
+            acc + formattedPart
         }
 }
