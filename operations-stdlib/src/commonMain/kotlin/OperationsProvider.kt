@@ -24,6 +24,7 @@ object OperationsProvider {
         "replace" to Replace,
         "uppercase" to Uppercase,
         "toArray" to ToArray,
+        "format" to Format,
 
         // time
         "currentTime" to CurrentTimeMillis,
