@@ -38,7 +38,7 @@ actual object Format : StandardLogicOperation {
             it.groupValues.first()
         }.toMutableList()
 
-    private fun List<Any?>.formatText(rawStrings: MutableList<String>, formats: MutableList<String>): String =
+    private fun List<Any>.formatText(rawStrings: MutableList<String>, formats: MutableList<String>): String =
         fold("") { acc: String, argument ->
             val singleFormat = formats.removeFirst()
             val rawString = rawStrings.removeFirst()
@@ -54,17 +54,14 @@ actual object Format : StandardLogicOperation {
         } + rawStrings.joinToString("")
 
     // In order to align with Android implementation, nulls have to be replaced with "null" strings and printed
-    private fun MutableList<String>.replaceNullArgsWithStringsAndModifyFormatIfNeeded(args: List<Any?>): List<Any> {
-        var newArgs = mutableListOf<Any>()
-        for (index in 0 until count()) {
-            var arg = args.getOrNull(index)
-            newArgs.add(index, arg ?: "null")
+    private fun MutableList<String>.replaceNullArgsWithStringsAndModifyFormatIfNeeded(args: List<Any?>): List<Any> =
+        List(size) { index ->
+            val arg = args.getOrNull(index)
             if (arg == null) {
                 this[index] = "%s"
             }
+            arg ?: "null"
         }
-        return newArgs.toList()
-    }
 }
 
-class PercentWithoutFormatSpecifier(message: String): Exception(message)
+class PercentWithoutFormatSpecifier(message: String) : Exception(message)
