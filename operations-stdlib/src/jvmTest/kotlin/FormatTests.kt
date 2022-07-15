@@ -8,7 +8,7 @@ class FormatTests : FunSpec({
         .build()
 
     withData(
-        nameFn = { input -> "Should evaluated ${input.expression} with given ${input.data} result in ${input.result}" },
+        nameFn = { input -> "Should ev. ${input.expression} into ${input.result}" },
         ts = listOf(
             TestInput(
                 expression = mapOf(
@@ -35,9 +35,65 @@ class FormatTests : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
+                    "format" to emptyList<Any>()
+                ),
+                result = JsonLogicResult.Success("null")
+            ),
+            TestInput(
+                expression = mapOf(
+                    "format" to listOf(listOf(100), listOf(100))
+                ),
+                result = JsonLogicResult.Success("[100]")
+            ),
+            // % sign in format without format specifier
+            TestInput(
+                expression = mapOf(
+                    "format" to listOf("100%", 200)
+                ),
+                result = JsonLogicResult.Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
                     "format" to listOf("%", 100)
                 ),
                 result = JsonLogicResult.Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    "format" to listOf("%", listOf(100))
+                ),
+                result = JsonLogicResult.Failure.NullResult
+            ),
+            // null checks
+            TestInput(
+                expression = mapOf(
+                    "format" to listOf(null, listOf(100))
+                ),
+                result = JsonLogicResult.Success("null")
+            ),
+            TestInput(
+                expression = mapOf(
+                    "format" to listOf(null, listOf(null))
+                ),
+                result = JsonLogicResult.Success("null")
+            ),
+            TestInput(
+                expression = mapOf(
+                    "format" to listOf("%d", null)
+                ),
+                result = JsonLogicResult.Success("null")
+            ),
+            TestInput(
+                expression = mapOf(
+                    "format" to listOf("%d", listOf(null))
+                ),
+                result = JsonLogicResult.Success("null")
+            ),
+            TestInput(
+                expression = mapOf(
+                    "format" to listOf("%d%.2f%s%d%.1f%s", listOf(null, 20.0, null, 30, 3.45, "kmp"))
+                ),
+                result = JsonLogicResult.Success("null20.00null303.5kmp")
             ),
         )
         // given

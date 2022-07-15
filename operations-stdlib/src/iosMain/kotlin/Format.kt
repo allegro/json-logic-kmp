@@ -6,6 +6,8 @@ import utils.asList
 import utils.secondOrNull
 
 actual object Format : StandardLogicOperation {
+    private val REGEX = "%[\\d|.]*[sdf]".toRegex()
+
     actual override fun evaluateLogic(expression: Any?, data: Any?): Any? {
         return with(expression.asList) {
             val format = firstOrNull().toString()
@@ -20,20 +22,15 @@ actual object Format : StandardLogicOperation {
     }
 
     private fun String.formatString(args: List<Any?>): String {
-        val regEx = "%[\\d|.]*[sdf]|[%]".toRegex()
-        val formats = regEx.getFormats(this)
-        val rawStrings = this.split(regEx).toMutableList()
+        val formats = REGEX.getFormats(this)
+        val rawStrings = this.split(REGEX)
 
-        if (args.isEmpty() || formats.isEmpty()) {
-            return this
+        if (rawStrings.any { it.contains("%") }) {
+            throw PercentWithoutFormatSpecifier("'%' sing without format specifier found. Use either '%d', '%f' or '%s'")
         }
 
-        var formattedText = args.formatText(rawStrings, formats)
-
-        // Add the rest of text if left
-        formattedText += rawStrings.joinToString("")
-
-        return formattedText
+        return formats.replaceNullArgsWithStringsAndModifyFormatIfNeeded(args)
+            .formatText(rawStrings.toMutableList(), formats)
     }
 
     private fun Regex.getFormats(text: String) = findAll(text)
@@ -54,5 +51,20 @@ actual object Format : StandardLogicOperation {
                 else -> NSString.stringWithFormat(rawString + singleFormat, arg.cstr)
             }
             acc + formattedPart
+        } + rawStrings.joinToString("")
+
+    // In order to align with Android implementation, nulls have to be replaced with "null" strings and printed
+    private fun MutableList<String>.replaceNullArgsWithStringsAndModifyFormatIfNeeded(args: List<Any?>): List<Any> {
+        var newArgs = mutableListOf<Any>()
+        for (index in 0 until count()) {
+            var arg = args.getOrNull(index)
+            newArgs.add(index, arg ?: "null")
+            if (arg == null) {
+                this[index] = "%s"
+            }
         }
+        return newArgs.toList()
+    }
 }
+
+class PercentWithoutFormatSpecifier(message: String): Exception(message)
