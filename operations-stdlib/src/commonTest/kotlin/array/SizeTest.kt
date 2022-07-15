@@ -15,6 +15,9 @@ class SizeTest : FunSpec({
             TestInput(
                 expression = mapOf("size" to listOf(listOf("test"))),
                 result = JsonLogicResult.Success(1)
+            ),TestInput(
+                expression = mapOf("size" to listOf(true, "hello", "world", "!", 3)),
+                result = JsonLogicResult.Success(5)
             ),
             TestInput(
                 expression = mapOf("size" to listOf(listOf("test", "test2"), "a")),
@@ -28,14 +31,14 @@ class SizeTest : FunSpec({
                     )
                 ),
                 data = mapOf("fruits" to listOf(listOf("apple"), "banana", "pineapple"), "fruits2" to "testFruit"),
-                result = JsonLogicResult.Success(3)
+                result = JsonLogicResult.Success(2)
             ),
             TestInput(
                 expression = mapOf(
                     "size" to mapOf("var" to "fruits")
                 ),
                 data = mapOf("fruits" to listOf(listOf(listOf("apple"), "banana", "pineapple"))),
-                result = JsonLogicResult.Success(3)
+                result = JsonLogicResult.Success(1)
             ),
             TestInput(
                 expression = mapOf(
@@ -50,11 +53,11 @@ class SizeTest : FunSpec({
                     )
                 ),
                 data = mapOf("temp" to 55),
-                result = JsonLogicResult.Success(4)
+                result = JsonLogicResult.Success(1)
             ),
             TestInput(
                 expression = mapOf("size" to listOf<Any>(listOf<Any>())),
-                result = JsonLogicResult.Success(0)
+                result = JsonLogicResult.Success(1)
             ),
             TestInput(
                 expression = mapOf(
@@ -67,7 +70,7 @@ class SizeTest : FunSpec({
                     )
                 ),
                 data = mapOf("temp" to 55),
-                result = JsonLogicResult.Failure.NullResult
+                result = JsonLogicResult.Success(4)
             ),
             TestInput(
                 expression = mapOf(
@@ -86,6 +89,12 @@ class SizeTest : FunSpec({
                     "size" to null
                 ),
                 result = JsonLogicResult.Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    "size" to emptyList<Any>()
+                ),
+                result = JsonLogicResult.Success(0)
             ),
             TestInput(
                 expression = mapOf(
