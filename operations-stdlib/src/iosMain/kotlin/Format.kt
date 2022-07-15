@@ -26,7 +26,7 @@ actual object Format : StandardLogicOperation {
         val rawStrings = this.split(REGEX)
 
         if (rawStrings.any { it.contains("%") }) {
-            throw PercentWithoutFormatSpecifier("'%' sing without format specifier found. Use either '%d', '%f' or '%s'")
+            throw PercentWithoutFormatSpecifier("'%' sing without format specifier found. Use one of: '%d','%f','%s'")
         }
 
         return formats.replaceNullArgsWithStringsAndModifyFormatIfNeeded(args)
