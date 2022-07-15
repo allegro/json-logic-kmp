@@ -26,13 +26,11 @@ class JoinToStringTest : FunSpec({
                     operationName to listOf(
                         mapOf(
                             "distinct" to listOf(
-                                listOf(
                                     "strawberry",
                                     "apple",
                                     "banana",
                                     "banana",
                                     "pineapple"
-                                )
                             )
                         ), " + ", "add some: ", " and mix!", 3, "random fruits"
                     )
@@ -60,7 +58,7 @@ class JoinToStringTest : FunSpec({
             TestInput(
                 expression = mapOf(
                     operationName to listOf(
-                        mapOf("distinct" to listOf(mapOf("var" to "fruits"))),
+                        mapOf("distinct" to mapOf("var" to "fruits")),
                         " + ",
                         "add some: ",
                         " and mix!",
