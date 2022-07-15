@@ -10,7 +10,7 @@ object Sort : StandardLogicOperation {
         with(expression.asList) {
             (firstOrNull() as? List<*>)?.let { elementsToSort ->
                 val sortingMode = (secondOrNull() as? String).toSortOrder()
-                elementsToSort?.sortByMode(sortingMode)
+                elementsToSort.sortByMode(sortingMode)
             }
         }
 
