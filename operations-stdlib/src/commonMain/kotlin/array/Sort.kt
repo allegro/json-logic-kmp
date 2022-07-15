@@ -8,10 +8,10 @@ import utils.secondOrNull
 object Sort : StandardLogicOperation {
     override fun evaluateLogic(expression: Any?, data: Any?): Any? =
         with(expression.asList) {
-            val elementsToSort = firstOrNull()?.asList
-            val sortingMode = (secondOrNull() as? String).toSortOrder()
-
-            elementsToSort?.sortByMode(sortingMode)
+            (firstOrNull() as? List<*>)?.let { elementsToSort ->
+                val sortingMode = (secondOrNull() as? String).toSortOrder()
+                elementsToSort?.sortByMode(sortingMode)
+            }
         }
 
     private fun String?.toSortOrder() = when (this) {

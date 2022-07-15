@@ -56,11 +56,11 @@ class SortTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(operatorName to listOf(0, "desc")),
-                result = Success(listOf(0.0))
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(operatorName to listOf(0, 1, 2 , 3, "desc")),
-                result = Success(listOf(0.0))
+                result = Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(operatorName to listOf(listOf(0.01, 0.01, 0.001), "desc")),
