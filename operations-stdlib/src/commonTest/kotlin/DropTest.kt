@@ -23,13 +23,12 @@ class DropTest : FunSpec({
                 expression = mapOf(
                     operatorName to listOf(
                         mapOf(
-                            "reverse" to listOf(
+                            "reverse" to
                                 listOf(
                                     "element1",
                                     "element2",
                                     "element3"
                                 )
-                            )
                         ), 2, "first"
                     )
                 ),
