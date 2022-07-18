@@ -2,12 +2,13 @@ package operations.data
 
 import operation.StandardLogicOperation
 import operations.data.unwrap.ValueFetchingUnwrapStrategy
+import utils.asList
 import utils.intOrZero
 import utils.secondOrNull
 
 internal object Var : StandardLogicOperation, ValueFetchingUnwrapStrategy {
     override fun evaluateLogic(expression: Any?, data: Any?): Any? =
-        unwrapDataKeys(expression)?.fetchValueOrDefault(expression, data)
+        unwrapDataKeys(expression.asList)?.fetchValueOrDefault(expression, data)
 
     private fun List<String>.fetchValueOrDefault(expression: Any?, data: Any?): Any? {
         val value = if (isNotEmpty()) {

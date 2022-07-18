@@ -53,6 +53,15 @@ class FilterTest : FunSpec({
             TestInput(
                 expression = mapOf(
                     "filter" to listOf(
+                        5,
+                        mapOf(">=" to listOf(mapOf("var" to ""), 2))
+                    )
+                ),
+                result = JsonLogicResult.Success(emptyList<String>())
+            ),
+            TestInput(
+                expression = mapOf(
+                    "filter" to listOf(
                         listOf(1, 2, 3, 4, 5),
                         listOf(1, 2, 3, 4, 5),
                         mapOf(">=" to listOf(mapOf("var" to ""), 2))

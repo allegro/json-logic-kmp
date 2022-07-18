@@ -20,7 +20,7 @@ class ReverseTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(operatorName to listOf("apple")),
-                result = Success("elppa")
+                result = Success(listOf("apple"))
             ),
             TestInput(
                 expression = mapOf(operatorName to "12345"),
@@ -28,14 +28,18 @@ class ReverseTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(operatorName to listOf(listOf(1, 2, 3, 4, 5))),
-                result = Success(listOf(5,4,3,2,1))
+                result = Success(listOf(listOf(1, 2, 3, 4, 5)))
             ),
             TestInput(
                 expression = mapOf(operatorName to listOf(listOf("element1", "element2", "element3"))),
+                result = Success(listOf(listOf("element1", "element2", "element3")))
+            ),
+            TestInput(
+                expression = mapOf(operatorName to listOf("element1", "element2", "element3")),
                 result = Success(listOf("element3", "element2", "element1"))
             ),
             TestInput(
-                expression = mapOf(operatorName to listOf(mapOf("var" to "key"))),
+                expression = mapOf(operatorName to mapOf("var" to "key")),
                 data = mapOf("key" to listOf(1, 2, 3, 4, 5)),
                 result = Success(listOf(5,4,3,2,1))
             ),
@@ -62,7 +66,7 @@ class ReverseTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(operatorName to emptyList<Any>()),
-                result = Failure.NullResult
+                result = Success(emptyList<Any>())
             ),
         )
         // given
