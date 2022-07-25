@@ -1,19 +1,17 @@
 import operation.StandardLogicOperation
-import utils.asList
-import utils.secondOrNull
+import java.lang.String.format
 
-actual object Format : StandardLogicOperation {
+actual object Format : StandardLogicOperation, DecimalFormatter {
     @Suppress("SpreadOperator")
     actual override fun evaluateLogic(expression: Any?, data: Any?): Any? {
-        return with(expression.asList) {
-            val format = firstOrNull().toString()
-            val args = secondOrNull().asList
-
-            runCatching { String.format(format, *args.toTypedArray()) }
-                .fold(
-                    onSuccess = { it },
-                    onFailure = { null }
-                )
+        return formatDecimal(expression, data) { sign: String, format: String, arg: String ->
+            val formattedArgument = if (sign.contains("f")) {
+                arg.toDouble()
+            } else {
+                arg
+            }
+            format(format, formattedArgument)
         }
     }
 }
+

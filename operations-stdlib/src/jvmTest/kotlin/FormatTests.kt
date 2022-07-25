@@ -17,7 +17,44 @@ class FormatTests : FunSpec({
                         listOf("my", 100, 3.14159, true)
                     )
                 ),
-                result = JsonLogicResult.Success("Kmp is my love 100, trust me 3.14 true")
+                result = JsonLogicResult.Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    "format" to listOf(
+                        "%.0f",
+                        listOf(3)
+                    // ios treats 3 as 0 in %.0f case
+                    )
+                ),
+                result = JsonLogicResult.Success("3")
+            ),
+            TestInput(
+                expression = mapOf(
+                    "format" to listOf(
+                        "|%10d|",
+                        listOf(101)
+                    )
+                ),
+                result = JsonLogicResult.Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    "format" to listOf(
+                        "|%-10d|",
+                        listOf(101)
+                    )
+                ),
+                result = JsonLogicResult.Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    "format" to listOf(
+                        "%h",
+                        listOf(101)
+                    )
+                ),
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
@@ -81,11 +118,17 @@ class FormatTests : FunSpec({
                 expression = mapOf(
                     "format" to listOf("%d", null)
                 ),
-                result = JsonLogicResult.Success("null")
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     "format" to listOf("%d", listOf(null))
+                ),
+                result = JsonLogicResult.Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    "format" to listOf("%f", listOf(null))
                 ),
                 result = JsonLogicResult.Success("null")
             ),
@@ -93,7 +136,7 @@ class FormatTests : FunSpec({
                 expression = mapOf(
                     "format" to listOf("%d%.2f%s%d%.1f%s", listOf(null, 20.0, null, 30, 3.45, "kmp"))
                 ),
-                result = JsonLogicResult.Success("null20.00null303.5kmp")
+                result = JsonLogicResult.Failure.NullResult
             ),
         )
         // given
