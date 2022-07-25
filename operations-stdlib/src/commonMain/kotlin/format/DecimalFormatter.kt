@@ -1,10 +1,7 @@
-import operation.StandardLogicOperation
+package format
+
 import utils.asList
 import utils.secondOrNull
-
-expect object Format : StandardLogicOperation, DecimalFormatter {
-    override fun evaluateLogic(expression: Any?, data: Any?): Any?
-}
 
 internal interface DecimalFormatter {
     fun formatDecimal(
@@ -67,5 +64,4 @@ internal interface DecimalFormatter {
     }
 }
 
-class PercentWithoutFormatSpecifier(message: String) : Exception(message)
-
+internal class PercentWithoutFormatSpecifier(message: String) : Exception(message)
