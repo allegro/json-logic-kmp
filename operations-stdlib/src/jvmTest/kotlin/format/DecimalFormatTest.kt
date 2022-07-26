@@ -8,16 +8,17 @@ import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 
 class DecimalFormatTest : FunSpec({
+    val operatorName = "decimalFormat"
     val logicEngine = JsonLogicEngine.Builder()
-        .addStandardOperation("decimalFormat", DecimalFormat)
+        .addStandardOperation(operatorName, DecimalFormat)
         .build()
 
     withData(
-        nameFn = { input -> "Should ev. ${input.expression} into ${input.result}" },
+        nameFn = { input -> "Should evaluate decimal format operation into ${input.result}" },
         ts = listOf(
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(
+                    operatorName to listOf(
                         "%.4f-%f-%.10f",
                         mapOf(
                             "map" to listOf(
@@ -32,7 +33,7 @@ class DecimalFormatTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(
+                    operatorName to listOf(
                         "%.1f", listOf(
                             mapOf("%" to listOf(3.5, 1.3))
                         )
@@ -42,7 +43,7 @@ class DecimalFormatTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(
+                    operatorName to listOf(
                         "%.2f", listOf(
                             mapOf("*" to listOf("1.3", "3.7"))
                         )
@@ -52,7 +53,7 @@ class DecimalFormatTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(
+                    operatorName to listOf(
                         "%.1f", listOf(
                             mapOf("-" to listOf("2.3", 3.2))
                         )
@@ -62,7 +63,7 @@ class DecimalFormatTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(
+                    operatorName to listOf(
                         "%.0f.%2f",
                         listOf(
                             mapOf(
@@ -85,7 +86,7 @@ class DecimalFormatTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(
+                    operatorName to listOf(
                         "%f/%f",
                         listOf(
                             mapOf(
@@ -108,7 +109,7 @@ class DecimalFormatTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(
+                    operatorName to listOf(
                         "Kmp is %s love %d, trust me %.2f %s",
                         listOf("my", 100, 3.14159, true)
                     )
@@ -117,7 +118,7 @@ class DecimalFormatTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(
+                    operatorName to listOf(
                         "%.0f",
                         listOf(3)
                     )
@@ -126,7 +127,7 @@ class DecimalFormatTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(
+                    operatorName to listOf(
                         "%.0f",
                         listOf(3.00001)
                     )
@@ -135,7 +136,7 @@ class DecimalFormatTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(
+                    operatorName to listOf(
                         "%.2f",
                         listOf(3.14001)
                     )
@@ -144,7 +145,7 @@ class DecimalFormatTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(
+                    operatorName to listOf(
                         "%f",
                         listOf(3.14001)
                     )
@@ -153,7 +154,7 @@ class DecimalFormatTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(
+                    operatorName to listOf(
                         "|%10d|",
                         listOf(101)
                     )
@@ -162,7 +163,7 @@ class DecimalFormatTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(
+                    operatorName to listOf(
                         "|%-10d|",
                         listOf(101)
                     )
@@ -171,7 +172,7 @@ class DecimalFormatTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(
+                    operatorName to listOf(
                         "%h",
                         listOf(101)
                     )
@@ -180,7 +181,7 @@ class DecimalFormatTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(
+                    operatorName to listOf(
                         "Love kmp"
                     )
                 ),
@@ -188,127 +189,127 @@ class DecimalFormatTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to ""
+                    operatorName to ""
                 ),
                 result = JsonLogicResult.Success("")
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to emptyList<Any>()
+                    operatorName to emptyList<Any>()
                 ),
                 result = JsonLogicResult.Success("null")
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(listOf(100), listOf(100))
+                    operatorName to listOf(listOf(100), listOf(100))
                 ),
                 result = JsonLogicResult.Success("[100]")
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf("100%", 200)
+                    operatorName to listOf("100%", 200)
                 ),
                 result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf("%", 100)
+                    operatorName to listOf("%", 100)
                 ),
                 result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf("%", listOf(100))
+                    operatorName to listOf("%", listOf(100))
                 ),
                 result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(null, listOf(100))
+                    operatorName to listOf(null, listOf(100))
                 ),
                 result = JsonLogicResult.Success("null")
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf(null, listOf(null))
+                    operatorName to listOf(null, listOf(null))
                 ),
                 result = JsonLogicResult.Success("null")
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf("%d", null)
+                    operatorName to listOf("%d", null)
                 ),
                 result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf("%a", 1.323)
+                    operatorName to listOf("%a", 1.323)
                 ),
                 result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf("%b", "1")
+                    operatorName to listOf("%b", "1")
                 ),
                 result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf("%c", 'A')
+                    operatorName to listOf("%c", 'A')
                 ),
                 result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf("%e", "1.23400093234")
+                    operatorName to listOf("%e", "1.23400093234")
                 ),
                 result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf("%g", "1332.23400093234")
+                    operatorName to listOf("%g", "1332.23400093234")
                 ),
                 result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf("%h", "Hello World!")
+                    operatorName to listOf("%h", "Hello World!")
                 ),
                 result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf("%o", 12)
+                    operatorName to listOf("%o", 12)
                 ),
                 result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf("%x", 12)
+                    operatorName to listOf("%x", 12)
                 ),
                 result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf("%d", listOf(null))
+                    operatorName to listOf("%d", listOf(null))
                 ),
                 result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf("%f", listOf(null))
+                    operatorName to listOf("%f", listOf(null))
                 ),
                 result = JsonLogicResult.Success("null")
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf("%.2f", listOf(null))
+                    operatorName to listOf("%.2f", listOf(null))
                 ),
                 result = JsonLogicResult.Success("null")
             ),
             TestInput(
                 expression = mapOf(
-                    "decimalFormat" to listOf("%d%.2f%s%d%.1f%s", listOf(null, 20.0, null, 30, 3.45, "kmp"))
+                    operatorName to listOf("%d%.2f%s%d%.1f%s", listOf(null, 20.0, null, 30, 3.45, "kmp"))
                 ),
                 result = JsonLogicResult.Failure.NullResult
             ),
