@@ -7,13 +7,13 @@ internal interface DecimalFormatter {
     fun formatDecimal(
         expression: Any?,
         data: Any?,
-        formattingFunction: (sign: String, format: String, arg: String) -> String
+        formatFloatingPoint: (sign: String, format: String, arg: String) -> String
     ): String? {
         return with(expression.asList) {
             val format = firstOrNull().toString()
             val args = secondOrNull().asList
 
-            runCatching { format.formatString(args, formattingFunction) }
+            runCatching { format.formatString(args, formatFloatingPoint) }
                 .fold(
                     onSuccess = { it },
                     onFailure = { null }
@@ -21,7 +21,7 @@ internal interface DecimalFormatter {
         }
     }
 
-    private fun String.formatString(args: List<Any?>, formattingFunction: (String, String, String) -> String): String {
+    private fun String.formatString(args: List<Any?>, formatFloatingPoint: (String, String, String) -> String): String {
         val formats = REGEX.getFormats(this)
         val rawStrings = this.split(REGEX)
 
@@ -29,7 +29,7 @@ internal interface DecimalFormatter {
             throw PercentWithoutFormatSpecifier("Empty format specifier found. Use only %f")
         }
         return formats.replaceNullArgsWithStringsAndModifyFormatIfNeeded(args)
-            .formatText(rawStrings.toMutableList(), formats, formattingFunction)
+            .formatText(rawStrings.toMutableList(), formats, formatFloatingPoint)
     }
 
     // In order to align with Android implementation, nulls have to be replaced with "null" strings and printed
@@ -50,12 +50,12 @@ internal interface DecimalFormatter {
     private fun List<Any>.formatText(
         rawStrings: MutableList<String>,
         formats: MutableList<String>,
-        formattingFunction: (String, String, String) -> String
+        formatFloatingPoint: (String, String, String) -> String
     ): String = fold("") { acc: String, argument ->
         val singleFormat = formats.removeFirst()
         val rawString = rawStrings.removeFirst()
         val arg = argument.toString()
-        val formattedPart = formattingFunction(singleFormat, rawString + singleFormat, arg)
+        val formattedPart = formatFloatingPoint(singleFormat, rawString + singleFormat, arg)
         acc + formattedPart
     } + rawStrings.joinToString("")
 
