@@ -18,7 +18,22 @@ class DecimalFormatTest : FunSpec({
             TestInput(
                 expression = mapOf(
                     "decimalFormat" to listOf(
-                        "%.1f",listOf(
+                        "%.4f-%f-%.10f",
+                        mapOf(
+                            "map" to listOf(
+                                mapOf("var" to "integers"),
+                                mapOf("*" to listOf(mapOf("var" to ""), 0.1997))
+                            )
+                        )
+                    )
+                ),
+                data = mapOf("integers" to listOf(12.31421554323, 2.245123555332, 3.8483)),
+                result = JsonLogicResult.Success("2.4591-0.448351-0.7685055100")
+            ),
+            TestInput(
+                expression = mapOf(
+                    "decimalFormat" to listOf(
+                        "%.1f", listOf(
                             mapOf("%" to listOf(3.5, 1.3))
                         )
                     )
@@ -28,7 +43,7 @@ class DecimalFormatTest : FunSpec({
             TestInput(
                 expression = mapOf(
                     "decimalFormat" to listOf(
-                        "%.2f",listOf(
+                        "%.2f", listOf(
                             mapOf("*" to listOf("1.3", "3.7"))
                         )
                     )
@@ -38,7 +53,7 @@ class DecimalFormatTest : FunSpec({
             TestInput(
                 expression = mapOf(
                     "decimalFormat" to listOf(
-                        "%.1f",listOf(
+                        "%.1f", listOf(
                             mapOf("-" to listOf("2.3", 3.2))
                         )
                     )
@@ -189,7 +204,6 @@ class DecimalFormatTest : FunSpec({
                 ),
                 result = JsonLogicResult.Success("[100]")
             ),
-            // % sign in decimalFormat without format specifier
             TestInput(
                 expression = mapOf(
                     "decimalFormat" to listOf("100%", 200)
@@ -208,7 +222,6 @@ class DecimalFormatTest : FunSpec({
                 ),
                 result = JsonLogicResult.Failure.NullResult
             ),
-            // null checks
             TestInput(
                 expression = mapOf(
                     "decimalFormat" to listOf(null, listOf(100))
@@ -224,6 +237,54 @@ class DecimalFormatTest : FunSpec({
             TestInput(
                 expression = mapOf(
                     "decimalFormat" to listOf("%d", null)
+                ),
+                result = JsonLogicResult.Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    "decimalFormat" to listOf("%a", 1.323)
+                ),
+                result = JsonLogicResult.Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    "decimalFormat" to listOf("%b", "1")
+                ),
+                result = JsonLogicResult.Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    "decimalFormat" to listOf("%c", 'A')
+                ),
+                result = JsonLogicResult.Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    "decimalFormat" to listOf("%e", "1.23400093234")
+                ),
+                result = JsonLogicResult.Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    "decimalFormat" to listOf("%g", "1332.23400093234")
+                ),
+                result = JsonLogicResult.Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    "decimalFormat" to listOf("%h", "Hello World!")
+                ),
+                result = JsonLogicResult.Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    "decimalFormat" to listOf("%o", 12)
+                ),
+                result = JsonLogicResult.Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    "decimalFormat" to listOf("%x", 12)
                 ),
                 result = JsonLogicResult.Failure.NullResult
             ),
