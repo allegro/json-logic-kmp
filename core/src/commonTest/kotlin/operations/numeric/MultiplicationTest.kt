@@ -149,11 +149,3 @@ class MultiplicationTest : FunSpec({
         evaluationResult valueShouldBe testInput.result
     }
 })
-
-@Suppress("unused")
-private val defectiveTestCases = listOf(
-    TestInput(
-        expression = mapOf("*" to listOf("1.3", "3.7")),
-        result = JsonLogicResult.Success(4.81)
-    ),
-)

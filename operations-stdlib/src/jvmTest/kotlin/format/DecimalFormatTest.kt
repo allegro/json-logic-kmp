@@ -18,6 +18,82 @@ class DecimalFormatTest : FunSpec({
             TestInput(
                 expression = mapOf(
                     "decimalFormat" to listOf(
+                        "%.1f",listOf(
+                            mapOf("%" to listOf(3.5, 1.3))
+                        )
+                    )
+                ),
+                result = JsonLogicResult.Success("0.9")
+            ),
+            TestInput(
+                expression = mapOf(
+                    "decimalFormat" to listOf(
+                        "%.2f",listOf(
+                            mapOf("*" to listOf("1.3", "3.7"))
+                        )
+                    )
+                ),
+                result = JsonLogicResult.Success("4.81")
+            ),
+            TestInput(
+                expression = mapOf(
+                    "decimalFormat" to listOf(
+                        "%.1f",listOf(
+                            mapOf("-" to listOf("2.3", 3.2))
+                        )
+                    )
+                ),
+                result = JsonLogicResult.Success("-0.9")
+            ),
+            TestInput(
+                expression = mapOf(
+                    "decimalFormat" to listOf(
+                        "%.0f.%2f",
+                        listOf(
+                            mapOf(
+                                "/" to listOf(
+                                    mapOf("var" to "number1"),
+                                    mapOf("var" to "number2")
+                                )
+                            ),
+                            mapOf(
+                                "*" to listOf(
+                                    mapOf("var" to "number1"),
+                                    mapOf("var" to "number2")
+                                )
+                            )
+                        )
+                    )
+                ),
+                data = mapOf("number1" to 3.8569435, "number2" to 12.324),
+                result = JsonLogicResult.Success("0.47.532972")
+            ),
+            TestInput(
+                expression = mapOf(
+                    "decimalFormat" to listOf(
+                        "%f/%f",
+                        listOf(
+                            mapOf(
+                                "+" to listOf(
+                                    mapOf("var" to "number1"),
+                                    mapOf("var" to "number2")
+                                )
+                            ),
+                            mapOf(
+                                "*" to listOf(
+                                    mapOf("var" to "number1"),
+                                    mapOf("var" to "number2")
+                                )
+                            )
+                        )
+                    )
+                ),
+                data = mapOf("number1" to 3.8569435, "number2" to 12.324),
+                result = JsonLogicResult.Success("16.180943/47.532972")
+            ),
+            TestInput(
+                expression = mapOf(
+                    "decimalFormat" to listOf(
                         "Kmp is %s love %d, trust me %.2f %s",
                         listOf("my", 100, 3.14159, true)
                     )
@@ -160,6 +236,12 @@ class DecimalFormatTest : FunSpec({
             TestInput(
                 expression = mapOf(
                     "decimalFormat" to listOf("%f", listOf(null))
+                ),
+                result = JsonLogicResult.Success("null")
+            ),
+            TestInput(
+                expression = mapOf(
+                    "decimalFormat" to listOf("%.2f", listOf(null))
                 ),
                 result = JsonLogicResult.Success("null")
             ),
