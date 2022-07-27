@@ -7,13 +7,13 @@ internal interface DecimalFormatter {
     fun formatDecimal(
         expression: Any?,
         data: Any?,
-        formatFloatingPoint: (sign: String, format: String, arg: String) -> String
+        formatFloatingPoint: (format: String, arg: Double) -> String
     ): String? {
         return with(expression.asList) {
             val format = firstOrNull().toString()
-            val args = secondOrNull().asList
+            val formattedArgument = secondOrNull().toString()
 
-            runCatching { format.formatString(args, formatFloatingPoint) }
+            runCatching { format.formatAsFloatingDecimal(formattedArgument, formatFloatingPoint) }
                 .fold(
                     onSuccess = { it },
                     onFailure = { null }
@@ -21,47 +21,14 @@ internal interface DecimalFormatter {
         }
     }
 
-    private fun String.formatString(args: List<Any?>, formatFloatingPoint: (String, String, String) -> String): String {
-        val formats = REGEX.getFormats(this)
-        val rawStrings = this.split(REGEX)
-
-        if (rawStrings.any { it.contains("%") }) {
-            throw PercentWithoutFormatSpecifier("Empty format specifier found. Use only %f")
-        }
-        return formats.replaceNullArgsWithStringsAndModifyFormatIfNeeded(args)
-            .formatText(rawStrings.toMutableList(), formats, formatFloatingPoint)
-    }
-
-    // In order to align with Android implementation, nulls have to be replaced with "null" strings and printed
-    private fun MutableList<String>.replaceNullArgsWithStringsAndModifyFormatIfNeeded(args: List<Any?>): List<Any> =
-        List(size) { index ->
-            val arg = args.getOrNull(index)
-            if (arg == null) {
-                this[index] = "%s"
+    private fun String.formatAsFloatingDecimal(
+        formattedArgument: String,
+        formatFloatingPoint: (String, Double) -> String
+    ) = if (matches("%[\\d|.]*[f]".toRegex())) {
+            formattedArgument.toDoubleOrNull()?.let {
+                formatFloatingPoint(this, it)
             }
-            arg ?: "null"
+        } else {
+            null
         }
-
-    private fun Regex.getFormats(text: String) = findAll(text)
-        .map {
-            it.groupValues.first()
-        }.toMutableList()
-
-    private fun List<Any>.formatText(
-        rawStrings: MutableList<String>,
-        formats: MutableList<String>,
-        formatFloatingPoint: (String, String, String) -> String
-    ): String = fold("") { acc: String, argument ->
-        val singleFormat = formats.removeFirst()
-        val rawString = rawStrings.removeFirst()
-        val arg = argument.toString()
-        val formattedPart = formatFloatingPoint(singleFormat, rawString + singleFormat, arg)
-        acc + formattedPart
-    } + rawStrings.joinToString("")
-
-    private companion object {
-        val REGEX = "%[\\d|.]*[f]".toRegex()
-    }
 }
-
-internal class PercentWithoutFormatSpecifier(message: String) : Exception(message)

@@ -7,12 +7,8 @@ import platform.Foundation.stringWithFormat
 
 actual object DecimalFormat : StandardLogicOperation, DecimalFormatter {
     actual override fun evaluateLogic(expression: Any?, data: Any?): Any? {
-        return formatDecimal(expression, data) { sign: String, format: String, arg: String ->
-            if (sign.contains("f")) {
-                NSString.stringWithFormat(format, arg.toDouble())
-            } else {
-                NSString.stringWithFormat(format, arg.cstr)
-            }
+        return formatDecimal(expression, data) { format: String, arg: Double ->
+                NSString.stringWithFormat(format, arg)
         }
     }
 }

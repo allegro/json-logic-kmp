@@ -19,6 +19,60 @@ class DecimalFormatTest : FunSpec({
             TestInput(
                 expression = mapOf(
                     operatorName to listOf(
+                        "%10.10f",
+                        "3455353.500002345"
+                    )
+                ),
+                result = JsonLogicResult.Success("3455353.5000023450")
+            ),
+            TestInput(
+                expression = mapOf(
+                    operatorName to listOf(
+                        "%0.10f",
+                        "3455353.500002345"
+                    )
+                ),
+                result = JsonLogicResult.Failure.NullResult
+            ),
+            TestInput(
+                expression = mapOf(
+                    operatorName to listOf(
+                        "%1.0f",
+                        "3455353.500002345"
+                    )
+                ),
+                result = JsonLogicResult.Success("3455354")
+            ),
+            TestInput(
+                expression = mapOf(
+                    operatorName to listOf(
+                        "%1.10f",
+                        "3455353.500002345"
+                    )
+                ),
+                result = JsonLogicResult.Success("3455353.5000023450")
+            ),
+            TestInput(
+                expression = mapOf(
+                    operatorName to listOf(
+                        "%20.10f",
+                        "3455353.500002345"
+                    )
+                ),
+                result = JsonLogicResult.Success("  3455353.5000023450")
+            ),
+            TestInput(
+                expression = mapOf(
+                    operatorName to listOf(
+                        "%.4f",
+                        "3.5"
+                    )
+                ),
+                result = JsonLogicResult.Success("3.5000")
+            ),
+            TestInput(
+                expression = mapOf(
+                    operatorName to listOf(
                         "%.4f-%f-%.10f",
                         mapOf(
                             "map" to listOf(
@@ -29,14 +83,13 @@ class DecimalFormatTest : FunSpec({
                     )
                 ),
                 data = mapOf("integers" to listOf(12.31421554323, 2.245123555332, 3.8483)),
-                result = JsonLogicResult.Success("2.4591-0.448351-0.7685055100")
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     operatorName to listOf(
-                        "%.1f", listOf(
-                            mapOf("%" to listOf(3.5, 1.3))
-                        )
+                        "%.1f",
+                        mapOf("%" to listOf(3.5, 1.3))
                     )
                 ),
                 result = JsonLogicResult.Success("0.9")
@@ -44,9 +97,8 @@ class DecimalFormatTest : FunSpec({
             TestInput(
                 expression = mapOf(
                     operatorName to listOf(
-                        "%.2f", listOf(
-                            mapOf("*" to listOf("1.3", "3.7"))
-                        )
+                        "%.2f",
+                        mapOf("*" to listOf("1.3", "3.7"))
                     )
                 ),
                 result = JsonLogicResult.Success("4.81")
@@ -54,9 +106,8 @@ class DecimalFormatTest : FunSpec({
             TestInput(
                 expression = mapOf(
                     operatorName to listOf(
-                        "%.1f", listOf(
-                            mapOf("-" to listOf("2.3", 3.2))
-                        )
+                        "%.1f",
+                        mapOf("-" to listOf("2.3", 3.2))
                     )
                 ),
                 result = JsonLogicResult.Success("-0.9")
@@ -82,7 +133,7 @@ class DecimalFormatTest : FunSpec({
                     )
                 ),
                 data = mapOf("number1" to 3.8569435, "number2" to 12.324),
-                result = JsonLogicResult.Success("0.47.532972")
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
@@ -105,7 +156,7 @@ class DecimalFormatTest : FunSpec({
                     )
                 ),
                 data = mapOf("number1" to 3.8569435, "number2" to 12.324),
-                result = JsonLogicResult.Success("16.180943/47.532972")
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
@@ -120,7 +171,7 @@ class DecimalFormatTest : FunSpec({
                 expression = mapOf(
                     operatorName to listOf(
                         "%.0f",
-                        listOf(3)
+                        "3"
                     )
                 ),
                 result = JsonLogicResult.Success("3")
@@ -129,7 +180,16 @@ class DecimalFormatTest : FunSpec({
                 expression = mapOf(
                     operatorName to listOf(
                         "%.0f",
-                        listOf(3.00001)
+                        3
+                    )
+                ),
+                result = JsonLogicResult.Success("3")
+            ),
+            TestInput(
+                expression = mapOf(
+                    operatorName to listOf(
+                        "%.0f",
+                        3.00001
                     )
                 ),
                 result = JsonLogicResult.Success("3")
@@ -138,7 +198,16 @@ class DecimalFormatTest : FunSpec({
                 expression = mapOf(
                     operatorName to listOf(
                         "%.2f",
-                        listOf(3.14001)
+                        3.14001
+                    )
+                ),
+                result = JsonLogicResult.Success("3.14")
+            ),
+            TestInput(
+                expression = mapOf(
+                    operatorName to listOf(
+                        "%.2f",
+                        "3.14001"
                     )
                 ),
                 result = JsonLogicResult.Success("3.14")
@@ -147,7 +216,7 @@ class DecimalFormatTest : FunSpec({
                 expression = mapOf(
                     operatorName to listOf(
                         "%f",
-                        listOf(3.14001)
+                        3.14001
                     )
                 ),
                 result = JsonLogicResult.Success("3.140010")
@@ -185,25 +254,25 @@ class DecimalFormatTest : FunSpec({
                         "Love kmp"
                     )
                 ),
-                result = JsonLogicResult.Success("Love kmp")
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     operatorName to ""
                 ),
-                result = JsonLogicResult.Success("")
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     operatorName to emptyList<Any>()
                 ),
-                result = JsonLogicResult.Success("null")
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     operatorName to listOf(listOf(100), listOf(100))
                 ),
-                result = JsonLogicResult.Success("[100]")
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
@@ -227,13 +296,13 @@ class DecimalFormatTest : FunSpec({
                 expression = mapOf(
                     operatorName to listOf(null, listOf(100))
                 ),
-                result = JsonLogicResult.Success("null")
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     operatorName to listOf(null, listOf(null))
                 ),
-                result = JsonLogicResult.Success("null")
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
@@ -299,13 +368,13 @@ class DecimalFormatTest : FunSpec({
                 expression = mapOf(
                     operatorName to listOf("%f", listOf(null))
                 ),
-                result = JsonLogicResult.Success("null")
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
                     operatorName to listOf("%.2f", listOf(null))
                 ),
-                result = JsonLogicResult.Success("null")
+                result = JsonLogicResult.Failure.NullResult
             ),
             TestInput(
                 expression = mapOf(
