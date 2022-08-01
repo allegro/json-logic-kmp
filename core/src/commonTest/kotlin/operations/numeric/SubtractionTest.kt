@@ -153,11 +153,3 @@ class SubtractionTest : FunSpec({
         evaluationResult valueShouldBe testInput.result
     }
 })
-
-@Suppress("unused")
-private val defectiveTestCases = listOf(
-    TestInput(
-        expression = mapOf("-" to listOf("2.3", 3.2)),
-        result = JsonLogicResult.Success(-0.9)
-    ),
-)

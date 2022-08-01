@@ -3,6 +3,7 @@ import array.Find
 import array.JoinToString
 import array.Size
 import array.Sort
+import format.DecimalFormat
 import operation.FunctionalLogicOperation
 import operation.StandardLogicOperation
 import string.Capitalize
@@ -24,7 +25,7 @@ object OperationsProvider {
         "replace" to Replace,
         "uppercase" to Uppercase,
         "toArray" to ToArray,
-        "format" to Format,
+        "decimalFormat" to DecimalFormat,
 
         // time
         "currentTime" to CurrentTimeMillis,

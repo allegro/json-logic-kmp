@@ -138,11 +138,3 @@ class ModuloTest : FunSpec({
         evaluationResult valueShouldBe testInput.result
     }
 })
-
-@Suppress("unused")
-private val defectiveTestCases = listOf(
-    TestInput(
-        expression = mapOf("%" to listOf(3.5, 1.3)),
-        result = JsonLogicResult.Success(0.9)
-    )
-)
