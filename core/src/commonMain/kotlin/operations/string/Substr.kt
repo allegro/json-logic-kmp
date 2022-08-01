@@ -60,5 +60,6 @@ internal object Substr : StandardLogicOperation, StringUnwrapStrategy {
 
     private fun String.constrainNegativeStartIndex(startIndex: Int) = (length + startIndex).takeIf { it >= 0 } ?: 0
 
-    private fun Int.constrainOutOfBoundsCharsCount(sourceStringLength: Int) = takeIf { it <= sourceStringLength } ?: sourceStringLength
+    private fun Int.constrainOutOfBoundsCharsCount(sourceStringLength: Int) =
+        takeIf { it <= sourceStringLength } ?: sourceStringLength
 }
