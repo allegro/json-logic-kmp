@@ -5,6 +5,7 @@ import utils.asList
 import utils.intOrZero
 import utils.secondOrNull
 import utils.thirdOrNull
+import kotlin.math.abs
 
 internal object Substr : StandardLogicOperation, StringUnwrapStrategy {
     override fun evaluateLogic(expression: Any?, data: Any?): String {
@@ -19,24 +20,45 @@ internal object Substr : StandardLogicOperation, StringUnwrapStrategy {
         val baseString = unwrapValueAsString(firstOrNull()).joinToString(",")
         return runCatching {
             when {
-                size == 2 -> baseString.fromStartIndexToEnd(startIndex)
+                size == 2 -> baseString.startIndexSubstr(startIndex)
                 size > 2 -> baseString.fromStartIndexToEndIndex(startIndex, charsCount)
                 else -> baseString
             }
         }.getOrNull().orEmpty()
     }
 
-    private fun String.fromStartIndexToEnd(startIndex: Int) = if (startIndex >= 0) {
-        substring(startIndex)
-    } else {
-        substring(length + startIndex)
+    // new impl
+    // TODO make it prettier
+    private fun String.startIndexSubstr(startIndex: Int): String {
+        return if (startIndex >= 0) {
+            substring(startIndex)
+        } else {
+            if (abs(startIndex) > length) {
+                this
+            } else {
+                substring(length + startIndex)
+            }
+        }
     }
 
     private fun String.fromStartIndexToEndIndex(startIndex: Int, charsCount: Int) = when {
-        startIndex >= 0 && charsCount > 0 -> substring(startIndex, startIndex + charsCount)
+        startIndex >= 0 && charsCount > 0 -> {
+            val newCount = (startIndex + charsCount).takeIf { it <= length } ?: length
+            substring(startIndex, newCount)
+        }
         startIndex >= 0 && charsCount < 0 -> substring(startIndex, length + charsCount)
-        startIndex < 0 && charsCount < 0 -> substring(length + startIndex, length + charsCount)
-        startIndex < 0 -> substring(length + startIndex)
+        startIndex < 0 && charsCount < 0 -> {
+            val newStartIndex = (length + startIndex).takeIf { it >= 0 } ?: 0
+            val newCount = (length + charsCount).takeIf { it <= length } ?: length
+            substring(newStartIndex, newCount)
+        }
+        startIndex < 0 && charsCount > 0 -> {
+            val newStartIndex = (length + startIndex).takeIf { it >= 0 } ?: 0
+            val newCount = if(newStartIndex + charsCount > length) {
+                length
+            } else newStartIndex + charsCount
+            substring(newStartIndex, newCount)
+        }
         else -> null
     }
 }
