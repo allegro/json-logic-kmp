@@ -3,4 +3,8 @@ scmVersion {
         prefix = ''
     }
     versionCreator 'versionWithBranch'
+
+    hooks {
+        pre 'fileUpdate', [file: 'core/src/iosMain/kotlin/Version.kt', pattern: {v, c -> /version: $v/}, replacement: {v, c -> "version: $v"}, encoding: 'utf-8']
+    }
 }
