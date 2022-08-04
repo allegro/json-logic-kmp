@@ -6,5 +6,6 @@ scmVersion {
 
     hooks {
         pre 'fileUpdate', [file: 'core/src/iosMain/kotlin/Version.kt', pattern: {v, c -> /const val clientSideLogicVersion = $v/}, replacement: {v, c -> "const val clientSideLogicVersion = $v"}, encoding: 'utf-8']
+        pre 'fileUpdate', [file: 'updateme.md', pattern: {v, c -> $v}, replacement: {v, c -> $v}, encoding: 'utf-8']
     }
 }
