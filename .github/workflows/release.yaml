@@ -34,6 +34,15 @@ jobs:
       - name: Check
         run: ./gradlew detektAll
 
+      - name: Bump Version
+        run: |
+            VERSION=${{ steps.bump.outputs.next_tag }}
+            echo "const val VERSION = \"$VERSION\"" > core/src/iosMain/kotlin/Version.kt
+            git checkout -b $BRANCH_NAME
+            git add core/src/iosMain/kotlin/Version.kt
+            git commit -m "Bump version to: $VERSION"
+            git push -u origin main
+
       - name: Build project
         run: ./gradlew build
 
