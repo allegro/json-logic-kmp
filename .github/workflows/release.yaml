@@ -45,7 +45,7 @@ jobs:
             git checkout main
             echo pwd
             pwd
-            echo "const val VERSION = \"$VERSION\"" > "core/src/iosMain/kotlin/Version.kt"
+            echo "const val VERSION = \"$VERSION\"" > ./core/src/iosMain/kotlin/Version.kt
             git add core/src/iosMain/kotlin/Version.kt
             git commit -m "Bump version to: $VERSION"
             git push origin main
