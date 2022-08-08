@@ -43,7 +43,7 @@ jobs:
         run: |
             VERSION=${{ steps.bump.outputs.next_tag }}
             git checkout main
-            echo "const val VERSION = \"$VERSION\"" > core/src/iosMain/kotlin/Version.kt
+            echo "const val VERSION = \"$VERSION\"" > ./core/src/iosMain/kotlin/Version.kt
             git add core/src/iosMain/kotlin/Version.kt
             git commit -m "Bump version to: $VERSION"
             git push origin main
