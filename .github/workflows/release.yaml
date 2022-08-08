@@ -40,7 +40,7 @@ jobs:
             echo "const val VERSION = \"$VERSION\"" > core/src/iosMain/kotlin/Version.kt
             git add core/src/iosMain/kotlin/Version.kt
             git commit -m "Bump version to: $VERSION"
-            git push -u origin main
+            git push origin main
 
       - name: Build project
         run: ./gradlew build
