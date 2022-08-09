@@ -16,8 +16,7 @@ jobs:
   build_xcframework:
     name: Build XCFramework
     runs-on: macos-latest
-    needs: [run_tests]
-    env:   
+    env:
       umbrella_xcframework_path: "umbrella-framework/build/XCFrameworks/release/JsonLogicKMP.xcframework"
       config_file_name: "JsonLogicConfig.kt"
       config_file_path: "core/src/iosMain/kotlin/"
