@@ -13,50 +13,6 @@ env:
   xcframework_artifact_key: "xcframeworks"
 
 jobs:
-  run_tests:
-    name: Run tests
-    runs-on: macos-latest
-    env:
-      config_file_name: "JsonLogicConfig.kt"
-      config_file_path: "core/src/iosMain/kotlin/"
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          distribution: "temurin"
-          java-version: 11
-
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-
-      - name: Setup git config
-        run: |
-            git config user.name "GitHub Actions Bot"
-            git config user.email "<>"
-
-      - name: Get next tag
-        id: "bump"
-        uses: allegro-actions/next-version@v1
-        with:
-            prefix: ""
-            force: ${{ github.event.inputs.next_version }}
-
-      - name: Bump Version
-        run: |
-            VERSION=${{ steps.bump.outputs.next_tag }}
-            git checkout hooks_test
-            mkdir -p "${{ env.config_file_path }}"
-            echo "object JsonLogicConfig { const val version = \"$VERSION\" }" > "${{ env.config_file_path }}${{ env.config_file_name }}"
-            cat "${{ env.config_file_path }}${{ env.config_file_name }}"
-
-      - name: Build project
-        run: ./gradlew build
-
   build_xcframework:
     name: Build XCFramework
     runs-on: macos-latest
@@ -75,6 +31,9 @@ jobs:
         run: |
             git config user.name "GitHub Actions Bot"
             git config user.email "<>"
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
 
       - name: Get next tag
         id: "bump"
