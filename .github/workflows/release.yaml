@@ -33,9 +33,6 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Check
-        run: ./gradlew detektAll
-
       - name: Setup git config
         run: |
             git config user.name "GitHub Actions Bot"
