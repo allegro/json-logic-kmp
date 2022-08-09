@@ -51,10 +51,7 @@ jobs:
             git checkout hooks_test
             mkdir -p core/src/iosMain/kotlin
             echo "const val VERSION = \"$VERSION\"" > "${{ env.sciezka }}"
-            echo "$VERSION"
-            echo "const val VERSION = \"$VERSION\""
             cat "${{ env.sciezka }}"
-            echo "$(./gradlew :core:currentVersion -q -Prelease.quiet)"
 
       - name: Build project
         run: ./gradlew build
@@ -77,12 +74,20 @@ jobs:
             git config user.name "GitHub Actions Bot"
             git config user.email "<>"
 
+      - name: Get next tag
+        id: "bump"
+        uses: allegro-actions/next-version@v1
+        with:
+            prefix: ""
+            force: ${{ github.event.inputs.next_version }}
+
       - name: Bump Version
         run: |
             VERSION=${{ steps.bump.outputs.next_tag }}
             git checkout hooks_test
             mkdir -p core/src/iosMain/kotlin
             echo "const val VERSION = \"$VERSION\"" > "${{ env.sciezka }}"
+            cat "${{ env.sciezka }}"
 
       - name: Build XCFramework
         run: ./gradlew assembleJsonLogicKMPXCFramework
