@@ -17,7 +17,8 @@ jobs:
     name: Run tests
     runs-on: macos-latest
     env:
-        sciezka: "core/src/iosMain/kotlin/JsonLogicConfig.kt"
+      config_file_name: "JsonLogicConfig.kt"
+      config_file_path: "core/src/iosMain/kotlin/"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -49,9 +50,9 @@ jobs:
         run: |
             VERSION=${{ steps.bump.outputs.next_tag }}
             git checkout hooks_test
-            mkdir -p core/src/iosMain/kotlin
-            echo "object JsonLogicConfig { const val VERSION = \"$VERSION\" }" > "${{ env.sciezka }}"
-            cat "${{ env.sciezka }}"
+            mkdir -p "${{ env.config_file_path }}"
+            echo "object JsonLogicConfig { const val VERSION = \"$VERSION\" }" > "${{ env.config_file_path }}${{ env.config_file_name }}"
+            cat "${{ env.config_file_path }}${{ env.config_file_name }}"
 
       - name: Build project
         run: ./gradlew build
@@ -62,7 +63,8 @@ jobs:
     needs: [run_tests]
     env:   
       umbrella_xcframework_path: "umbrella-framework/build/XCFrameworks/release/JsonLogicKMP.xcframework"
-      sciezka: "core/src/iosMain/kotlin/JsonLogicConfig.kt"
+      config_file_name: "JsonLogicConfig.kt"
+      config_file_path: "core/src/iosMain/kotlin/"
     outputs:
       sha256: ${{ steps.calculate_checksum.outputs.sha256 }}
     steps:
@@ -85,9 +87,9 @@ jobs:
         run: |
             VERSION=${{ steps.bump.outputs.next_tag }}
             git checkout hooks_test
-            mkdir -p core/src/iosMain/kotlin
-            echo "object JsonLogicConfig { const val VERSION = \"$VERSION\" }" > "${{ env.sciezka }}"
-            cat "${{ env.sciezka }}"
+            mkdir -p "${{ env.config_file_path }}"
+            echo "object JsonLogicConfig { const val VERSION = \"$VERSION\" }" > "${{ env.config_file_path }}${{ env.config_file_name }}"
+            cat "${{ env.config_file_path }}${{ env.config_file_name }}"
 
       - name: Build XCFramework
         run: ./gradlew assembleJsonLogicKMPXCFramework
