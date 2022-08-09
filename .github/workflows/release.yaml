@@ -98,19 +98,10 @@ jobs:
     name: Create release branch and bump version
     runs-on: ubuntu-latest
     needs: [run_tests, build_xcframework]
-    outputs:
-      tag: ${{ steps.bump.outputs.next_tag }}
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
-      - name: Get next tag
-        id: "bump"
-        uses: allegro-actions/next-version@v1
-        with:
-          prefix: ""
-          force: ${{ github.event.inputs.next_version }}
 
       - name: Change version in podspec file
         run: |
