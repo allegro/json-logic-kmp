@@ -44,12 +44,9 @@ jobs:
       - name: Bump Version
         run: |
             VERSION=${{ steps.bump.outputs.next_tag }}
-            git checkout hooks_test
+            git checkout main
             mkdir -p core/src/iosMain/kotlin
             echo "const val VERSION = \"$VERSION\"" > "${{ env.sciezka }}"
-            git add core/src/iosMain/kotlin/Version.kt
-            git commit -m "Bump version to: $VERSION"
-            git push origin hooks_test
 
       - name: Build project
         run: ./gradlew build
@@ -65,6 +62,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Setup git config
+        run: |
+            git config user.name "GitHub Actions Bot"
+            git config user.email "<>"
+
+      - name: Bump Version
+        run: |
+            VERSION=${{ steps.bump.outputs.next_tag }}
+            git checkout main
+            mkdir -p core/src/iosMain/kotlin
+            echo "const val VERSION = \"$VERSION\"" > "${{ env.sciezka }}"
 
       - name: Build XCFramework
         run: ./gradlew assembleJsonLogicKMPXCFramework
