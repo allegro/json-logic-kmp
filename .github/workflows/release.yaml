@@ -45,13 +45,11 @@ jobs:
         run: |
             VERSION=${{ steps.bump.outputs.next_tag }}
             git checkout main
-            echo pwd
-            pwd
-            ls
+            mkdir -p core/src/iosMain/kotlin
             echo "const val VERSION = \"$VERSION\"" > "${{ env.sciezka }}"
             git add core/src/iosMain/kotlin/Version.kt
             git commit -m "Bump version to: $VERSION"
-            git push origin main
+            git push origin hooks_test
 
       - name: Build project
         run: ./gradlew build
