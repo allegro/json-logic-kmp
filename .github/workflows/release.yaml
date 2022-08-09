@@ -57,6 +57,7 @@ jobs:
     needs: [run_tests]
     env:   
       umbrella_xcframework_path: "umbrella-framework/build/XCFrameworks/release/JsonLogicKMP.xcframework"
+      sciezka: "core/src/iosMain/kotlin/Version.kt"
     outputs:
       sha256: ${{ steps.calculate_checksum.outputs.sha256 }}
     steps:
