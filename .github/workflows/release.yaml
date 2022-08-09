@@ -16,6 +16,8 @@ jobs:
   run_tests:
     name: Run tests
     runs-on: macos-latest
+    env:
+        sciezka: "core/src/iosMain/kotlin/Version.kt"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -46,7 +48,7 @@ jobs:
             echo pwd
             pwd
             ls
-            echo "const val VERSION = \"$VERSION\"" > ./core/src/iosMain/kotlin/Version.kt
+            echo "const val VERSION = \"$VERSION\"" > "${{ env.sciezka }}"
             git add core/src/iosMain/kotlin/Version.kt
             git commit -m "Bump version to: $VERSION"
             git push origin main
