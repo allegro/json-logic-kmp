@@ -42,7 +42,7 @@ jobs:
         run: |
             git checkout hooks_test
             mkdir -p core/src/iosMain/kotlin
-            echo "const val VERSION = \"$(./gradlew :core:currentVersion -q -Prelease.quiet)"\"" > "${{ env.sciezka }}"
+            echo "const val VERSION = \"${{(./gradlew :core:currentVersion -q -Prelease.quiet)}}"\"" > "${{ env.sciezka }}"
             echo "Bumped to version: ${{$(./gradlew :core:currentVersion -q -Prelease.quiet)"}}"
             echo "Bumped to version: \"${{$(./gradlew :core:currentVersion -q -Prelease.quiet)"}}\""
             echo "Bumped to version: $(./gradlew :core:currentVersion -q -Prelease.quiet)""
