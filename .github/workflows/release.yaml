@@ -64,10 +64,9 @@ jobs:
             prefix: ""
             force: ${{ github.event.inputs.next_version }}
 
-      - name: Bump Version
+      - name: Generate volatile iOS version file
         run: |
             VERSION=${{ steps.bump.outputs.next_tag }}
-            git checkout hooks_test
             mkdir -p "${{ env.config_file_path }}"
             echo "object JsonLogicConfig { const val version = \"$VERSION\" }" > "${{ env.config_file_path }}${{ env.config_file_name }}"
 
