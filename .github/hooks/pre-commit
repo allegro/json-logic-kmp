@@ -1,6 +1,7 @@
 #!/bin/sh
 
 cd ../..
+mkdir -p core/src/iosMain/kotlin
 echo "const val VERSION = \"$(./gradlew :core:currentVersion -q -Prelease.quiet)\"" > core/src/iosMain/kotlin/Version.kt
 git add core/src/iosMain/kotlin/Version.kt
 exit 0
