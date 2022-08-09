@@ -17,7 +17,7 @@ jobs:
     name: Run tests
     runs-on: macos-latest
     env:
-        sciezka: "core/src/iosMain/kotlin/Version.kt"
+        sciezka: "core/src/iosMain/kotlin/JsonLogicConfig.kt"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -50,7 +50,7 @@ jobs:
             VERSION=${{ steps.bump.outputs.next_tag }}
             git checkout hooks_test
             mkdir -p core/src/iosMain/kotlin
-            echo "const val VERSION = \"$VERSION\"" > "${{ env.sciezka }}"
+            echo "object JsonLogicConfig {\\n   const val VERSION = \"$VERSION\" \\n}" > "${{ env.sciezka }}"
             cat "${{ env.sciezka }}"
 
       - name: Build project
@@ -62,7 +62,7 @@ jobs:
     needs: [run_tests]
     env:   
       umbrella_xcframework_path: "umbrella-framework/build/XCFrameworks/release/JsonLogicKMP.xcframework"
-      sciezka: "core/src/iosMain/kotlin/Version.kt"
+      sciezka: "core/src/iosMain/kotlin/JsonLogicConfig.kt"
     outputs:
       sha256: ${{ steps.calculate_checksum.outputs.sha256 }}
     steps:
@@ -86,7 +86,7 @@ jobs:
             VERSION=${{ steps.bump.outputs.next_tag }}
             git checkout hooks_test
             mkdir -p core/src/iosMain/kotlin
-            echo "const val VERSION = \"$VERSION\"" > "${{ env.sciezka }}"
+            echo "object JsonLogicConfig {\\n   const val VERSION = \"$VERSION\" \\n}" > "${{ env.sciezka }}"
             cat "${{ env.sciezka }}"
 
       - name: Build XCFramework
