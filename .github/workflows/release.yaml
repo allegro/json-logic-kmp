@@ -86,7 +86,7 @@ jobs:
             VERSION=${{ steps.bump.outputs.next_tag }}
             git checkout hooks_test
             mkdir -p core/src/iosMain/kotlin
-            echo "object JsonLogicConfig {\\n   const val VERSION = \"$VERSION\" \\n}" > "${{ env.sciezka }}"
+            echo "object JsonLogicConfig {\n   const val VERSION = \"$VERSION\" \n}" > "${{ env.sciezka }}"
             cat "${{ env.sciezka }}"
 
       - name: Build XCFramework
