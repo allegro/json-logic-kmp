@@ -3,10 +3,4 @@ scmVersion {
         prefix = ''
     }
     versionCreator 'versionWithBranch'
-
-    hooks {
-        pre 'fileUpdate', [file: 'core/src/iosMain/kotlin/Version.kt', replacement: {v, c -> "const val clientSideLogicVersion = $v"}, encoding: 'utf-8']
-        pre 'fileUpdate', [file: 'updateme.md', pattern: {v, c -> $v}, replacement: {v, c -> $v}, encoding: 'utf-8']
-        pre("commit")
-    }
 }

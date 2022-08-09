@@ -23,7 +23,6 @@ object Versions {
     const val nexus = "1.0.0"
     const val kotest = "5.0.2"
     const val crashkios = "0.4.0"
-    const val kotlinxDatetime = "0.3.2"
 }
 
 object Libs {
