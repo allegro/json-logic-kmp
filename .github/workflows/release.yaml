@@ -22,9 +22,12 @@ jobs:
       config_file_path: "core/src/iosMain/kotlin/"
     outputs:
       sha256: ${{ steps.calculate_checksum.outputs.sha256 }}
+      tag: ${{ steps.bump.outputs.next_tag }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+            fetch-depth: 0
 
       - name: Setup git config
         run: |
