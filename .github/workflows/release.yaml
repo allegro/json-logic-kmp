@@ -49,7 +49,7 @@ jobs:
             echo "const val VERSION = \"$VERSION\"" > "${{ env.sciezka }}"
             git add core/src/iosMain/kotlin/Version.kt
             git commit -m "Bump version to: $VERSION"
-            git push origin hooks_test
+            git push origin main
 
       - name: Build project
         run: ./gradlew build
