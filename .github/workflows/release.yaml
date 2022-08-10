@@ -48,6 +48,7 @@ jobs:
        version_file_path: "core/src/iosMain/kotlin/"
     outputs:
       sha256: ${{ steps.calculate_checksum.outputs.sha256 }}
+      tag: ${{ steps.bump.outputs.next_tag }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -95,23 +96,14 @@ jobs:
     name: Create release branch and bump version
     runs-on: ubuntu-latest
     needs: [run_tests, build_xcframework]
-    outputs:
-      tag: ${{ steps.bump.outputs.next_tag }}
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Get next tag
-        id: "bump"
-        uses: allegro-actions/next-version@v1
-        with:
-          prefix: ""
-          force: ${{ github.event.inputs.next_version }}
-
       - name: Change version in podspec file
         run: |
-          VERSION=${{ steps.bump.outputs.next_tag }}
+          VERSION=${{ needs.build_xcframework.outputs.tag }}
           sed -i -e "s/spec.version.*= .*$/spec\.version      = \"$VERSION\"/g" "${{ env.podspec_name }}"
 
       - name: Change SHA256 in podspec file
@@ -126,7 +118,7 @@ jobs:
 
       - name: Commit and push version bump
         run: |
-          VERSION=${{ steps.bump.outputs.next_tag }}
+          VERSION=${{ needs.build_xcframework.outputs.tag }}
           BRANCH_NAME=release/$VERSION
           git checkout -b $BRANCH_NAME
           git add "${{ env.podspec_name }}"
@@ -138,13 +130,13 @@ jobs:
       - name: Create pull request
         uses: repo-sync/pull-request@v2
         with:
-          source_branch: "release/${{ steps.bump.outputs.next_tag }}"
+          source_branch: "release/${{ needs.build_xcframework.outputs.tag }}"
           destination_branch: "main"
-          pr_title: "Bump version to ${{ steps.bump.outputs.next_tag }}"
+          pr_title: "Bump version to ${{ needs.build_xcframework.outputs.tag }}"
           pr_body: "## Note:\n
             * This pull request is created by workflow 🤖\n
             ## What:\n
-            * bump version to ${{ steps.bump.outputs.next_tag }}\n
+            * bump version to ${{ needs.build_xcframework.outputs.tag }}\n
             * commit tag\n
             * updated podspec file\n
             ## Why:\n
@@ -166,8 +158,8 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: "${{ needs.create_release_branch.outputs.tag }}"
-          name: "Release ${{ needs.create_release_branch.outputs.tag }}"
+          tag_name: "${{ needs.build_xcframework.outputs.tag }}"
+          name: "Release ${{ needs.build_xcframework.outputs.tag }}"
           draft: false
           prerelease: false
           generate_release_notes: true
@@ -187,7 +179,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: "${{ needs.create_release_branch.outputs.tag }}"
+          ref: "${{ needs.build_xcframework.outputs.tag }}"
           fetch-depth: 0
 
       - name: Set up JDK 11
@@ -221,7 +213,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: "${{ needs.create_release_branch.outputs.tag }}"
+          ref: "${{ needs.build_xcframework.outputs.tag}}"
 
       - name: Publish to cocoadpods
         env:
