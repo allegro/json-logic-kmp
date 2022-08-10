@@ -18,12 +18,11 @@ object Modules {
 
 object Versions {
     const val kotlin = "1.6.20"
-    const val axion = "1.13.6"
+    const val axion = "1.14.0"
     const val detekt = "1.19.0"
     const val nexus = "1.0.0"
     const val kotest = "5.0.2"
     const val crashkios = "0.4.0"
-    const val kotlinxDatetime = "0.3.2"
 }
 
 object Libs {
