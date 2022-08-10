@@ -42,13 +42,30 @@ jobs:
     name: Build XCFramework
     runs-on: macos-latest
     needs: [run_tests]
-    env:   
-      umbrella_xcframework_path: "umbrella-framework/build/XCFrameworks/release/JsonLogicKMP.xcframework"
+    env:
+       umbrella_xcframework_path: "umbrella-framework/build/XCFrameworks/release/JsonLogicKMP.xcframework"
+       version_file_name: "JsonLogicConfig.kt"
+       version_file_path: "core/src/iosMain/kotlin/"
     outputs:
       sha256: ${{ steps.calculate_checksum.outputs.sha256 }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+            fetch-depth: 0
+
+      - name: Get next tag
+        id: "bump"
+        uses: allegro-actions/next-version@v1
+        with:
+          prefix: ""
+          force: ${{ github.event.inputs.next_version }}
+
+      - name: Generate volatile iOS version file
+        run: |
+          VERSION=${{ steps.bump.outputs.next_tag }}
+          mkdir -p "${{ env.version_file_path }}"
+          echo "object JsonLogicConfig { const val version = \"$VERSION\" }" > "${{ env.version_file_path }}${{ env.version_file_name }}"
 
       - name: Build XCFramework
         run: ./gradlew assembleJsonLogicKMPXCFramework
