@@ -17,6 +17,10 @@ jobs:
     name: Run tests
     runs-on: macos-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
   build_xcframework:
     name: Build XCFramework
