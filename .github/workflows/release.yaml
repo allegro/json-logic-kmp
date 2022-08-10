@@ -34,9 +34,6 @@ jobs:
         with:
             fetch-depth: 0
 
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-
       - name: Get next tag
         id: "bump"
         uses: allegro-actions/next-version@v1
