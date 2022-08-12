@@ -8,7 +8,8 @@ on:
         required: false
 
 env:
-  podspec_name: "JsonLogicKMP.podspec"
+  podspec_file_name: "JsonLogicKMP.podspec"
+  spm_file_name: "Package.swift"
   xcframework_zip_name: "JsonLogicKMP.xcframework.zip"
   xcframework_artifact_key: "xcframeworks"
 
@@ -101,15 +102,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Change version in podspec file
+      - name: Change version in podspec and SPM files
         run: |
           VERSION=${{ needs.build_xcframework.outputs.tag }}
-          sed -i -e "s/spec.version.*= .*$/spec\.version      = \"$VERSION\"/g" "${{ env.podspec_name }}"
+          sed -i -e "s/spec.version.*= .*$/spec\.version      = \"$VERSION\"/g" "${{ env.podspec_file_name }}"
+          sed -i -e "s/let version.*= .*$/let version = \"$VERSION\"/g" "${{ env.spm_file_name }}"
 
-      - name: Change SHA256 in podspec file
+      - name: Change SHA256 checksum in podspec and SPM files
         run: |
           XCFRAMEWORK_SHA256="${{ needs.build_xcframework.outputs.sha256 }}"
-          sed -i -e "s/:sha256.*=>.*$/:sha256 => \"$XCFRAMEWORK_SHA256\"/g" "${{ env.podspec_name }}"
+          sed -i -e "s/:sha256.*=>.*$/:sha256 => \"$XCFRAMEWORK_SHA256\"/g" "${{ env.podspec_file_name }}"
+          sed -i -e "s/let checksum.*= .*$/let checksum = \"$XCFRAMEWORK_SHA256\"/g" "${{ env.spm_file_name }}"
 
       - name: Setup git config
         run: |
@@ -121,7 +124,8 @@ jobs:
           VERSION=${{ needs.build_xcframework.outputs.tag }}
           BRANCH_NAME=release/$VERSION
           git checkout -b $BRANCH_NAME
-          git add "${{ env.podspec_name }}"
+          git add "${{ env.podspec_file_name }}"
+          git add "${{ env.spm_file_name }}"
           git commit -m "Bump version to: $VERSION"
           git push -u origin $BRANCH_NAME
           git tag $VERSION
@@ -219,4 +223,4 @@ jobs:
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
         run: |
-          pod trunk push "${{ env.podspec_name }}" --verbose
+          pod trunk push "${{ env.podspec_file_name }}" --verbose
