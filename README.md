@@ -21,9 +21,9 @@ dependencies {
     implementation "pl.allegro.mobile:json-logic-operations-stdlib:0.2.14"
 }
 ```
-Using CocoaPods:
+with CocoaPods:
 
-[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate **JsonLogicKMP** into your Xcode project using CocoaPods, specify it in your Podfile:
+To integrate **JsonLogicKMP** into your Xcode project using CocoaPods, specify it in your Podfile:
 
 ```ruby
 pod 'JsonLogicKMP'
@@ -33,12 +33,14 @@ How do I initialize the engine?
 -------------------
 Logic evalautor is initialized by simply building it. All of the json-logic standard operations are added by default. 
 
-**Log** operation is an exception which requires a callback function for logging values. It's added by special function *addLogger()*.
+**Log** operation is an exception which requires a callback function to log values. It's added by special function *addLogger()*.
+
+Initialization in Kotlin:
 
 ```kotlin
 val jsonLogicLoggingCallback: (Any?) -> Unit = { Log.d("JsonLogicEngine-log: $it") }
 
-fun initializeJsonLogicEngine(): JsonLogicEngine {
+fun buildJsonLogicEngineWithLogger(): JsonLogicEngine {
     return JsonLogicEngine
         .Builder()
         .addLogger(jsonLogicLoggingCallback)
@@ -47,9 +49,27 @@ fun initializeJsonLogicEngine(): JsonLogicEngine {
 
 ```
 
+and Swift:
+
+```swift
+    let logger = Logger(subsystem: Bundle.moduleBundle.bundleIdentifier ?? Bundle.moduleName, category: Self.loggerCategory)
+    
+    let jsonLogicLoggingCallback: (Any?) -> Void = {
+        guard let message = $0 else { return }
+        logger.debug("\(String(describing: message), privacy: .private)")
+    }
+    
+    func buildJsonLogicEngineWithLogger(): JsonLogicEngine = JsonLogicKMP.JsonLogicEngineBuilder()
+        .addLogger(loggingCallback: jsonLogicLoggingCallback)
+        .build()
+```
+
 To expand the possibilities of the engnine add our additional standard library with more Kotlin based operators. To do it use **OperationsProvider** and its ready-to-use operations sets.
+
+On Kotlin target:
+
 ```kotlin
-fun initializeJsonLogicEngine(): JsonLogicEngine {
+fun buildJsonLogicEngineWithStandardOperations(): JsonLogicEngine {
     return JsonLogicEngine
         .Builder()
         .addStandardOperations(OperationsProvider.standardOperations)
@@ -57,15 +77,27 @@ fun initializeJsonLogicEngine(): JsonLogicEngine {
         .build()
 }
 ```
+
+and Swift one:
+//TODO check if it compiles
+```swift
+    func buildJsonLogicEngineWithLogger(): JsonLogicEngine {
+        return JsonLogicKMP.JsonLogicEngineBuilder()
+            .addStandardOperations(operations: OperationsProvider.shared.functionalOperations)
+            .addFunctionalOperations(operations: operationsProvider.functionalOperations)
+            .build()
+    }
+```
 Json logic expressions evaluation
 -------------------
-
+//TODO for swift and kotlin
 
 Custom operations
 -------------------
 There is a possibility to create more json logic operations with simple api available in **operations-api** module.
 
 Using gradle just add proper dependency and write your own logic:
+
 ```gradle
 repositories {
     mavenCentral()
@@ -81,6 +113,7 @@ dependencies {
 ```
 
 For simple operation that doesn't evaluate any json logic expressions internally, use **StandardLogicOperation** interface:
+
 ```kotlin
 object Size : StandardLogicOperation {
     override fun evaluateLogic(expression: Any?, data: Any?): Any? = (expression as? List<*>)?.size
@@ -88,6 +121,7 @@ object Size : StandardLogicOperation {
 ```
 
 For more complex operations use **FunctionalLogicOperation** interface:
+
 ```kotlin
 object Find : FunctionalLogicOperation, EvaluatingUnwrapper {
     override fun evaluateLogic(expression: Any?, data: Any?, evaluator: LogicEvaluator): Any? {
@@ -102,9 +136,11 @@ object Find : FunctionalLogicOperation, EvaluatingUnwrapper {
     }
 }
 ```
+
 Main difference between these two is that functional operations has access to some **LogicEvaluator** instance. It allows them to evaluate expressions internally.
 
 To add custom operations use:
+
 ```kotlin
 fun initializeJsonLogicEngineWithCustomOperations(): JsonLogicEngine {
     return JsonLogicEngine
