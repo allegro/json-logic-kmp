@@ -12,13 +12,12 @@ repositories {
 }
 
 dependencies {
-// TODO add dynamic versioning
     // JVM & Android targets
-    implementation "pl.allegro.mobile:json-logic-core-jvm:0.2.14"
-    implementation "pl.allegro.mobile:json-logic-operations-stdlib-jvm:0.2.14"
+    implementation "pl.allegro.mobile:json-logic-core-jvm:1.0.0"
+    implementation "pl.allegro.mobile:json-logic-operations-stdlib-jvm:1.0.0"
     // KMP target
-    implementation "pl.allegro.mobile:json-logic-core:0.2.14"
-    implementation "pl.allegro.mobile:json-logic-operations-stdlib:0.2.14"
+    implementation "pl.allegro.mobile:json-logic-core:1.0.0"
+    implementation "pl.allegro.mobile:json-logic-operations-stdlib:1.0.0"
 }
 ```
 with CocoaPods:
@@ -29,7 +28,7 @@ To integrate **JsonLogicKMP** into your Xcode project using CocoaPods, specify i
 pod 'JsonLogicKMP'
 ```
 
-How do I initialize the engine?
+How to initialize the engine?
 -------------------
 Logic evalautor is initialized by simply building it. All of the json-logic standard operations are added by default. 
 
@@ -79,18 +78,45 @@ fun buildJsonLogicEngineWithStandardOperations(): JsonLogicEngine {
 ```
 
 and Swift one:
-//TODO check if it compiles
+
 ```swift
     func buildJsonLogicEngineWithLogger(): JsonLogicEngine {
         return JsonLogicKMP.JsonLogicEngineBuilder()
-            .addStandardOperations(operations: OperationsProvider.shared.functionalOperations)
-            .addFunctionalOperations(operations: operationsProvider.functionalOperations)
+            .addStandardOperations(operations: OperationsProvider.shared.standardOperations)
+            .addFunctionalOperations(operations: OperationsProvider.shared.functionalOperations)
             .build()
     }
 ```
 Json logic expressions evaluation
 -------------------
-//TODO for swift and kotlin
+
+Logic expressions are represented by maps where key is operation name and value is arguments. User might provide some additional input using **data** parameter. 
+
+Example expression evaluation in Kotlin is shown below:
+
+```kotlin
+fun evaluateAdditionOperation(): JsonLogicResult {
+    val logicEngine = JsonLogicEngine.Builder().build()
+    val expression = mapOf("+" to listOf(1, mapOf("var" to "second")))
+    val data = mapOf("second" to 2)
+    
+    return logicEngine.evaluate(expression, data)
+}
+```
+
+and in Swift:
+
+```swift
+func evaluateAdditionOperation() -> JsonLogicResult {
+    let engine = JsonLogicKMP.JsonLogicEngineBuilder().build()
+    let logicExpression: [String: Any] = ["+": [1, ["var": "second"]]]
+    let logicData: [String: Any] = ["second": 2]
+        
+    return engine.evaluate(expression: logicExpression, data: logicData)
+}
+```
+
+Expressions evaluation results in **JsonLogicResult**. It indicates if evaluation is successful or what kind of error occured.
 
 Custom operations
 -------------------
@@ -104,11 +130,10 @@ repositories {
 }
 
 dependencies {
-// TODO add dynamic versioning
     // JVM & Android targets
-    implementation "pl.allegro.mobile:json-logic-operations-api-jvm:0.2.14"
+    implementation "pl.allegro.mobile:json-logic-operations-api-jvm:1.0.0"
     // KMP target
-    implementation "pl.allegro.mobile:json-logic-operations-api:0.2.14"
+    implementation "pl.allegro.mobile:json-logic-operations-api:1.0.0"
 }
 ```
 
@@ -139,7 +164,7 @@ object Find : FunctionalLogicOperation, EvaluatingUnwrapper {
 
 Main difference between these two is that functional operations has access to some **LogicEvaluator** instance. It allows them to evaluate expressions internally.
 
-To add custom operations use:
+To add custom operations in Kotlin implementation use:
 
 ```kotlin
 fun initializeJsonLogicEngineWithCustomOperations(): JsonLogicEngine {
@@ -150,6 +175,18 @@ fun initializeJsonLogicEngineWithCustomOperations(): JsonLogicEngine {
         .build()
 }
 ```
+
+or in Swift:
+
+```swift
+func initializeJsonLogicEngineWithCustomOperations() -> JsonLogicEngine {
+    return JsonLogicKMP.JsonLogicEngineBuilder()
+        .addStandardOperation(operationName: "size", operation: Size.shared)
+        .addFunctionalOperation(operationName: "find", operation: Find.shared)
+        .build()
+}
+```
+
 ## License
 
 **JsonLogicKMP** is published under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
