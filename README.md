@@ -45,7 +45,6 @@ fun buildJsonLogicEngineWithLogger(): JsonLogicEngine {
         .addLogger(jsonLogicLoggingCallback)
         .build()    
 }
-
 ```
 
 and Swift:
@@ -87,6 +86,7 @@ and Swift one:
             .build()
     }
 ```
+
 Json logic expressions evaluation
 -------------------
 
