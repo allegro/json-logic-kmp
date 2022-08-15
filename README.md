@@ -1,6 +1,6 @@
 JsonLogicKMP
 ============
-Kotlin multiplatform [JsonLogic](https://jsonlogic.com/) expressions evaluation engine. Targets iOS and JVM (also Android). The JsonLogic format is designed to allow you to share rules (logic) between front-end and back-end code
+Kotlin multiplatform [JsonLogic](https://jsonlogic.com/) expressions evaluation engine. Targets iOS and JVM (also Android). The JsonLogic format is designed to allow you to share rules (logic) between front-end and back-end code.
 
 Download
 --------
