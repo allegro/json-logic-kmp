@@ -187,6 +187,11 @@ func initializeJsonLogicEngineWithCustomOperations() -> JsonLogicEngine {
 }
 ```
 
+Contribution
+-------------------
+
+If you have any idea on how to improve this project just submit a pull request. Provide some description about changes and examples. When your PR is approved by 2 reviewers it is ready to merge!
+
 ## License
 
 **JsonLogicKMP** is published under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
