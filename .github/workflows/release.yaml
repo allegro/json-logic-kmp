@@ -16,7 +16,7 @@ env:
 jobs:
   run_tests:
     name: Run tests
-    if: github.ref == 'refs/heads/main'
+    # if: github.ref == 'refs/heads/main'
     runs-on: macos-latest
     steps:
       - name: Checkout repository
@@ -195,32 +195,32 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Publish to maven central
-        run: ./gradlew publishJvmPublicationToSonatypeRepository publishKotlinMultiplatformPublicationToSonatypeRepository closeAndReleaseSonatypeStagingRepository --scan
-        env:
-          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-          GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-          GPG_PRIVATE_KEY_PASSWORD: ${{ secrets.GPG_PRIVATE_KEY_PASSWORD }}
+      # - name: Publish to maven central
+      #   run: ./gradlew publishJvmPublicationToSonatypeRepository publishKotlinMultiplatformPublicationToSonatypeRepository closeAndReleaseSonatypeStagingRepository --scan
+      #   env:
+      #     SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+      #     SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+      #     GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
+      #     GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+      #     GPG_PRIVATE_KEY_PASSWORD: ${{ secrets.GPG_PRIVATE_KEY_PASSWORD }}
 
-  publish_to_cocoapods:
-    name: Publish to cocoadpods
-    needs:
-      [
-        run_tests,
-        build_xcframework,
-        create_release_branch,
-        create_github_release,
-      ]
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: "${{ needs.build_xcframework.outputs.tag}}"
+  # publish_to_cocoapods:
+  #   name: Publish to cocoadpods
+  #   needs:
+  #     [
+  #       run_tests,
+  #       build_xcframework,
+  #       create_release_branch,
+  #       create_github_release,
+  #     ]
+  #   runs-on: macos-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         ref: "${{ needs.build_xcframework.outputs.tag}}"
 
-      - name: Publish to cocoadpods
-        env:
-          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
-        run: |
-          pod trunk push "${{ env.podspec_file_name }}" --verbose
+  #     - name: Publish to cocoadpods
+  #       env:
+  #         COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+  #       run: |
+  #         pod trunk push "${{ env.podspec_file_name }}" --verbose
