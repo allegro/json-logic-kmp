@@ -115,7 +115,7 @@ func evaluateAdditionOperation() -> JsonLogicResult {
 }
 ```
 
-Expressions evaluation results in **JsonLogicResult**. It indicates if evaluation is successful or what kind of error occured.
+Expressions evaluation results are type of **JsonLogicResult**. It indicates if evaluation is successful or what kind of error occured.
 
 Custom operations
 -------------------
