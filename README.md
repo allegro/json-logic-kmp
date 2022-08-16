@@ -92,7 +92,7 @@ Json logic expressions evaluation
 
 Logic expressions are represented by maps where key is operation name and value is arguments. User might provide some additional input using **data** parameter. 
 
-Example expression evaluation in Kotlin is shown below:
+Example of expression evaluation in Kotlin is shown below:
 
 ```kotlin
 fun evaluateAdditionOperation(): JsonLogicResult {
