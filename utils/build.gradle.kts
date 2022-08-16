@@ -26,6 +26,11 @@ kotlin {
                 implementation(Libs.Kotest.frameworkDataset)
             }
         }
+        val jvmMain by getting {
+            dependencies {
+                implementation(Libs.KotlinPoet.core)
+            }
+        }
         val jvmTest by getting {
             dependencies {
                 implementation(Libs.Kotest.jvmJunit5Runner)

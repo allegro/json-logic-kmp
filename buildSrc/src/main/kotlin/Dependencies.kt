@@ -22,6 +22,7 @@ object Versions {
     const val detekt = "1.19.0"
     const val nexus = "1.0.0"
     const val kotest = "5.0.2"
+    const val kotlinPoet = "1.12.0"
     const val crashkios = "0.4.0"
 }
 
@@ -35,6 +36,11 @@ object Libs {
 
     object TouchLab {
         const val crashkios = "co.touchlab:crashkios:${Versions.crashkios}"
+    }
+
+    object KotlinPoet {
+        const val core = "com.squareup:kotlinpoet:${Versions.kotlinPoet}"
+
     }
 }
 
