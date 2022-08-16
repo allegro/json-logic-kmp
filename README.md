@@ -50,8 +50,7 @@ fun buildJsonLogicEngineWithLogger(): JsonLogicEngine {
 and Swift:
 
 ```swift
-    let logger = Logger(subsystem: Bundle.moduleBundle.bundleIdentifier ?? Bundle.moduleName, category: Self.loggerCategory)
-    
+    let logger = Logger(subsystem: "JsonLogicKMP", category: "JsonLogic")
     let jsonLogicLoggingCallback: (Any?) -> Void = {
         guard let message = $0 else { return }
         logger.debug("\(String(describing: message), privacy: .private)")
