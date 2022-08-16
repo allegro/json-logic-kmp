@@ -22,7 +22,7 @@ dependencies {
 ```
 with CocoaPods:
 
-To integrate **JsonLogicKMP** into your Xcode project using CocoaPods, specify it in your Podfile:
+To integrate **JsonLogicKMP** with your Xcode project using CocoaPods, specify it in your Podfile:
 
 ```ruby
 pod 'JsonLogicKMP'
