@@ -4,7 +4,7 @@ Kotlin multiplatform [JsonLogic](https://jsonlogic.com/) expressions evaluation 
 
 Download
 --------
-For Gradle build system:
+### Gradle build system
 
 ```gradle
 repositories {
@@ -20,8 +20,19 @@ dependencies {
     implementation "pl.allegro.mobile:json-logic-operations-stdlib:1.0.0"
 }
 ```
-with CocoaPods:
 
+### Swift Package Manager
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. 
+
+Once you have your Swift package set up, adding Alamofire as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/allegro/json-logic-kmp", .exact("1.0.0"))
+]
+```
+
+### CocoaPods
 To integrate **JsonLogicKMP** with your Xcode project using CocoaPods, specify it in your Podfile:
 
 ```ruby
