@@ -11,7 +11,7 @@ actual object Encode : StandardLogicOperation, StringUnwrapStrategy {
     actual override fun evaluateLogic(expression: Any?, data: Any?): Any? {
         return unwrapValueAsString(expression)?.let {
             NSString.create(string = it)
-                .stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacters = NSCharacterSet.alphanumericCharacterSet)
+                .stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.alphanumericCharacterSet)
         }
     }
 }

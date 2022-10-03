@@ -42,7 +42,9 @@ class EncodeTest: FunSpec({
                 expression = mapOf(
                     operatorName to listOf("Доброго ранку")
                 ),
-                result = JsonLogicResult.Success("%D0%94%D0%BE%D0%B1%D1%80%D0%BE%D0%B3%D0%BE+%D1%80%D0%B0%D0%BD%D0%BA%D1%83")
+                result = JsonLogicResult.Success(
+                    "%D0%94%D0%BE%D0%B1%D1%80%D0%BE%D0%B3%D0%BE+%D1%80%D0%B0%D0%BD%D0%BA%D1%83"
+                )
             )
         )
         // given
