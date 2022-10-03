@@ -34,6 +34,22 @@ class EncodeTest: FunSpec({
             ),
             TestInput(
                 expression = mapOf(
+                    operatorName to listOf("https://test.pl?name=%C5%BC%C3%B3%C5%82%C4%85d%C5%BA")
+                ),
+                result = JsonLogicResult.Success(
+                    "https%3A%2F%2Ftest%2Epl%3Fname%3D%25C5%25BC%25C3%25B3%25C5%2582%25C4%2585d%25C5%25BA"
+                )
+            ),
+            TestInput(
+                expression = mapOf(
+                    operatorName to listOf("zażółć gęślą jaźń")
+                ),
+                result = JsonLogicResult.Success(
+                    "za%C5%BC%C3%B3%C5%82%C4%87%20g%C4%99%C5%9Bl%C4%85%20ja%C5%BA%C5%84"
+                )
+            ),
+            TestInput(
+                expression = mapOf(
                     operatorName to listOf("kalendář")
                 ),
                 result = JsonLogicResult.Success("kalend%C3%A1%C5%99")
