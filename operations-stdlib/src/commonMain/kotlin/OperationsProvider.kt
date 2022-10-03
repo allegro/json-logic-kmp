@@ -27,7 +27,7 @@ object OperationsProvider {
         "uppercase" to Uppercase,
         "toArray" to ToArray,
         "decimalFormat" to DecimalFormat,
-        "encoding" to Encode,
+        "encode" to Encode,
 
         // time
         "currentTime" to CurrentTimeMillis,
