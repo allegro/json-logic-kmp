@@ -2,8 +2,8 @@
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 import PackageDescription
 
-let version = "1.0.0"
-let checksum = "a530bd8a467589b9752779e10933bd7faf9caf8cef20a62bffb2605d24df435a"
+let version = "1.1.0"
+let checksum = "250de74807d6c356d04820160318f46e2a4267a774b64dc8b66c944d9bf530ea"
 
 let package = Package(
     name: "JsonLogicKMP",
