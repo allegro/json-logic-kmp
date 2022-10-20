@@ -15,7 +15,7 @@ kotest-framework-dataset = {module = "io.kotest:kotest-framework-datatest", vers
 kotest-jvm-junit5-runner = {module = "io.kotest:kotest-runner-junit5-jvm", version.ref = "kotest"}
 
 [bundles]
-common-kotest = ["kotest-assertions-core", "kotest-framework-engine"]
+common-kotest = ["kotest-assertions-core", "kotest-framework-engine", "kotest-framework-dataset"]
 
 [plugins]
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
