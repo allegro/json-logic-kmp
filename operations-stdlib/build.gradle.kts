@@ -1,6 +1,7 @@
+@Suppress("DSL_SCOPE_VIOLATION") // TODO remove on fix: https://youtrack.jetbrains.com/issue/KTIJ-19369
 plugins {
-    kotlin("multiplatform") version Versions.kotlin
-    id("io.kotest.multiplatform") version Versions.kotest
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotest)
     id(Conventions.junit)
     id(Conventions.publishing)
 }
@@ -27,9 +28,7 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(kotlin(Modules.kotlinTest))
-                implementation(Libs.Kotest.assertionsCore)
-                implementation(Libs.Kotest.frameworkEngine)
-                implementation(Libs.Kotest.frameworkDataset)
+                implementation(libs.bundles.common.kotest)
                 implementation(project(Modules.core))
                 implementation(project(Modules.utils))
             }
@@ -38,7 +37,7 @@ kotlin {
         val jvmTest by getting {
             dependsOn(commonTest)
             dependencies {
-                implementation(Libs.Kotest.jvmJunit5Runner)
+                implementation(libs.kotest.jvm.junit5.runner)
             }
         }
         val iosX64Main by getting

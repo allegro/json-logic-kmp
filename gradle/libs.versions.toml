@@ -1,0 +1,24 @@
+[versions]
+axion = "1.14.0"
+detekt = "1.19.0"
+nexus = "1.0.0"
+kotest = "5.0.2"
+crashkios = "0.4.0"
+kotlin = "1.6.20"
+
+[libraries]
+axion-release = { module = "pl.allegro.tech.build:axion-release-plugin", version.ref = "axion" }
+crashkios = { module = "co.touchlab:crashkios", version.ref = "crashkios" }
+kotest-assertions-core = {module = "io.kotest:kotest-assertions-core", version.ref = "kotest"}
+kotest-framework-engine = {module = "io.kotest:kotest-framework-engine", version.ref = "kotest"}
+kotest-framework-dataset = {module = "io.kotest:kotest-framework-datatest", version.ref = "kotest"}
+kotest-jvm-junit5-runner = {module = "io.kotest:kotest-runner-junit5-jvm", version.ref = "kotest"}
+
+[bundles]
+common-kotest = ["kotest-assertions-core", "kotest-framework-engine"]
+
+[plugins]
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+nexus = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "nexus" }
+kotest = { id = "io.kotest.multiplatform", version.ref = "kotest" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
