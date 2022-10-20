@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
-
 @Suppress("DSL_SCOPE_VIOLATION") // TODO remove on fix: https://youtrack.jetbrains.com/issue/KTIJ-19369
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -10,7 +8,7 @@ plugins {
 
 kotlin {
     jvm {
-        mavenPublication{ setFullModuleArtifactId() }
+        mavenPublication { setFullModuleArtifactId() }
         compilations.all {
             kotlinOptions.jvmTarget = JavaVersion.VERSION_11.majorVersion
         }
