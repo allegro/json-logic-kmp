@@ -43,7 +43,7 @@ class SubtractionTest : FunSpec({
             ),
             TestInput(
                 expression = mapOf("-" to listOf("1", 1, listOf("banana"))),
-                result = JsonLogicResult.Success(0.0)
+                result = JsonLogicResult.Success(0)
             ),
             TestInput(
                 expression = mapOf("-" to listOf(listOf("5"), listOf("5"), listOf("5"))),
