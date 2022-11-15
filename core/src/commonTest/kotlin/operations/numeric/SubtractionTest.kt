@@ -114,6 +114,14 @@ class SubtractionTest : FunSpec({
                 result = JsonLogicResult.Success(-2)
             ),
             TestInput(
+                expression = mapOf("-" to listOf(Int.MAX_VALUE, -3)),
+                result = JsonLogicResult.Success(Int.MAX_VALUE + 3L)
+            ),
+            TestInput(
+                expression = mapOf("-" to listOf(Int.MIN_VALUE, 3)),
+                result = JsonLogicResult.Success(Int.MIN_VALUE - 3L)
+            ),
+            TestInput(
                 expression = mapOf("-" to emptyList<Double>()),
                 result = JsonLogicResult.Failure.NullResult
             ),

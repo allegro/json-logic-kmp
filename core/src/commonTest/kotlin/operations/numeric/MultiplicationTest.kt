@@ -94,6 +94,14 @@ class MultiplicationTest : FunSpec({
                 result = JsonLogicResult.Success(listOf(listOf("5"), listOf(6)))
             ),
             TestInput(
+                expression = mapOf("*" to listOf(Int.MAX_VALUE, 3)),
+                result = JsonLogicResult.Success(Int.MAX_VALUE * 3L)
+            ),
+            TestInput(
+                expression = mapOf("*" to listOf(Int.MIN_VALUE, -3)),
+                result = JsonLogicResult.Success(Int.MIN_VALUE * -3L)
+            ),
+            TestInput(
                 expression = mapOf("*" to listOf(emptyList<String>(), 2)),
                 result = JsonLogicResult.Failure.NullResult
             ),

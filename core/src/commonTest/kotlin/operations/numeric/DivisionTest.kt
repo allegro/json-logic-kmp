@@ -77,6 +77,14 @@ class DivisionTest : FunSpec({
                 expression = mapOf("/" to listOf(emptyList<String>(), 2)),
                 result = JsonLogicResult.Success(0)
             ),
+            TestInput(
+                expression = mapOf("/" to listOf(Int.MAX_VALUE + 3L, 2)),
+                result = JsonLogicResult.Success((Int.MAX_VALUE + 3L) / 2)
+            ),
+            TestInput(
+                expression = mapOf("/" to listOf(Int.MIN_VALUE - 3L, 2)),
+                result = JsonLogicResult.Success((Int.MIN_VALUE - 3L) / 2.0)
+            ),
             TestInput(expression = mapOf("/" to listOf("1", "0")), result = JsonLogicResult.Failure.NullResult),
             TestInput(expression = mapOf("/" to listOf("1", 0)), result = JsonLogicResult.Failure.NullResult),
             TestInput(
