@@ -42,6 +42,14 @@ class MinTest : FunSpec({
                 result = JsonLogicResult.Success(1)
             ),
             TestInput(
+                expression = mapOf("min" to listOf(Int.MIN_VALUE - 1L, Int.MIN_VALUE, 0)),
+                result = JsonLogicResult.Success(Int.MIN_VALUE - 1L)
+            ),
+            TestInput(
+                expression = mapOf("min" to listOf(Int.MAX_VALUE + 1L, Int.MAX_VALUE, 0)),
+                result = JsonLogicResult.Success(0)
+            ),
+            TestInput(
                 expression = mapOf("min" to listOf(1, "banana")),
                 result = JsonLogicResult.Failure.NullResult
             ),

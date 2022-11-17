@@ -82,6 +82,14 @@ class ModuloTest : FunSpec({
                 result = JsonLogicResult.Success(5)
             ),
             TestInput(
+                expression = mapOf("%" to listOf(Int.MAX_VALUE + 3L, 3)),
+                result = JsonLogicResult.Success((Int.MAX_VALUE + 3L).mod(3))
+            ),
+            TestInput(
+                expression = mapOf("%" to listOf(Int.MIN_VALUE - 3L, -3)),
+                result = JsonLogicResult.Success((Int.MIN_VALUE - 3L).mod(-3))
+            ),
+            TestInput(
                 expression = mapOf("%" to listOf(listOf(listOf("5"), listOf(6)))),
                 result = JsonLogicResult.Failure.NullResult
             ),

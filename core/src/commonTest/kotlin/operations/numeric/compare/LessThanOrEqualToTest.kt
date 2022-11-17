@@ -122,6 +122,14 @@ class LessThanOrEqualToTest : FunSpec({
                 expression = mapOf("<=" to listOf(false, "false")),
                 result = JsonLogicResult.Success(false)
             ),
+            TestInput(
+                expression = mapOf("<=" to listOf(Int.MAX_VALUE + 3L, 0)),
+                result = JsonLogicResult.Success(false)
+            ),
+            TestInput(
+                expression = mapOf("<=" to listOf(Int.MIN_VALUE - 3L, 0)),
+                result = JsonLogicResult.Success(true)
+            ),
         )
         // given
     ) { testInput: TestInput ->

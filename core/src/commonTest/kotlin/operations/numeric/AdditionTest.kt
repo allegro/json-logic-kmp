@@ -74,6 +74,14 @@ class AdditionTest : FunSpec({
                 result = JsonLogicResult.Success(9.99999)
             ),
             TestInput(
+                expression = mapOf("+" to listOf(Int.MAX_VALUE, 3)),
+                result = JsonLogicResult.Success(Int.MAX_VALUE + 3L)
+            ),
+            TestInput(
+                expression = mapOf("+" to listOf(Int.MIN_VALUE, -3)),
+                result = JsonLogicResult.Success(Int.MIN_VALUE - 3L)
+            ),
+            TestInput(
                 expression = mapOf("+" to listOf(listOf(2, 2), 2)),
                 result = JsonLogicResult.Success(4)
             ),
