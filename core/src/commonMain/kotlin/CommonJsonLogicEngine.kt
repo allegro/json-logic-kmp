@@ -14,6 +14,11 @@ internal class CommonJsonLogicEngine(private val evaluator: LogicEvaluator) : Js
     )
 
     private fun toJsonLogicResult(evaluatedValue: Any?) = evaluatedValue?.let { notNullResult ->
-        JsonLogicResult.Success(notNullResult)
+        JsonLogicResult.Success(notNullResult.toNormalizedResult())
     } ?: JsonLogicResult.Failure.NullResult
+
+    private fun Any.toNormalizedResult() =
+        if (this is Double && this.mod(1.0) == 0.0) {
+            this.toLong()
+        } else this
 }
