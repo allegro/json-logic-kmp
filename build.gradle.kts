@@ -1,11 +1,12 @@
 import io.gitlab.arturbosch.detekt.Detekt
 
+@Suppress("DSL_SCOPE_VIOLATION") // TODO remove on fix: https://youtrack.jetbrains.com/issue/KTIJ-19369
 plugins {
     id("maven-publish")
     id("java-library")
     id("signing")
-    id("io.gitlab.arturbosch.detekt") version Versions.detekt
-    id("io.github.gradle-nexus.publish-plugin") version Versions.nexus
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.nexus)
     id(Conventions.versioning)
 }
 
