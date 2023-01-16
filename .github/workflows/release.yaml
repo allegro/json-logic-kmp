@@ -16,7 +16,6 @@ env:
 jobs:
   run_tests:
     name: Run tests
-    if: github.ref == 'refs/heads/main'
     runs-on: macos-latest
     steps:
       - name: Checkout repository
@@ -45,8 +44,6 @@ jobs:
     needs: [run_tests]
     env:
        umbrella_xcframework_path: "umbrella-framework/build/XCFrameworks/release/JsonLogicKMP.xcframework"
-       version_file_name: "JsonLogicConfig.kt"
-       version_file_path: "core/src/iosMain/kotlin/"
     outputs:
       sha256: ${{ steps.calculate_checksum.outputs.sha256 }}
       tag: ${{ steps.bump.outputs.next_tag }}
@@ -62,12 +59,6 @@ jobs:
         with:
           prefix: ""
           force: ${{ github.event.inputs.next_version }}
-
-      - name: Generate volatile iOS version file
-        run: |
-          VERSION=${{ steps.bump.outputs.next_tag }}
-          mkdir -p "${{ env.version_file_path }}"
-          echo "object JsonLogicConfig { const val version = \"$VERSION\" }" > "${{ env.version_file_path }}${{ env.version_file_name }}"
 
       - name: Build XCFramework
         run: ./gradlew assembleJsonLogicKMPXCFramework
@@ -170,57 +161,57 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           files: "${{ env.xcframework_zip_name }}"
 
-  publish_to_maven:
-    name: Publish to maven
-    runs-on: macos-latest
-    needs:
-      [
-        run_tests,
-        build_xcframework,
-        create_release_branch,
-        create_github_release,
-      ]
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: "${{ needs.build_xcframework.outputs.tag }}"
-          fetch-depth: 0
+  # publish_to_maven:
+  #   name: Publish to maven
+  #   runs-on: macos-latest
+  #   needs:
+  #     [
+  #       run_tests,
+  #       build_xcframework,
+  #       create_release_branch,
+  #       create_github_release,
+  #     ]
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         ref: "${{ needs.build_xcframework.outputs.tag }}"
+  #         fetch-depth: 0
 
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          distribution: "temurin"
-          java-version: 11
+  #     - name: Set up JDK 11
+  #       uses: actions/setup-java@v2
+  #       with:
+  #         distribution: "temurin"
+  #         java-version: 11
 
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+  #     - name: Setup Gradle
+  #       uses: gradle/gradle-build-action@v2
 
-      - name: Publish to maven central
-        run: ./gradlew publishJvmPublicationToSonatypeRepository publishKotlinMultiplatformPublicationToSonatypeRepository closeAndReleaseSonatypeStagingRepository --scan
-        env:
-          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-          GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-          GPG_PRIVATE_KEY_PASSWORD: ${{ secrets.GPG_PRIVATE_KEY_PASSWORD }}
+  #     - name: Publish to maven central
+  #       run: ./gradlew publishJvmPublicationToSonatypeRepository publishKotlinMultiplatformPublicationToSonatypeRepository closeAndReleaseSonatypeStagingRepository --scan
+  #       env:
+  #         SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+  #         SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+  #         GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
+  #         GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+  #         GPG_PRIVATE_KEY_PASSWORD: ${{ secrets.GPG_PRIVATE_KEY_PASSWORD }}
 
-  publish_to_cocoapods:
-    name: Publish to cocoadpods
-    needs:
-      [
-        run_tests,
-        build_xcframework,
-        create_release_branch,
-        create_github_release,
-      ]
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: "${{ needs.build_xcframework.outputs.tag}}"
+  # publish_to_cocoapods:
+  #   name: Publish to cocoadpods
+  #   needs:
+  #     [
+  #       run_tests,
+  #       build_xcframework,
+  #       create_release_branch,
+  #       create_github_release,
+  #     ]
+  #   runs-on: macos-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         ref: "${{ needs.build_xcframework.outputs.tag}}"
 
-      - name: Publish to cocoadpods
-        env:
-          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
-        run: |
-          pod trunk push "${{ env.podspec_file_name }}" --verbose
+  #     - name: Publish to cocoadpods
+  #       env:
+  #         COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+  #       run: |
+  #         pod trunk push "${{ env.podspec_file_name }}" --verbose

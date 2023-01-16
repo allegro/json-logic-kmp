@@ -2,9 +2,9 @@
 axion = "1.14.0"
 detekt = "1.19.0"
 nexus = "1.0.0"
-kotest = "5.0.2"
+kotest = "5.5.4"
 crashkios = "0.4.0"
-kotlin = "1.6.20"
+kotlin = "1.8.0"
 
 [libraries]
 axion-release = { module = "pl.allegro.tech.build:axion-release-plugin", version.ref = "axion" }

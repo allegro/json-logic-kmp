@@ -23,6 +23,8 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
+            binaryOption("bundleId", LibConfig.bundleId)
+            binaryOption("bundleShortVersionString", scmVersion.version)
             baseName = LibConfig.xcFrameworkName
             isStatic = true
             export(project(Modules.core))

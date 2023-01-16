@@ -6,6 +6,7 @@ object LibConfig {
     const val name = "JsonLogicKMP"
     const val artifactName = "json-logic"
     const val xcFrameworkName = "JsonLogicKMP"
+    const val bundleId = "pl.allegro.mobile.JsonLogicKMP"
 }
 
 object Modules {
