@@ -15,6 +15,7 @@ import string.Replace
 import string.ToArray
 import string.Trim
 import string.Uppercase
+import string.Match
 
 object OperationsProvider {
     val standardOperations: Map<String, StandardLogicOperation> = mutableMapOf(
@@ -28,6 +29,7 @@ object OperationsProvider {
         "toArray" to ToArray,
         "decimalFormat" to DecimalFormat,
         "encode" to Encode,
+        "match" to Match,
 
         // time
         "currentTime" to CurrentTimeMillis,
