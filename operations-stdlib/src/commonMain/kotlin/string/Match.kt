@@ -39,7 +39,7 @@ object Match : StandardLogicOperation, StringUnwrapStrategy {
         }
     }
 
-    private fun MatchArguments.invokeRegex() = if (regexOptions.isNullOrEmpty()) matchBasic(regexPattern, text) //regexPattern.toRegex().matches(text)
+    private fun MatchArguments.invokeRegex() = if (regexOptions.isNullOrEmpty()) matchBasic(regexPattern, text)
     else matchWithOptions(regexOptions, regexPattern, text)
 }
 
