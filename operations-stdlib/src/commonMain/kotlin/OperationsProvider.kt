@@ -8,6 +8,7 @@ import format.DecimalFormat
 import operation.FunctionalLogicOperation
 import operation.StandardLogicOperation
 import string.Capitalize
+import string.CompareToDate
 import string.IsBlank
 import string.Length
 import string.Lowercase
@@ -30,6 +31,7 @@ object OperationsProvider {
         "decimalFormat" to DecimalFormat,
         "encode" to Encode,
         "match" to Match,
+        "compareToDate" to CompareToDate,
 
         // time
         "currentTime" to CurrentTimeMillis,
