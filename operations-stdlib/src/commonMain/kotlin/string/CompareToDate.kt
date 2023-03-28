@@ -5,6 +5,7 @@ import utils.asList
 
 object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
 
+    private const val DELIMETER = "-"
     private const val DATE_INDEX = 0
     private const val COMPARING_DATE_INDEX = 1
 
@@ -38,7 +39,7 @@ object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
         onFailure = { null }
     )
 
-    private fun String.splitDate(): List<String> { return this.split("-") }
+    private fun String.splitDate(): List<String> { return this.split(DELIMETER) }
     private fun List<String>.toDateParameters(): DateParameters? = runCatching {
         DateParameters(
             year = get(YEAR_INDEX).toInt(),
@@ -66,17 +67,17 @@ object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
         onFailure = { false }
     )
 
-    private fun CompareDateArguments.invokeCompare(): DateComparationStatus? = runCatching {
+    private fun CompareDateArguments.invokeCompare(): Int? = runCatching {
         val yearComparationStatus = this.compareYears() ?: return null
         val monthComparationStatus = this.compareMonth() ?: return null
         val dayComparationStatus = this.compareDay() ?: return null
 
         return if (yearComparationStatus != DateComparationStatus.EQUALS) {
-            yearComparationStatus
+            yearComparationStatus.raw
         } else if (monthComparationStatus != DateComparationStatus.EQUALS) {
-            monthComparationStatus
+            monthComparationStatus.raw
         } else {
-            dayComparationStatus
+            dayComparationStatus.raw
         }
     }.fold(
         onSuccess = { it },
@@ -115,7 +116,9 @@ private data class DateParameters(
     val day: Int
 
 )
-enum class DateComparationStatus {
-    AFTER, BEFORE, EQUALS
+enum class DateComparationStatus(val raw: Int) {
+    BEFORE(-1),
+    EQUALS(0),
+    AFTER(1)
 }
 

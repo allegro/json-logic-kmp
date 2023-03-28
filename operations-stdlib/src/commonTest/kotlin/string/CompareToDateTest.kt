@@ -23,43 +23,43 @@ class CompareToDateTest:FunSpec({
                 expression = mapOf(
                     operatorName to listOf("2023-03-27", "2023-03-26")
                 ),
-                result = Success(DateComparationStatus.BEFORE)
+                result = Success(-1)
             ),
             TestInput(
                 expression = mapOf(
                     operatorName to listOf("2023-03-27", "2023-02-27")
                 ),
-                result = Success(DateComparationStatus.BEFORE)
+                result = Success(-1)
             ),
             TestInput(
                 expression = mapOf(
                     operatorName to listOf("2023-03-27", "2022-02-27")
                 ),
-                result = Success(DateComparationStatus.BEFORE)
+                result = Success(-1)
             ),
             TestInput(
                 expression = mapOf(
                     operatorName to listOf("2023-03-27", "2023-03-28")
                 ),
-                result = Success(DateComparationStatus.AFTER)
+                result = Success(1)
             ),
             TestInput(
                 expression = mapOf(
                     operatorName to listOf("2023-03-27", "2023-05-27")
                 ),
-                result = Success(DateComparationStatus.AFTER)
+                result = Success(1)
             ),
             TestInput(
                 expression = mapOf(
                     operatorName to listOf("2023-03-27", "2024-02-27")
                 ),
-                result = Success(DateComparationStatus.AFTER)
+                result = Success(1)
             ),
             TestInput(
                 expression = mapOf(
                     operatorName to listOf("2023-03-27", "2023-03-27")
                 ),
-                result = Success(DateComparationStatus.EQUALS)
+                result = Success(0)
             ),
 
         )
