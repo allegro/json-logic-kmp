@@ -61,7 +61,6 @@ object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
             && day.length == 2
             && day.toInt() <= DAY_MAX_VALUE
             && day.toInt() >= DAY_MIN_VALUE
-            this.size == 3
     }.fold(
         onSuccess = { it },
         onFailure = { false }
