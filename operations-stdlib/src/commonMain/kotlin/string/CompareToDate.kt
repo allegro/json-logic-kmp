@@ -5,7 +5,10 @@ import utils.asList
 
 object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
 
-    private const val DELIMETER = "-"
+    private const val YEAR_LENGTH = 4
+    private const val MONTH_OR_DAY_LENGTH = 2
+
+    private const val DELIMITER = "-"
     private const val DATE_INDEX = 0
     private const val COMPARING_DATE_INDEX = 1
 
@@ -39,7 +42,7 @@ object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
         onFailure = { null }
     )
 
-    private fun String.splitDate(): List<String> { return this.split(DELIMETER) }
+    private fun String.splitDate(): List<String> { return this.split(DELIMITER) }
     private fun List<String>.toDateParameters(): DateParameters? = runCatching {
         DateParameters(
             year = get(YEAR_INDEX).toInt(),
@@ -54,11 +57,11 @@ object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
     private fun List<String>.isContainsValidDate(): Boolean = runCatching {
         val month = get(MONTH_INDEX)
         val day = get(DAY_INDEX)
-        return get(YEAR_INDEX).length <= 4
-            && month.length == 2
+        return get(YEAR_INDEX).length <= YEAR_LENGTH
+            && month.length == MONTH_OR_DAY_LENGTH
             && month.toInt() <= MONTH_MAX_VALUE
             && month.toInt() >= MONTH_MIN_VALUE
-            && day.length == 2
+            && day.length == MONTH_OR_DAY_LENGTH
             && day.toInt() <= DAY_MAX_VALUE
             && day.toInt() >= DAY_MIN_VALUE
     }.fold(
