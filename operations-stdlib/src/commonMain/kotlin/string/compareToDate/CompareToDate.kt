@@ -80,8 +80,3 @@ object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
 
     private fun CompareDateArguments.invokeCompare() = baseDate.compareTo(compareDate)
 }
-
-private data class CompareDateArguments(
-    val baseDate: DateParameters,
-    val compareDate: DateParameters
-)
