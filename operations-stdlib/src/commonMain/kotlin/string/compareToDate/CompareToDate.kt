@@ -15,8 +15,17 @@ object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
     private const val YEAR_INDEX = 0
     private const val MONTH_INDEX = 1
     private const val DAY_INDEX = 2
-    private const val FEBRUARY_MONTH_INDEX = 2
-    private val MONTHS_WITH_31_DAYS = intArrayOf(1,3,5,7,8,10,12)
+
+    private const val JANUARY = 1
+    private const val FEBRUARY = 2
+    private const val MARCH = 3
+    private const val MAY = 5
+    private const val JULY = 7
+    private const val AUGUST = 8
+    private const val OCTOBER = 10
+    private const val DECEMBER = 12
+
+    private val MONTHS_WITH_31_DAYS = intArrayOf(JANUARY, MARCH, MAY, JULY, AUGUST, OCTOBER, DECEMBER)
 
     private const val DAY_30_DAYS_VALUE = 30
     private const val DAY_MAX_VALUE = 31
@@ -46,7 +55,7 @@ object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
 
     private fun String.splitDate() = split(DELIMITER)
 
-    private fun Int.isFebruary() = this == FEBRUARY_MONTH_INDEX
+    private fun Int.isFebruary() = this == FEBRUARY
 
     private fun Int.contains31Days() = MONTHS_WITH_31_DAYS.contains(this)
 
@@ -58,22 +67,23 @@ object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
         )
     }.getOrNull()
 
-    private fun List<String>.isContainsValidDate(): Boolean = runCatching {
-        val year = get(YEAR_INDEX).toInt()
-        val month = get(MONTH_INDEX).toInt()
-        val day = get(DAY_INDEX).toInt()
-        val isMonthContainsCorrectNumberOfDays = when {
+    private fun isMonthContainsCorrectNumberOfDays(year: Int, month: Int, day: Int): Boolean = when {
             month.isFebruary() && year.isLeapYear() && day <= DAY_FEBRUARY_LEAP_YEAR_MAX_VALUE -> true
             month.isFebruary() && !year.isLeapYear() && day <= DAY_FEBRUARY_DEFAULT_MAX_VALUE -> true
             month.contains31Days() && day <= DAY_MAX_VALUE -> true
             !month.contains31Days() && !month.isFebruary() && day <= DAY_30_DAYS_VALUE -> true
             else -> false
-        }
+    }
+
+    private fun List<String>.isContainsValidDate(): Boolean = runCatching {
+        val year = get(YEAR_INDEX).toInt()
+        val month = get(MONTH_INDEX).toInt()
+        val day = get(DAY_INDEX).toInt()
 
         return get(YEAR_INDEX).length <= YEAR_LENGTH
             && month.toInt() <= MONTH_MAX_VALUE
             && month.toInt() >= MONTH_MIN_VALUE
-            && isMonthContainsCorrectNumberOfDays
+            && isMonthContainsCorrectNumberOfDays(year,month,day)
             && day <= DAY_MAX_VALUE
             && day >= DAY_MIN_VALUE
     }.getOrElse { false }
