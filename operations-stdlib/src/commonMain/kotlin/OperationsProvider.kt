@@ -8,7 +8,7 @@ import format.DecimalFormat
 import operation.FunctionalLogicOperation
 import operation.StandardLogicOperation
 import string.Capitalize
-import string.CompareToDate
+import string.compareToDate.CompareToDate
 import string.IsBlank
 import string.Length
 import string.Lowercase
