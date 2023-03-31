@@ -21,7 +21,7 @@ enum class MonthDays(val standardMax: Int) {
 
     companion object {
         private val map = MonthDays.values().associateBy(MonthDays::ordinal)
-        fun mapIntToMonth(type: Int) = map[type-1] ?: throw IllegalArgumentException()
+        fun mapIntToMonth(type: Int) = map[type-1] ?: throw IllegalArgumentException("Month index is out of the scope")
 
         fun februaryDays(isLeapYear: Boolean): Int {
             return if (isLeapYear) { TWENTY_NINE_DAYS } else FEBRUARY.standardMax
