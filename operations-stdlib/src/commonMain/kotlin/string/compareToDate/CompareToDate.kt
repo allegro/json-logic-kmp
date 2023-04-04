@@ -47,7 +47,7 @@ object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
         )
     }.getOrNull()
 
-    private fun isMonthContainsCorrectNumberOfDays(year: Int, month: Int, day: Int): Boolean {
+    private fun isADayWithinDaysInMonthLimit(year: Int, month: Int, day: Int): Boolean {
         return if(MonthDays.mapIntToMonth(month) == MonthDays.FEBRUARY) {
             day <= MonthDays.februaryDays(year.isLeapYear)
         } else day <= MonthDays.mapIntToMonth(month).standardMax
@@ -61,7 +61,7 @@ object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
         return get(YEAR_INDEX).length <= YEAR_MAX_LENGTH
             && month <= MONTH_MAX_VALUE
             && month >= MONTH_MIN_VALUE
-            && isMonthContainsCorrectNumberOfDays(year,month,day)
+            && isADayWithinDaysInMonthLimit(year,month,day)
             && day >= DAY_MIN_VALUE
     }.getOrElse { false }
 
