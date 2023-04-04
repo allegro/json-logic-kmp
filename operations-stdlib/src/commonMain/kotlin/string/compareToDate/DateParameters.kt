@@ -1,13 +1,23 @@
 package string.compareToDate
 
-internal data class DateParameters(
+import kotlinx.datetime.LocalDate
+
+data class DateParameters(
     val year: Int,
     val month: Int,
     val day: Int
 ) {
-    fun compareTo(other: DateParameters) = when {
-        year.compareTo(other.year) != 0 -> year.compareTo(other.year)
-        month.compareTo(other.month) != 0 -> month.compareTo(other.month)
-        else -> day.compareTo(other.day)
+    fun compareTo(other: DateParameters): Int? = kotlin.runCatching {
+        localDate().compareTo(other.localDate())
+    }.onSuccess {
+        return when {
+            it > 0 -> 1
+            it < 0 -> -1
+            else -> 0
+        }
+    }.getOrNull()
+
+    private fun localDate(): LocalDate = run {
+        LocalDate(year, month, day)
     }
 }

@@ -131,7 +131,7 @@ class CompareToDateTest:FunSpec({
                 expression = mapOf(
                     operatorName to listOf("20222-01-01", "2023-01-31")
                 ),
-                result = Failure.NullResult
+                result = Success(1)
             ),
             TestInput(
                 expression = mapOf(

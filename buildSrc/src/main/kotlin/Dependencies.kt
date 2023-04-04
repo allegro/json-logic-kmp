@@ -17,6 +17,10 @@ object Modules {
     const val kotlinTest = "test"
 }
 
+object External {
+    const val dateTime = "org.jetbrains.kotlinx:kotlinx-datetime:0.4.0"
+}
+
 object Conventions {
     const val versioning = "versioning-convention"
     const val junit = "junit-convention"
