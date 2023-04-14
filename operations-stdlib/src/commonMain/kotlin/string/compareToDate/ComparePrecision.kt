@@ -10,15 +10,7 @@ enum class ComparePrecision{
     YEAR;
 
     fun position(): Int {
-        return when(this) {
-            SECOND -> 19
-            MINUTE -> 16
-            HOUR -> 13
-            DAY -> 10
-            MONTH -> 7
-            YEAR -> 4
-            else -> 24
-        }
+        return position(this)
     }
 
     fun dateSuffix(): String {
@@ -26,6 +18,14 @@ enum class ComparePrecision{
     }
 
     companion object {
+        private const val secondPosition = 19
+        private const val minutePosition = 16
+        private const val hourPosition = 13
+        private const val dayPosition = 10
+        private const val monthPosition = 7
+        private const val yearPosition = 4
+        private const val dateLength = 24
+
         private const val secondsPrecision = ".000Z"
         private const val minutesPrecision = ":00$secondsPrecision"
         private const val hoursPrecision = ":00$minutesPrecision"
@@ -42,6 +42,18 @@ enum class ComparePrecision{
                 MONTH -> monthsPrecision
                 YEAR -> yearsPrecision
                 else -> ""
+            }
+        }
+
+        fun position(precision: ComparePrecision): Int {
+            return when(precision) {
+                SECOND -> secondPosition
+                MINUTE -> minutePosition
+                HOUR -> hourPosition
+                DAY -> dayPosition
+                MONTH -> monthPosition
+                YEAR -> yearPosition
+                else -> dateLength
             }
         }
     }

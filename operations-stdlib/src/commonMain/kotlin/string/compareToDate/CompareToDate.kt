@@ -37,5 +37,6 @@ object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
         }
     }.getOrNull()
 
-    private fun String.formatDate(precision: ComparePrecision) = substring(0,precision.position()) + precision.dateSuffix()
+    private fun String.formatDate(precision: ComparePrecision) =
+        substring(0,precision.position()) + precision.dateSuffix()
 }
