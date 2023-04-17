@@ -15,16 +15,12 @@ object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
         expression.asList.toDateComparator()?.invokeCompare()
 
     private fun List<Any?>.toDateComparator(): List<Instant>? = runCatching {
-
-        val baseDate = (get(DATE_INDEX) as String)
-        val compareDate = (get(COMPARING_DATE_INDEX) as String)
-        val precision = ComparePrecision.valueOf(get(PRECISION_COMPARING_INDEX) as String)
-
-        val baseDatePrecision = baseDate.formatDate(precision)
-        val compareDatePrecision = compareDate.formatDate(precision)
-
-        listOf(Instant.parse(baseDatePrecision), Instant.parse(compareDatePrecision))
-
+        ComparePrecision.valueOf(get(PRECISION_COMPARING_INDEX) as String).let { precision ->
+            listOf(
+                Instant.parse((get(DATE_INDEX) as String).formatDate(precision)),
+                Instant.parse((get(COMPARING_DATE_INDEX) as String).formatDate(precision))
+            )
+        }
     }.getOrNull()
 
     private fun List<Instant>.invokeCompare(): Int? = runCatching {
