@@ -5,7 +5,7 @@ import operation.StandardLogicOperation
 import string.StringUnwrapStrategy
 import utils.asList
 
-object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
+object CompareToDate : StandardLogicOperation, StringUnwrapStrategy {
 
     private const val DATE_INDEX = 0
     private const val COMPARING_DATE_INDEX = 1
@@ -15,10 +15,11 @@ object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
         expression.asList.toDateComparator()?.invokeCompare()
 
     private fun List<Any?>.toDateComparator(): List<Instant>? = runCatching {
+        val formatter = ComparePrecisionDateFormatter()
         ComparePrecision.valueOf(get(PRECISION_COMPARING_INDEX) as String).let { precision ->
             listOf(
-                Instant.parse((get(DATE_INDEX) as String).formatDate(precision)),
-                Instant.parse((get(COMPARING_DATE_INDEX) as String).formatDate(precision))
+                formatter.formatDate((get(DATE_INDEX) as String), precision),
+                formatter.formatDate((get(COMPARING_DATE_INDEX) as String), precision)
             )
         }
     }.getOrNull()
@@ -32,7 +33,4 @@ object CompareToDate: StandardLogicOperation, StringUnwrapStrategy {
             else -> 0
         }
     }.getOrNull()
-
-    private fun String.formatDate(precision: ComparePrecision) =
-        substring(0,precision.position()) + precision.dateSuffix()
 }
