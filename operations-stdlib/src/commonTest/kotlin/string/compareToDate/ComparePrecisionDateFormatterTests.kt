@@ -7,8 +7,9 @@ import io.kotest.matchers.shouldBe
 class ComparePrecisionDateFormatterTests : FunSpec({
     val sut = ComparePrecisionDateFormatter()
     withData(
-        nameFn = { input -> "Base date ${input.baseDate} with given compare precision ${input.precision} should be formatted into format ${input.result}" },
-        ts = listOf(
+        nameFn = { input ->
+            "Should evaluated ${input.precision} with given ${input.precision} result in ${input.result}"
+        }, ts = listOf(
             ComparePrecisionDateFormatterTestInput(
                 "2023-04-18T12:34:56.123Z", ComparePrecision.MILLISECOND, "2023-04-18T12:34:56.123Z"
             ),
