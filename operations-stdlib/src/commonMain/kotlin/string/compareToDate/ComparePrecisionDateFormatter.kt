@@ -43,7 +43,7 @@ class ComparePrecisionDateFormatter {
         private const val dateLength = 24
 
         private const val empty = ""
-        private const val secondsPrecision = ".000Z"
+        private const val secondsPrecision = ".001Z"
         private const val minutesPrecision = ":00$secondsPrecision"
         private const val hoursPrecision = ":00$minutesPrecision"
 
