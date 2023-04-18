@@ -11,25 +11,25 @@ class ComparePrecisionDateFormatter {
 
     private fun toDateSuffix(precision: ComparePrecision): String {
         return when (precision) {
+            ComparePrecision.MILLISECOND -> empty
             ComparePrecision.SECOND -> secondsPrecision
             ComparePrecision.MINUTE -> minutesPrecision
             ComparePrecision.HOUR -> hoursPrecision
             ComparePrecision.DAY -> daysPrecision
             ComparePrecision.MONTH -> monthsPrecision
             ComparePrecision.YEAR -> yearsPrecision
-            else -> ""
         }
     }
 
     private fun toPosition(precision: ComparePrecision): Int {
         return when (precision) {
+            ComparePrecision.MILLISECOND -> dateLength
             ComparePrecision.SECOND -> secondPosition
             ComparePrecision.MINUTE -> minutePosition
             ComparePrecision.HOUR -> hourPosition
             ComparePrecision.DAY -> dayPosition
             ComparePrecision.MONTH -> monthPosition
             ComparePrecision.YEAR -> yearPosition
-            else -> dateLength
         }
     }
 
@@ -42,6 +42,7 @@ class ComparePrecisionDateFormatter {
         private const val yearPosition = 4
         private const val dateLength = 24
 
+        private const val empty = ""
         private const val secondsPrecision = ".000Z"
         private const val minutesPrecision = ":00$secondsPrecision"
         private const val hoursPrecision = ":00$minutesPrecision"

@@ -11,11 +11,11 @@ object CompareToDate : StandardLogicOperation, StringUnwrapStrategy {
     private const val COMPARING_DATE_INDEX = 1
     private const val PRECISION_COMPARING_INDEX = 2
 
+    private val formatter = ComparePrecisionDateFormatter()
     override fun evaluateLogic(expression: Any?, data: Any?): Any? =
         expression.asList.toDateComparator()?.invokeCompare()
 
     private fun List<Any?>.toDateComparator(): List<Instant>? = runCatching {
-        val formatter = ComparePrecisionDateFormatter()
         ComparePrecision.valueOf(get(PRECISION_COMPARING_INDEX) as String).let { precision ->
             listOf(
                 formatter.formatDate((get(DATE_INDEX) as String), precision),
