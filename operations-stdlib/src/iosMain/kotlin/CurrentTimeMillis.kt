@@ -13,6 +13,6 @@ actual object CurrentTimeMillis : StandardLogicOperation {
         val currentTimestampInMillis = { NSDate().timeIntervalSince1970() * MILLIS_IN_SECOND }
 
         // We have to convert Double to Long to remove fraction part.
-        return  currentTimestampInMillis().toLong()
+        return  -1//currentTimestampInMillis().toLong()
     }
 }
