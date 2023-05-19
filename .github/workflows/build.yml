@@ -1,9 +1,6 @@
 name: Build libraries
 
-on:
-  workflow_dispatch:
-  pull_request:
-    types: [opened, synchronize]
+on: push
 
 jobs:
   build:
@@ -32,3 +29,13 @@ jobs:
 
       - name: Build XCFramework
         run: ./gradlew assembleJsonLogicKMPXCFramework
+
+      - name: Publish to maven shapshots
+              run: ./gradlew publishJvmPublicationToSonatypeRepository publishKotlinMultiplatformPublicationToSonatypeRepository closeAndReleaseSonatypeStagingRepository --scan \
+                  -PsnapshotsRepositoryUrl="https://oss.sonatype.org/content/repositories/snapshots"
+              env:
+                  SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+                  SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+                  GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
+                  GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+                  GPG_PRIVATE_KEY_PASSWORD: ${{ secrets.GPG_PRIVATE_KEY_PASSWORD }}
