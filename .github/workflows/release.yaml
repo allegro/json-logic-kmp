@@ -31,7 +31,7 @@ jobs:
           java-version: 11
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
 
       - name: Check
         run: ./gradlew detektAll
@@ -154,7 +154,7 @@ jobs:
     needs: [run_tests, build_xcframework, create_release_branch]
     steps:
       - name: Download XCFramework
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: "${{ env.xcframework_artifact_key }}"
 
@@ -193,7 +193,7 @@ jobs:
           java-version: 11
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
 
       - name: Publish to maven central
         run: ./gradlew publishJvmPublicationToSonatypeRepository publishKotlinMultiplatformPublicationToSonatypeRepository closeAndReleaseSonatypeStagingRepository --scan
