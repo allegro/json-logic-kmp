@@ -1,8 +1,10 @@
 package string.compareToDate
 
-import kotlinx.datetime.Instant
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 class ComparePrecisionDateFormatter {
+    @OptIn(ExperimentalTime::class)
     fun formatDate(isoDate: String, precision: ComparePrecision): Instant {
         return Instant.parse(
             isoDate.substring(0, toPosition(precision)) + toDateSuffix(precision)

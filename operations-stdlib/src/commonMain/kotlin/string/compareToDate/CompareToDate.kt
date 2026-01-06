@@ -1,9 +1,10 @@
 package string.compareToDate
 
-import kotlinx.datetime.Instant
 import operation.StandardLogicOperation
 import string.StringUnwrapStrategy
 import utils.asList
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 object CompareToDate : StandardLogicOperation, StringUnwrapStrategy {
 
@@ -12,9 +13,12 @@ object CompareToDate : StandardLogicOperation, StringUnwrapStrategy {
     private const val PRECISION_COMPARING_INDEX = 2
 
     private val formatter = ComparePrecisionDateFormatter()
+
+    @OptIn(ExperimentalTime::class)
     override fun evaluateLogic(expression: Any?, data: Any?): Any? =
         expression.asList.toDateComparator()?.invokeCompare()
 
+    @OptIn(ExperimentalTime::class)
     private fun List<Any?>.toDateComparator(): List<Instant>? = runCatching {
         ComparePrecision.valueOf(get(PRECISION_COMPARING_INDEX) as String).let { precision ->
             listOf(
@@ -24,6 +28,7 @@ object CompareToDate : StandardLogicOperation, StringUnwrapStrategy {
         }
     }.getOrNull()
 
+    @OptIn(ExperimentalTime::class)
     private fun List<Instant>.invokeCompare(): Int? = runCatching {
         first().compareTo(last())
     }.onSuccess {

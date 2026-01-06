@@ -3,7 +3,9 @@ package string.compareToDate
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 class ComparePrecisionDateFormatterTests : FunSpec({
     val sut = ComparePrecisionDateFormatter()
     withData(
