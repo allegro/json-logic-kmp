@@ -23,7 +23,6 @@ kotlin {
             dependencies {
                 implementation(project(Modules.operationsApi))
                 implementation(project(Modules.utils))
-                implementation(External.dateTime)
             }
         }
         val commonTest by getting {
